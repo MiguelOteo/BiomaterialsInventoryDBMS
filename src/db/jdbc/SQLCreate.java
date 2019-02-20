@@ -1,13 +1,14 @@
 package db.jdbc;
 
 import java.sql.*;
-//import javax.swing.*;
 
 public class SQLCreate {
 
 	public static void SQLCreateClass(String args[]) {
 	
 		try {
+			System.out.println("Hello");
+		
 			Class.forName("org.sqlite.JDBC");
 			Connection sqlite_connection = DriverManager.getConnection("jdbc:sqlite:./db/company.db"); 
 			sqlite_connection.createStatement().execute("PRAGMA foreign_keys=ON");
@@ -18,7 +19,6 @@ public class SQLCreate {
 					       + " type TEXT default 0)";
 			statement_1.execute(table_1);
 			statement_1.close();
-			System.out.println("Hello");
 			
 			Statement statement_2 = sqlite_connection.createStatement();
 			String table_2 = "CREATE TABLE category "
