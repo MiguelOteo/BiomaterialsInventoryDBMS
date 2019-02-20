@@ -22,7 +22,7 @@ public class UIConsole {
 			    	 break;
 			     }
 			     case '2': {
-			    	 System.out.print("Programe closed");
+			    	 System.out.print("Programme closed");
 			     }
 			 }
 		  }
