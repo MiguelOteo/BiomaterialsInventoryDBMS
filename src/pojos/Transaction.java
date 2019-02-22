@@ -1,6 +1,5 @@
 package pojos;
 
-<<<<<<< HEAD
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -96,12 +95,4 @@ public class Transaction implements Serializable{
 			return false;
 		return true;
 	}
-	
-    
-    
-=======
-public class Transaction {
-
-	private Integer transaction_id; 
->>>>>>> branch 'master' of https://github.com/aichadiez3/BENGMAT.git
 }

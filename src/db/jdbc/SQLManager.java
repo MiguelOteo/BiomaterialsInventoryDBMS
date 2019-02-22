@@ -2,6 +2,8 @@ package db.jdbc;
 
 import java.sql.*;
 
+import pojos.Client;
+
 public class SQLManager {
 
 	private Connection sqlite_connection;
@@ -13,6 +15,7 @@ public class SQLManager {
 		 */
 	}
 
+	//Connection route: 
 	public boolean Stablish_connection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -94,11 +97,28 @@ public class SQLManager {
 		return false;
 	}
 
-	public void Close_connection() {
+	// Client(id, name, telephone, bank_account, responsible) 
+	public boolean Inset_new_client(Client client) {
+		try {
+			Statement statement_1 = this.sqlite_connection.createStatement();
+			String table_1 = "INSERT INTO client(client_id, name, telephone, bank_account, resposible)"
+					+ "VALUES ('" + client.getId() + "', '" + client.getName() + "', '" + client.getTelephone() + "', '" 
+					+ client.getBank_account() + "', '" + client.getResponsible() + "');";
+			statement_1.executeUpdate(table_1);
+			statement_1.close();
+			return true;
+		} catch (SQLException new_client_error) {
+			return false;
+		}
+	}
+	
+	public boolean Close_connection() {
 		try {
 			this.sqlite_connection.close();
+			return true;
 		} catch (SQLException close_connection_error) {
 			close_connection_error.printStackTrace();
+			return false;
 		}
 	}
 }
