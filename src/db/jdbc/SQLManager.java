@@ -3,6 +3,7 @@ package db.jdbc;
 import java.sql.*;
 
 import pojos.Client;
+import pojos.Transaction;
 
 public class SQLManager {
 
@@ -100,16 +101,31 @@ public class SQLManager {
 	// Client(id, name, telephone, bank_account, responsible) 
 	public boolean Inset_new_client(Client client) {
 		try {
-			Statement statement_1 = this.sqlite_connection.createStatement();
-			String table_1 = "INSERT INTO client(client_id, name, telephone, bank_account, resposible)"
+			Statement statement = this.sqlite_connection.createStatement();
+			String table = "INSERT INTO client(client_id, name, telephone, bank_account, resposible)"
 					+ "VALUES ('" + client.getId() + "', '" + client.getName() + "', '" + client.getTelephone() + "', '" 
 					+ client.getBank_account() + "', '" + client.getResponsible() + "');";
-			statement_1.executeUpdate(table_1);
-			statement_1.close();
+			statement.executeUpdate(table);
+			statement.close();
 			return true;
 		} catch (SQLException new_client_error) {
+			new_client_error.printStackTrace();
 			return false;
 		}
+	}
+	
+	//Transaction(transaction_id, gain, client_id, units, product_name, transaction_date)
+	public boolean Insert_new_transaction(Transaction transaction) {
+	    try {
+	    	Statement statement = this.sqlite_connection.createStatement();
+	    	String table = "INSERT INTO transaction()";
+	    	statement.executeUpdate(table);
+	    	statement.close();
+	    	return true;
+	    } catch(SQLException new_transaction_error) {
+	    	new_transaction_error.printStackTrace();
+	        return false;
+	    }
 	}
 	
 	public boolean Close_connection() {
