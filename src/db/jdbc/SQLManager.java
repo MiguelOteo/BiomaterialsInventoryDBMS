@@ -40,7 +40,7 @@ public class SQLManager {
 				statement_1.close();
 
 				Statement statement_2 = sqlite_connection.createStatement();
-				String table_2 = "CREATE TABLE category " + "(category_id INTEGER REFERENCES beneficts(beneficts_id), "
+				String table_2 = "CREATE TABLE category " + "(category_id INTEGER REFERENCES benefits(benefits_id), "
 						+ " category_name TEXT NOT NULL, " + " penalization INTEGER default NULL, "
 						// Money interval//
 						+ " max INTEGER NOT NULL, " + " min INTEGER NOT NULL, "
