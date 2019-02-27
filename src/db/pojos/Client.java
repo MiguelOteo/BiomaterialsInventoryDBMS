@@ -20,9 +20,8 @@ public class Client implements Serializable {
 		}
 
 
-		public Client(Integer id, String name, Integer telephone, String bank_account, String responsible) {
+		public Client(String name, Integer telephone, String bank_account, String responsible) {
 			super();
-			this.id = id;
 			this.name = name;
 			this.telephone = telephone;
 			this.bank_account = bank_account;

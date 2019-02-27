@@ -15,18 +15,16 @@ public class UserInterface {
 		if(everything_ok == true) {
 			System.out.println("Connection and tables charged");
 			
-			System.out.println("id of client: ");
-			Integer id = console.read();
 			System.out.println("Name of client: ");
 			String name = console.readLine();
-			System.out.println("name of responsible: ");
+			System.out.println("Name of responsible: ");
 			String responsible = console.readLine();
 			System.out.println("Telephone: ");
-			Integer telef = console.read();
+			Integer telef = Integer.parseInt(console.readLine());
 			System.out.println("Bank account: ");
 			String bank_account = console.readLine();
 
-			Client client = new Client(id, name, telef, bank_account, responsible);
+			Client client = new Client(name, telef, bank_account, responsible);
 			boolean insert_ok = manager.Inset_new_client(client);
 			
 			if(insert_ok == true) {
