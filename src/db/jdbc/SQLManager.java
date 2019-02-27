@@ -20,7 +20,7 @@ public class SQLManager {
 	public boolean Stablish_connection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			this.sqlite_connection = DriverManager.getConnection("jdbc:sqlite:./db/company.db");
+			this.sqlite_connection = DriverManager.getConnection("jdbc:sqlite:./db/biomat.db");
 			this.sqlite_connection.createStatement().execute("PRAGMA foreign_keys=ON");
 			return true;
 		} catch (ClassNotFoundException | SQLException connection_error) {
@@ -30,11 +30,12 @@ public class SQLManager {
 	}
 
 	public boolean Create_tables() {
-		if (sqlite_connection != null) {
+		boolean connection_status = Stablish_connection();
+		if (connection_status == true) {
 			try {
 				Statement statement_1 = sqlite_connection.createStatement();
-				String table_1 = "CREATE TABLE beneficts " + "(beneficts_id INTEGER PRIMARY KEY, "
-						+ " type TEXT default 0)";
+				String table_1 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY , "
+						+ " type TEXT default 0 )";
 				statement_1.execute(table_1);
 				statement_1.close();
 
@@ -48,18 +49,18 @@ public class SQLManager {
 				statement_2.close();
 
 				Statement statement_3 = sqlite_connection.createStatement();
-				String table_3 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY, " + " responsible TEXT, "
+				String table_3 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " responsible TEXT, "
 						+ " name TEXT NOT NULL, " + " bank_account TEXT NOT NULL UNIQUE, "
 						+ " telephone INTEGER NOT NULL UNIQUE)";
 				statement_3.execute(table_3);
 				statement_3.close();
 
 				Statement statement_4 = sqlite_connection.createStatement();
-				String table_4 = "CREATE TABLE transaction " + "(transaction_id INTEGER NOT NULL, "
+				String table_4 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
 						+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, "
 						+ " units INTEGER NOT NULL default 1, " + " transaction_date DATETIME NOT NULL, "
 						+ " product_name TEXT NOT NULL, " + " PRIMARY KEY (transaction_id, product_name), "
-						+ " FOREIGN KEY (client:id) REFERENCES client (transaction_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
+						+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 				statement_4.execute(table_4);
 				statement_4.close();
 
@@ -83,7 +84,7 @@ public class SQLManager {
 				Statement statement_7 = sqlite_connection.createStatement();
 				String table_7 = "CREATE TABLE biomaterial " + "(biomaterial_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 						+ " utility_id INTEGER REFERENCES utility (utility_id), "
-						+ " name_product TEXT NOT NULL REFERENCES transaction(product_name), "
+						+ " name_product TEXT NOT NULL REFERENCES bank_transaction(product_name), "
 						+ " price_unit INTEGER NULL default 1, " + " avalible_units INTEGER NOT NULL, "
 						+ " expiration_date DATETIME, "
 						+ " mantein_id INTEGER REFERENCES manteinance(manteinance_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
@@ -102,9 +103,9 @@ public class SQLManager {
 	public boolean Inset_new_client(Client client) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO client(client_id, name, telephone, bank_account, resposible)"
-					+ "VALUES ('" + client.getId() + "', '" + client.getName() + "', '" + client.getTelephone() + "', '" 
-					+ client.getBank_account() + "', '" + client.getResponsible() + "');";
+			String table = "INSERT INTO client(name, telephone, bank_account, responsible)"
+					+ "VALUES ('" + client.getName() + "', '" + client.getTelephone() + "', '" + client.getBank_account() 
+					+ "', '" + client.getResponsible() + "');";
 			statement.executeUpdate(table);
 			statement.close();
 			return true;
