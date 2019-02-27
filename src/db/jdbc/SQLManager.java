@@ -2,8 +2,8 @@ package db.jdbc;
 
 import java.sql.*;
 
-import pojos.Client;
-import pojos.Transaction;
+import db.pojos.Client;
+import db.pojos.Transaction;
 
 public class SQLManager {
 

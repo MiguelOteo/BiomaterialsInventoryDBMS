@@ -2,13 +2,13 @@ package UImenu;
 
 import java.io.*;
 import db.jdbc.SQLManager;
-import pojos.Client;
+import db.pojos.Client;
 
 public class UserInterface {
 
 	public static void main(String[] args) throws IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Create_tables();
 		
@@ -16,15 +16,15 @@ public class UserInterface {
 			System.out.println("Connection and tables charged");
 			
 			System.out.println("id of client: ");
-			Integer id = br.read();
+			Integer id = console.read();
 			System.out.println("Name of client: ");
-			String name = br.readLine();
+			String name = console.readLine();
 			System.out.println("name of responsible: ");
-			String responsible = br.readLine();
+			String responsible = console.readLine();
 			System.out.println("Telephone: ");
-			Integer telef = br.read();
+			Integer telef = console.read();
 			System.out.println("Bank account: ");
-			String bank_account = br.readLine();
+			String bank_account = console.readLine();
 
 			Client client = new Client(id, name, telef, bank_account, responsible);
 			boolean insert_ok = manager.Inset_new_client(client);
