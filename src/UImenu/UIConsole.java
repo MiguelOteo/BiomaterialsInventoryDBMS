@@ -9,17 +9,17 @@ public class UIConsole {
 	public static void main(String args[]) {
 	  try {
 		  BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-		  char option = '0';
+		  int option = 0;
 		
-	      while(option != '2') {
+	      while(option != 2) {
 			
-		     option = (char)console.read();
+		     option = (int)console.read();
 		     switch(option) {
 
-			     case '1': {
+			     case 1: {
 			    	 break;
 			     }
-			     case '2': {
+			     case 2: {
 			    	 System.out.print("Programme closed");
 			     }
 			 }

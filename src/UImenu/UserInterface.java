@@ -1,6 +1,8 @@
 package UImenu;
 
 import java.io.*;
+import java.util.List;
+
 import db.jdbc.SQLManager;
 import db.pojos.Client;
 
@@ -15,18 +17,30 @@ public class UserInterface {
 		if(everything_ok == true) {
 			System.out.println("Connection and tables charged");
 			
-			System.out.print("\nName of client: ");
+			System.out.print("\nName of client 1: ");
 			String name = console.readLine();
 			System.out.print("\nName of responsible: ");
 			String responsible = console.readLine();
 			System.out.print("\nTelephone: ");
-			Integer telef = Integer.parseInt(console.readLine());
+			Integer telephone = Integer.parseInt(console.readLine());
 			System.out.print("\nBank account: ");
 			String bank_account = console.readLine();
 
-			Client client = new Client(name, telef, bank_account, responsible);
+			Client client_1 = new Client(name, telephone, bank_account, responsible);
 			
-			boolean insert_ok = manager.Inset_new_client(client);
+			System.out.print("\n\nName of client 2: ");
+			name = console.readLine();
+			System.out.print("\nName of responsible: ");
+			responsible = console.readLine();
+			System.out.print("\nTelephone: ");
+			telephone = Integer.parseInt(console.readLine());
+			System.out.print("\nBank account: ");
+			bank_account = console.readLine();
+			
+			Client client_2 = new Client(name, telephone, bank_account, responsible);
+			
+			boolean insert_ok = manager.Inset_new_client(client_1);
+			insert_ok = manager.Inset_new_client(client_2);
 			if(insert_ok == true) {
 				System.out.println("\nInsertion done");
 			} else {
@@ -35,9 +49,10 @@ public class UserInterface {
 			
 			System.out.print("\nSelect the client you wanna search: ");
 			String client_name = console.readLine();
-			Client client_copy = manager.Search_stored_client(client_name);
-			
-			System.out.print(client_copy);
+			List<Client> clients_list = manager.Search_stored_clients(client_name);
+			for(Client object: clients_list) {
+				System.out.print(object + "\n\n");
+			}
 			
 			boolean close_ok = manager.Close_connection();
 			if(close_ok == true) {

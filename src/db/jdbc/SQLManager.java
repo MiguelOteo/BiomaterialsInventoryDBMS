@@ -1,6 +1,8 @@
 package db.jdbc;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 import db.pojos.*;
 
@@ -28,6 +30,7 @@ public class SQLManager {
 		}
 	}
 
+	// Creates the tables in biomat.db file
 	public boolean Create_tables() {
 		boolean connection_status = Stablish_connection();
 		if (connection_status == true) {
@@ -245,26 +248,55 @@ public class SQLManager {
 		}
 	}
 	
-	// Selects a client object based on their client_name from data base and returns it
-	public Client Search_stored_client(String name) {
+	// Selects all clients objects with the same client_name from the data base and returns them
+	public List<Client> Search_stored_clients(String name) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM client WHERE name LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, name);
-			Client client = new Client();
+            List<Client> clients_list = new LinkedList<Client>();
 			ResultSet result_set = template.executeQuery();
 			while(result_set.next()) {
+			   Client client = new Client();
 			   client.setId(result_set.getInt("client_id"));
 			   client.setName(result_set.getString("name"));
 			   client.setResponsible(result_set.getString("responsible"));
 			   client.setBank_account(result_set.getString("bank_account"));
 			   client.setTelephone(result_set.getInt("telephone"));
+			   clients_list.add(client);
 			}
 			statement.close();
-			return client;
+			return clients_list;
 		} catch (SQLException search_client_error) {
 			search_client_error.printStackTrace();
+			return null;
+		}
+	}
+	
+    //Selects all clients objects with the same client_id from the data base and returns them
+	public List<Transaction> Search_stored_transactions(Client client) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM bank_transaction WHERE client_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, client.getClient_id());
+			List<Transaction> transactions_list = new LinkedList<Transaction>();
+			ResultSet result_set = template.executeQuery();
+			while(result_set.next()) {
+				Transaction transaction = new Transaction();
+				transaction.setClient_id(result_set.getInt("client_id"));
+				transaction.setGain(result_set.getFloat("gain"));
+				transaction.setProduct_name(result_set.getString("product_name"));
+				transaction.setTransaction_date(result_set.getDate("transaction_date"));
+				transaction.setTransaction_id(result_set.getInt("transaction_id"));
+				transaction.setUnits(result_set.getInt("units"));
+				transactions_list.add(transaction);
+			}
+			statement.close();
+			return transactions_list;
+		} catch (SQLException search_transaction_error) {
+			search_transaction_error.printStackTrace();
 			return null;
 		}
 	}

@@ -24,7 +24,7 @@ public class Client implements Serializable {
 		this.responsible = responsible;
 	}
 
-	public Integer getId() {
+	public Integer getClient_id() {
 		return client_id;
 	}
 
