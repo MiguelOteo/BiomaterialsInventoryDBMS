@@ -5,7 +5,6 @@ import java.sql.Date;
 
 public class Transaction implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
 	private Integer transaction_id;
     private Float gain;

@@ -15,24 +15,30 @@ public class UserInterface {
 		if(everything_ok == true) {
 			System.out.println("Connection and tables charged");
 			
-			System.out.println("Name of client: ");
+			System.out.print("\nName of client: ");
 			String name = console.readLine();
-			System.out.println("Name of responsible: ");
+			System.out.print("\nName of responsible: ");
 			String responsible = console.readLine();
-			System.out.println("Telephone: ");
+			System.out.print("\nTelephone: ");
 			Integer telef = Integer.parseInt(console.readLine());
-			System.out.println("Bank account: ");
+			System.out.print("\nBank account: ");
 			String bank_account = console.readLine();
 
 			Client client = new Client(name, telef, bank_account, responsible);
-			boolean insert_ok = manager.Inset_new_client(client);
 			
+			boolean insert_ok = manager.Inset_new_client(client);
 			if(insert_ok == true) {
-				System.out.println("Insertion done");
+				System.out.println("\nInsertion done");
 			} else {
 				System.out.println("Insertion error accured");
 			}
-			manager.Close_connection();
+			
+			boolean close_ok = manager.Close_connection();
+			if(close_ok == true) {
+				System.out.println("Program closed successfuly");
+			} else {
+				System.out.println("An error has occured while closing the program");
+			}
 		} else {
 			System.out.println("Connection and tables charge failed");
 		}
