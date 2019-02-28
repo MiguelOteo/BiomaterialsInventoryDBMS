@@ -32,14 +32,14 @@ public class SQLManager {
 		boolean connection_status = Stablish_connection();
 		if (connection_status == true) {
 			try {
-				Statement statement_1 = sqlite_connection.createStatement();
+				Statement statement_1 = this.sqlite_connection.createStatement();
 				String table_1 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY, "
 						+ " others TEXT default NULL, " + " percentage REAL NOT NULL default 0, " 
 						+ " min_amount INTEGER NOT NULL default 0," + " extra_units INTEGER NOT NULL default 0)";
 				statement_1.execute(table_1);
 				statement_1.close();
 
-				Statement statement_2 = sqlite_connection.createStatement();
+				Statement statement_2 = this.sqlite_connection.createStatement();
 				String table_2 = "CREATE TABLE category " + "(category_id INTEGER REFERENCES benefits(benefits_id), "
 						+ " category_name TEXT NOT NULL, " + " penalization INTEGER default NULL, "
 						// Money interval//
@@ -47,14 +47,14 @@ public class SQLManager {
 				statement_2.execute(table_2);
 				statement_2.close();
 
-				Statement statement_3 = sqlite_connection.createStatement();
+				Statement statement_3 = this.sqlite_connection.createStatement();
 				String table_3 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " responsible TEXT, "
 						+ " name TEXT NOT NULL, " + " bank_account TEXT NOT NULL UNIQUE, "
 						+ " telephone INTEGER NOT NULL UNIQUE)";
 				statement_3.execute(table_3);
 				statement_3.close();
 
-				Statement statement_4 = sqlite_connection.createStatement();
+				Statement statement_4 = this.sqlite_connection.createStatement();
 				String table_4 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
 						+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, "
 						+ " units INTEGER NOT NULL default 1, " + " transaction_date DATETIME NOT NULL, "
@@ -63,7 +63,7 @@ public class SQLManager {
 				statement_4.execute(table_4);
 				statement_4.close();
 
-				Statement statement_5 = sqlite_connection.createStatement();
+				Statement statement_5 = this.sqlite_connection.createStatement();
 				String table_5 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 						+ " heat_cold TEXT default NULL, " + " flexibility TEXT default 'no', "
 						+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
@@ -71,7 +71,7 @@ public class SQLManager {
 				statement_5.execute(table_5);
 				statement_5.close();
 
-				Statement statement_6 = sqlite_connection.createStatement();
+				Statement statement_6 = this.sqlite_connection.createStatement();
 				String table_6 = "CREATE TABLE maintenance " + "(maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 						+ " pressure REAL NOT NULL default 1, " + " humidity INT NOT NULL default 50, "
 						+ " O2_supply TEXT default 'no', " + " light TEXT default 'no', "
@@ -80,7 +80,7 @@ public class SQLManager {
 				statement_6.execute(table_6);
 				statement_6.close();
 				
-				Statement statement_7 = sqlite_connection.createStatement();
+				Statement statement_7 = this.sqlite_connection.createStatement();
 				String table_7 = "CREATE TABLE biomaterial " + "(biomaterial_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 						+ " utility_id INTEGER REFERENCES utility (utility_id), "
 						+ " name_product TEXT NOT NULL REFERENCES bank_transaction(product_name), "
@@ -104,7 +104,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO benefits(others, percentage, min_amount, extra_units) "
 					+ "VALUES (?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, benefits.getOthers());
 			template.setFloat(2, benefits.getPercentage());
 			template.setInt(3, benefits.getMin_amount());
@@ -124,7 +124,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO category(category_name, penalization, max, min) "
 					+ "VALUES (?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, category.getCategory_name());
 			template.setFloat(2, category.getPenalization());
 			template.setInt(3, category.getMaximum());
@@ -144,7 +144,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO client (responsible, name, bank_account, telephone) "
 					+ "VALUES (?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
 			template.setString(3, client.getBank_account());
@@ -164,7 +164,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO utility(heat_cold, flexibility, resistance, pressure, strength) "
 					+ "VALUES (?,?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, utility.getHeat_cold());
 			template.setString(2, utility.getFlexibility());
 			template.setString(3, utility.getResistance());
@@ -185,7 +185,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO maintenance(pressure, humidity, O2_supply, light, temperature, compatibility, others) "
 					+ "VALUES (?,?,?,?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setFloat(1, maintenance.getPressure());
 			template.setInt(2, maintenance.getHumidity());
 			template.setString(3, maintenance.getO2_supply());
@@ -208,7 +208,7 @@ public class SQLManager {
 	    	Statement statement = this.sqlite_connection.createStatement();
 	    	String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, product_name) "
 	    			+ "VALUES (?,?,?,?,?);";
-	    	PreparedStatement template = sqlite_connection.prepareStatement(table);
+	    	PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 	    	template.setInt(1, transaction.getClient_id());
 	    	template.setFloat(2, transaction.getGain());
 	    	template.setInt(3, transaction.getUnits());
@@ -229,7 +229,7 @@ public class SQLManager {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) "
 					+ "VALUES (?,?,?,?,?,?);";
-			PreparedStatement template = sqlite_connection.prepareStatement(table);
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, biomaterial.getUtility_id());
 			template.setInt(2, biomaterial.getMaintenance_id());
 			template.setString(3, biomaterial.getName_product());
@@ -245,9 +245,28 @@ public class SQLManager {
 		}
 	}
 	
-	// Selection of a client object from data base
-	public Client Select_stored_client() {
-		return null;
+	// Selects a client object based on their client_name from data base and returns it
+	public Client Search_stored_client(String name) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM client WHERE name LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, name);
+			Client client = new Client();
+			ResultSet result_set = template.executeQuery();
+			while(result_set.next()) {
+			   client.setId(result_set.getInt("client_id"));
+			   client.setName(result_set.getString("name"));
+			   client.setResponsible(result_set.getString("responsible"));
+			   client.setBank_account(result_set.getString("bank_account"));
+			   client.setTelephone(result_set.getInt("telephone"));
+			}
+			statement.close();
+			return client;
+		} catch (SQLException search_client_error) {
+			search_client_error.printStackTrace();
+			return null;
+		}
 	}
 	
 	// Close connection with the data base method

@@ -91,7 +91,7 @@ public class Client implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + client_id + ", name=" + name + ", telephone=" + telephone + ", bank_account="
-				+ bank_account + ", responsible=" + responsible + "]";
+		return "\n Client name = " + name + "\n Telephone = " + telephone + "\n Bank account = "
+				+ bank_account + "\n Responsible = " + responsible;
 	}
 }

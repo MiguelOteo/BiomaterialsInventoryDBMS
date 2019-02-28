@@ -7,7 +7,7 @@ import db.pojos.Client;
 public class UserInterface {
 
 	public static void main(String[] args) throws IOException {
-
+		
 		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Create_tables();
@@ -30,17 +30,25 @@ public class UserInterface {
 			if(insert_ok == true) {
 				System.out.println("\nInsertion done");
 			} else {
-				System.out.println("Insertion error accured");
+				System.out.println("\nInsertion error accured");
 			}
+			
+			System.out.print("\nSelect the client you wanna search: ");
+			String client_name = console.readLine();
+			Client client_copy = manager.Search_stored_client(client_name);
+			
+			System.out.print(client_copy);
 			
 			boolean close_ok = manager.Close_connection();
 			if(close_ok == true) {
-				System.out.println("Program closed successfuly");
+				System.out.println("\n\nProgram closed successfuly");
 			} else {
-				System.out.println("An error has occured while closing the program");
+				System.out.println("\n\nAn error has occured while closing the program");
 			}
 		} else {
-			System.out.println("Connection and tables charge failed");
+			System.out.println("\n\nConnection and tables charge failed");
 		}
+		manager.Close_connection();
+		System.exit(0);
 	}
 }

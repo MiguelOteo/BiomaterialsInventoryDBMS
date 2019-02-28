@@ -6,10 +6,8 @@ import java.io.InputStreamReader;
 
 public class UIConsole {
 
-	public static void main(String args[]) throws IOException {
-		
+	public static void main(String args[]) {
 	  try {
-		
 		  BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 		  char option = '0';
 		
@@ -26,8 +24,9 @@ public class UIConsole {
 			     }
 			 }
 		  }
-	   } catch(Exception e) {
-		   
+	   } catch(IOException menu_error) {
+		   menu_error.printStackTrace();
+		   return;
 	   }
 	}
 }
