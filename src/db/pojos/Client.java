@@ -92,6 +92,6 @@ public class Client implements Serializable {
 	@Override
 	public String toString() {
 		return "\n Client name = " + name + "\n Telephone = " + telephone + "\n Bank account = "
-				+ bank_account + "\n Responsible = " + responsible;
+				+ bank_account + "\n Responsible = " + responsible + "\n client_id" + client_id;
 	}
 }

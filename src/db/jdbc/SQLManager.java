@@ -101,6 +101,8 @@ public class SQLManager {
 		return false;
 	}
 	
+	// -----> INSERT METHODS <-----
+	
 	// Benefits(others, percentage, min_amount, extra_units)
 	public boolean Inset_new_benefits(Benefits benefits) {
 		try {
@@ -248,6 +250,8 @@ public class SQLManager {
 		}
 	}
 	
+	// -----> SEARCH METHODS <-----
+	
 	// Selects all clients objects with the same client_name from the data base and returns them
 	public List<Client> Search_stored_clients(String name) {
 		try {
@@ -300,6 +304,91 @@ public class SQLManager {
 			return null;
 		}
 	}
+	
+	// -----> LIST METHODS <----- 
+	
+	// List all clients returning a linkedList with all of them
+	public List<Client> List_all_clients() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM client";
+		    List<Client> clients_list = new LinkedList<Client>();
+		    ResultSet result_set = statement.executeQuery(SQL_code);
+			while(result_set.next()) {
+				   Client client = new Client();
+				   client.setId(result_set.getInt("client_id"));
+				   client.setName(result_set.getString("name"));
+				   client.setResponsible(result_set.getString("responsible"));
+				   client.setBank_account(result_set.getString("bank_account"));
+				   client.setTelephone(result_set.getInt("telephone"));
+				   clients_list.add(client);
+		    }
+			statement.close();
+			return clients_list;
+		} catch (SQLException list_clients_error) {
+			list_clients_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	// List all clients returning a linkedList with all of them
+	public List<Transaction> List_all_transactions() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM bank_transaction";
+			List<Transaction> transactions_list = new LinkedList<Transaction>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while(result_set.next()) {
+				Transaction transaction = new Transaction();
+				transaction.setClient_id(result_set.getInt("client_id"));
+				transaction.setGain(result_set.getFloat("gain"));
+				transaction.setProduct_name(result_set.getString("product_name"));
+				transaction.setTransaction_date(result_set.getDate("transaction_date"));
+				transaction.setTransaction_id(result_set.getInt("transaction_id"));
+				transaction.setUnits(result_set.getInt("units"));
+				transactions_list.add(transaction);
+			}
+			statement.close();
+			return transactions_list;
+		} catch (SQLException list_transactions_error) {
+			list_transactions_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	// -----> DELETE METHODS <-----
+	
+	public boolean Delete_stored_client(Integer client_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE * FROM client WHERE client_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, client_id);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException delete_client_error) {
+			delete_client_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	// -----> NUKE INFO METHODS <-----
+	
+	/*public boolean Nuke_all_clients() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE * FROM client";
+			statement.executeUpdate(SQL_code);
+			statement.close();
+			return true;
+		} catch (SQLException nuke_clients_error) {
+			nuke_clients_error.printStackTrace();
+			return false;
+		}
+	}*/
+	
+	// -----> CLOSE CONNECTION METHOD <-----
 	
 	// Close connection with the data base method
 	public boolean Close_connection() {
