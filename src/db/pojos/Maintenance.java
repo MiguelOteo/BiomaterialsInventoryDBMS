@@ -2,11 +2,8 @@ package db.pojos;
 
 import java.io.Serializable;
 
-public class Manteinance implements Serializable{
+public class Maintenance implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Integer manteinance_id;
 	private Float pressure;
@@ -18,13 +15,13 @@ public class Manteinance implements Serializable{
 	private String others;
 	
 	
-	public Manteinance() {
+	public Maintenance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Manteinance(Integer manteinance_id, Float pressure, String o2_supply, String light, Integer humidity,
+	public Maintenance(Integer manteinance_id, Float pressure, String o2_supply, String light, Integer humidity,
 			Float temperature, String compatibility, String others) {
 		super();
 		this.manteinance_id = manteinance_id;
@@ -143,7 +140,7 @@ public class Manteinance implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Manteinance other = (Manteinance) obj;
+		Maintenance other = (Maintenance) obj;
 		if (manteinance_id == null) {
 			if (other.manteinance_id != null)
 				return false;
