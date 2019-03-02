@@ -29,6 +29,14 @@ public class Biomaterial implements Serializable{
 		this.expiration_date = expiration_date;
 	}
 	
+	public Integer getBiomaterial_id() {
+		return biomaterial_id;
+	}
+	
+	public void setBiomaterial_id(Integer biomaterial_id) {
+		this.biomaterial_id = biomaterial_id;
+	}
+	
 	public Integer getUtility_id() {
 		return utility_id;
 	}
@@ -75,7 +83,6 @@ public class Biomaterial implements Serializable{
 	
 	public void setExpiration_date(Date expiration_date) {
 		this.expiration_date = expiration_date;
-	}
-	
-	
+	}	
 }
+

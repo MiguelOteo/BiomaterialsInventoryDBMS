@@ -8,7 +8,7 @@ import db.pojos.Client;
 
 public class UserInterface {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		try {
 			BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
@@ -65,7 +65,7 @@ public class UserInterface {
 						break;
 					}
 					case '4': {
-						System.out.print("Delete a client option\n\n");
+						System.out.print("Nuke all clients option\n\n");
 						
 						System.out.print("\nSelect the client you wanna delete: ");
 						Integer client_id = Integer.parseInt(console.readLine());
@@ -75,6 +75,7 @@ public class UserInterface {
 						} else {
 							System.out.print("Something went wrong");
 						}
+						break;
 					}
 					case '5': {
 						boolean close_ok = manager.Close_connection();

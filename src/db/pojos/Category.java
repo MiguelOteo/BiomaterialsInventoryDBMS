@@ -1,9 +1,10 @@
 package db.pojos;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Category implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
 	private Integer category_id;
 	private String category_name;
@@ -77,4 +78,5 @@ public class Category implements Serializable{
 			return false;
 		return true;
 	}
+	
 }

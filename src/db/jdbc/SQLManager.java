@@ -4,7 +4,13 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-import db.pojos.*;
+import db.pojos.Benefits;
+import db.pojos.Biomaterial;
+import db.pojos.Category;
+import db.pojos.Client;
+import db.pojos.Maintenance;
+import db.pojos.Transaction;
+import db.pojos.Utility;
 
 public class SQLManager {
 
@@ -263,7 +269,7 @@ public class SQLManager {
 			ResultSet result_set = template.executeQuery();
 			while(result_set.next()) {
 			   Client client = new Client();
-			   client.setId(result_set.getInt("client_id"));
+			   client.setClient_id(result_set.getInt("client_id"));
 			   client.setName(result_set.getString("name"));
 			   client.setResponsible(result_set.getString("responsible"));
 			   client.setBank_account(result_set.getString("bank_account"));
@@ -316,7 +322,7 @@ public class SQLManager {
 		    ResultSet result_set = statement.executeQuery(SQL_code);
 			while(result_set.next()) {
 				   Client client = new Client();
-				   client.setId(result_set.getInt("client_id"));
+				   client.setClient_id(result_set.getInt("client_id"));
 				   client.setName(result_set.getString("name"));
 				   client.setResponsible(result_set.getString("responsible"));
 				   client.setBank_account(result_set.getString("bank_account"));

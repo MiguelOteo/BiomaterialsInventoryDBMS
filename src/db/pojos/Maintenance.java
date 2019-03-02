@@ -147,9 +147,5 @@ public class Maintenance implements Serializable{
 		} else if (!manteinance_id.equals(other.manteinance_id))
 			return false;
 		return true;
-	}
-	
-	
-	
-		    
+	}	    
 }

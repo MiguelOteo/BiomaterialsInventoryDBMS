@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Utility implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String heat_cold;
 	private String flexibility;
@@ -92,7 +89,4 @@ public class Utility implements Serializable {
 			return false;
 		return true;
 	}
-	
-		
-	
 }

@@ -6,27 +6,28 @@ import java.io.InputStreamReader;
 
 public class UIConsole {
 
-	public static void main(String args[]) {
-	  try {
-		  BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-		  int option = 0;
+	public static void main(String args[]) throws IOException {
 		
-	      while(option != 2) {
+	  try {
+		
+		  BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+		  char option = '0';
+		
+	      while(option != '2') {
 			
-		     option = (int)console.read();
+		     option = (char)console.read();
 		     switch(option) {
 
-			     case 1: {
+			     case '1': {
 			    	 break;
 			     }
-			     case 2: {
+			     case '2': {
 			    	 System.out.print("Programme closed");
 			     }
 			 }
 		  }
-	   } catch(IOException menu_error) {
-		   menu_error.printStackTrace();
-		   return;
+	   } catch(Exception e) {
+		   
 	   }
 	}
 }
