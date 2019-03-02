@@ -28,7 +28,7 @@ public class Client implements Serializable {
 		return client_id;
 	}
 
-	public void setId(Integer id) {
+	public void setClient_id(Integer id) {
 		this.client_id = id;
 	}
 
