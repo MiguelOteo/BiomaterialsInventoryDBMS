@@ -1,7 +1,6 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class Category implements Serializable{
 
