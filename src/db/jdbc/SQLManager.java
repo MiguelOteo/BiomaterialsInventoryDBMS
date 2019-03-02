@@ -361,7 +361,7 @@ public class SQLManager {
 	public boolean Delete_stored_client(Integer client_id) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE * FROM client WHERE client_id LIKE ?";
+			String SQL_code = "DELETE FROM client WHERE client_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, client_id);
 			template.executeUpdate();

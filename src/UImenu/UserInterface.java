@@ -65,12 +65,12 @@ public class UserInterface {
 						break;
 					}
 					case '4': {
-						System.out.print("Nuke all clients option\n\n");
+						System.out.print("Delete a client option\n\n");
 						
 						System.out.print("\nSelect the client you wanna delete: ");
 						Integer client_id = Integer.parseInt(console.readLine());
-						boolean genocide = manager.Delete_stored_client(client_id);
-						if(genocide == true) {
+						boolean delete_ok = manager.Delete_stored_client(client_id);
+						if(delete_ok == true) {
 							System.out.print("Client deleted");
 						} else {
 							System.out.print("Something went wrong");
