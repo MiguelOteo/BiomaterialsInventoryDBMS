@@ -217,14 +217,15 @@ public class SQLManager {
 	public boolean Insert_new_transaction(Transaction transaction) {
 	    try {
 	    	Statement statement = this.sqlite_connection.createStatement();
-	    	String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, product_name) "
-	    			+ "VALUES (?,?,?,?,?);";
+	    	String table = "INSERT INTO bank_transaction(transaction_id, client_id, gain, units, transaction_date, product_name) "
+	    			+ "VALUES (?,?,?,?,?,?);";
 	    	PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-	    	template.setInt(1, transaction.getClient_id());
-	    	template.setFloat(2, transaction.getGain());
-	    	template.setInt(3, transaction.getUnits());
-	    	template.setDate(4, transaction.getTransaction_date());
-	    	template.setString(5, transaction.getProduct_name());
+	    	template.setInt(1, transaction.getTransaction_id());
+	    	template.setInt(2, transaction.getClient_id());
+	    	template.setFloat(3, transaction.getGain());
+	    	template.setInt(4, transaction.getUnits());
+	    	template.setDate(5, transaction.getTransaction_date());
+	    	template.setString(6, transaction.getProduct_name());
 	    	template.executeUpdate();
 	    	statement.close();
 	    	return true;
