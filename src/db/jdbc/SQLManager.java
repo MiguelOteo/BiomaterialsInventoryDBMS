@@ -103,8 +103,9 @@ public class SQLManager {
 		}
 	}
 	
-	// -----> CHECK ALREADY EXISTING TABLES METHODS <-----
+	// -----> CHECK ALREADY EXISTING TABLES METHOD <-----
 
+	// Checks if all the tables are already created in biomat.db in order to avoid executing the method Create_tables 
 	public boolean Check_if_tables_exist() {
 		
 		String[] tables_array = new String[]{"client", "bank_transaction", "utility",

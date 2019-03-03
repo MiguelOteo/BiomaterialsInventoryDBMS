@@ -50,7 +50,7 @@ public class UserInterface {
 						if (insert_ok == true) {
 							System.out.println("\nInsertion done");
 						} else {
-							System.out.println("\nInsertion error accured");
+							System.out.println("\nInsertion error occurred");
 						}
 						break;
 					}
@@ -115,7 +115,7 @@ public class UserInterface {
 						if (insert_ok == true) {
 							System.out.println("\nInsertion done");
 						} else {
-							System.out.println("\nInsertion error accured");
+							System.out.println("\nInsertion error occurred");
 						}
 						break;
 					}
@@ -124,7 +124,7 @@ public class UserInterface {
 						if (close_ok == true) {
 							System.out.println("\n\nProgram closed successfuly");
 						} else {
-							System.out.println("\n\nAn error has occured while closing the program");
+							System.out.println("\n\nAn error has occurred while closing the program");
 						}
 						System.exit(0);
 					}
