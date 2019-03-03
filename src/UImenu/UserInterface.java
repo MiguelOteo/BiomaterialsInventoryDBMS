@@ -2,7 +2,6 @@ package UImenu;
 
 import java.io.*;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -16,10 +15,18 @@ public class UserInterface {
 		try {
 			BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 			SQLManager manager = new SQLManager();
-			boolean everything_ok = manager.Create_tables();
+			boolean everything_ok = manager.Stablish_connection();
 
+			boolean tables_exist = manager.Check_if_tables_exist();
+			if(tables_exist == true) {
+				System.out.print("\n\nTables are already charged");
+			} else {
+				System.out.print("\n\nCharging tables");
+				everything_ok = manager.Create_tables();
+			}
+			
 			if (everything_ok == true) {
-				System.out.println("Connection and tables charged");
+				System.out.println("\n\nConnection and tables charged");
 				while (true) {
 					System.out.print("\n\nSelection: ");
 					char selection = '0';
@@ -69,17 +76,12 @@ public class UserInterface {
 						break;
 					}
 					case '4': {
-						System.out.print("Delete client option\n\n");
+						System.out.print("Delete table option\n\n");
 
-						System.out.print("\nSelect the client you wanna delete: ");
-						Integer client_id = 0;
-						boolean delete_ok;
-						try {
-							Integer.parseInt(console.readLine());
-							delete_ok = manager.Delete_stored_client(client_id);
-						} catch (NumberFormatException not_int_error) {
-							delete_ok = false;
-						}
+						System.out.print("\nSelect the table you wanna drop: ");
+						String table_name = console.readLine();
+						boolean delete_ok = manager.Drop_selected_table(table_name);
+
 						if (delete_ok == true) {
 							System.out.print("Client deleted");
 						} else {
@@ -130,6 +132,7 @@ public class UserInterface {
 				}
 			} else {
 				System.out.println("\n\nConnection and tables charge failed");
+				manager.Close_connection();
 			}
 		} catch (IOException | NumberFormatException critical_error) {
 			critical_error.printStackTrace();
