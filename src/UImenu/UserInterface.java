@@ -84,7 +84,7 @@ public class UserInterface {
 						for (Transaction object: transaction_list) {
 							System.out.print(object+"\n\n");
 						}
-						
+				        break;
 					}
 					case '5': {
 						System.out.print("Delete client option\n\n");
