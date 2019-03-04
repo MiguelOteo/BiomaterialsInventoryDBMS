@@ -273,6 +273,28 @@ public class SQLManager {
 			return false;
 		}
 	}
+	
+	// -----> UPDATE METHODS <-----
+	
+	// Updates the information of a Client(responsible, name, bank_account, telephone)
+	public boolean Update_client_info(Client client) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "UPDATE client SET responsible = ?, name = ?, bank_account = ?, telephone = ? WHERE client_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, client.getResponsible());
+			template.setString(2, client.getName());
+			template.setString(3, client.getName());
+			template.setInt(4, client.getTelephone());
+			template.setInt(5, client.getClient_id());
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException update_client_error) {
+			update_client_error.printStackTrace();
+			return false;
+		}
+	}
 
 	// -----> SEARCH METHODS <-----
 
@@ -393,6 +415,21 @@ public class SQLManager {
 			return true;
 		} catch (SQLException delete_client_error) {
 			delete_client_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Delete_stored_transaction(Integer transaction_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE FROM bank_transaction WHERE transaction_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, transaction_id);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException delete_transaction_error) {
+			delete_transaction_error.printStackTrace();
 			return false;
 		}
 	}

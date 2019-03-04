@@ -2,9 +2,6 @@ package UImenu;
 
 import java.io.*;
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.LinkedList;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -154,8 +151,6 @@ public class UserInterface {
 							   }
 						}
 						break;
-						
-						
 					}
 					case '8': {
 						boolean close_ok = manager.Close_connection();
