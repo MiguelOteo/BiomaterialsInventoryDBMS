@@ -78,7 +78,15 @@ public class UserInterface {
 						}
 						break;
 					}
-					case '4': {
+					case '4':{
+						System.out.print("List transactions option\n\n");
+						List<Transaction> transaction_list =manager.List_all_transactions();
+						for (Transaction object: transaction_list) {
+							System.out.print(object+"\n\n");
+						}
+						
+					}
+					case '5': {
 						System.out.print("Delete table option\n\n");
 
 						System.out.print("\nSelect the table you wanna drop: ");
@@ -92,7 +100,7 @@ public class UserInterface {
 						}
 						break;
 					}
-					case '5': {
+					case '6': {
 						System.out.print("Insert transaction option\n\n");
 						List<Client> clients_list = manager.List_all_clients();
 						for (Client object : clients_list) {
@@ -113,7 +121,7 @@ public class UserInterface {
 						String date = console.readLine();
 						Date transaction_date = Date.valueOf(date);
 						
-						Transaction transaction = new Transaction(transaction_id, gain, client_id, units, product_name, transaction_date);
+						Transaction transaction = new Transaction(transaction_id, gain, client_id, units, product_id, transaction_date);
 						boolean insert_ok = manager.Insert_new_transaction(transaction);
 						if (insert_ok == true) {
 							System.out.println("\nInsertion done");
@@ -122,7 +130,8 @@ public class UserInterface {
 						}
 						break;
 					}
-					case '6': {
+					case '7': {
+						System.out.println("\nAtribute list option");
 						System.out.println("\nSelect the atribute to list");
 						String selections= console.readLine();
 						List<Client> clients_list = manager.List_all_clients();
@@ -148,7 +157,7 @@ public class UserInterface {
 						
 						
 					}
-					case '7': {
+					case '8': {
 						boolean close_ok = manager.Close_connection();
 						if (close_ok == true) {
 							System.out.println("\n\nProgram closed successfuly");

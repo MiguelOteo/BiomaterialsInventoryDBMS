@@ -10,21 +10,21 @@ public class Transaction implements Serializable{
     private Float gain;
     private Integer client_id;
     private Integer units;
-    private String product_name;
+    private Integer product_id;
     private Date transaction_date;
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Transaction(Integer transaction_id, Float gain, Integer client_id, Integer units, String product_name,
+	public Transaction(Integer transaction_id, Float gain, Integer client_id, Integer units, Integer product_id,
 			Date transaction_date) {
 		super();
 		this.transaction_id = transaction_id;
 		this.gain = gain;
 		this.client_id = client_id;
 		this.units = units;
-		this.product_name = product_name;
+		this.product_id = product_id;
 		this.transaction_date = transaction_date;
 	}
 	
@@ -60,12 +60,12 @@ public class Transaction implements Serializable{
 		this.units = units;
 	}
 	
-	public String getProduct_name() {
-		return product_name;
+	public Integer getProduct_id() {
+		return product_id;
 	}
 	
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+	public void setProduct_name(Integer product_id) {
+		this.product_id = product_id;
 	}
 	
 	public Date getTransaction_date() {
@@ -76,12 +76,7 @@ public class Transaction implements Serializable{
 		this.transaction_date = transaction_date;
 	}
 	
-	@Override
-	public String toString() {
-		return "Transaction [transaction_id=" + transaction_id + ", gain=" + gain + ", client_id=" + client_id
-				+ ", units=" + units + ", product_name=" + product_name + ", transaction_date=" + transaction_date
-				+ "]";
-	}
+
 	
 	@Override
 	public int hashCode() {
@@ -107,4 +102,10 @@ public class Transaction implements Serializable{
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return " Transaction ID = " + transaction_id + "\n Gain of transaction = " + gain + "\n Client ID = " + client_id + "\n Units = "
+				+ units + "\n Product ID = " + product_id + "\n Transaction date" + transaction_date;
+	}
 }
+
