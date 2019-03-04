@@ -62,40 +62,41 @@ public class SQLManager {
 			statement_3.close();
 
 			Statement statement_4 = this.sqlite_connection.createStatement();
-			String table_4 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
-					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
-					+ " transaction_date DATETIME NOT NULL, " + " product_name TEXT NOT NULL, "
-					+ " PRIMARY KEY (transaction_id, product_name), "
-					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
+			String table_4 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ " heat_cold TEXT default NULL, " + " flexibility TEXT default 'no', "
+					+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
+					+ " strength REAL NOT NULL)";
 			statement_4.execute(table_4);
 			statement_4.close();
 
 			Statement statement_5 = this.sqlite_connection.createStatement();
-			String table_5 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " heat_cold TEXT default NULL, " + " flexibility TEXT default 'no', "
-					+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
-					+ " strength REAL NOT NULL)";
-			statement_5.execute(table_5);
-			statement_5.close();
-
-			Statement statement_6 = this.sqlite_connection.createStatement();
-			String table_6 = "CREATE TABLE maintenance " + "(maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			String table_5 = "CREATE TABLE maintenance " + "(maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " pressure REAL NOT NULL default 1, " + " humidity INT NOT NULL default 50, "
 					+ " O2_supply TEXT default 'no', " + " light TEXT default 'no', "
 					+ " temperature REAL NOT NULL default 20, " + " compatibility TEXT, "
 					+ " others TEXT default NULL)";
-			statement_6.execute(table_6);
-			statement_6.close();
+			statement_5.execute(table_5);
+			statement_5.close();
 
-			Statement statement_7 = this.sqlite_connection.createStatement();
-			String table_7 = "CREATE TABLE biomaterial " + "(biomaterial_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			Statement statement_6 = this.sqlite_connection.createStatement();
+			String table_6 = "CREATE TABLE biomaterial " + "(biomaterial_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " utility_id INTEGER REFERENCES utility (utility_id), "
-					+ " name_product TEXT NOT NULL REFERENCES bank_transaction(product_name), "
+					+ " name_product TEXT NOT NULL, "
 					+ " price_unit INTEGER NULL default 1, " + " available_units INTEGER NOT NULL, "
 					+ " expiration_date DATETIME, "
 					+ " maintenance_id INTEGER REFERENCES maintenance(maintenance_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
+			statement_6.execute(table_6);
+			statement_6.close();
+			
+			Statement statement_7 = this.sqlite_connection.createStatement();
+			String table_7 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
+					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
+					+ " transaction_date DATETIME NOT NULL, " + " product_id INTEGER NOT NULL REFERENCES biomaterial(biomaterial_id), "
+					+ " PRIMARY KEY (transaction_id, product_id), "
+					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_7.execute(table_7);
 			statement_7.close();
+			
 			return true;
 		} catch (SQLException tables_error) {
 			tables_error.printStackTrace();
@@ -233,7 +234,7 @@ public class SQLManager {
 	public boolean Insert_new_transaction(Transaction transaction) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO bank_transaction(transaction_id, client_id, gain, units, transaction_date, product_name) "
+			String table = "INSERT INTO bank_transaction(transaction_id, client_id, gain, units, transaction_date, product_id) "
 					+ "VALUES (?,?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, transaction.getTransaction_id());
@@ -241,7 +242,7 @@ public class SQLManager {
 			template.setFloat(3, transaction.getGain());
 			template.setInt(4, transaction.getUnits());
 			template.setDate(5, transaction.getTransaction_date());
-			template.setString(6, transaction.getProduct_name());
+			template.setInt(6, transaction.getProduct_id());
 			template.executeUpdate();
 			statement.close();
 			return true;
@@ -314,7 +315,7 @@ public class SQLManager {
 				Transaction transaction = new Transaction();
 				transaction.setClient_id(result_set.getInt("client_id"));
 				transaction.setGain(result_set.getFloat("gain"));
-				transaction.setProduct_name(result_set.getString("product_name"));
+				transaction.setProduct_id(result_set.getInt("product_id"));
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
@@ -365,7 +366,7 @@ public class SQLManager {
 				Transaction transaction = new Transaction();
 				transaction.setClient_id(result_set.getInt("client_id"));
 				transaction.setGain(result_set.getFloat("gain"));
-				transaction.setProduct_name(result_set.getString("product_name"));
+				transaction.setProduct_id(result_set.getInt("product_id"));
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
