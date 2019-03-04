@@ -87,11 +87,11 @@ public class UserInterface {
 						
 					}
 					case '5': {
-						System.out.print("Delete table option\n\n");
+						System.out.print("Delete client option\n\n");
 
-						System.out.print("\nSelect the table you wanna drop: ");
-						String table_name = console.readLine();
-						boolean delete_ok = manager.Drop_selected_table(table_name);
+						System.out.print("\nSelect the client you wanna delete: ");
+						Integer client_id = Integer.parseInt(console.readLine());
+						boolean delete_ok = manager.Delete_stored_client(client_id);
 
 						if (delete_ok == true) {
 							System.out.print("Client deleted");
