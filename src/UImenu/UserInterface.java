@@ -115,8 +115,8 @@ public class UserInterface {
 						Float gain = Float.parseFloat(console.readLine());
 						System.out.print("\nUnits: ");
 						Integer units = Integer.parseInt(console.readLine());
-						System.out.print("\nProduct name: ");
-						String product_name = console.readLine(); 
+						System.out.print("\nProduct id: ");
+						Integer product_id = Integer.parseInt(console.readLine()); 
 						System.out.print("\nExpiration Date (yyyy-mm-dd): ");
 						String date = console.readLine();
 						Date transaction_date = Date.valueOf(date);
