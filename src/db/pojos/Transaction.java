@@ -64,7 +64,7 @@ public class Transaction implements Serializable{
 		return product_id;
 	}
 	
-	public void setProduct_name(Integer product_id) {
+	public void setProduct_id(Integer product_id) {
 		this.product_id = product_id;
 	}
 	
