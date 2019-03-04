@@ -2,6 +2,9 @@ package UImenu;
 
 import java.io.*;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -120,6 +123,32 @@ public class UserInterface {
 						break;
 					}
 					case '6': {
+						System.out.println("\nSelect the atribute to list");
+						String selections= console.readLine();
+						List<Client> clients_list = manager.List_all_clients();
+						for (Client object : clients_list) {
+							if(selections.equals("name")) {
+							String atributes=object.getName();
+							System.out.println("\n"+atributes);
+						   }
+							if(selections.equals("telephone")) {
+								Integer atributes=object.getTelephone();
+								System.out.println("\n"+atributes);
+							   }
+							if(selections.equals("bank_account")) {
+								String atributes=object.getBank_account();
+								System.out.println("\n"+atributes);
+							   }
+							if(selections.equals("responsible")) {
+								String atributes=object.getResponsible();
+								System.out.println("\n"+atributes);
+							   }
+						}
+						break;
+						
+						
+					}
+					case '7': {
 						boolean close_ok = manager.Close_connection();
 						if (close_ok == true) {
 							System.out.println("\n\nProgram closed successfuly");
