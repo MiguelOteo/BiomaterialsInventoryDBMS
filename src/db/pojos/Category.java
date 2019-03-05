@@ -102,6 +102,14 @@ public class Category implements Serializable{
 	}
 	
 	
+	
+	@Override
+	public String toString() {
+		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
+				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + ", category_list="
+				+ categories_list + "]";
+	}
+
 	public void assignCategoryToClient(Transaction trans, Client client) {
 		
 		for (int i = 0; i < categories_list.size(); i++) {
