@@ -10,6 +10,7 @@ public class Client implements Serializable {
 	private Integer telephone;
 	private String bank_account;
 	private String responsible;
+	private String category;
 
 	public Client() {
 		super();
@@ -63,7 +64,15 @@ public class Client implements Serializable {
 	public void setResponsible(String responsible) {
 		this.responsible = responsible;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
 
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,9 +98,9 @@ public class Client implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return " Client ID = " + client_id + "\n Client name = " + name + "\n Telephone = " + telephone + "\n Bank account = "
-				+ bank_account + "\n Responsible = " + responsible;
-	}
+	
+
+	
+
+	
 }
