@@ -2,9 +2,6 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
-import java.util.*;
-
-import db.jdbc.SQLManager;
 
 public class Category extends UtilMethods implements Serializable{
 
@@ -14,7 +11,6 @@ public class Category extends UtilMethods implements Serializable{
 	private Integer penalization;
 	private Integer maximum;
 	private Integer minimum;
-	private List<Category> categories_list;
 	
 	public Category() {
 		super();
@@ -29,6 +25,14 @@ public class Category extends UtilMethods implements Serializable{
 		this.minimum = minimum;
 	}
 
+    public Integer getCategory_id() {
+    	return category_id;
+    }
+    
+    public void setCategory_id(Integer category_id) {
+    	this.category_id = category_id;
+    }
+	
 	public String getCategory_name() {
 		return category_name;
 	}
@@ -60,50 +64,13 @@ public class Category extends UtilMethods implements Serializable{
 	public void setMinimum(Integer minimum) {
 		this.minimum = minimum;
 	}
-	
-	// -----> CATEGORY LEVELS METHODS <-----
 
-	public List<Category> Categories_of_cients(){
-		categories_list = new LinkedList<Category>();
-		
-		categories_list.add(new Category("None", 0, 799, 0));
-		categories_list.add(new Category("Bronze 3", 80/4, 89, 80));
-		categories_list.add(new Category("Bronze 2", 90/4, 99, 90));
-		categories_list.add(new Category("Bronze 1", 100/4, 149, 100));
-		categories_list.add(new Category("Silver 2", 150/4, 279, 150));
-		categories_list.add(new Category("Silver 1", 280/4, 399, 280));
-		categories_list.add(new Category("Gold 2", 400/4, 449, 400));
-		categories_list.add(new Category("Gold 1", 450/4, 549, 450));
-		categories_list.add(new Category("Diamond 2", 820/4, 919, 820));
-		categories_list.add(new Category("Diamond 1", 920/4, 1000, 920));
-		categories_list.add(new Category("Platinum 2", 550/4, 649, 550));
-		categories_list.add(new Category("Platinum 1", 650/4, 819, 650));
-		return categories_list;
-	}
-	
-	public void assign_Category_To_Client(SQLManager manager, Client client) {
-		
-		int sum_points = Sum_all_client_points(manager, client) ;
-		
-		for(Category category : categories_list) {
-			
-			if(sum_points <= category.getMaximum() &&  sum_points >= category.getMinimum()) {
-				client.setCategory(category.getCategory_name());
-			}
-		}
-	}
-
-	// -----> PENALIZATION METHOD <-----
-
-	
-	
 	// -----> OVERRIDE METHODS <----- 
 	 
 	@Override
 	public String toString() {
 		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
-				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + ", category_list="
-				+ categories_list + "]";
+				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + "]";
 	}
 	
 	@Override

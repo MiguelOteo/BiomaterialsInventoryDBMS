@@ -401,6 +401,30 @@ public class SQLManager {
 			return null;
 		}
 	}
+	
+	// List all categories returning a linkedList with all of them
+	public List<Category> List_all_categories() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM category";
+			List<Category> categories_list = new LinkedList<Category>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while (result_set.next()) {
+                Category category = new Category();
+                category.setCategory_name(result_set.getString("category_name"));
+                category.setMaximum(result_set.getInt("max"));
+                category.setMinimum(result_set.getInt("min"));
+                category.setPenalization(result_set.getInt("penalization"));
+                category.setCategory_id(result_set.getInt("category_id"));
+				categories_list.add(category);
+			}
+			statement.close();
+			return categories_list;
+		} catch (SQLException list_categories_error) {
+			list_categories_error.printStackTrace();
+			return null;
+		}
+	}
 
 	// -----> DELETE METHODS <-----
 
