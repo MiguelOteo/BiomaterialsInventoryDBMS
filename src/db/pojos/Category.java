@@ -60,60 +60,27 @@ public class Category extends UtilMethods implements Serializable{
 	public void setMinimum(Integer minimum) {
 		this.minimum = minimum;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + category_id;
-		return result;
-	}
+	
+	// -----> CATEGORY LEVELS METHODS <-----
 
 	public List<Category> Categories_of_cients(){
 		categories_list = new LinkedList<Category>();
-
 		
-		Category cat_Diamond1 = new Category("Diamond 1", 920/4, 1000, 920);
-		Category cat_Diamond2 = new Category("Diamond 2", 820/4, 919, 820);
-		Category cat_Platinum1 = new Category("Platinum 1", 650/4, 819, 650);
-		Category cat_Platinum2 = new Category("Platinum 2", 550/4, 649, 550);
-		Category cat_Gold1 = new Category("Gold 1", 450/4, 549, 450);
-		Category cat_Gold2 = new Category("Gold 2", 400/4, 449, 400);
-		Category cat_Silver1 = new Category("Silver 1", 280/4, 399, 280);
-		Category cat_Silver2 = new Category("Silver 2", 150/4, 279, 150);
-		Category cat_Bronze1 = new Category("Bronze 1", 100/4, 149, 100);
-		Category cat_Bronze2 = new Category("Bronze 2", 90/4, 99, 90);
-		Category cat_Bronze3 = new Category("Bronze 3", 80/4, 89, 80);
-		Category none_cat = new Category("None", 0, 799, 0);
-		
-		categories_list.add(none_cat);
-		categories_list.add(cat_Bronze3);
-		categories_list.add(cat_Bronze2);
-		categories_list.add(cat_Bronze1);
-		categories_list.add(cat_Silver2);
-		categories_list.add(cat_Silver1);
-		categories_list.add(cat_Gold2);
-		categories_list.add(cat_Gold1);
-		categories_list.add(cat_Platinum2);
-		categories_list.add(cat_Platinum1);
-		categories_list.add(cat_Diamond2);
-		categories_list.add(cat_Diamond1);
-
+		categories_list.add(new Category("None", 0, 799, 0));
+		categories_list.add(new Category("Bronze 3", 80/4, 89, 80));
+		categories_list.add(new Category("Bronze 2", 90/4, 99, 90));
+		categories_list.add(new Category("Bronze 1", 100/4, 149, 100));
+		categories_list.add(new Category("Silver 2", 150/4, 279, 150));
+		categories_list.add(new Category("Silver 1", 280/4, 399, 280));
+		categories_list.add(new Category("Gold 2", 400/4, 449, 400));
+		categories_list.add(new Category("Gold 1", 450/4, 549, 450));
+		categories_list.add(new Category("Diamond 2", 820/4, 919, 820));
+		categories_list.add(new Category("Diamond 1", 920/4, 1000, 920));
+		categories_list.add(new Category("Platinum 2", 550/4, 649, 550));
+		categories_list.add(new Category("Platinum 1", 650/4, 819, 650));
 		return categories_list;
-		
 	}
 	
-	
-	
-	@Override
-	public String toString() {
-		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
-				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + ", category_list="
-				+ categories_list + "]";
-	}
-
-	
-
 	public void assign_Category_To_Client(SQLManager manager, Client client) {
 		
 		int sum_points = Sum_all_client_points(manager, client) ;
@@ -126,12 +93,27 @@ public class Category extends UtilMethods implements Serializable{
 		}
 	}
 
-	
-	/*----------------- Method penalization for client ---------------*/
-	
-	
-	
+	// -----> PENALIZATION METHOD <-----
 
+	
+	
+	// -----> OVERRIDE METHODS <----- 
+	 
+	@Override
+	public String toString() {
+		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
+				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + ", category_list="
+				+ categories_list + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + category_id;
+		return result;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
