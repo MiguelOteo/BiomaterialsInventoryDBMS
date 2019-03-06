@@ -1,8 +1,7 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Category implements Serializable{
 
@@ -71,17 +70,17 @@ public class Category implements Serializable{
 		categories_list = new LinkedList<Category>();
 
 		
-		Category cat_Diamond1 = new Category("Diamond 1", 2, 1000000, 900000);
-		Category cat_Diamond2 = new Category("Diamond 2", 1, 899999, 800000);
-		Category cat_Platinum1 = new Category("Platinum 1", 1, 799999, 600000);
-		Category cat_Platinum2 = new Category("Platinum 2", 1, 599999, 400000);
-		Category cat_Gold1 = new Category("Gold 1", 1, 399999, 300000);
-		Category cat_Gold2 = new Category("Gold 2", 1, 299999, 200000);
-		Category cat_Silver1 = new Category("Silver 1", 1, 199999, 150000);
-		Category cat_Silver2 = new Category("Silver 2", 1, 149999, 125000);
-		Category cat_Bronze1 = new Category("Bronze 1", 1, 124000, 100000);
-		Category cat_Bronze2 = new Category("Bronze 2", 1, 99999, 90000);
-		Category cat_Bronze3 = new Category("Bronze 3", 1, 89999, 80000);
+		Category cat_Diamond1 = new Category("Diamond 1", 100000, 1000000, 900000);
+		Category cat_Diamond2 = new Category("Diamond 2", 100000, 899999, 800000);
+		Category cat_Platinum1 = new Category("Platinum 1", 50000, 799999, 600000);
+		Category cat_Platinum2 = new Category("Platinum 2", 20000, 599999, 400000);
+		Category cat_Gold1 = new Category("Gold 1", 15000, 399999, 300000);
+		Category cat_Gold2 = new Category("Gold 2", 10000, 299999, 200000);
+		Category cat_Silver1 = new Category("Silver 1", 1000, 199999, 150000);
+		Category cat_Silver2 = new Category("Silver 2", 1000, 149999, 125000);
+		Category cat_Bronze1 = new Category("Bronze 1", 500, 124000, 100000);
+		Category cat_Bronze2 = new Category("Bronze 2", 250, 99999, 90000);
+		Category cat_Bronze3 = new Category("Bronze 3", 500, 89999, 80000);
 		Category none_cat = new Category("None", 0, 79999, 0);
 		
 		categories_list.add(none_cat);
@@ -110,23 +109,21 @@ public class Category implements Serializable{
 				+ categories_list + "]";
 	}
 
-	public void assignCategoryToClient(Transaction trans, Client client) {
+	
+
+	public void assignCategoryToClient(Client client) {
 		
-		for (int i = 0; i < categories_list.size(); i++) {
+		for(Category category : categories_list) {
 			
-			if (trans.getGain() <= categories_list.get(i).getMinimum() && trans.getGain() >= categories_list.get(i).getMaximum()) {
-				client.setCategory(categories_list.get(i).getCategory_name());
+			if(client.getPoints() <= category.getMaximum() &&  client.getPoints() >= category.getMinimum()) {
+				client.setCategory(category.getCategory_name());
 			}
 		}
-		
-	/*Set penalization for client 
-	public void checkPenalization(Transaction trans) {
-		
-		trans.getTransaction_date()
 	}
-		
-		*/
-	}
+
+	
+	/*-----------------Method penalization for client ---------------*/
+	
 	
 	@Override
 	public boolean equals(Object obj) {

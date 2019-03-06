@@ -11,6 +11,7 @@ public class Client implements Serializable {
 	private String bank_account;
 	private String responsible;
 	private String category;
+	private Integer points;
 
 	public Client() {
 		super();
@@ -98,6 +99,19 @@ public class Client implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [client_id=" + client_id + ", name=" + name + ", telephone=" + telephone + ", bank_account="
+				+ bank_account + ", responsible=" + responsible + ", category=" + category + ", points=" + points + "]";
+	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
 	
 
 	
