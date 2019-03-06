@@ -155,7 +155,8 @@ public class UserInterface {
 						break;
 					}
 					case '8': {
-						System.out.println();
+						System.out.println("\nInset new biomaterial");
+						
 					}
 					case '9': {
 						
