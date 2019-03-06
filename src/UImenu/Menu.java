@@ -6,27 +6,30 @@ import java.io.InputStreamReader;
 
 import java.io.*;
 import db.pojos.*;
-import java.sql.Date;
-import java.util.List;
+//import java.sql.Date;
+//import java.util.List;
 import db.jdbc.SQLManager;
-import db.pojos.Client;
-import db.pojos.Transaction;
+//import db.pojos.Client;
+//import db.pojos.Transaction;
 
 public class Menu {
 	
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-
-    		//Client client1 = new Client();
-    		//Benefits benefit1  = new Benefits();
-    		//Biomaterial biomaterial1 = new Biomaterial();
-    		//Category category1 = new Category();
-    		//Maintenance maintenance1 = new Maintenance();
-    		//Transaction transaction1 = new Transaction();
-    		
-    		//Do I need to stablish a connection here?//
-    		
+		SQLManager manager = new SQLManager();
+		boolean done = manager.Stablish_connection();
+		boolean tables_done = manager.Check_if_tables_exist();
+			
+			if(tables_done == true) {
+				System.out.print("\n The tables have been charged.");
+			} else {
+				System.out.print("\n ...Charging tables, wait a moment...");
+				done = manager.Create_tables();
+			}
+			
+			if (done==true) {
+				
 			System.out.println("\n ____________________________________________________\n");
             System.out.println("SELECT AN OPTION: \n"
                     + "1) View \n"
@@ -169,14 +172,19 @@ public class Menu {
 		             
 		      //Exit-close connection//
 	          /*case 5:
-	        	  boolean close_ok = manager.Close_connection();
-					if (close_ok == true) {
-						System.out.println("\n Program closed. ");
-					} else {
+	        	  boolean close_done = manager.Close_connection();
+					
+					if (close_done == true) {
+						System.out.println("\n Program closed. ");} 
+					else {
 						System.out.println("\n Closing the program has caused a problem. ");
 					}
 					System.exit(0);*/
-		                 
-        }
+	     		}
+	     
+			}else {
+				System.out.println("\n Failed to stablish aconection. ");
+				manager.Close_connection();
+			}
     }
 }
