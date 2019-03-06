@@ -404,6 +404,7 @@ public class SQLManager {
 
 	// -----> DELETE METHODS <-----
 
+	// Deletes a client from client table with the given client_id
 	public boolean Delete_stored_client(Integer client_id) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
@@ -419,6 +420,7 @@ public class SQLManager {
 		}
 	}
 	
+	// Deletes a transaction from transaction table with the given transaction_id
 	public boolean Delete_stored_transaction(Integer transaction_id) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
@@ -430,24 +432,6 @@ public class SQLManager {
 			return true;
 		} catch (SQLException delete_transaction_error) {
 			delete_transaction_error.printStackTrace();
-			return false;
-		}
-	}
-
-	// -----> DROP METHODS <-----
-
-	public boolean Drop_selected_table(String table_name) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DROP TABLE ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setString(1, table_name);
-			System.out.println(template);
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException drop_table_error) {
-			drop_table_error.printStackTrace();
 			return false;
 		}
 	}
