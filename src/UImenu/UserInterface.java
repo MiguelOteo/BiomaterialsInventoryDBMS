@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 import db.jdbc.SQLManager;
+import db.model.UtilMethods;
 import db.pojos.Client;
 import db.pojos.Transaction;
 
@@ -15,6 +16,7 @@ public class UserInterface {
 		try {
 			BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 			SQLManager manager = new SQLManager();
+			UtilMethods methods = new UtilMethods();
 			boolean everything_ok = manager.Stablish_connection();
 
 			boolean tables_exist = manager.Check_if_tables_exist();
@@ -153,6 +155,26 @@ public class UserInterface {
 						break;
 					}
 					case '8': {
+						System.out.println();
+					}
+					case '9': {
+						
+						System.out.println("\nGains of transactions");
+						System.out.print("\nClient ID: ");
+						int client_id = Integer.parseInt(console.readLine());
+						List<Client> clients_list = manager.List_all_clients();
+						Client selected_client = null;
+						for(Client client: clients_list) {
+							if(client.getClient_id() == client_id) {
+								selected_client = client;
+								break;
+							}
+						}
+						Integer gains = methods.Sum_all_client_points(manager, selected_client);
+						System.out.println("Gains:" + gains);
+						break;
+					}
+					default: {
 						boolean close_ok = manager.Close_connection();
 						if (close_ok == true) {
 							System.out.println("\n\nProgram closed successfuly");

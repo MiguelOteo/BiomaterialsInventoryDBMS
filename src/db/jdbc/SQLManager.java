@@ -87,7 +87,7 @@ public class SQLManager {
 					+ " maintenance_id INTEGER REFERENCES maintenance(maintenance_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_6.execute(table_6);
 			statement_6.close();
-			
+
 			Statement statement_7 = this.sqlite_connection.createStatement();
 			String table_7 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
 					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
@@ -230,7 +230,7 @@ public class SQLManager {
 		}
 	}
 
-	// Bank_transaction(client_id, gain, units, transaction_date, product_name)
+	// Bank_transaction(client_id, gain, units, transaction_date, product_id)
 	public boolean Insert_new_transaction(Transaction transaction) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();

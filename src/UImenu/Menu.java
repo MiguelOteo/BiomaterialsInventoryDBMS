@@ -4,13 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import java.io.*;
-import db.pojos.*;
-//import java.sql.Date;
-//import java.util.List;
 import db.jdbc.SQLManager;
-//import db.pojos.Client;
-//import db.pojos.Transaction;
 
 public class Menu {
 	
