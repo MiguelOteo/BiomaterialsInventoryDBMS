@@ -1,9 +1,12 @@
 package db.pojos;
 
+import db.model.UtilMethods;
 import java.io.Serializable;
 import java.util.*;
 
-public class Category implements Serializable{
+import db.jdbc.SQLManager;
+
+public class Category extends UtilMethods implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Integer category_id;
@@ -70,18 +73,18 @@ public class Category implements Serializable{
 		categories_list = new LinkedList<Category>();
 
 		
-		Category cat_Diamond1 = new Category("Diamond 1", 100000, 1000000, 900000);
-		Category cat_Diamond2 = new Category("Diamond 2", 100000, 899999, 800000);
-		Category cat_Platinum1 = new Category("Platinum 1", 50000, 799999, 600000);
-		Category cat_Platinum2 = new Category("Platinum 2", 20000, 599999, 400000);
-		Category cat_Gold1 = new Category("Gold 1", 15000, 399999, 300000);
-		Category cat_Gold2 = new Category("Gold 2", 10000, 299999, 200000);
-		Category cat_Silver1 = new Category("Silver 1", 1000, 199999, 150000);
-		Category cat_Silver2 = new Category("Silver 2", 1000, 149999, 125000);
-		Category cat_Bronze1 = new Category("Bronze 1", 500, 124000, 100000);
-		Category cat_Bronze2 = new Category("Bronze 2", 250, 99999, 90000);
-		Category cat_Bronze3 = new Category("Bronze 3", 500, 89999, 80000);
-		Category none_cat = new Category("None", 0, 79999, 0);
+		Category cat_Diamond1 = new Category("Diamond 1", 920/4, 1000, 920);
+		Category cat_Diamond2 = new Category("Diamond 2", 820/4, 919, 820);
+		Category cat_Platinum1 = new Category("Platinum 1", 650/4, 819, 650);
+		Category cat_Platinum2 = new Category("Platinum 2", 550/4, 649, 550);
+		Category cat_Gold1 = new Category("Gold 1", 450/4, 549, 450);
+		Category cat_Gold2 = new Category("Gold 2", 400/4, 449, 400);
+		Category cat_Silver1 = new Category("Silver 1", 280/4, 399, 280);
+		Category cat_Silver2 = new Category("Silver 2", 150/4, 279, 150);
+		Category cat_Bronze1 = new Category("Bronze 1", 100/4, 149, 100);
+		Category cat_Bronze2 = new Category("Bronze 2", 90/4, 99, 90);
+		Category cat_Bronze3 = new Category("Bronze 3", 80/4, 89, 80);
+		Category none_cat = new Category("None", 0, 799, 0);
 		
 		categories_list.add(none_cat);
 		categories_list.add(cat_Bronze3);
@@ -111,20 +114,24 @@ public class Category implements Serializable{
 
 	
 
-	public void assignCategoryToClient(Client client) {
+	public void assign_Category_To_Client(SQLManager manager, Client client) {
+		
+		int sum_points = Sum_all_client_points(manager, client) ;
 		
 		for(Category category : categories_list) {
 			
-			if(client.getPoints() <= category.getMaximum() &&  client.getPoints() >= category.getMinimum()) {
+			if(sum_points <= category.getMaximum() &&  sum_points >= category.getMinimum()) {
 				client.setCategory(category.getCategory_name());
 			}
 		}
 	}
 
 	
-	/*-----------------Method penalization for client ---------------*/
+	/*----------------- Method penalization for client ---------------*/
 	
 	
+	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
