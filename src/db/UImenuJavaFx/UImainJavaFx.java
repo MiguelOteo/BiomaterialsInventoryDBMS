@@ -1,9 +1,10 @@
+package db.UImenuJavaFx;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class KK extends Application {
-
+public class UImainJavaFx extends Application{
+	
 	@Override
 	public void start(Stage primaryStage) {
 
