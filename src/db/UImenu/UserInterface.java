@@ -1,4 +1,4 @@
-package UImenu;
+package db.UImenu;
 
 import java.io.*;
 import java.sql.Date;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import db.jdbc.SQLManager;
 import db.model.UtilMethods;
+import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Transaction;
 
@@ -36,19 +37,8 @@ public class UserInterface {
 					switch (selection) {
 					case '1': {
 						System.out.println("Inset client option\n\n");
-
-						System.out.print("\nName of client: ");
-						String name = console.readLine();
-						System.out.print("\nName of responsible: ");
-						String responsible = console.readLine();
-						System.out.print("\nTelephone: ");
-						Integer telephone = Integer.parseInt(console.readLine());
-						System.out.print("\nBank account: ");
-						String bank_account = console.readLine();
-
-						Client client = new Client(name, telephone, bank_account, responsible);
+						Client client = Read_client_console(console);
 						boolean insert_ok = manager.Inset_new_client(client);
-
 						if (insert_ok == true) {
 							System.out.println("\nInsertion done");
 						} else {
@@ -57,32 +47,21 @@ public class UserInterface {
 						break;
 					}
 					case '2': {
-						System.out.print("Search clients option\n\n");
-
-						System.out.print("\nSelect the client you wanna search: ");
+						System.out.print("Search clients option\n\n\nSelect the client you wanna search: ");
 						String client_name = console.readLine();
+						Search_clients_console(manager, client_name);
 						System.out.print("\n");
-						List<Client> clients_list = manager.Search_stored_clients(client_name);
-						for (Client object : clients_list) {
-							System.out.print(object + "\n\n");
-						}
+
 						break;
 					}
 					case '3': {
 						System.out.print("List clients option\n\n");
-
-						List<Client> clients_list = manager.List_all_clients();
-						for (Client object : clients_list) {
-							System.out.print(object + "\n\n");
-						}
+                        List_clients_console(manager);
 						break;
 					}
 					case '4':{
 						System.out.print("List transactions option\n\n");
-						List<Transaction> transaction_list =manager.List_all_transactions();
-						for (Transaction object: transaction_list) {
-							System.out.print(object+"\n\n");
-						}
+                        List_transactions_console(manager);
 				        break;
 					}
 					case '5': {
@@ -101,26 +80,8 @@ public class UserInterface {
 					}
 					case '6': {
 						System.out.print("Insert transaction option\n\n");
-						List<Client> clients_list = manager.List_all_clients();
-						for (Client object : clients_list) {
-							System.out.print(object + "\n\n");
-						}
-						
-						System.out.print("\nSelect one client base on his Client ID: ");
-						Integer client_id = Integer.parseInt(console.readLine());
-						System.out.print("\nTransaction Nº: ");
-						Integer transaction_id = Integer.parseInt(console.readLine());
-						System.out.print("\nTransaction gain: ");
-						Float gain = Float.parseFloat(console.readLine());
-						System.out.print("\nUnits: ");
-						Integer units = Integer.parseInt(console.readLine());
-						System.out.print("\nProduct id: ");
-						Integer product_id = Integer.parseInt(console.readLine()); 
-						System.out.print("\nExpiration Date (yyyy-mm-dd): ");
-						String date = console.readLine();
-						Date transaction_date = Date.valueOf(date);
-						
-						Transaction transaction = new Transaction(transaction_id, gain, client_id, units, product_id, transaction_date);
+                        List_clients_console(manager);
+						Transaction transaction = Read_transaction_console(console);
 						boolean insert_ok = manager.Insert_new_transaction(transaction);
 						if (insert_ok == true) {
 							System.out.println("\nInsertion done");
@@ -195,4 +156,77 @@ public class UserInterface {
 			System.exit(0);
 		}
 	}
+	
+	// -----> READ FROM CONSOLE METHODS <-----
+
+    public static Client Read_client_console(BufferedReader console) throws IOException {
+		System.out.print("\nName of client: ");
+		String name = console.readLine();
+		System.out.print("\nName of responsible: ");
+		String responsible = console.readLine();
+		System.out.print("\nTelephone: ");
+		Integer telephone = Integer.parseInt(console.readLine());
+		System.out.print("\nBank account: ");
+		String bank_account = console.readLine();
+		Client client = new Client(name, telephone, bank_account, responsible);
+		return client;
+    }
+    
+    public static Transaction Read_transaction_console(BufferedReader console) throws IOException {
+		System.out.print("\nSelect one client base on his Client ID: ");
+		Integer client_id = Integer.parseInt(console.readLine());
+		System.out.print("\nTransaction Nº: ");
+		Integer transaction_id = Integer.parseInt(console.readLine());
+		System.out.print("\nTransaction gain: ");
+		Float gain = Float.parseFloat(console.readLine());
+		System.out.print("\nUnits: ");
+		Integer units = Integer.parseInt(console.readLine());
+		System.out.print("\nProduct id: ");
+		Integer product_id = Integer.parseInt(console.readLine()); 
+		System.out.print("\nExpiration Date (yyyy-mm-dd): ");
+		String date = console.readLine();
+		Date transaction_date = Date.valueOf(date);
+		Transaction transaction = new Transaction(transaction_id, gain, client_id, units, product_id, transaction_date);
+		return transaction;
+    }
+    
+    // -----> LIST ON COSOLE METHODS <-----
+    
+    public static void List_transactions_console(SQLManager manager) {
+		List<Transaction> transaction_list =manager.List_all_transactions();
+		for (Transaction transaction: transaction_list) {
+			System.out.print(transaction + "\n\n");
+		}
+    }
+    
+    public static void List_clients_console(SQLManager manager) {
+		List<Client> clients_list = manager.List_all_clients();
+		for (Client client : clients_list) {
+			System.out.print(client + "\n\n");
+		}
+    }
+    
+    public static void List_categories_console(SQLManager manager) {
+    	List<Category> categories_list = manager.List_all_categories();
+    	for(Category category: categories_list) {
+    		System.out.print(category + "\n\n");
+    	}
+    }
+    
+    // -----> SEARCH ON CONSOLE METHODS <-----
+    
+    public static void Search_clients_console(SQLManager manager, String client_name) {
+		List<Client> clients_list = manager.Search_stored_clients(client_name);
+		for (Client object : clients_list) {
+			System.out.print(object + "\n\n");
+		}
+    }
 }
+
+
+
+
+
+
+
+

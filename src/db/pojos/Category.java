@@ -1,10 +1,7 @@
 package db.pojos;
 
-import db.jdbc.SQLManager;
 import db.model.UtilMethods;
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Category extends UtilMethods implements Serializable{
 
@@ -14,7 +11,6 @@ public class Category extends UtilMethods implements Serializable{
 	private float penalization;
 	private Integer maximum;
 	private Integer minimum;
-	private List<Category> categories_list;
 	
 	public Category() {
 		super();
@@ -99,20 +95,6 @@ public class Category extends UtilMethods implements Serializable{
 		return true;
 	}
 	
-	
-public void assign_Category_To_Client(SQLManager manager, Client client) {
-		
-		int sum_points = Sum_all_client_points(manager, client) ;
-		
-		for(Category category : categories_list) {
-			
-			if(sum_points <= category.getMaximum() &&  sum_points >= category.getMinimum()) {
-				client.setCategory(category.getCategory_name());
-			}
-		}
-	}
-
-	
 	/*----------------- Method penalization for client ---------------
 	
 	public void check_Date(Transaction transaction) {
@@ -129,41 +111,4 @@ public void assign_Category_To_Client(SQLManager manager, Client client) {
 		}
 	}
 	*/
-	
-	
-public List<Category> Categories_of_client(){
-	categories_list = new LinkedList<Category>();
-	
-	Category Diamond1 = new Category("Diamond 1", 920/4, 1000, 920);
-	Category Diamond2 = new Category("Diamond 2", 820/4, 919, 820);
-	Category Platinum1 = new Category("Platinum 1", 650/4, 819, 650);
-	Category Platinum2 = new Category("Platinum 2", 550/4, 649, 550);
-	Category Gold1 = new Category("Gold 1", 450/4, 549, 450);
-	Category Gold2 = new Category("Gold 2", 400/4, 449, 400);
-	Category Silver1 = new Category("Silver 1", 280/4, 399, 280);
-	Category Silver2 = new Category("Silver 2", 150/4, 279, 150);
-	Category Bronze1 = new Category("Bronze 1", 100/4, 149, 100);
-	Category Bronze2 = new Category("Bronze 2", 90/4, 99, 90);
-	Category Bronze3 = new Category("Bronze 3", 80/4, 89,80);
-	Category None = new Category("None", 0, 79, 0);
-
-	categories_list.add(None);
-	categories_list.add(Diamond1);
-	categories_list.add(Diamond2);
-	categories_list.add(Platinum1);
-	categories_list.add(Platinum2);
-	categories_list.add(Gold1);
-	categories_list.add(Gold2);
-	categories_list.add(Silver1);
-	categories_list.add(Silver2);
-	categories_list.add(Bronze1);
-	categories_list.add(Bronze2);
-	categories_list.add(Bronze3);
-
-
-	return categories_list;
-
-}
-	
-	
 }

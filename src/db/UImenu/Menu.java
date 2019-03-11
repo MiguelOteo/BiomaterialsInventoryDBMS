@@ -1,4 +1,4 @@
-package UImenu;
+package db.UImenu;
 
 import java.io.BufferedReader;
 import java.io.IOException;

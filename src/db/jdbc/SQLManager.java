@@ -295,6 +295,30 @@ public class SQLManager {
 			return false;
 		}
 	}
+	
+	// -----> SPECIAL UPDATE AND DELETE METHOD FOR BIOMATERIALS <-----
+	
+	// Updates the information of a Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) 
+	// and deletes it if the amount of it is 0
+	public boolean Update_baiomaterial_amount(Integer biomaterial_id, Integer substract) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code_update = "UPDATE biomaterial SET avaliable_units = available_units - ? WHERE biomaterial_id = ?";
+			PreparedStatement template_1 = this.sqlite_connection.prepareStatement(SQL_code_update);
+			template_1.setInt(1, substract);
+			template_1.setInt(2, biomaterial_id);
+			template_1.executeUpdate();
+			String SQL_code_delete = "DELETE FROM biomaterial WHERE biomaterial_id = ?, available_units <= 0";
+		    PreparedStatement template_2 = this.sqlite_connection.prepareStatement(SQL_code_delete);
+		    template_2.setInt(1, biomaterial_id);
+		    template_2.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException update_biomaterial_amount_error) {
+			update_biomaterial_amount_error.printStackTrace();
+			return false;
+		}
+	}
 
 	// -----> SEARCH METHODS <-----
 
@@ -425,6 +449,31 @@ public class SQLManager {
 			return null;
 		}
 	}
+	
+	// List all biomaterials returning a linkedList with all of them
+	public List<Biomaterial> List_all_biomaterials() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM biomaterial";
+			List<Biomaterial> biomaterials_list = new LinkedList<Biomaterial>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while (result_set.next()) {
+				Biomaterial biomaterial = new Biomaterial();
+				biomaterial.setName_product(result_set.getString("product_name"));
+				biomaterial.setAvailable_units(result_set.getInt("avaliable_units"));
+				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
+				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+				biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
+				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+				biomaterial.setUtility_id(result_set.getInt("utility_id"));
+			}
+			statement.close();
+			return biomaterials_list;
+		} catch (SQLException list_biomeatrials_error) {
+			list_biomeatrials_error.printStackTrace();
+			return null;
+		}
+	}
 
 	// -----> DELETE METHODS <-----
 
@@ -456,6 +505,21 @@ public class SQLManager {
 			return true;
 		} catch (SQLException delete_transaction_error) {
 			delete_transaction_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Delete_stored_biomaterial(Integer biomaterial_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE FROM biomaterial WHERE biomaterial_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomaterial_id);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException delete_biomaterial_error) {
+			delete_biomaterial_error.printStackTrace();
 			return false;
 		}
 	}
