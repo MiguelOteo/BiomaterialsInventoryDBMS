@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -34,5 +37,45 @@
                </font>
             </Label>
          </children></VBox>
+      <Label layoutX="497.0" layoutY="73.0" text="Welcome back user,">
+         <font>
+            <Font name="Impact" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="497.0" layoutY="107.0" text="log in to continue:" textFill="#000000b7">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="527.0" layoutY="517.0" text="New user?" textFill="#000000b0">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="410.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logoNegro.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="595.0" layoutY="512.0" text="Sign in" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="477.0" layoutY="311.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton layoutX="489.0" layoutY="389.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Log in">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="475.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXTextField>
    </children>
 </AnchorPane>
