@@ -14,7 +14,7 @@
          <children>
             <ImageView fitHeight="156.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
-                  <Image url="@2017-DLD_009_grande.png" />
+                  <Image url="@logo.png" />
                </image>
             </ImageView>
             <Label text="Welcome To" textFill="WHITE">
