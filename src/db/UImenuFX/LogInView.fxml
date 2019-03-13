@@ -8,12 +8,57 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="startUpMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.LogInController">
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="blue_color">
+      <Pane fx:id="logInPane" layoutX="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="102.0" layoutY="63.0" text="Welcome back user,">
+               <font>
+                  <Font name="Impact" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="100.0" layoutY="96.0" text="log in to continue:" textFill="#0000004e">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="501.0" text="New user?" textFill="#000000b0">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="14.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logoNegro.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="207.0" layoutY="496.0" onMouseClicked="#open_registration" text="Signup" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="255.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="173.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </Pane>
+      <VBox fx:id="blueLogo" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="blue_color">
          <children>
             <ImageView fitHeight="156.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
@@ -37,45 +82,5 @@
                </font>
             </Label>
          </children></VBox>
-      <Label layoutX="497.0" layoutY="73.0" text="Welcome back user,">
-         <font>
-            <Font name="Impact" size="26.0" />
-         </font>
-      </Label>
-      <Label layoutX="497.0" layoutY="107.0" text="log in to continue:" textFill="#000000b7">
-         <font>
-            <Font name="Ebrima Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="527.0" layoutY="517.0" text="New user?" textFill="#000000b0">
-         <font>
-            <Font name="Ebrima Bold" size="14.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="410.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@logoNegro.png" />
-         </image>
-      </ImageView>
-      <JFXButton layoutX="595.0" layoutY="512.0" text="Sign in" textFill="#4f90a5">
-         <font>
-            <Font name="Ebrima Bold" size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="477.0" layoutY="311.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
-         <font>
-            <Font name="Ebrima Bold" size="14.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXButton layoutX="489.0" layoutY="389.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Log in">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="475.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
-         <font>
-            <Font name="Ebrima Bold" size="14.0" />
-         </font>
-      </JFXTextField>
    </children>
 </AnchorPane>
