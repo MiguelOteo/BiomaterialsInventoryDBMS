@@ -48,10 +48,15 @@
             <Font name="Ebrima Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="173.0" layoutY="553.0" stylesheets="@stylesheet.css" text="Go back" textFill="#4f90a5">
+      <JFXButton layoutX="173.0" layoutY="553.0" onMouseClicked="#back_to_menu" stylesheets="@stylesheet.css" text="Go back" textFill="#4f90a5">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </JFXButton>
+      <ImageView fitHeight="18.0" fitWidth="25.0" layoutX="368.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@exitCross.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

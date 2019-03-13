@@ -7,15 +7,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LaunchApplication extends Application{
 	
-	@Override
+	public static Stage stage = null;
+	
+	@Override @SuppressWarnings("static-access")
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
 			primaryStage.setTitle("Log in page");
-			primaryStage.setScene(new Scene(root, 800, 600));
+			Scene scene = new Scene(root);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.setScene(scene);
+			this.stage = primaryStage;
 			primaryStage.show();
 		} catch (IOException fatal_error) {
 			fatal_error.printStackTrace();
