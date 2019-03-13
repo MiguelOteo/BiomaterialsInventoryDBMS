@@ -57,13 +57,13 @@ public class SQLManager {
 			Statement statement_3 = this.sqlite_connection.createStatement();
 			String table_3 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " responsible TEXT, " + " name TEXT NOT NULL, " + " bank_account TEXT NOT NULL UNIQUE, "
-					+ " telephone INTEGER NOT NULL UNIQUE)";
+					+ " telephone INTEGER NOT NULL UNIQUE" + " points INTEGER NOT NULL default 0)";
 			statement_3.execute(table_3);
 			statement_3.close();
 
 			Statement statement_4 = this.sqlite_connection.createStatement();
 			String table_4 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " heat_cold TEXT default NULL, " + " flexibility TEXT default 'no', "
+					+ " heat_cold INTEGER default NULL, " + " flexibility TEXT default 'no', "
 					+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
 					+ " strength REAL NOT NULL)";
 			statement_4.execute(table_4);
