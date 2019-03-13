@@ -20,6 +20,7 @@ public class RegistrationController {
 	
 	private String user_name;
 	private String password;
+	private String repeat_password;
 	
 	// -----> FXML ATRIBUTES <-----
 	
