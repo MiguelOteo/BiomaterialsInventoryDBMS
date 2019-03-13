@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -31,16 +32,16 @@
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="Password">
+      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="Password">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="314.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password">
+      </JFXPasswordField>
+      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="314.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
-      </JFXTextField>
+      </JFXPasswordField>
       <JFXComboBox fx:id="user_type" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="387.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" visibleRowCount="3" />
       <JFXButton buttonType="RAISED" layoutX="96.0" layoutY="468.0" prefHeight="60.0" prefWidth="240.0" styleClass="blue_color" stylesheets="@stylesheet.css" text="Create accout">
          <font>
