@@ -35,7 +35,7 @@ public class ChargingScreenController implements Initializable {
 		   List<Client> clients_list = manager.getValue().List_all_clients();
 	    } else {
 	    	if(this.user_type.get().equals("Client")) {
-	    		System.out.println("Its a client!!");
+	    		System.out.println("Its a client!!");   
 	    	} else {
 	    		if(this.user_type.get().equals("Director")) {
 	    			System.out.println("Its a director!!");

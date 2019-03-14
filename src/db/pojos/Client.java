@@ -6,6 +6,7 @@ public class Client implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Integer client_id;
+	private String password;
 	private String name;
 	private Integer telephone;
 	private String bank_account;
@@ -18,6 +19,11 @@ public class Client implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Client(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
+	
 	public Client(String name, Integer telephone, String bank_account, String responsible) {
 		super();
 		this.name = name;
@@ -32,6 +38,14 @@ public class Client implements Serializable {
 
 	public void setClient_id(Integer id) {
 		this.client_id = id;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getName() {
@@ -74,6 +88,14 @@ public class Client implements Serializable {
 		this.category = category;
 	}
 	
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,18 +125,5 @@ public class Client implements Serializable {
 	public String toString() {
 		return "Client [client_id=" + client_id + ", name=" + name + ", telephone=" + telephone + ", bank_account="
 				+ bank_account + ", responsible=" + responsible + ", category=" + category + ", points=" + points + "]";
-	}
-
-	public Integer getPoints() {
-		return points;
-	}
-
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-	
-
-	
-
-	
+	}	
 }
