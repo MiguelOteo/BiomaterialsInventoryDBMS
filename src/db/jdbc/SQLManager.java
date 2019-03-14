@@ -56,8 +56,8 @@ public class SQLManager {
 
 			Statement statement_3 = this.sqlite_connection.createStatement();
 			String table_3 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " responsible TEXT, " + " name TEXT NOT NULL, " + " bank_account TEXT NOT NULL UNIQUE, "
-					+ " telephone INTEGER NOT NULL UNIQUE" + " points INTEGER NOT NULL default 0)";
+					+ " responsible TEXT, " + " password TEXT NOT NULL, " + " name TEXT NOT NULL," + " bank_account TEXT UNIQUE, "
+					+ " telephone INTEGER UNIQUE, " + " points INTEGER NOT NULL default 0)";
 			statement_3.execute(table_3);
 			statement_3.close();
 
@@ -96,6 +96,16 @@ public class SQLManager {
 					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_7.execute(table_7);
 			statement_7.close();
+			
+			Statement statement_8 = this.sqlite_connection.createStatement();
+			String table_8 = "CREATE TABLE director " + "(name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+			statement_8.execute(table_8);
+		    statement_8.close();
+		    
+		    Statement statement_9 = this.sqlite_connection.createStatement();
+		    String table_9 = "CREATE TABLE worker " + "(name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+		    statement_9.execute(table_9);
+		    statement_9.close();
 			
 			return true;
 		} catch (SQLException tables_error) {
@@ -166,12 +176,29 @@ public class SQLManager {
 			return false;
 		}
 	}
+	
+	// New_Client(name, password)
+    public boolean Insert_new_client_account(String name, String password) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String table = "INSERT INTO client (name, password) " + "VALUES (?,?);";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, name);
+			template.setString(2, password);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException new_client_account_error) {
+			new_client_account_error.printStackTrace();
+			return false;
+		}
+    }
 
 	// Client(responsible, name, bank_account, telephone)
 	public boolean Inset_new_client(Client client) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO client (responsible, name, bank_account, telephone) " + "VALUES (?,?,?,?);";
+			String table = "INSERT INTO client (responsible, name, password, bank_account, telephone) " + "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
@@ -182,6 +209,40 @@ public class SQLManager {
 			return true;
 		} catch (SQLException new_client_error) {
 			new_client_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	// Director(name, password) 
+	public boolean Insert_new_director(String name, String password) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String table = "INSERT INTO director (name, password) " + "VALUES (?,?)";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, name);
+			template.setString(2, password);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch(SQLException new_director_error) {
+			new_director_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	// Worker(name, password)
+	public boolean Insert_new_worker(String name, String password) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String table = "INSERT INTO worker (name, password) " + "VALUES (?,?)";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, name);
+			template.setString(2, password);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch(SQLException new_worker_error) {
+			new_worker_error.printStackTrace();
 			return false;
 		}
 	}
@@ -338,6 +399,7 @@ public class SQLManager {
 				client.setResponsible(result_set.getString("responsible"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
+				client.setPassword(result_set.getString("password"));
 				clients_list.add(client);
 			}
 			statement.close();
@@ -391,6 +453,7 @@ public class SQLManager {
 				client.setResponsible(result_set.getString("responsible"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
+				client.setPassword(result_set.getString("password"));
 				clients_list.add(client);
 			}
 			statement.close();

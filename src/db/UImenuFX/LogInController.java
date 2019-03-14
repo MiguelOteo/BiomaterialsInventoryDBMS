@@ -39,11 +39,12 @@ public class LogInController implements Initializable {
     // -----> ESSENTIAL METHODS <-----
 
 	public LogInController() {
-
+		// Default contructor
 	}
 	
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-       // TODO - if its needed		
+       // TODO - if needed		
 	}
 
 	// -----> BUTTOM METHODS <-----
@@ -64,7 +65,6 @@ public class LogInController implements Initializable {
     private void log_in (MouseEvent event) throws IOException {
     	String user_name = userNameField.getText();
     	String password = passwordField.getText();
-
     	// Code to open charging window
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
     	Parent root = (Parent) loader.load();
