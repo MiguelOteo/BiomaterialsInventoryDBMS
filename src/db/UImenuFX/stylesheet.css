@@ -5,3 +5,11 @@
 .blue_color {
 	-fx-background-color: #4f90a5;
 }
+
+.charging_screen_color {
+	-fx-background-color: #3e7384;
+}
+
+.charging_screen_bg_color {
+	-fx-background-color: #f2f2f2;
+}

@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 
 public class LaunchApplication extends Application{
 	
-	public static Stage stage = null;
+	public static Stage stage;
 	
 	@Override @SuppressWarnings("static-access")
 	public void start(Stage primaryStage) {

@@ -36,22 +36,22 @@
                   <Image url="@logoNegro.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="207.0" layoutY="496.0" onMouseClicked="#open_registration" text="Signup" textFill="#4f90a5">
+            <JFXButton fx:id="signUpButtom" layoutX="207.0" layoutY="496.0" onMouseClicked="#open_registration" text="Signup" textFill="#4f90a5">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="255.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
+            <JFXPasswordField fx:id="passwordField" focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="255.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
+            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" onMouseClicked="#log_in" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
-            <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="173.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
+            <JFXTextField fx:id="userNameField" focusColor="#4f90a5" labelFloat="true" layoutX="87.0" layoutY="173.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

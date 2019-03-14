@@ -27,28 +27,28 @@
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </Label>
-      <JFXTextField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="158.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
+      <JFXTextField fx:id="userNameField" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="158.0" prefHeight="45.0" prefWidth="240.0" promptText="User name">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="Password">
+      <JFXPasswordField fx:id="passwordField" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="238.0" prefHeight="45.0" prefWidth="240.0" promptText="Password">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </JFXPasswordField>
-      <JFXPasswordField focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="314.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password">
+      <JFXPasswordField fx:id="repeatPasswordField" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="314.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </JFXPasswordField>
       <JFXComboBox fx:id="user_type" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="387.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" visibleRowCount="3" />
-      <JFXButton buttonType="RAISED" layoutX="96.0" layoutY="468.0" prefHeight="60.0" prefWidth="240.0" styleClass="blue_color" stylesheets="@stylesheet.css" text="Create accout">
+      <JFXButton fx:id="createAccountButtom" buttonType="RAISED" layoutX="96.0" layoutY="468.0" onMouseClicked="#create_account" prefHeight="60.0" prefWidth="240.0" styleClass="blue_color" stylesheets="@stylesheet.css" text="Create accout">
          <font>
             <Font name="Ebrima Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="173.0" layoutY="553.0" onMouseClicked="#back_to_menu" stylesheets="@stylesheet.css" text="Go back" textFill="#4f90a5">
+      <JFXButton fx:id="goBackButtom" layoutX="173.0" layoutY="553.0" onMouseClicked="#back_to_menu" stylesheets="@stylesheet.css" text="Go back" textFill="#4f90a5">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
