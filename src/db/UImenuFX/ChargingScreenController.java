@@ -107,32 +107,35 @@ public class ChargingScreenController implements Initializable {
 						System.out.println("El trabajador ya existe");
 					}
 				} else {
-					if (this.user_type.get().equals("Client")) {
-						boolean insertion_ok = manager.getValue().Insert_new_client_account(this.user_name.get(),
-								this.password.get());
-						// TODO - charge client menu
-						// TODO - close windows
-						System.out.println("Creando cliente");
+					if (this.user_type.get() == null) {
+						// TODO - close charging window
+                        System.out.println("No existe ese usuario");
 					} else {
-						if (this.user_type.get().equals("Director")) {
-							boolean insertion_ok = manager.getValue().Insert_new_director(this.user_name.get(),
-									this.password.get());
-							// TODO - charge director menu
+						if (this.user_type.get().equals("Client")) {
+							boolean insertion_ok = manager.getValue().Insert_new_client_account(this.user_name.get(), this.password.get());
+							// TODO - charge client menu
 							// TODO - close windows
-							System.out.println("Creando director");
+							System.out.println("Creando cliente");
 						} else {
-							if (this.user_type.get().equals("Worker")) {
-								boolean insertion_ok = manager.getValue().Insert_new_worker(this.user_name.get(),
-										this.password.get());
-								// TODO - charge worker menu
+							if (this.user_type.get().equals("Director")) {
+								boolean insertion_ok = manager.getValue().Insert_new_director(this.user_name.get(), this.password.get());
+								// TODO - charge director menu
 								// TODO - close windows
-								System.out.println("Creando trabajador");
+								System.out.println("Creando director");
+							} else {
+								if (this.user_type.get().equals("Worker")) {
+									boolean insertion_ok = manager.getValue().Insert_new_worker(this.user_name.get(), this.password.get());
+									// TODO - charge worker menu
+									// TODO - close windows
+									System.out.println("Creando trabajador");
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+		manager.getValue().Close_connection();
 	}
 
 	@Override
