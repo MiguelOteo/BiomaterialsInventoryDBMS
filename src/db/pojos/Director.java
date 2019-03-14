@@ -1,0 +1,63 @@
+package db.pojos;
+
+public class Director {
+
+	private Integer director_id;
+	private String director_name;
+	private String password;
+	
+	public Director() {
+		super();
+	}
+
+	public Director(Integer director_id, String director_name, String password) {
+		super();
+		this.director_id = director_id;
+		this.director_name = director_name;
+		this.password = password;
+	}
+	
+	public Integer getDirector_id() {
+		return director_id;
+	}
+	public void setDirector_id(Integer director_id) {
+		this.director_id = director_id;
+	}
+	public String getDirector_name() {
+		return director_name;
+	}
+	public void setDirector_name(String director_name) {
+		this.director_name = director_name;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((director_id == null) ? 0 : director_id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Director other = (Director) obj;
+		if (director_id == null) {
+			if (other.director_id != null)
+				return false;
+		} else if (!director_id.equals(other.director_id))
+			return false;
+		return true;
+	}
+}

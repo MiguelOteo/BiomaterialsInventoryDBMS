@@ -8,9 +8,11 @@ import db.pojos.Benefits;
 import db.pojos.Biomaterial;
 import db.pojos.Category;
 import db.pojos.Client;
+import db.pojos.Director;
 import db.pojos.Maintenance;
 import db.pojos.Transaction;
 import db.pojos.Utility;
+import db.pojos.Worker;
 
 public class SQLManager {
 
@@ -98,12 +100,12 @@ public class SQLManager {
 			statement_7.close();
 			
 			Statement statement_8 = this.sqlite_connection.createStatement();
-			String table_8 = "CREATE TABLE director " + "(name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+			String table_8 = "CREATE TABLE director " + "(director_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " + " password TEXT NOT NULL);";
 			statement_8.execute(table_8);
 		    statement_8.close();
 		    
 		    Statement statement_9 = this.sqlite_connection.createStatement();
-		    String table_9 = "CREATE TABLE worker " + "(name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+		    String table_9 = "CREATE TABLE worker " + "(worker_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " + " password TEXT NOT NULL);";
 		    statement_9.execute(table_9);
 		    statement_9.close();
 			
@@ -529,11 +531,56 @@ public class SQLManager {
 				biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
 				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
 				biomaterial.setUtility_id(result_set.getInt("utility_id"));
+				biomaterials_list.add(biomaterial);
 			}
 			statement.close();
 			return biomaterials_list;
 		} catch (SQLException list_biomeatrials_error) {
 			list_biomeatrials_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	// List all directors returning a linkedList with all of them
+	public List<Director> List_all_directors() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM director";
+			List<Director> directors_list = new LinkedList<Director>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while (result_set.next()) {
+				Director director = new Director();
+				director.setDirector_id(result_set.getInt("director_id"));
+				director.setDirector_name(result_set.getString("name"));
+				director.setPassword(result_set.getString("password"));
+			    directors_list.add(director);
+			}
+			statement.close();
+			return directors_list;
+		} catch (SQLException list_directors_error) {
+			list_directors_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	// List all workers returning a linkedList with all of them
+	public List<Worker> List_all_workers() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM worker";
+			List<Worker> workers_list = new LinkedList<Worker>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while (result_set.next()) {
+				Worker worker = new Worker();
+				worker.setWorker_id(result_set.getInt("worker_id"));
+				worker.setWorker_name(result_set.getString("name"));
+				worker.setPassword(result_set.getString("password"));
+			    workers_list.add(worker);
+			}
+			statement.close();
+			return workers_list;
+		} catch (SQLException list_workers_error) {
+			list_workers_error.printStackTrace();
 			return null;
 		}
 	}

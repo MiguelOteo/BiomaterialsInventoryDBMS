@@ -33,7 +33,7 @@
             </Label>
             <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="14.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@logoNegro.png" />
+                  <Image url="@src.IconPictures/logoNegro.png" />
                </image>
             </ImageView>
             <JFXButton fx:id="signUpButtom" layoutX="207.0" layoutY="496.0" onMouseClicked="#open_registration" text="Signup" textFill="#4f90a5">
@@ -58,7 +58,7 @@
             </JFXTextField>
             <ImageView fitHeight="18.0" fitWidth="24.0" layoutX="368.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@exitCross.png" />
+                  <Image url="@src.IconPictures/exitCross.png" />
                </image>
             </ImageView>
          </children>
@@ -67,7 +67,7 @@
          <children>
             <ImageView fitHeight="156.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
-                  <Image url="@logo.png" />
+                  <Image url="@src.IconPictures/logo.png" />
                </image>
             </ImageView>
             <Label text="Welcome To" textFill="WHITE">

@@ -19,7 +19,7 @@
       </Label>
       <ImageView fitHeight="77.0" fitWidth="89.0" layoutX="26.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logoNegro.png" />
+            <Image url="@src.IconPictures/logoNegro.png" />
          </image>
       </ImageView>
       <Label layoutX="115.0" layoutY="104.0" text="Fill the form for registration:" textFill="#0000004b">
@@ -55,7 +55,7 @@
       </JFXButton>
       <ImageView fitHeight="18.0" fitWidth="25.0" layoutX="368.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@exitCross.png" />
+            <Image url="@src.IconPictures/exitCross.png" />
          </image>
       </ImageView>
    </children>
