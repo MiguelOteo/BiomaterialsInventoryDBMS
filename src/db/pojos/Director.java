@@ -10,9 +10,8 @@ public class Director {
 		super();
 	}
 
-	public Director(Integer director_id, String director_name, String password) {
+	public Director( String director_name, String password) {
 		super();
-		this.director_id = director_id;
 		this.director_name = director_name;
 		this.password = password;
 	}

@@ -13,3 +13,7 @@
 .charging_screen_bg_color {
 	-fx-background-color: #f2f2f2;
 }
+
+.client_menu_bar_color {
+	-fx-background-color: #dddddd;
+}

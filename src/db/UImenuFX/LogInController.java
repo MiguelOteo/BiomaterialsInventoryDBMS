@@ -74,5 +74,7 @@ public class LogInController implements Initializable {
     	stage.initStyle(StageStyle.UNDECORATED);
     	stage.setScene(new Scene(root));
     	stage.show();
+       	passwordField.clear();
+		userNameField.clear();
     } 
 }

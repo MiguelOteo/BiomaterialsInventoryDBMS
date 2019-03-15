@@ -6,7 +6,8 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
-import db.pojos.Client;
+import db.pojos.Director;
+import db.pojos.Worker;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -16,11 +17,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class ClientMenuController implements Initializable {
+public class WorkerMenuController implements Initializable {
+	
+    // -----> CLASS ATRIBUTES <-----
 
-	// -----> CLASS ATRIBUTES <-----
-
-	private ObjectProperty<Client> client_account;
+	private ObjectProperty<Worker> worker_account;
 	private ObjectProperty<SQLManager> manager;
 
 	// -----> FXML ATRIBUTES <-----
@@ -31,43 +32,36 @@ public class ClientMenuController implements Initializable {
 	private Pane menu_main_pane;
 	@FXML
 	private JFXButton logOut_buttom;
-
+	
 	// -----> ESSENTIAL METHODS <-----
-
-	public ClientMenuController() {
+	
+	public WorkerMenuController() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public ClientMenuController(ObjectProperty<SQLManager> manager, Client client) {
-		this.client_account = new SimpleObjectProperty<>(client);
+	
+	public WorkerMenuController(ObjectProperty<SQLManager> manager, Worker worker) {
+		this.worker_account = new SimpleObjectProperty<>(worker);
 		this.manager = manager;
 	}
 
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		
 	}
-
+	
 	// -----> BUTTOM METHODS <-----
 
 	@FXML
 	private void close_app(MouseEvent event) {
-		System.exit(0);
-	}
+			System.exit(0);
+    }
 
 	@FXML
 	private void log_out(MouseEvent event) {
 			LaunchApplication.stage.show();
 			Stage stage = (Stage) logOut_buttom.getScene().getWindow();
 			stage.close();
-	}
-
-	@FXML
-	private void open_marketplace(MouseEvent event) {
-		// try {
-
-		// } catch (IOException markplace_charge_error) {
-
-		// }
 	}
 }

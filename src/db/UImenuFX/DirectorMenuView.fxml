@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1240.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1240.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DirectorMenuController">
    <children>
       <Pane layoutX="300.0" prefHeight="100.0" prefWidth="940.0" styleClass="client_menu_bar_color" />
       <Pane fx:id="menu_main_pane" layoutX="300.0" layoutY="101.0" prefHeight="620.0" prefWidth="940.0" />
@@ -20,7 +20,7 @@
                         <Font name="Impact" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Client main menu" textFill="WHITE">
+                  <Label text="Director main menu" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
@@ -32,9 +32,9 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="168.0" layoutY="681.0" onMouseClicked="#close_app" styleClass="blue_color" text="Exit BENGMAT" textFill="WHITE">
+            <JFXButton layoutX="161.0" layoutY="680.0" onMouseClicked="#close_app" styleClass="blue_color" text="Exit BENGMAT" textFill="WHITE">
                <font>
-                  <Font name="Ebrima Bold" size="14.0" />
+                  <Font name="Ebrima Bold" size="15.0" />
                </font>
             </JFXButton>
          </children>

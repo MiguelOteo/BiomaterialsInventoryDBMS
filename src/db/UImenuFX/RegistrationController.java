@@ -26,6 +26,8 @@ public class RegistrationController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 	
 	@FXML
+	public static Stage charging_screen_stage;
+	@FXML
 	private Pane registrationPane;
 	@FXML 
 	private JFXComboBox<String> user_type;
@@ -62,12 +64,13 @@ public class RegistrationController implements Initializable {
 	}
 	
     @FXML // It is triggered when "extitCross.png" is pressed
-    private void close_app (MouseEvent event) throws IOException {
+    private void close_app (MouseEvent event) {
     	System.exit(0);
     }
     
-    @FXML
+    @FXML @SuppressWarnings("static-access")
     private void create_account (MouseEvent event) throws IOException {
+    	
     	if(passwordField.getText().equals(repeatPasswordField.getText())) {
     		String user_name = userNameField.getText();
     		String password = passwordField.getText();
@@ -78,10 +81,12 @@ public class RegistrationController implements Initializable {
         	Parent root = (Parent) loader.load();
         	ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, user_type_string);
         	charging_controller = loader.getController();
-        	Stage stage = new Stage();
-        	stage.initStyle(StageStyle.UNDECORATED);
-        	stage.setScene(new Scene(root));
-        	stage.show();
+        	this.charging_screen_stage = new Stage();
+        	charging_screen_stage.initStyle(StageStyle.UNDECORATED);
+        	charging_screen_stage.setScene(new Scene(root));
+        	charging_screen_stage.show();
+    		root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
+    		LaunchApplication.stage.getScene().setRoot(root);
     	} else {
     		passwordField.clear();
     		repeatPasswordField.clear();
