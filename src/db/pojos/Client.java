@@ -123,7 +123,8 @@ public class Client implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Client [client_id=" + client_id + ", name=" + name + ", telephone=" + telephone + ", bank_account="
-				+ bank_account + ", responsible=" + responsible + ", category=" + category + ", points=" + points + "]";
-	}	
+		return "Client [client_id=" + client_id + ", password=" + password + ", name=" + name + ", telephone="
+				+ telephone + ", bank_account=" + bank_account + ", responsible=" + responsible + ", category="
+				+ category + ", points=" + points + "]";
+	}
 }

@@ -1,4 +1,4 @@
-package db.UImenu;
+package db.ConsoleMainMethods;
 
 import java.io.*;
 import java.sql.Date;
@@ -10,7 +10,7 @@ import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Transaction;
 
-public class UserInterface {
+public class TestMain {
 
 	public static void main(String[] args) throws IOException {
 

@@ -59,4 +59,10 @@ public class Director {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Director [director_id=" + director_id + ", director_name=" + director_name + ", password=" + password
+				+ "]";
+	}
 }

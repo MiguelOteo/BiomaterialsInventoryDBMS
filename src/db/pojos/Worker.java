@@ -65,4 +65,9 @@ public class Worker {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Worker [worker_id=" + worker_id + ", worker_name=" + worker_name + ", password=" + password + "]";
+	}
 }

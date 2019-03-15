@@ -155,6 +155,8 @@ public class ChargingScreenController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO - if its needed
 	}
+	
+	// -----> OTHER METHODS <-----
 
 	public void charge_client_main_menu(Client client) {
 		try {
@@ -188,11 +190,19 @@ public class ChargingScreenController implements Initializable {
 		}
 	}
 
-	public void charge_worker_main_menu(Worker worker) throws IOException {
-		// try {
-
-		// } catch (IOException worker_menu_error) {
-
-		// }
+	public void charge_worker_main_menu(Worker worker) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
+			Parent root = (Parent) loader.load();
+			WorkerMenuController main_menu_controller = new WorkerMenuController(this.manager, worker);
+			main_menu_controller = loader.getController();
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException director_menu_error) {
+			director_menu_error.printStackTrace();
+			System.exit(0);
+		}
 	}
 }

@@ -66,8 +66,8 @@ public class ClientMenuController implements Initializable {
 	private void open_marketplace(MouseEvent event) {
 		// try {
 
-		// } catch (IOException markplace_charge_error) {
-
+		// } catch (IOException marketplace_charge_error) {
+      
 		// }
 	}
 }
