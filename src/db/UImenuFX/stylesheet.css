@@ -17,3 +17,7 @@
 .client_menu_bar_color {
 	-fx-background-color: #dddddd;
 }
+
+.red_color {
+	-fx-background-color: red;
+}

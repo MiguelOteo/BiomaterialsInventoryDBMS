@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1240.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DirectorMenuController">
+   <children>
+      <Pane layoutX="300.0" prefHeight="80.0" prefWidth="940.0" styleClass="client_menu_bar_color">
+         <children>
+            <Label fx:id="current_pane_option_label" layoutX="23.0" layoutY="30.0" text="&quot;Current selected menu&quot;">
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="exitButtom" fitHeight="34.0" fitWidth="47.0" layoutX="879.0" layoutY="23.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/window-close.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="minButtom" fitHeight="34.0" fitWidth="40.0" layoutX="839.0" layoutY="26.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/window-minimize.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="menu_main_pane" layoutX="300.0" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" styleClass="white_color">
+         <children>
+            <Pane layoutX="271.0" layoutY="77.0" prefHeight="386.0" prefWidth="354.0" styleClass="client_menu_bar_color">
+               <children>
+                  <VBox alignment="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="370.0" prefWidth="338.0" styleClass="white_color">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src.IconPictures/user_icon.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Director's name: &quot;user_name&quot;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Ebrima Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Ebrima Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER">
+                           <font>
+                              <Font name="Ebrima Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXButton buttonType="RAISED" styleClass="blue_color" text="Update user information" textFill="WHITE">
+                           <font>
+                              <Font name="Ebrima Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" styleClass="client_menu_bar_color" text="Delete account" textFill="#787878">
+                           <font>
+                              <Font name="Ebrima Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
+         <children>
+            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="blue_color">
+               <children>
+                  <Label text="BENGMANT" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label text="Director main menu" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <JFXButton fx:id="logOut_buttom" layoutX="14.0" layoutY="681.0" onMouseClicked="#log_out" styleClass="blue_color" text="Log out" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <HBox accessibleRole="BUTTON" layoutY="115.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-tie.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="myAccount_buttom" prefHeight="35.0" prefWidth="97.0" styleClass="charging_screen_color" text="My account" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox layoutY="515.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/list-alt.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="listAllTransactions_button" prefHeight="34.0" prefWidth="147.0" styleClass="charging_screen_color" text="List all transactions" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox layoutY="205.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-friends.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="listAllClients_buttom" prefHeight="34.0" prefWidth="111.0" styleClass="charging_screen_color" text="List all Clients" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox layoutY="385.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-plus.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="addWorker_buttom" prefHeight="34.0" prefWidth="98.0" styleClass="charging_screen_color" text="Add worker" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <Label layoutX="14.0" layoutY="90.0" text="Account settings" textFill="#ffffffb1">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="180.0" text="Clients" textFill="#ffffffb1">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="316.0" text="Workers" textFill="#ffffffb4">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <HBox layoutY="341.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-friends.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="listAllWorkers_buttom" prefHeight="34.0" prefWidth="119.0" styleClass="charging_screen_color" text="List all workers" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox layoutY="429.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-minus.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="removeWorker_buttom" prefHeight="34.0" prefWidth="125.0" styleClass="charging_screen_color" text="Remove worker" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <Label layoutX="14.0" layoutY="490.0" text="Business" textFill="#ffffffb4">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <HBox layoutY="559.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/money-bill-alt.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="finantialStatus_buttom" prefHeight="35.0" prefWidth="124.0" styleClass="charging_screen_color" text="Finantial status" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox layoutY="249.0" prefHeight="40.0" prefWidth="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="47.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-minus.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="removeClient_buttom" prefHeight="34.0" prefWidth="116.0" styleClass="charging_screen_color" text="Remove Client" textFill="#00000080">
+                     <font>
+                        <Font name="Ebrima Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
