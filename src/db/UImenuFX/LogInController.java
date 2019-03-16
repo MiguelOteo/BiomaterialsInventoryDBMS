@@ -52,11 +52,10 @@ public class LogInController implements Initializable {
 				String user_name = userNameField.getText();
 				String password = passwordField.getText();
 				// Code to open charging window
-				if (!(user_name.equals("") && password.equals(""))) {
+				if (!(user_name.equals("") | password.equals(""))) {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
 					Parent root = (Parent) loader.load();
-					ChargingScreenController charging_controller = new ChargingScreenController(user_name, password,
-							null);
+					ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, null);
 					charging_controller = loader.getController();
 					Stage stage = new Stage();
 					stage.initStyle(StageStyle.UNDECORATED);

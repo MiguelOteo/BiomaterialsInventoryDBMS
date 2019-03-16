@@ -63,7 +63,7 @@ public class RegistrationController implements Initializable {
 					String user_name = userNameField.getText();
 					String password = passwordField.getText();
 					String user_type_string = user_type.getSelectionModel().getSelectedItem();
-					if (!(user_name.equals("") && password.equals(""))) {
+					if (!(user_name.equals("") | password.equals(""))) {
 						// Code to open charging window
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
 						Parent root = (Parent) loader.load();
