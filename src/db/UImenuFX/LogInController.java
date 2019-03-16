@@ -52,21 +52,24 @@ public class LogInController implements Initializable {
 				String user_name = userNameField.getText();
 				String password = passwordField.getText();
 				// Code to open charging window
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
-				Parent root = (Parent) loader.load();
-				ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, null);
-				charging_controller = loader.getController();
-				Stage stage = new Stage();
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(root));
-				stage.show();
+				if (!(user_name.equals("") && password.equals(""))) {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
+					Parent root = (Parent) loader.load();
+					ChargingScreenController charging_controller = new ChargingScreenController(user_name, password,
+							null);
+					charging_controller = loader.getController();
+					Stage stage = new Stage();
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(new Scene(root));
+					stage.show();
 
-				PauseTransition wait = new PauseTransition(Duration.seconds(3));
-				wait.setOnFinished((event_handler) -> stage.close());
-				wait.play();
+					PauseTransition wait = new PauseTransition(Duration.seconds(3));
+					wait.setOnFinished((event_handler) -> stage.close());
+					wait.play();
 
-				passwordField.clear();
-				userNameField.clear();
+					passwordField.clear();
+					userNameField.clear();
+				}
 			} catch (IOException charging_screen_error) {
 				charging_screen_error.printStackTrace();
 			}

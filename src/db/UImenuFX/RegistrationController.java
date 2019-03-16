@@ -57,27 +57,30 @@ public class RegistrationController implements Initializable {
 		user_type.getSelectionModel().selectFirst();
 
 		createAccountButtom.setOnAction((ActionEvent event) -> {
+
 			if (passwordField.getText().equals(repeatPasswordField.getText())) {
 				try {
 					String user_name = userNameField.getText();
 					String password = passwordField.getText();
 					String user_type_string = user_type.getSelectionModel().getSelectedItem();
-					// Code to open charging window
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
-					Parent root = (Parent) loader.load();
-					ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, user_type_string);
-					charging_controller = loader.getController();
-					Stage stage = new Stage();
-					stage.initStyle(StageStyle.UNDECORATED);
-					stage.setScene(new Scene(root));
-					stage.show();
-					
-					PauseTransition wait = new PauseTransition(Duration.seconds(3));
-					wait.setOnFinished((event_handler) -> stage.close());
-					wait.play();
-					
-					root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
-					LaunchApplication.stage.getScene().setRoot(root);
+					if (!(user_name.equals("") && password.equals(""))) {
+						// Code to open charging window
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
+						Parent root = (Parent) loader.load();
+						ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, user_type_string);
+						charging_controller = loader.getController();
+						Stage stage = new Stage();
+						stage.initStyle(StageStyle.UNDECORATED);
+						stage.setScene(new Scene(root));
+						stage.show();
+
+						PauseTransition wait = new PauseTransition(Duration.seconds(3));
+						wait.setOnFinished((event_handler) -> stage.close());
+						wait.play();
+
+						root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
+						LaunchApplication.stage.getScene().setRoot(root);
+					}
 				} catch (IOException charging_screen_error) {
 					charging_screen_error.printStackTrace();
 				}
