@@ -45,7 +45,7 @@ public class ChargingScreenController implements Initializable {
 			this.user_name.set(user_name);
 			this.password.set(password);
 			this.user_type.set(user_type);
-
+			
 			// The following code charges all the database info and tables
 			manager = new SimpleObjectProperty<>(new SQLManager());
 			manager.getValue().Stablish_connection();
@@ -70,9 +70,8 @@ public class ChargingScreenController implements Initializable {
 				if (this.user_type.get() == null) {
 					charge_client_main_menu(client_account);
 					LaunchApplication.stage.hide();
-					// TODO - close charging window
 				} else {
-					// TODO - close charging window
+					System.out.println("El cliente ya existe");
 				}
 			} else {
 				// List all directors in order to find if he exist to access it
@@ -88,9 +87,7 @@ public class ChargingScreenController implements Initializable {
 					if (this.user_type.get() == null) {
 						charge_director_main_menu(director_account);
 						LaunchApplication.stage.hide();
-						// TODO - close charging window
 					} else {
-						// TODO - close charging window
 						System.out.println("El director ya existe");
 					}
 				} else {
@@ -98,8 +95,7 @@ public class ChargingScreenController implements Initializable {
 					List<Worker> workers_list = manager.getValue().List_all_workers();
 					Worker worker_account = null;
 					for (Worker worker : workers_list) {
-						if ((worker.getWorker_name().equals(this.user_name.get()))
-								&& (worker.getPassword().equals(this.password.get()))) {
+						if ((worker.getWorker_name().equals(this.user_name.get())) && (worker.getPassword().equals(this.password.get()))) {
 							worker_account = worker;
 							break;
 						}
@@ -108,34 +104,27 @@ public class ChargingScreenController implements Initializable {
 						if (this.user_type.get() == null) {
 							// TODO - charge worker menu
 							LaunchApplication.stage.hide();
-							// TODO - close charging window
 							System.out.println("Cargando trabajador");
 						} else {
-							// TODO - close charging window
 							System.out.println("El trabajador ya existe");
 						}
 					} else {
 						if (this.user_type.get() == null) {
-							// TODO - close charging window
 							System.out.println("No existe ese usuario");
 						} else {
 							if (this.user_type.get().equals("Client")) {
 								boolean insertion_ok = manager.getValue().Insert_new_client_account(this.user_name.get(), this.password.get());
 								charge_client_main_menu(new Client(this.user_name.get(), this.password.get()));
 								LaunchApplication.stage.hide();
-								// TODO - close charging window
 							} else {
 								if (this.user_type.get().equals("Director")) {
 									boolean insertion_ok = manager.getValue().Insert_new_director(this.user_name.get(), this.password.get());
 									charge_director_main_menu(new Director(this.user_name.get(), this.password.get()));
 									LaunchApplication.stage.hide();
-									// TODO - close charging window
 								} else {
 									if (this.user_type.get().equals("Worker")) {
 										boolean insertion_ok = manager.getValue().Insert_new_worker(this.user_name.get(), this.password.get());
-										// TODO - charge worker menu
 										LaunchApplication.stage.hide();
-										// TODO - close charging window
 										System.out.println("Creando trabajador");
 									}
 								}

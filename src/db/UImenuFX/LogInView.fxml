@@ -46,7 +46,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" onMouseClicked="#log_in" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
+            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
