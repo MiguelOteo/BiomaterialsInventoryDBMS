@@ -3,14 +3,33 @@ package db.pojos;
 import db.model.UtilMethods;
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "category")
 public class Category extends UtilMethods implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(generator = "category")
+	@TableGenerator(name = "category", table = "sqlite_sequence",
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "category")
 	private Integer category_id;
 	private String category_name;
 	private float penalization;
 	private Integer maximum;
 	private Integer minimum;
+	@OneToOne @JoinColumn(name = "benefits_id")
+	private Benefits benefits;
+	@OneToOne @JoinColumn(name = "client_id")
+	private Client client; 
 	
 	public Category() {
 		super();
