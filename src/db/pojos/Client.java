@@ -21,7 +21,7 @@ public class Client implements Serializable {
 	private String responsible;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
-	private List<Category> category;
+	private Category category;
 	private Integer points;
 
 	public Client() {
@@ -90,11 +90,11 @@ public class Client implements Serializable {
 		this.responsible = responsible;
 	}
 	
-	public List<Category> getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<Category> category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	
@@ -137,4 +137,6 @@ public class Client implements Serializable {
 				+ telephone + ", bank_account=" + bank_account + ", responsible=" + responsible + ", category="
 				+ category + ", points=" + points + "]";
 	}
+
+	
 }

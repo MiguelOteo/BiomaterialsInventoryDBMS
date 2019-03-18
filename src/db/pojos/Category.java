@@ -2,11 +2,13 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
+import java.util.List;
 
 public class Category extends UtilMethods implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Integer category_id;
+	private List<Category> category;
 	private String category_name;
 	private float penalization;
 	private Integer maximum;

@@ -58,7 +58,7 @@ public class UtilMethods {
 		for(Category category : categories_list) {
 			
 			if(sum_points <= category.getMaximum() &&  sum_points >= category.getMinimum()) {
-				client.setCategory(category.getCategory_name());
+				client.setCategory(category);
 			}
 		}	
 		boolean client_updated = manager.Update_client_info(client); 
