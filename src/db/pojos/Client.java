@@ -11,7 +11,7 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator = "x")
+	@GeneratedValue(generator = "client")
 	@TableGenerator(name = "client", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "client")
 	private Integer client_id;
 	private String password;
