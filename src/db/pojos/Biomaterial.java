@@ -6,6 +6,7 @@ import java.sql.Date;
 public class Biomaterial implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
 	private Integer biomaterial_id;
 	private Integer utility_id;
 	private Integer maintenance_id;
@@ -13,7 +14,6 @@ public class Biomaterial implements Serializable{
 	private Float price_unit;
 	private Integer available_units;
 	private Date expiration_date;
-	
 	public Biomaterial() {
 		super();
 		// TODO Auto-generated constructor stub
