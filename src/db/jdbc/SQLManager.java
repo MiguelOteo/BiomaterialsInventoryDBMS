@@ -43,8 +43,8 @@ public class SQLManager {
 		try {
 			Statement statement_1 = this.sqlite_connection.createStatement();
 			String table_1 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY, "
-					+ " others TEXT default NULL, " + " percentage REAL NOT NULL default 0, "
-					+ " min_amount INTEGER NOT NULL default 0," + " extra_units INTEGER NOT NULL default 0)";
+					+ " percentage REAL NOT NULL default 0, " /*+ " min_amount INTEGER NOT NULL default 0,"*/
+					+ " extra_units INTEGER NOT NULL default 0)";
 			statement_1.execute(table_1);
 			statement_1.close();
 
@@ -142,15 +142,14 @@ public class SQLManager {
 	// -----> INSERT METHODS <-----
 
 	// Benefits(others, percentage, min_amount, extra_units)
-	public boolean Inset_new_benefits(Benefits benefits) {
+	public boolean Insert_new_benefits(Benefits benefits) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO benefits(others, percentage, min_amount, extra_units) " + "VALUES (?,?,?,?);";
+			String table = "INSERT INTO benefits(percentage, extra_units) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setString(1, benefits.getOthers());
-			template.setFloat(2, benefits.getPercentage());
-			template.setInt(3, benefits.getMin_amount());
-			template.setInt(4, benefits.getExtra_units());
+			template.setFloat(1, benefits.getPercentage());
+			//template.setInt(3, benefits.getMin_amount());
+			template.setInt(2, benefits.getExtra_units());
 			template.executeUpdate();
 			statement.close();
 			return true;

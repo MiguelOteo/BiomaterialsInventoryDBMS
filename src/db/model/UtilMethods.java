@@ -3,6 +3,7 @@ package db.model;
 import java.util.List;
 
 import db.jdbc.SQLManager;
+import db.pojos.Benefits;
 import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Transaction;
@@ -45,6 +46,27 @@ public class UtilMethods {
 		boolean Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 550/4, 649, 550));
 		boolean Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 650/4, 819, 650));
 		
+		if(None_ok| Bronze3_ok| Bronze2_ok| Bronze1_ok| Silver2_ok| Silver1_ok| Gold2_ok| Gold1_ok| Diamond2_ok| Diamond1_ok| Platinum2_ok| Platinum1_ok) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+		
+	public boolean Benefits_Of_Category(SQLManager manager){
+		boolean None_ok = manager.Insert_new_benefits(new Benefits((float) 0, 0));
+		boolean Bronze3_ok = manager.Insert_new_benefits(new Benefits((float) 0, 20));
+		boolean Bronze2_ok = manager.Insert_new_benefits(new Benefits((float) 0, 40));
+		boolean Bronze1_ok = manager.Insert_new_benefits(new Benefits((float) 0, 80));
+		boolean Silver2_ok = manager.Insert_new_benefits(new Benefits((float) 0.025, 100));
+		boolean Silver1_ok = manager.Insert_new_benefits(new Benefits((float) 0.05, 120));
+		boolean Gold2_ok = manager.Insert_new_benefits(new Benefits((float) 0.1, 140));
+		boolean Gold1_ok = manager.Insert_new_benefits(new Benefits((float) 0.15, 160));
+		boolean Diamond2_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 200));
+		boolean Diamond1_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 220));
+		boolean Platinum2_ok = manager.Insert_new_benefits(new Benefits((float) 0.25, 250));
+		boolean Platinum1_ok = manager.Insert_new_benefits(new Benefits((float) 0.3, 300));
+	
 		if(None_ok| Bronze3_ok| Bronze2_ok| Bronze1_ok| Silver2_ok| Silver1_ok| Gold2_ok| Gold1_ok| Diamond2_ok| Diamond1_ok| Platinum2_ok| Platinum1_ok) {
 			return true;
 		} else {
