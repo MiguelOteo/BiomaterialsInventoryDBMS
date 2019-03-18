@@ -1,16 +1,24 @@
 package db.pojos;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "clients")
 public class Client implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(generator = "x")
+	@TableGenerator(name = "x", table="client", pkColumnName="name", valueColumnName="seq", pkColumnValue="clients")
 	private Integer client_id;
 	private String password;
 	private String name;
 	private Integer telephone;
 	private String bank_account;
 	private String responsible;
+	@OneToMany(fetch = FetchType.LAZY)
 	private String category;
 	private Integer points;
 
