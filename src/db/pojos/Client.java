@@ -1,25 +1,27 @@
 package db.pojos;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "client")
 public class Client implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(generator = "x")
-	@TableGenerator(name = "x", table="client", pkColumnName="name", valueColumnName="seq", pkColumnValue="clients")
+	@TableGenerator(name = "client", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "client")
 	private Integer client_id;
 	private String password;
 	private String name;
 	private Integer telephone;
 	private String bank_account;
 	private String responsible;
-	@OneToMany(fetch = FetchType.LAZY)
-	private String category;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private List<Category> category;
 	private Integer points;
 
 	public Client() {
@@ -88,11 +90,11 @@ public class Client implements Serializable {
 		this.responsible = responsible;
 	}
 	
-	public String getCategory() {
+	public List<Category> getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(List<Category> category) {
 		this.category = category;
 	}
 	
