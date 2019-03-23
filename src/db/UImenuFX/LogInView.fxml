@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="startUpMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.LogInController">
    <children>
-      <Pane fx:id="logInPane" layoutX="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0">
+      <Pane fx:id="logInPane" layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="400.0">
          <children>
             <Label layoutX="102.0" layoutY="63.0" text="Welcome back user,">
                <font>
@@ -36,7 +36,7 @@
                   <Image url="@src.IconPictures/logoNegro.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="signUpButtom" layoutX="207.0" layoutY="496.0" onMouseClicked="#open_registration" text="Signup" textFill="#4f90a5">
+            <JFXButton fx:id="signUpButtom" layoutX="200.0" layoutY="492.0" onMouseClicked="#open_registration" styleClass="starter_small_buttom" text="Signup" textFill="#4f90a5">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="blue_color" text="Login">
+            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Login" textFill="#000000b4">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

@@ -18,6 +18,63 @@
 	-fx-background-color: #dddddd;
 }
 
-.red_color {
-	-fx-background-color: red;
+
+
+.menu_buttom {
+	-fx-font-weight: bold;
+	-fx-font-size: 14;
 }
+
+.menu_buttom:hover {
+	-fx-font-weight: bold;
+	-fx-font-size: 14;
+	-fx-text-fill: white; 
+}
+
+.starter_buttom {
+	-fx-background-color: #4f90a5;
+	-fx-font-weight: bold;
+	-fx-font-size: 20;
+	-fx-text-fill: rgba(0,0,0,0.7);
+}
+
+.starter_buttom:hover {
+	-fx-background-color: white;
+	-fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-text-fill: #4f90a5;
+    -fx-border-color: #4f90a5;
+    -fx-border-width: 4;
+    -fx-border-radius: 2;
+}
+
+.starter_small_buttom {
+	-fx-text-fill: #4f90a5;
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+	-fx-background-radius: 20;
+}
+
+.starter_small_buttom:hover {
+	-fx-text-fill: #3e7384;
+}
+
+.log_out_buttom {
+	-fx-text-fill: rgba(0,0,0,0.5);
+	-fx-background-color: #4f90a5;
+	-fx-font-size: 14;
+	-fx-font-weight: bold;
+	-fx-border-radius: 3;
+}
+
+.log_out_buttom:hover {
+	-fx-text-fill: white;
+	-fx-background-color: #3e7384;
+	-fx-border-color: white;
+	-fx-border-width: 3;
+	-fx-background-radius: 3;
+}
+
+
+
+
