@@ -13,7 +13,7 @@ public class LaunchApplication extends Application{
 	
 	public static Stage stage;
 	
-	@Override @SuppressWarnings("static-access")
+	@Override
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
@@ -21,7 +21,7 @@ public class LaunchApplication extends Application{
 			Scene scene = new Scene(root);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setScene(scene);
-			this.stage = primaryStage;
+			stage = primaryStage;
 			primaryStage.show();
 		} catch (IOException fatal_error) {
 			fatal_error.printStackTrace();

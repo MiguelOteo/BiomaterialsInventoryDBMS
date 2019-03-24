@@ -65,4 +65,8 @@ public class WorkerMenuController implements Initializable {
 			Stage stage = (Stage) logOut_buttom.getScene().getWindow();
 			stage.close();
 	}
+	
+	public AnchorPane getAnchorPane() {
+		return this.menu_window;
+	}
 }

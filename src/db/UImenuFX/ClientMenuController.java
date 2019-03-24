@@ -72,4 +72,8 @@ public class ClientMenuController implements Initializable {
       
 		// }
 	}
+	
+	public AnchorPane getAnchorPane() {
+		return this.menu_window;
+	}
 }

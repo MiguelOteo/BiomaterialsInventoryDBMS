@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,9 +77,18 @@ public class RegistrationController implements Initializable {
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(root));
 						stage.show();
-
+						
 						PauseTransition wait = new PauseTransition(Duration.seconds(2));
-						wait.setOnFinished((event_handler) -> stage.close());
+						wait.setOnFinished(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent arg0) {
+								if(charging_controller.getClientController() != null | charging_controller.getDirectorController() != null
+										| charging_controller.getWorkerController() != null) {
+									charging_controller.removeBlur();
+								}
+								stage.close();
+							}
+				        });
 						wait.play();
 
 						root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));

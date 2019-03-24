@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,8 +31,8 @@ public class ChargingScreenController implements Initializable {
 	private ObjectProperty<SQLManager> manager;
 	
 	private DirectorMenuController director_controller;
-	@SuppressWarnings("unused") private ClientMenuController client_controller;
-	@SuppressWarnings("unused") private WorkerMenuController worker_controller;
+	private ClientMenuController client_controller;
+	private WorkerMenuController worker_controller;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -148,6 +149,20 @@ public class ChargingScreenController implements Initializable {
 		}
 	}
 	
+	// -----> GET AND SET METHODS <-----
+	
+	public ClientMenuController getClientController() {
+		return this.client_controller;
+	}
+	
+	public DirectorMenuController getDirectorController() {
+	    return this.director_controller;	
+	}
+	
+	public WorkerMenuController getWorkerController() {
+		return this.worker_controller;
+	}
+	
 	// -----> OTHER METHODS <-----
 
 	public void charge_client_main_menu(Client client) {
@@ -156,6 +171,7 @@ public class ChargingScreenController implements Initializable {
 			Parent root = (Parent) loader.load();
 			this.client_controller = new ClientMenuController(this.manager, client);
 			this.client_controller = loader.getController();
+			this.client_controller.getAnchorPane().setEffect(new BoxBlur(3,3,3));
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
@@ -175,6 +191,7 @@ public class ChargingScreenController implements Initializable {
 			this.director_controller.setDirectorName(director.getDirector_name());
 			this.director_controller.setDirectorEmail(director.getEmail());
 			this.director_controller.setDirectorTelephone(director.getTelephone());
+			this.director_controller.getAnchorPane().setEffect(new BoxBlur(3,3,3));
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
@@ -191,6 +208,7 @@ public class ChargingScreenController implements Initializable {
 			Parent root = (Parent) loader.load();
 			this.worker_controller = new WorkerMenuController(this.manager, worker);
 			this.worker_controller = loader.getController();
+			this.worker_controller.getAnchorPane().setEffect(new BoxBlur(3,3,3));
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
@@ -198,6 +216,18 @@ public class ChargingScreenController implements Initializable {
 		} catch (IOException director_menu_error) {
 			director_menu_error.printStackTrace();
 			System.exit(0);
+		}
+	}
+	
+	public void removeBlur() {
+		if(this.client_controller != null) {
+			this.client_controller.getAnchorPane().setEffect(null);
+		} else {
+			if(this.director_controller != null) {
+				this.director_controller.getAnchorPane().setEffect(null);
+			} else {
+				this.worker_controller.getAnchorPane().setEffect(null);
+			}
 		}
 	}
 }
