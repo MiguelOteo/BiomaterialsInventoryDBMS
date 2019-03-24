@@ -5,6 +5,8 @@ public class Director {
 	private Integer director_id;
 	private String director_name;
 	private String password;
+	private Integer telephone;
+	private String email;
 	
 	public Director() {
 		super();
@@ -33,6 +35,18 @@ public class Director {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Integer getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(Integer telephone) {
+		this.telephone = telephone;
+	}
+	public String getEmail() {
+	    return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

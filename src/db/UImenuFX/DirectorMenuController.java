@@ -22,7 +22,9 @@ public class DirectorMenuController implements Initializable{
 	
 	    // -----> CLASS ATRIBUTES <-----
 
+		@SuppressWarnings("unused")
 		private ObjectProperty<Director> director_account;
+		@SuppressWarnings("unused")
 		private ObjectProperty<SQLManager> manager;
 
 		// -----> FXML ATRIBUTES <-----
@@ -55,6 +57,13 @@ public class DirectorMenuController implements Initializable{
 		private ImageView exitButtom;
 		@FXML
 		private Label current_pane_option_label;
+		@FXML
+		private Label director_name;
+		@FXML
+		private Label email;
+		@FXML
+		private Label telephone;
+		
 		// -----> ESSENTIAL METHODS <-----
 
 		public DirectorMenuController() {
@@ -90,4 +99,40 @@ public class DirectorMenuController implements Initializable{
 			Stage stage = (Stage) menu_main_pane.getScene().getWindow();
 			stage.setIconified(true);
 		}
+		
+		// -----> SET AND GET METHODS <-----
+		
+		public void setDirectorName (String name) {
+			this.director_name.setText("Director's name: " + name);
+		}
+		
+		public void setDirectorEmail(String email) {
+			if(email != null) {
+			    this.email.setText("Email: " + email);
+			} else {
+				this.email.setText("Email: No email associated");
+			}
+		}
+		
+		public void setDirectorTelephone(Integer telephone) {
+			if(telephone == null) {
+				this.telephone.setText("Telephone: No telephone associated");
+			} else {
+				if(telephone != 0) {
+					this.telephone.setText("Telephone: " + telephone);
+				} else {
+					this.telephone.setText("Telephone: No telephone associated");
+				}
+			}
+		}
+		
+		public AnchorPane getAnchorPane() {
+			return this.menu_window;
+		}
 }
+
+
+
+
+
+

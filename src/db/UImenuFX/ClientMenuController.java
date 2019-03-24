@@ -20,7 +20,9 @@ public class ClientMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
+	@SuppressWarnings("unused")
 	private ObjectProperty<Client> client_account;
+	@SuppressWarnings("unused")
 	private ObjectProperty<SQLManager> manager;
 
 	// -----> FXML ATRIBUTES <-----

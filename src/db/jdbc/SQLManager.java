@@ -100,12 +100,14 @@ public class SQLManager {
 			statement_7.close();
 			
 			Statement statement_8 = this.sqlite_connection.createStatement();
-			String table_8 = "CREATE TABLE director " + "(director_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+			String table_8 = "CREATE TABLE director " + "(director_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " 
+			        + " password TEXT NOT NULL, " + "telephone INTEGER default NULL, " + "email TEXT);";
 			statement_8.execute(table_8);
 		    statement_8.close();
 		    
 		    Statement statement_9 = this.sqlite_connection.createStatement();
-		    String table_9 = "CREATE TABLE worker " + "(worker_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " + " password TEXT NOT NULL);";
+		    String table_9 = "CREATE TABLE worker " + "(worker_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " 
+		            + " password TEXT NOT NULL);";
 		    statement_9.execute(table_9);
 		    statement_9.close();
 			
@@ -358,6 +360,25 @@ public class SQLManager {
 		}
 	}
 	
+	public boolean Update_director_info(Director director) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "UPDATE director SET name = ?, password = ?, telephone = ?, email = ? WHERE director_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, director.getDirector_name());
+			template.setString(2, director.getPassword());
+			template.setInt(3, director.getTelephone());
+			template.setString(4, director.getEmail());
+			template.setInt(5, director.getDirector_id());
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException update_director_error) {
+			update_director_error.printStackTrace();
+			return false;
+		}
+	}
+	
 	// -----> SPECIAL UPDATE AND DELETE METHOD FOR BIOMATERIALS <-----
 	
 	// Updates the information of a Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) 
@@ -552,6 +573,8 @@ public class SQLManager {
 				director.setDirector_id(result_set.getInt("director_id"));
 				director.setDirector_name(result_set.getString("name"));
 				director.setPassword(result_set.getString("password"));
+				director.setEmail(result_set.getString("email"));
+				director.setTelephone(result_set.getInt("telephone"));
 			    directors_list.add(director);
 			}
 			statement.close();
@@ -598,6 +621,21 @@ public class SQLManager {
 			return true;
 		} catch (SQLException delete_client_error) {
 			delete_client_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Delete_stored_director(Integer director_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE FROM director WHERE director_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, director_id);
+			template.executeUpdate();
+			statement.close();
+			return true;
+		} catch (SQLException delete_director_error) {
+			delete_director_error.printStackTrace();
 			return false;
 		}
 	}

@@ -14,11 +14,9 @@
 	-fx-background-color: #f2f2f2;
 }
 
-.client_menu_bar_color {
-	-fx-background-color: #dddddd;
+.menu_bar_color {
+	-fx-background-image: url("src.IconPictures/UpperBarBig.png");
 }
-
-
 
 .menu_buttom {
 	-fx-font-weight: bold;
@@ -28,7 +26,12 @@
 .menu_buttom:hover {
 	-fx-font-weight: bold;
 	-fx-font-size: 14;
-	-fx-text-fill: white; 
+	-fx-text-fill: white;
+}
+
+.menu_buttom:focused {
+	-fx-background-color: #325c6a;
+	-fx-text-fill: white;
 }
 
 .starter_buttom {

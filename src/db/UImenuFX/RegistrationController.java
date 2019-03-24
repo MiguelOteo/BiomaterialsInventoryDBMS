@@ -25,6 +25,8 @@ import javafx.util.Duration;
 
 public class RegistrationController implements Initializable {
 
+	ChargingScreenController charging_controller;
+	
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
@@ -67,14 +69,15 @@ public class RegistrationController implements Initializable {
 						// Code to open charging window
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargingScreenView.fxml"));
 						Parent root = (Parent) loader.load();
-						ChargingScreenController charging_controller = new ChargingScreenController(user_name, password, user_type_string);
-						charging_controller = loader.getController();
+						this.charging_controller = new ChargingScreenController();
+						this.charging_controller = loader.getController();
 						Stage stage = new Stage();
+						stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, user_type_string));
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(root));
 						stage.show();
 
-						PauseTransition wait = new PauseTransition(Duration.seconds(3));
+						PauseTransition wait = new PauseTransition(Duration.seconds(2));
 						wait.setOnFinished((event_handler) -> stage.close());
 						wait.play();
 

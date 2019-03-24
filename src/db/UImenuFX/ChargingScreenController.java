@@ -28,6 +28,10 @@ public class ChargingScreenController implements Initializable {
 	private StringProperty password = new SimpleStringProperty();
 	private StringProperty user_type = new SimpleStringProperty();
 	private ObjectProperty<SQLManager> manager;
+	
+	private DirectorMenuController director_controller;
+	@SuppressWarnings("unused") private ClientMenuController client_controller;
+	@SuppressWarnings("unused") private WorkerMenuController worker_controller;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -39,8 +43,15 @@ public class ChargingScreenController implements Initializable {
 	public ChargingScreenController() {
 		// Default constructor
 	}
-
-	public ChargingScreenController(String user_name, String password, String user_type) {
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO - if its needed
+	}
+	
+	// Next algorithm checks if the user account already exist when you create a new one or in 
+	// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
+	public void searching_create_account(String user_name, String password, String user_type) {
 		try {
 			this.user_name.set(user_name);
 			this.password.set(password);
@@ -53,9 +64,6 @@ public class ChargingScreenController implements Initializable {
 			if (tables_exist == false) {
 				manager.getValue().Create_tables();
 			}
-
-			// Next algorithm checks if the user account already exist when you create a new one or in 
-			// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
 
 			// List all clients in order to find if he exist to access it
 			List<Client> clients_list = manager.getValue().List_all_clients();
@@ -139,11 +147,6 @@ public class ChargingScreenController implements Initializable {
 			manager.getValue().Close_connection();
 		}
 	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO - if its needed
-	}
 	
 	// -----> OTHER METHODS <-----
 
@@ -151,8 +154,8 @@ public class ChargingScreenController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			ClientMenuController main_menu_controller = new ClientMenuController(this.manager, client);
-			main_menu_controller = loader.getController();
+			this.client_controller = new ClientMenuController(this.manager, client);
+			this.client_controller = loader.getController();
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
@@ -167,8 +170,11 @@ public class ChargingScreenController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			DirectorMenuController main_menu_controller = new DirectorMenuController(this.manager, director);
-			main_menu_controller = loader.getController();
+			this.director_controller = new DirectorMenuController(this.manager, director);
+			this.director_controller = loader.getController();
+			this.director_controller.setDirectorName(director.getDirector_name());
+			this.director_controller.setDirectorEmail(director.getEmail());
+			this.director_controller.setDirectorTelephone(director.getTelephone());
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
@@ -183,8 +189,8 @@ public class ChargingScreenController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			WorkerMenuController main_menu_controller = new WorkerMenuController(this.manager, worker);
-			main_menu_controller = loader.getController();
+			this.worker_controller = new WorkerMenuController(this.manager, worker);
+			this.worker_controller = loader.getController();
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));

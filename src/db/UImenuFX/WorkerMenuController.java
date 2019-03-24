@@ -20,7 +20,9 @@ public class WorkerMenuController implements Initializable {
 	
     // -----> CLASS ATRIBUTES <-----
 
+	@SuppressWarnings("unused")
 	private ObjectProperty<Worker> worker_account;
+	@SuppressWarnings("unused")
 	private ObjectProperty<SQLManager> manager;
 
 	// -----> FXML ATRIBUTES <-----

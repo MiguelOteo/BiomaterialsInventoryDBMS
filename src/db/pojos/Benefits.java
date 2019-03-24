@@ -1,7 +1,6 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Benefits implements Serializable {
 
@@ -10,7 +9,6 @@ public class Benefits implements Serializable {
 	private Float percentage;
 	//private Integer min_amount;
 	private Integer extra_units;
-	private List<Benefits> benefits;
 
 	public Benefits() {
 		super();
