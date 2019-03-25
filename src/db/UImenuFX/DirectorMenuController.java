@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,9 +27,9 @@ public class DirectorMenuController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 
 	@FXML 
-	private Director director_account;
+	private static Director director_account;
 	@FXML 
-	private SQLManager manager_object;
+	private static SQLManager manager_object;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -76,9 +77,8 @@ public class DirectorMenuController implements Initializable {
 	}
 
 	public DirectorMenuController(SQLManager manager, Director director) {
-		this.director_account = director;
-		this.manager_object = manager;
-		System.out.println(director_account);
+		director_account = director;
+		manager_object = manager;
 	}
 
 	@Override
@@ -111,12 +111,13 @@ public class DirectorMenuController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 			Parent root = (Parent) loader.load();
-			System.out.println(this.director_account);
-			AccountDirectorController account_controller = new AccountDirectorController(this.manager_object, this.director_account);
+			AccountDirectorController account_controller = new AccountDirectorController(manager_object, director_account);
 			account_controller = loader.getController();
 			Stage stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(new Scene(root));
+			stage.setOnShowing((event_handler) -> menu_window.setEffect(new BoxBlur(4,4,4)));
+			stage.setOnHidden((event_handler) -> menu_window.setEffect(null));
 			stage.show();
 		} catch (IOException director_account_error) {
 			director_account_error.printStackTrace();

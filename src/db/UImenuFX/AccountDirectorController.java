@@ -13,16 +13,20 @@ import db.pojos.Director;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class AccountDirectorController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 	
-	private Director director_account;
-	private SQLManager manager_object;
+	private static Director director_account;
+	private static SQLManager manager_object;
 	
 	// -----> FXML ATRIBUTES <-----
 	
+	@FXML
+	private AnchorPane account_window;
 	@FXML
 	private JFXButton update_button;
 	@FXML
@@ -51,15 +55,14 @@ public class AccountDirectorController implements Initializable {
 	}
     
     public AccountDirectorController(SQLManager manager, Director director) {
-    	this.director_account = director;
-    	this.manager_object = manager;
+    	director_account = director;
+    	manager_object = manager;
 	}
     
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 	}
 	
     // -----> BUTTON METHODS <-----
@@ -70,17 +73,53 @@ public class AccountDirectorController implements Initializable {
 	}
 	
 	@FXML
-	private void update_information() {
-		if(this.name_field.getText() != null) {
-			this.director_account.setDirector_name(this.name_field.getText());
+	private void update_information(MouseEvent event) {
+		manager_object.Stablish_connection();
+		if(!this.name_field.getText().equals("")) {
+			director_account.setDirector_name(this.name_field.getText());
+			this.name_field.setText("");
+		} else {
+			this.name_field.setText("");
 		}
-		if(this.email_field.getText() != null) {
-			this.director_account.setEmail(this.email_field.getText());
-		} 
-		if(this.telephone_field.getText() != null) {
-			this.director_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
+		if(!this.email_field.getText().equals("")) {
+			director_account.setEmail(this.email_field.getText());
+			this.email_field.setText("");
+		} else {
+			this.email_field.setText("");
 		}
-		this.manager_object.Update_director_info(this.director_account);
+		if(!this.telephone_field.getText().equals("")) {
+			director_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
+			this.telephone_field.setText("");
+		} else {
+			this.telephone_field.setText("");
+		}
+		manager_object.Update_director_info(director_account);
+		manager_object.Close_connection();
+	}
+	
+	@FXML
+	private void change_password(MouseEvent event) {
+		manager_object.Stablish_connection();
+		if(!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("") 
+				&& this.new_password_field.getText().equals("")) 
+				&& (this.new_password_field.getText().equals(this.repeat_password_field.getText()))) {
+			director_account.setPassword(this.new_password_field.getText());
+			this.password_field.setText("");
+			this.repeat_password_field.setText("");
+			this.new_password_field.setText("");
+		} else {
+			this.password_field.setText("");
+			this.repeat_password_field.setText("");
+			this.new_password_field.setText("");
+		}
+		manager_object.Update_director_info(director_account);
+		manager_object.Close_connection();
+	}
+	
+	@FXML
+	private void done_buttom(MouseEvent event) {
+		Stage stage = (Stage) account_window.getScene().getWindow();
+		stage.close();
 	}
 }
 
