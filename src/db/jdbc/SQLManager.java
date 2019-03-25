@@ -201,7 +201,7 @@ public class SQLManager {
 	public boolean Inset_new_client(Client client) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO client (responsible, name, password, bank_account, telephone) " + "VALUES (?,?,?,?);";
+			String table = "INSERT INTO client (responsible, name, bank_account, telephone) " + "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
