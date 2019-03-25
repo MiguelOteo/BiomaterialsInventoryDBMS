@@ -101,7 +101,7 @@ public class SQLManager {
 			
 			Statement statement_8 = this.sqlite_connection.createStatement();
 			String table_8 = "CREATE TABLE director " + "(director_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT NOT NULL, " 
-			        + " password TEXT NOT NULL, " + "telephone INTEGER default NULL, " + "email TEXT);";
+			        + " password TEXT NOT NULL, " + "telephone INTEGER default 0, " + "email TEXT);";
 			statement_8.execute(table_8);
 		    statement_8.close();
 		    
@@ -181,7 +181,7 @@ public class SQLManager {
 	}
 	
 	// New_Client(name, password)
-    public boolean Insert_new_client_account(String name, String password) {
+    public Client Insert_new_client(String name, String password) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO client (name, password) " + "VALUES (?,?);";
@@ -190,34 +190,27 @@ public class SQLManager {
 			template.setString(2, password);
 			template.executeUpdate();
 			statement.close();
-			return true;
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM client WHERE name = ? AND password = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, name);
+			template.setString(2, password);
+			Client client = new Client();
+            ResultSet result_set = template.executeQuery();
+            client.setClient_id(result_set.getInt("client_id"));
+            client.setName(result_set.getString("name"));
+            client.setPassword(result_set.getString("password"));
+			statement.close();
+			return client;
 		} catch (SQLException new_client_account_error) {
 			new_client_account_error.printStackTrace();
-			return false;
+			return null;
 		}
     }
-
-	// Client(responsible, name, bank_account, telephone)
-	public boolean Inset_new_client(Client client) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO client (responsible, name, password, bank_account, telephone) " + "VALUES (?,?,?,?);";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setString(1, client.getResponsible());
-			template.setString(2, client.getName());
-			template.setString(3, client.getBank_account());
-			template.setInt(4, client.getTelephone());
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException new_client_error) {
-			new_client_error.printStackTrace();
-			return false;
-		}
-	}
 	
 	// Director(name, password) 
-	public boolean Insert_new_director(String name, String password) {
+	public Director Insert_new_director(String name, String password) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO director (name, password) " + "VALUES (?,?)";
@@ -226,15 +219,27 @@ public class SQLManager {
 			template.setString(2, password);
 			template.executeUpdate();
 			statement.close();
-			return true;
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM director WHERE name = ? AND password = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, name);
+			template.setString(2, password);
+			Director director = new Director();
+            ResultSet result_set = template.executeQuery();
+            director.setDirector_id(result_set.getInt("director_id"));
+            director.setDirector_name(result_set.getString("name"));
+            director.setPassword(result_set.getString("password"));
+			statement.close();
+			return director;
 		} catch(SQLException new_director_error) {
 			new_director_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
 	// Worker(name, password)
-	public boolean Insert_new_worker(String name, String password) {
+	public Worker Insert_new_worker(String name, String password) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO worker (name, password) " + "VALUES (?,?)";
@@ -243,10 +248,22 @@ public class SQLManager {
 			template.setString(2, password);
 			template.executeUpdate();
 			statement.close();
-			return true;
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM worker WHERE name = ? AND password = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, name);
+			template.setString(2, password);
+			Worker worker = new Worker();
+			ResultSet result_set = template.executeQuery();
+			worker.setWorker_name(result_set.getString("name"));
+			worker.setPassword(result_set.getString("password"));
+			worker.setWorker_id(result_set.getInt("worker_id"));
+			statement.close();
+			return worker;
 		} catch(SQLException new_worker_error) {
 			new_worker_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
@@ -383,7 +400,7 @@ public class SQLManager {
 	
 	// Updates the information of a Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) 
 	// and deletes it if the amount of it is 0
-	public boolean Update_baiomaterial_amount(Integer biomaterial_id, Integer substract) {
+	public boolean Update_biomaterial_amount(Integer biomaterial_id, Integer substract) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code_update = "UPDATE biomaterial SET avaliable_units = available_units - ? WHERE biomaterial_id = ?";
@@ -428,6 +445,28 @@ public class SQLManager {
 			return clients_list;
 		} catch (SQLException search_client_error) {
 			search_client_error.printStackTrace();
+			return null;
+		}
+	}
+    
+	// Selects the director objects with the same director_id from the data base and returns it
+	public Director search_director_by_id (Integer director_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM director WHERE director_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, director_id);
+			Director director = new Director();
+			ResultSet result_set = template.executeQuery();
+			director.setDirector_id(result_set.getInt("director_id"));
+			director.setDirector_name(result_set.getString("name"));
+			director.setEmail(result_set.getString("email"));
+			director.setPassword(result_set.getString("password"));
+			director.setTelephone(result_set.getInt("telephone"));
+			statement.close();
+			return director;
+		} catch (SQLException search_director_error) {
+			search_director_error.printStackTrace();
 			return null;
 		}
 	}

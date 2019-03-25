@@ -1,4 +1,4 @@
-package db.ConsoleMainMethods;
+package db.ConsoleMains;
 
 import java.util.List;
 

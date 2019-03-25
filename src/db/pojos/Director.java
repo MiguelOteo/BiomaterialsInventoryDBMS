@@ -77,6 +77,6 @@ public class Director {
 	@Override
 	public String toString() {
 		return "Director [director_id=" + director_id + ", director_name=" + director_name + ", password=" + password
-				+ "]";
+				+ ", telephone=" + telephone + ", email=" + email + "]";
 	}
 }

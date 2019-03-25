@@ -2,8 +2,6 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;

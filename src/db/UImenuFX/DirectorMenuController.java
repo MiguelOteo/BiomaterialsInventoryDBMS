@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import db.jdbc.SQLManager;
 import db.pojos.Director;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,9 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class DirectorMenuController implements Initializable {
 
@@ -68,7 +70,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private Label telephone;
 	@FXML
-	private StackPane my_account_pane;
+	public static Stage my_account;
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -83,7 +85,37 @@ public class DirectorMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		myAccount_buttom.setOnAction((ActionEvent) -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
+				Parent root = (Parent) loader.load();
+				AccountDirectorController account_controller = new AccountDirectorController(manager_object, director_account);
+				account_controller = loader.getController();
+				account_controller.done_button.setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						update_director_account();
+						menu_window.setEffect(null);
+						my_account.close();
+					}
+				});	
+				my_account = new Stage();
+				my_account.initStyle(StageStyle.UNDECORATED);
+				my_account.setScene(new Scene(root));
+				my_account.setAlwaysOnTop(true);
+				my_account.setOnShowing((event_handler) -> menu_window.setEffect(new BoxBlur(4,4,4)));
+				my_account.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						menu_window.setEffect(null);
+					}
+				});		
+				my_account.show();
+			} catch (IOException director_account_error) {
+				director_account_error.printStackTrace();
+				System.exit(0);
+			}
+		});
 	}
 
 	// -----> BUTTOM METHODS <-----
@@ -105,24 +137,14 @@ public class DirectorMenuController implements Initializable {
 		Stage stage = (Stage) menu_main_pane.getScene().getWindow();
 		stage.setIconified(true);
 	}
-
-	@FXML
-	private void my_account(MouseEvent event) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
-			Parent root = (Parent) loader.load();
-			AccountDirectorController account_controller = new AccountDirectorController(manager_object, director_account);
-			account_controller = loader.getController();
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.setOnShowing((event_handler) -> menu_window.setEffect(new BoxBlur(4,4,4)));
-			stage.setOnHidden((event_handler) -> menu_window.setEffect(null));
-			stage.show();
-		} catch (IOException director_account_error) {
-			director_account_error.printStackTrace();
-			System.exit(0);
-		}
+	
+	public void update_director_account() {
+	     	manager_object.Stablish_connection();
+	    	director_account = manager_object.search_director_by_id(director_account.getDirector_id());
+	    	setDirectorEmail(director_account.getEmail());
+	    	setDirectorName(director_account.getDirector_name());
+    		setDirectorTelephone(director_account.getTelephone());
+	    	manager_object.Close_connection();
 	}
 
 	// -----> SET AND GET METHODS <-----

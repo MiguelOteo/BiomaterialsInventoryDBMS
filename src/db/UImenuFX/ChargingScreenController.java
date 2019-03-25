@@ -36,6 +36,8 @@ public class ChargingScreenController implements Initializable {
 
 	@FXML
 	public static AnchorPane charging_main_pane;
+	@FXML
+	public static Stage main_menu_stage;
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -120,18 +122,19 @@ public class ChargingScreenController implements Initializable {
 							System.out.println("No existe ese usuario");
 						} else {
 							if (this.user_type.equals("Client")) {
-								boolean insertion_ok = manager.Insert_new_client_account(this.user_name, this.password);
-								charge_client_main_menu(new Client(this.user_name, this.password));
+								Client client = manager.Insert_new_client(this.user_name, this.password);
+								charge_client_main_menu(client);
 								LaunchApplication.stage.hide();
 							} else {
 								if (this.user_type.equals("Director")) {
-									boolean insertion_ok = manager.Insert_new_director(this.user_name, this.password);
-									charge_director_main_menu(new Director(this.user_name, this.password));
+									Director director = manager.Insert_new_director(this.user_name, this.password);
+									charge_director_main_menu(director);
 									LaunchApplication.stage.hide();
 								} else {
 									if (this.user_type.equals("Worker")) {
-										boolean insertion_ok = manager.Insert_new_worker(this.user_name, this.password);
+										Worker worker = manager.Insert_new_worker(this.user_name, this.password);
 										LaunchApplication.stage.hide();
+				                        // TODO - Worker menu
 										System.out.println("Creando trabajador");
 									}
 								}
@@ -170,10 +173,10 @@ public class ChargingScreenController implements Initializable {
 			this.client_controller = new ClientMenuController(this.manager, client);
 			this.client_controller = loader.getController();
 			this.client_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException client_menu_error) {
 			client_menu_error.printStackTrace();
 			System.exit(0);
@@ -190,10 +193,10 @@ public class ChargingScreenController implements Initializable {
 			this.director_controller.setDirectorEmail(director.getEmail());
 			this.director_controller.setDirectorTelephone(director.getTelephone());
 			this.director_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException director_menu_error) {
 			director_menu_error.printStackTrace();
 			System.exit(0);
@@ -207,10 +210,10 @@ public class ChargingScreenController implements Initializable {
 			this.worker_controller = new WorkerMenuController(this.manager, worker);
 			this.worker_controller = loader.getController();
 			this.worker_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException director_menu_error) {
 			director_menu_error.printStackTrace();
 			System.exit(0);

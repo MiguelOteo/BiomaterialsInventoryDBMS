@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Director;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -26,13 +26,13 @@ public class AccountDirectorController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 	
 	@FXML
+	public JFXButton done_button;
+	@FXML
 	private AnchorPane account_window;
 	@FXML
 	private JFXButton update_button;
 	@FXML
 	private JFXButton change_buttom;
-	@FXML
-	private JFXButton done_button;
     @FXML
     private JFXButton delete_account_button;
     @FXML
@@ -62,7 +62,15 @@ public class AccountDirectorController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+	    delete_account_button.setOnAction((ActionEvent event) -> {
+			manager_object.Stablish_connection();
+			manager_object.Delete_stored_director(director_account.getDirector_id());
+			manager_object.Close_connection();
+			Stage stage = (Stage) account_window.getScene().getWindow();
+			LaunchApplication.stage.show();
+			ChargingScreenController.main_menu_stage.close();
+			stage.close();
+		});
 	}
 	
     // -----> BUTTON METHODS <-----
@@ -114,12 +122,6 @@ public class AccountDirectorController implements Initializable {
 		}
 		manager_object.Update_director_info(director_account);
 		manager_object.Close_connection();
-	}
-	
-	@FXML
-	private void done_buttom(MouseEvent event) {
-		Stage stage = (Stage) account_window.getScene().getWindow();
-		stage.close();
 	}
 }
 
