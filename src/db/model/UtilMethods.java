@@ -1,6 +1,5 @@
 package db.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -34,7 +33,7 @@ public class UtilMethods {
 	// -----> CATEGORY LEVELS METHODS <-----
 
 	public boolean Categories_of_cients(SQLManager manager){
-		boolean None_ok = manager.Insert_new_category(new Category("None", 0, 799, 0));
+		boolean None_ok = manager.Insert_new_category(new Category("None", 0, 79, 0));
 		boolean Bronze3_ok = manager.Insert_new_category(new Category("Bronze 3", 80/4, 89, 80));
 		boolean Bronze2_ok = manager.Insert_new_category(new Category("Bronze 2", 90/4, 99, 90));
 		boolean Bronze1_ok = manager.Insert_new_category(new Category("Bronze 1", 100/4, 149, 100));
@@ -43,9 +42,9 @@ public class UtilMethods {
 		boolean Gold2_ok = manager.Insert_new_category(new Category("Gold 2", 400/4, 449, 400));
 		boolean Gold1_ok = manager.Insert_new_category(new Category("Gold 1", 450/4, 549, 450));
 		boolean Diamond2_ok = manager.Insert_new_category(new Category("Diamond 2", 820/4, 919, 820));
-		boolean Diamond1_ok = manager.Insert_new_category(new Category("Diamond 1", 920/4, 1000, 920));
-		boolean Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 550/4, 649, 550));
-		boolean Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 650/4, 819, 650));
+		boolean Diamond1_ok = manager.Insert_new_category(new Category("Diamond 1", 920/4, 999, 920));
+		boolean Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 550/4, 1299, 1000));
+		boolean Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 650/4, 1599, 1300));
 		
 		if(None_ok| Bronze3_ok| Bronze2_ok| Bronze1_ok| Silver2_ok| Silver1_ok| Gold2_ok| Gold1_ok| Diamond2_ok| Diamond1_ok| Platinum2_ok| Platinum1_ok) {
 			return true;
@@ -75,23 +74,7 @@ public class UtilMethods {
 		}
 	}
 	
-	// check_Date is used to check if the client has done any purchases in the last 3 months  
-	public boolean check_Date (Transaction transaction) {
-		
-		LocalDate comparedDate = LocalDate.now().minusMonths(3);
-		
-		LocalDate dbDate = transaction.getTransaction_date().toLocalDate();
-		
-		if (dbDate.isBefore(comparedDate)) {
-			
-			return true;
-			
-		} else {return false;}
-		
-	}
-	
 	public boolean Assign_category_to_client(SQLManager manager, Client client) {
-		
 		List<Category> categories_list = manager.List_all_categories();
 		int sum_points = Sum_all_client_points(manager, client) ;
 		for(Category category : categories_list) {
