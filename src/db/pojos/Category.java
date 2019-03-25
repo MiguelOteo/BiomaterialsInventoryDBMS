@@ -2,6 +2,8 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -115,21 +117,4 @@ public class Category extends UtilMethods implements Serializable{
 			return false;
 		return true;
 	}
-	
-	/*----------------- Method penalization for client ---------------
-	
-	public void check_Date(Transaction transaction) {
-		
-		Date currentDate = new Date();
-		LocalDateTime localDate = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
-		
-		LocalDateTime lastPurchase = LocalDateTime.now().minusMonths(3);
-		
-		Date dbDate = transaction.getTransaction_date();
-		
-		if (dbDate.before(lastPurchase)) {
-			
-		}
-	}
-	*/
 }

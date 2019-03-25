@@ -1,5 +1,6 @@
 package db.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -74,7 +75,23 @@ public class UtilMethods {
 		}
 	}
 	
+	// check_Date is used to check if the client has done any purchases in the last 3 months  
+	public boolean check_Date (Transaction transaction) {
+		
+		LocalDate comparedDate = LocalDate.now().minusMonths(3);
+		
+		LocalDate dbDate = transaction.getTransaction_date().toLocalDate();
+		
+		if (dbDate.isBefore(comparedDate)) {
+			
+			return true;
+			
+		} else {return false;}
+		
+	}
+	
 	public boolean Assign_category_to_client(SQLManager manager, Client client) {
+		
 		List<Category> categories_list = manager.List_all_categories();
 		int sum_points = Sum_all_client_points(manager, client) ;
 		for(Category category : categories_list) {
