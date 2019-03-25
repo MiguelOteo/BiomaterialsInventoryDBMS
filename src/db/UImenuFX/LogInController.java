@@ -24,7 +24,9 @@ import javafx.util.Duration;
 
 public class LogInController implements Initializable {
 	
-	ChargingScreenController charging_controller;
+	// -----> CLASS ATRIBUTES <-----
+	
+	private ChargingScreenController charging_controller;
 
 	// -----> FXML ATRIBUTES <-----
 

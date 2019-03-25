@@ -7,8 +7,6 @@ import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import db.pojos.Worker;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -21,9 +19,9 @@ public class WorkerMenuController implements Initializable {
     // -----> CLASS ATRIBUTES <-----
 
 	@SuppressWarnings("unused")
-	private ObjectProperty<Worker> worker_account;
+	private Worker worker_account;
 	@SuppressWarnings("unused")
-	private ObjectProperty<SQLManager> manager;
+	private SQLManager manager;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -40,8 +38,8 @@ public class WorkerMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public WorkerMenuController(ObjectProperty<SQLManager> manager, Worker worker) {
-		this.worker_account = new SimpleObjectProperty<>(worker);
+	public WorkerMenuController(SQLManager manager, Worker worker) {
+		this.worker_account = worker;
 		this.manager = manager;
 	}
 

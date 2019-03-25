@@ -7,8 +7,6 @@ import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import db.pojos.Client;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -21,9 +19,9 @@ public class ClientMenuController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 
 	@SuppressWarnings("unused")
-	private ObjectProperty<Client> client_account;
+	private Client client_account;
 	@SuppressWarnings("unused")
-	private ObjectProperty<SQLManager> manager;
+	private SQLManager manager;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -40,8 +38,8 @@ public class ClientMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClientMenuController(ObjectProperty<SQLManager> manager, Client client) {
-		this.client_account = new SimpleObjectProperty<>(client);
+	public ClientMenuController(SQLManager manager, Client client) {
+		this.client_account = client;
 		this.manager = manager;
 	}
 

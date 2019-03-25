@@ -26,12 +26,12 @@ import javafx.util.Duration;
 
 public class RegistrationController implements Initializable {
 
-	ChargingScreenController charging_controller;
+	// -----> CLASS ATRIBUTES <-----
+	
+	private ChargingScreenController charging_controller;
 	
 	// -----> FXML ATRIBUTES <-----
 
-	@FXML
-	public static Stage charging_screen_stage;
 	@FXML
 	private Pane registrationPane;
 	@FXML
@@ -121,8 +121,8 @@ public class RegistrationController implements Initializable {
 /*
  * JFXDialogLayout layout = new JFXDialogLayout(); layout.setHeading(new
  * Text("Account could not be created")); layout.setBody(new
- * Text("Passwords are not the same")); JFXDialog dialog = new
- * JFXDialog(stack_pane, layout, JFXDialog.DialogTransition.CENTER); JFXButton
+ * Text("Passwords are not the same")); 
+ * JFXDialog dialog = new JFXDialog(stack_pane, layout, JFXDialog.DialogTransition.CENTER); JFXButton
  * close_buttom = new JFXButton("Close"); close_buttom.setOnAction(new
  * EventHandler<ActionEvent>() {
  * 
