@@ -3,7 +3,6 @@ package db.ConsoleMains;
 import java.util.List;
 
 import db.jdbc.SQLManager;
-import db.model.UtilMethods;
 import db.pojos.Client;
 import db.pojos.Director;
 import db.pojos.Worker;
@@ -12,7 +11,6 @@ public class ListAllUsers {
 
 	public static void main(String[] args) {
 		SQLManager manager = new SQLManager();
-		UtilMethods methods = new UtilMethods();
 		boolean everything_ok = manager.Stablish_connection();
 
 		boolean tables_exist = manager.Check_if_tables_exist();
@@ -23,6 +21,11 @@ public class ListAllUsers {
 		
 		if(everything_ok) {
 			
+			System.out.println("-----> DIRECTOR LIST <-----\n");
+			List<Director> director_list = manager.List_all_directors();
+			for (Director director : director_list) {
+				System.out.print(director + "\n\n");
+	        }
 			System.out.println("\n-----> CLIENT LIST <-----\n");
 			List<Client> clients_list = manager.List_all_clients();
 			for (Client client : clients_list) {
@@ -32,11 +35,6 @@ public class ListAllUsers {
 			List<Worker> worker_list = manager.List_all_workers();
 			for (Worker worker : worker_list) {
 				System.out.print(worker + "\n\n");
-	        }
-			System.out.println("-----> DIRECTOR LIST <-----\n");
-			List<Director> director_list = manager.List_all_directors();
-			for (Director director : director_list) {
-				System.out.print(director + "\n\n");
 	        }
 		}
 	}

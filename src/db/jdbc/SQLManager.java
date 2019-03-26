@@ -189,8 +189,20 @@ public class SQLManager {
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM client WHERE user_id = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, user.getUserId());
+			ResultSet result_set = template.executeQuery();
+			Client client = new Client();
+			client.setClient_id(result_set.getInt("client_id"));
+			client.setUser_id(result_set.getInt("user_id"));
+			client.setName(result_set.getString("name"));
+			client.setTelephone(0);
+			client.setPoints(0);
 			statement.close();
-			return new Client(user.getUserName(), user.getUserId());
+			return client;
 		} catch (SQLException new_client_account_error) {
 			return null;
 		}
@@ -206,7 +218,18 @@ public class SQLManager {
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
 			statement.close();
-			return new Director(user.getUserName(), user.getUserId());
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM director WHERE user_id = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, user.getUserId());
+			ResultSet result_set = template.executeQuery();
+			Director director = new Director();
+			director.setDirector_id(result_set.getInt("director_id"));
+			director.setDirector_name(result_set.getString("name"));
+			director.setUser_id(result_set.getInt("user_id"));
+			director.setTelephone(0);
+			return director;
 		} catch(SQLException new_director_error) {
 			return null;
 		}
@@ -222,7 +245,17 @@ public class SQLManager {
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
 			statement.close();
-			return new Worker();
+			
+			statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM worker WHERE user_id = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, user.getUserId());
+			ResultSet result_set = template.executeQuery();
+			Worker worker = new Worker();
+			worker.setUser_id(result_set.getInt("user_id"));
+			worker.setPassword(result_set.getString("password"));
+			worker.setWorker_id(result_set.getInt("worker_id"));
+			return worker;
 		} catch(SQLException new_worker_error) {
 			return null;
 		}
@@ -355,6 +388,20 @@ public class SQLManager {
 	
 	// -----> UPDATE METHODS <-----
 	
+	public void Change_password(String password, Integer user_id) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "UPDATE user SET password = ? WHERE user_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, password);
+			template.setInt(2, user_id);
+			template.executeUpdate();
+			statement.close();
+		} catch (SQLException update_password_error) {
+			update_password_error.printStackTrace();
+		}
+	}
+	
 	// Updates the information of a Client(responsible, name, bank_account, telephone)
 	public boolean Update_client_info(Client client) {
 		try {
@@ -386,7 +433,7 @@ public class SQLManager {
 			template.setInt(4, director.getDirector_id());
 			template.executeUpdate();
 			statement.close();
-			return true;
+			return true;				
 		} catch (SQLException update_director_error) {
 			update_director_error.printStackTrace();
 			return false;
@@ -474,7 +521,7 @@ public class SQLManager {
 	}
     
 	// Selects the director objects with the same director_id from the data base and returns it
-	public Director search_director_by_id (Integer director_id) {
+	public Director Search_director_by_id (Integer director_id) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM director WHERE director_id LIKE ?";
@@ -486,6 +533,7 @@ public class SQLManager {
 			director.setDirector_name(result_set.getString("name"));
 			director.setEmail(result_set.getString("email"));
 			director.setTelephone(result_set.getInt("telephone"));
+			director.setUser_id(result_set.getInt("user_id"));
 			statement.close();
 			return director;
 		} catch (SQLException search_director_error) {
@@ -657,6 +705,7 @@ public class SQLManager {
 				director.setDirector_name(result_set.getString("name"));
 				director.setEmail(result_set.getString("email"));
 				director.setTelephone(result_set.getInt("telephone"));
+				director.setUser_id(result_set.getInt("user_id"));
 			    directors_list.add(director);
 			}
 			statement.close();
@@ -703,68 +752,6 @@ public class SQLManager {
 			return true;
 		} catch (SQLException delete_client_error) {
 			delete_client_error.printStackTrace();
-			return false;
-		}
-	}
-	
-	// Deletes a client from client table with the given client_id
-	public boolean Delete_stored_client(Integer client_id) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM client WHERE client_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, client_id);
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException delete_client_error) {
-			delete_client_error.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean Delete_stored_director(Integer director_id) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM director WHERE director_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, director_id);
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException delete_director_error) {
-			delete_director_error.printStackTrace();
-			return false;
-		}
-	}
-	
-	// Deletes a transaction from transaction table with the given transaction_id
-	public boolean Delete_stored_transaction(Integer transaction_id) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM bank_transaction WHERE transaction_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, transaction_id);
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException delete_transaction_error) {
-			delete_transaction_error.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean Delete_stored_biomaterial(Integer biomaterial_id) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM biomaterial WHERE biomaterial_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, biomaterial_id);
-			template.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException delete_biomaterial_error) {
-			delete_biomaterial_error.printStackTrace();
 			return false;
 		}
 	}

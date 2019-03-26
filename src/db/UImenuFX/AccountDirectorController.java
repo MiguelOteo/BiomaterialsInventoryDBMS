@@ -19,12 +19,12 @@ import javafx.stage.Stage;
 public class AccountDirectorController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
-	
+
 	private static Director director_account;
 	private static SQLManager manager_object;
-	
+
 	// -----> FXML ATRIBUTES <-----
-	
+
 	@FXML
 	public JFXButton done_button;
 	@FXML
@@ -33,37 +33,35 @@ public class AccountDirectorController implements Initializable {
 	private JFXButton update_button;
 	@FXML
 	private JFXButton change_buttom;
-    @FXML
-    private JFXButton delete_account_button;
-    @FXML
-    private JFXTextField name_field;
-    @FXML
-    private JFXTextField email_field;
-    @FXML
-    private JFXTextField telephone_field;
-    @FXML
-    private JFXPasswordField password_field;
-    @FXML
-    private JFXPasswordField repeat_password_field;
-    @FXML
-    private JFXPasswordField new_password_field;
-    
-    // -----> ESSENTIAL METHODS <-----+
-	
-    public AccountDirectorController() {
+	@FXML
+	private JFXButton delete_account_button;
+	@FXML
+	private JFXTextField name_field;
+	@FXML
+	private JFXTextField email_field;
+	@FXML
+	private JFXTextField telephone_field;
+	@FXML
+	private JFXPasswordField password_field;
+	@FXML
+	private JFXPasswordField repeat_password_field;
+	@FXML
+	private JFXPasswordField new_password_field;
+
+	// -----> ESSENTIAL METHODS <-----+
+
+	public AccountDirectorController() {
 		// TODO Auto-generated constructor stub
 	}
-    
-    public AccountDirectorController(SQLManager manager, Director director) {
-    	director_account = director;
-    	System.out.println(director.getUser_id());
-    	manager_object = manager;
+
+	public AccountDirectorController(SQLManager manager, Director director) {
+		director_account = director;
+		manager_object = manager;
 	}
-    
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	    delete_account_button.setOnAction((ActionEvent event) -> {
+		delete_account_button.setOnAction((ActionEvent event) -> {
 			manager_object.Stablish_connection();
 			manager_object.Delete_stored_user(director_account.getUser_id());
 			manager_object.Close_connection();
@@ -73,30 +71,30 @@ public class AccountDirectorController implements Initializable {
 			stage.close();
 		});
 	}
-	
-    // -----> BUTTON METHODS <-----
-	
+
+	// -----> BUTTON METHODS <-----
+
 	@FXML
 	private void close_app(MouseEvent event) {
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void update_information(MouseEvent event) {
 		manager_object.Stablish_connection();
-		if(!this.name_field.getText().equals("")) {
+		if (!this.name_field.getText().equals("")) {
 			director_account.setDirector_name(this.name_field.getText());
 			this.name_field.setText("");
 		} else {
 			this.name_field.setText("");
 		}
-		if(!this.email_field.getText().equals("")) {
+		if (!this.email_field.getText().equals("")) {
 			director_account.setEmail(this.email_field.getText());
 			this.email_field.setText("");
 		} else {
 			this.email_field.setText("");
 		}
-		if(!this.telephone_field.getText().equals("")) {
+		if (!this.telephone_field.getText().equals("")) {
 			director_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
 			this.telephone_field.setText("");
 		} else {
@@ -105,14 +103,14 @@ public class AccountDirectorController implements Initializable {
 		manager_object.Update_director_info(director_account);
 		manager_object.Close_connection();
 	}
-	
+
 	@FXML
 	private void change_password(MouseEvent event) {
-		/*manager_object.Stablish_connection();
-		if(!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("") 
-				&& this.new_password_field.getText().equals("")) 
+		manager_object.Stablish_connection();
+		if (!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("")
+				&& this.new_password_field.getText().equals(""))
 				&& (this.new_password_field.getText().equals(this.repeat_password_field.getText()))) {
-			director_account.setPassword(this.new_password_field.getText());
+			manager_object.Change_password(this.new_password_field.getText(), director_account.getUser_id());
 			this.password_field.setText("");
 			this.repeat_password_field.setText("");
 			this.new_password_field.setText("");
@@ -121,33 +119,6 @@ public class AccountDirectorController implements Initializable {
 			this.repeat_password_field.setText("");
 			this.new_password_field.setText("");
 		}
-		manager_object.Update_director_info(director_account);
-		manager_object.Close_connection();*/
+		manager_object.Close_connection();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -102,11 +102,18 @@ public class DirectorMenuController implements Initializable {
 				my_account = new Stage();
 				my_account.initStyle(StageStyle.UNDECORATED);
 				my_account.setScene(new Scene(root));
-				my_account.setAlwaysOnTop(true);
-				my_account.setOnShowing((event_handler) -> menu_window.setEffect(new BoxBlur(4,4,4)));
+				my_account.setAlwaysOnTop(true);				
+				my_account.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(4,4,4));
+					    myAccount_buttom.setDisable(true);
+					}
+				});
 				my_account.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
+						myAccount_buttom.setDisable(false);
 						menu_window.setEffect(null);
 					}
 				});		
@@ -140,7 +147,7 @@ public class DirectorMenuController implements Initializable {
 	
 	public void update_director_account() {
 	     	manager_object.Stablish_connection();
-	    	director_account = manager_object.search_director_by_id(director_account.getDirector_id());
+	    	director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
 	    	setDirectorEmail(director_account.getEmail());
 	    	setDirectorName(director_account.getDirector_name());
     		setDirectorTelephone(director_account.getTelephone());
