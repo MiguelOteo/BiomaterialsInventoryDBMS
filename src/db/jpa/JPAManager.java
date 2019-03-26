@@ -58,7 +58,6 @@ public class JPAManager {
 				client.setName("Siemens");
 				client.setResponsible("Carlos");
 				client.setBank_account("1234");
-				client.setPassword("1234");
 				client.setTelephone(1234);
 			// Insert client into the DB
 			em.persist(client);
@@ -87,7 +86,7 @@ public class JPAManager {
 			System.out.println("Please, input the client info:");
 			
 				client.setName("Siemens");
-				client.setPassword("1234");
+
 				
 			// Insert client into the DB
 			em.persist(client);
@@ -108,12 +107,12 @@ public class JPAManager {
 	
 	/*  ---------------   UPDATE METHODS JPA   ------------------*/
 	
-	
 	private static void printAllClients() {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 		EntityManager em = factory.createEntityManager();
 		em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
 		Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
+		@SuppressWarnings("unchecked")
 		List<Client> clients = (List<Client>) q1.getResultList();
 		// Print the clients
 		for (Client client : clients) {
@@ -126,6 +125,7 @@ public class JPAManager {
 		EntityManager em = factory.createEntityManager();
 		em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
 		Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
+		@SuppressWarnings("unchecked")
 		List<Category> categories = (List<Category>) q1.getResultList();
 		// Print the clients
 		for (Category category : categories) {

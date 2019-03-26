@@ -56,6 +56,7 @@ public class AccountDirectorController implements Initializable {
     
     public AccountDirectorController(SQLManager manager, Director director) {
     	director_account = director;
+    	System.out.println(director.getUser_id());
     	manager_object = manager;
 	}
     
@@ -64,7 +65,7 @@ public class AccountDirectorController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	    delete_account_button.setOnAction((ActionEvent event) -> {
 			manager_object.Stablish_connection();
-			manager_object.Delete_stored_director(director_account.getDirector_id());
+			manager_object.Delete_stored_user(director_account.getUser_id());
 			manager_object.Close_connection();
 			Stage stage = (Stage) account_window.getScene().getWindow();
 			LaunchApplication.stage.show();
@@ -107,7 +108,7 @@ public class AccountDirectorController implements Initializable {
 	
 	@FXML
 	private void change_password(MouseEvent event) {
-		manager_object.Stablish_connection();
+		/*manager_object.Stablish_connection();
 		if(!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("") 
 				&& this.new_password_field.getText().equals("")) 
 				&& (this.new_password_field.getText().equals(this.repeat_password_field.getText()))) {
@@ -121,7 +122,7 @@ public class AccountDirectorController implements Initializable {
 			this.new_password_field.setText("");
 		}
 		manager_object.Update_director_info(director_account);
-		manager_object.Close_connection();
+		manager_object.Close_connection();*/
 	}
 }
 

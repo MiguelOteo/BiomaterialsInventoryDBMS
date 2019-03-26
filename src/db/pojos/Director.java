@@ -3,8 +3,8 @@ package db.pojos;
 public class Director {
 
 	private Integer director_id;
+	private Integer user_id;
 	private String director_name;
-	private String password;
 	private Integer telephone;
 	private String email;
 	
@@ -12,10 +12,10 @@ public class Director {
 		super();
 	}
 
-	public Director( String director_name, String password) {
+	public Director( String director_name, Integer user_id) {
 		super();
 		this.director_name = director_name;
-		this.password = password;
+		this.user_id = user_id;
 	}
 	
 	public Integer getDirector_id() {
@@ -24,17 +24,17 @@ public class Director {
 	public void setDirector_id(Integer director_id) {
 		this.director_id = director_id;
 	}
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
 	public String getDirector_name() {
 		return director_name;
 	}
 	public void setDirector_name(String director_name) {
 		this.director_name = director_name;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public Integer getTelephone() {
 		return telephone;
@@ -76,7 +76,7 @@ public class Director {
 
 	@Override
 	public String toString() {
-		return "Director [director_id=" + director_id + ", director_name=" + director_name + ", password=" + password
+		return "Director [director_id=" + director_id + ", user_id=" + user_id + ", director_name=" + director_name
 				+ ", telephone=" + telephone + ", email=" + email + "]";
 	}
 }
