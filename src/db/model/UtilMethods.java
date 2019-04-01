@@ -76,13 +76,11 @@ public class UtilMethods {
 	}
 	
 	// check_Date is used to check if the client has done any purchases in the last 3 months  
-	public boolean check_Date (Transaction transaction) {
+	public boolean check_Date (LocalDate transaction_date) {
 		
 		LocalDate comparedDate = LocalDate.now().minusMonths(3);
 		
-		LocalDate dbDate = transaction.getTransaction_date().toLocalDate();
-		
-		if (dbDate.isBefore(comparedDate)) {
+		if (transaction_date.isBefore(comparedDate)) {
 			
 			return true;
 			
@@ -90,7 +88,13 @@ public class UtilMethods {
 		
 	}
 	
-	public boolean Assign_category_to_client(SQLManager manager, Client client) {
+	public boolean Assign_category_to_client(SQLManager manager, Client client, Transaction transaction) {
+		
+		if (check_Date(transaction.getTransaction_date().toLocalDate()) == true) {
+			
+			client.setCategory(client.getCategory().getCategory_id().);
+			
+		}
 		
 		List<Category> categories_list = manager.List_all_categories();
 		int sum_points = Sum_all_client_points(manager, client) ;
@@ -104,9 +108,6 @@ public class UtilMethods {
 		return client_updated;
 	}
 }
-
-
-
 
 
 

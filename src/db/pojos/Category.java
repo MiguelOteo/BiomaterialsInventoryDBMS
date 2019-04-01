@@ -2,8 +2,6 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -50,6 +48,13 @@ public class Category extends UtilMethods implements Serializable{
 
     public Integer getCategory_id() {
     	return category_id;
+    }
+    
+    public Category get_Category_with_id(int id) {
+    	
+    	Category category_type = null;
+    	
+    	return category_type;
     }
     
     public void setCategory_id(Integer category_id) {
@@ -118,3 +123,7 @@ public class Category extends UtilMethods implements Serializable{
 		return true;
 	}
 }
+
+
+
+
