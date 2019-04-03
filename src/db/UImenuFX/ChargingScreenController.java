@@ -2,12 +2,12 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import db.jdbc.SQLManager;
 import db.pojos.Client;
 import db.pojos.Director;
+import db.pojos.User;
 import db.pojos.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +36,8 @@ public class ChargingScreenController implements Initializable {
 
 	@FXML
 	public static AnchorPane charging_main_pane;
+	@FXML
+	public static Stage main_menu_stage;
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -64,77 +66,51 @@ public class ChargingScreenController implements Initializable {
 				manager.Create_tables();
 			}
 
-			// List all clients in order to find if he exist to access it
-			List<Client> clients_list = manager.List_all_clients();
-			Client client_account = null;
-			for (Client client : clients_list) {
-				if ((client.getName().equals(this.user_name)) && (client.getPassword().equals(this.password))) {
-					client_account = client;
-					break;
-				}
-			}
-			if (client_account != null) {
-				if (this.user_type == null) {
-					charge_client_main_menu(client_account);
-					LaunchApplication.stage.hide();
-				} else {
-					System.out.println("El cliente ya existe");
-				}
-			} else {
-				// List all directors in order to find if he exist to access it
-				List<Director> directors_list = manager.List_all_directors();
-				Director director_account = null;
-				for (Director director : directors_list) {
-					if ((director.getDirector_name().equals(this.user_name)) && (director.getPassword().equals(this.password))) {
-						director_account = director;
-						break;
-					}
-				}
-				if (director_account != null) {
-					if (this.user_type == null) {
-						charge_director_main_menu(director_account);
+			Integer user_id = manager.Search_stored_user(this.user_name, this.password);
+			if(user_id != null) {
+				if(this.user_type == null) {
+					Client client_account = manager.Search_stored_clients(user_id);
+					if(client_account != null) {
+						charge_client_main_menu(client_account);
 						LaunchApplication.stage.hide();
 					} else {
-						System.out.println("El director ya existe");
+					    Director director_account = manager.Search_stored_director(user_id);
+					    if(director_account != null) {
+					    	charge_director_main_menu(director_account);
+							LaunchApplication.stage.hide();
+					    } else {
+					    	Worker worker_account = manager.Search_stored_worker(user_id);
+					    	if(worker_account != null) {
+					    		charge_worker_main_menu(worker_account);
+					    		LaunchApplication.stage.hide();
+					    	} else {
+					    		System.exit(0);
+					    	}
+					    }
 					}
 				} else {
-					// List all workers in order to find if he exist to access it
-					List<Worker> workers_list = manager.List_all_workers();
-					Worker worker_account = null;
-					for (Worker worker : workers_list) {
-						if ((worker.getWorker_name().equals(this.user_name)) && (worker.getPassword().equals(this.password))) {
-							worker_account = worker;
-							break;
-						}
-					}
-					if (worker_account != null) {
-						if (this.user_type == null) {
-							// TODO - charge worker menu
-							LaunchApplication.stage.hide();
-							System.out.println("Cargando trabajador");
-						} else {
-							System.out.println("El trabajador ya existe");
-						}
+					System.out.println("El usuario ya existe");
+				}
+			} else {
+				if (this.user_type == null) {
+					System.out.println("No existe ese usuario");
+				} else {
+					if (this.user_type.equals("Client")) {
+						User user = manager.Insert_new_user(user_name, password);
+                        Client client = manager.Insert_new_client(user);
+                        charge_client_main_menu(client);
+						LaunchApplication.stage.hide();
 					} else {
-						if (this.user_type == null) {
-							System.out.println("No existe ese usuario");
+						if (this.user_type.equals("Director")) {
+							User user = manager.Insert_new_user(user_name, password);
+							Director director = manager.Insert_new_director(user);
+							charge_director_main_menu(director);
+							LaunchApplication.stage.hide();
 						} else {
-							if (this.user_type.equals("Client")) {
-								boolean insertion_ok = manager.Insert_new_client_account(this.user_name, this.password);
-								charge_client_main_menu(new Client(this.user_name, this.password));
-								LaunchApplication.stage.hide();
-							} else {
-								if (this.user_type.equals("Director")) {
-									boolean insertion_ok = manager.Insert_new_director(this.user_name, this.password);
-									charge_director_main_menu(new Director(this.user_name, this.password));
-									LaunchApplication.stage.hide();
-								} else {
-									if (this.user_type.equals("Worker")) {
-										boolean insertion_ok = manager.Insert_new_worker(this.user_name, this.password);
-										LaunchApplication.stage.hide();
-										System.out.println("Creando trabajador");
-									}
-								}
+							if (this.user_type.equals("Worker")) {
+								// TODO - Insert Worker
+		                        // TODO - Worker menu
+								System.out.println("Creando trabajador");
 							}
 						}
 					}
@@ -170,10 +146,10 @@ public class ChargingScreenController implements Initializable {
 			this.client_controller = new ClientMenuController(this.manager, client);
 			this.client_controller = loader.getController();
 			this.client_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException client_menu_error) {
 			client_menu_error.printStackTrace();
 			System.exit(0);
@@ -190,10 +166,10 @@ public class ChargingScreenController implements Initializable {
 			this.director_controller.setDirectorEmail(director.getEmail());
 			this.director_controller.setDirectorTelephone(director.getTelephone());
 			this.director_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException director_menu_error) {
 			director_menu_error.printStackTrace();
 			System.exit(0);
@@ -207,10 +183,10 @@ public class ChargingScreenController implements Initializable {
 			this.worker_controller = new WorkerMenuController(this.manager, worker);
 			this.worker_controller = loader.getController();
 			this.worker_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(new Scene(root));
-			stage.show();
+			main_menu_stage = new Stage();
+			main_menu_stage.initStyle(StageStyle.UNDECORATED);
+			main_menu_stage.setScene(new Scene(root));
+			main_menu_stage.show();
 		} catch (IOException director_menu_error) {
 			director_menu_error.printStackTrace();
 			System.exit(0);

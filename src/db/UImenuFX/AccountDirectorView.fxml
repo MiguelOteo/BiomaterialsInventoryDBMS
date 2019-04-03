@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.AccountDirectorController">
+<AnchorPane fx:id="account_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.AccountDirectorController">
    <children>
       <Pane prefHeight="80.0" prefWidth="600.0" styleClass="menu_bar_color">
          <children>
@@ -73,7 +73,7 @@
                   <Font name="Ebrima Bold" size="18.0" />
                </font>
             </Label>
-            <JFXButton fx:id="change_buttom" buttonType="RAISED" layoutX="341.0" layoutY="357.0" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Change" textFill="#000000b4">
+            <JFXButton fx:id="change_buttom" buttonType="RAISED" layoutX="341.0" layoutY="357.0" onMouseClicked="#change_password" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Change" textFill="#000000b4">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -83,17 +83,17 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXPasswordField fx:id="new_password_field" focusColor="#4f90a5" layoutX="326.0" layoutY="92.0" prefHeight="45.0" prefWidth="240.0" promptText="New password">
+            <JFXPasswordField fx:id="new_password_field" focusColor="#4f90a5" labelFloat="true" layoutX="326.0" layoutY="92.0" prefHeight="45.0" prefWidth="240.0" promptText="New password">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXPasswordField fx:id="repeat_password_field" focusColor="#4f90a5" layoutX="328.0" layoutY="183.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat new password">
+            <JFXPasswordField fx:id="repeat_password_field" focusColor="#4f90a5" labelFloat="true" layoutX="328.0" layoutY="183.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat new password">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXPasswordField fx:id="password_field" focusColor="#4f90a5" layoutX="328.0" layoutY="276.0" prefHeight="45.0" prefWidth="240.0" promptText="Old password (Mandatory)">
+            <JFXPasswordField fx:id="password_field" focusColor="#4f90a5" labelFloat="true" layoutX="328.0" layoutY="276.0" prefHeight="45.0" prefWidth="240.0" promptText="Old password (Mandatory)">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

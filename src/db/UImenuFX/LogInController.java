@@ -63,6 +63,7 @@ public class LogInController implements Initializable {
 					this.charging_controller = loader.getController();
 					Stage stage = new Stage();
 					stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, null));
+					stage.setAlwaysOnTop(true);
 					stage.initStyle(StageStyle.UNDECORATED);
 					stage.setScene(new Scene(root));
 					stage.show();

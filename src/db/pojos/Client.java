@@ -13,7 +13,7 @@ public class Client implements Serializable {
 	@GeneratedValue(generator = "client")
 	@TableGenerator(name = "client", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "client")
 	private Integer client_id;
-	private String password;
+	private Integer user_id;
 	private String name;
 	private Integer telephone;
 	private String bank_account;
@@ -28,9 +28,9 @@ public class Client implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Client(String name, String password) {
+	public Client(String name, Integer user_id) {
 		this.name = name;
-		this.password = password;
+		this.user_id = user_id;
 	}
 	
 	public Client(String name, Integer telephone, String bank_account, String responsible) {
@@ -49,12 +49,12 @@ public class Client implements Serializable {
 		this.client_id = id;
 	}
 	
-	public String getPassword() {
-		return password;
+	public Integer getUser_id() {
+		return user_id;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getName() {
@@ -132,10 +132,8 @@ public class Client implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Client [client_id=" + client_id + ", password=" + password + ", name=" + name + ", telephone="
-				+ telephone + ", bank_account=" + bank_account + ", responsible=" + responsible + ", category="
-				+ category + ", points=" + points + "]";
+		return "Client [client_id=" + client_id + ", user_id=" + user_id + ", name=" + name + ", telephone=" + telephone
+				+ ", bank_account=" + bank_account + ", responsible=" + responsible + ", category=" + category
+				+ ", points=" + points + "]";
 	}
-
-	
 }

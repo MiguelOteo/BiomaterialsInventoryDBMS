@@ -75,6 +75,7 @@ public class RegistrationController implements Initializable {
 						Stage stage = new Stage();
 						stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, user_type_string));
 						stage.initStyle(StageStyle.UNDECORATED);
+						stage.setAlwaysOnTop(true);
 						stage.setScene(new Scene(root));
 						stage.show();
 						

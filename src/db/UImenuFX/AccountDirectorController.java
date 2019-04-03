@@ -9,103 +9,116 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Director;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class AccountDirectorController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
-	
-	private Director director_account;
-	private SQLManager manager_object;
-	
+
+	private static Director director_account;
+	private static SQLManager manager_object;
+
 	// -----> FXML ATRIBUTES <-----
-	
+
+	@FXML
+	public JFXButton done_button;
+	@FXML
+	private AnchorPane account_window;
 	@FXML
 	private JFXButton update_button;
 	@FXML
 	private JFXButton change_buttom;
 	@FXML
-	private JFXButton done_button;
-    @FXML
-    private JFXButton delete_account_button;
-    @FXML
-    private JFXTextField name_field;
-    @FXML
-    private JFXTextField email_field;
-    @FXML
-    private JFXTextField telephone_field;
-    @FXML
-    private JFXPasswordField password_field;
-    @FXML
-    private JFXPasswordField repeat_password_field;
-    @FXML
-    private JFXPasswordField new_password_field;
-    
-    // -----> ESSENTIAL METHODS <-----+
-	
-    public AccountDirectorController() {
+	private JFXButton delete_account_button;
+	@FXML
+	private JFXTextField name_field;
+	@FXML
+	private JFXTextField email_field;
+	@FXML
+	private JFXTextField telephone_field;
+	@FXML
+	private JFXPasswordField password_field;
+	@FXML
+	private JFXPasswordField repeat_password_field;
+	@FXML
+	private JFXPasswordField new_password_field;
+
+	// -----> ESSENTIAL METHODS <-----+
+
+	public AccountDirectorController() {
 		// TODO Auto-generated constructor stub
 	}
-    
-    public AccountDirectorController(SQLManager manager, Director director) {
-    	this.director_account = director;
-    	this.manager_object = manager;
+
+	public AccountDirectorController(SQLManager manager, Director director) {
+		director_account = director;
+		manager_object = manager;
 	}
-    
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		delete_account_button.setOnAction((ActionEvent event) -> {
+			manager_object.Stablish_connection();
+			manager_object.Delete_stored_user(director_account.getUser_id());
+			manager_object.Close_connection();
+			Stage stage = (Stage) account_window.getScene().getWindow();
+			LaunchApplication.stage.show();
+			ChargingScreenController.main_menu_stage.close();
+			stage.close();
+		});
 	}
-	
-    // -----> BUTTON METHODS <-----
-	
+
+	// -----> BUTTON METHODS <-----
+
 	@FXML
 	private void close_app(MouseEvent event) {
 		System.exit(0);
 	}
-	
+
 	@FXML
-	private void update_information() {
-		if(this.name_field.getText() != null) {
-			this.director_account.setDirector_name(this.name_field.getText());
+	private void update_information(MouseEvent event) {
+		manager_object.Stablish_connection();
+		if (!this.name_field.getText().equals("")) {
+			director_account.setDirector_name(this.name_field.getText());
+			this.name_field.setText("");
+		} else {
+			this.name_field.setText("");
 		}
-		if(this.email_field.getText() != null) {
-			this.director_account.setEmail(this.email_field.getText());
-		} 
-		if(this.telephone_field.getText() != null) {
-			this.director_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
+		if (!this.email_field.getText().equals("")) {
+			director_account.setEmail(this.email_field.getText());
+			this.email_field.setText("");
+		} else {
+			this.email_field.setText("");
 		}
-		this.manager_object.Update_director_info(this.director_account);
+		if (!this.telephone_field.getText().equals("")) {
+			director_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
+			this.telephone_field.setText("");
+		} else {
+			this.telephone_field.setText("");
+		}
+		manager_object.Update_director_info(director_account);
+		manager_object.Close_connection();
+	}
+
+	@FXML
+	private void change_password(MouseEvent event) {
+		manager_object.Stablish_connection();
+		if (!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("")
+				&& this.new_password_field.getText().equals(""))
+				&& (this.new_password_field.getText().equals(this.repeat_password_field.getText()))) {
+			manager_object.Change_password(this.new_password_field.getText(), director_account.getUser_id());
+			this.password_field.setText("");
+			this.repeat_password_field.setText("");
+			this.new_password_field.setText("");
+		} else {
+			this.password_field.setText("");
+			this.repeat_password_field.setText("");
+			this.new_password_field.setText("");
+		}
+		manager_object.Close_connection();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
