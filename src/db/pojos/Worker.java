@@ -3,7 +3,7 @@ package db.pojos;
 public class Worker {
 
 	private Integer worker_id;
-	private Integer user_id;
+	private User user;
 	private String worker_name;
 	private String password;
 	
@@ -11,9 +11,9 @@ public class Worker {
 		super();
 	}
 
-	public Worker(String worker_name, Integer user_id) {
+	public Worker(String worker_name, User user) {
 		super();
-		this.user_id = user_id;
+		this.user = user;
 		this.worker_name = worker_name;
 	}
 
@@ -25,12 +25,12 @@ public class Worker {
 		this.worker_id = worker_id;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 	
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public String getWorker_name() {
@@ -76,7 +76,7 @@ public class Worker {
 
 	@Override
 	public String toString() {
-		return "Worker [worker_id=" + worker_id + ", user_id=" + user_id + ", worker_name=" + worker_name
+		return "Worker [worker_id=" + worker_id + ", user=" + user + ", worker_name=" + worker_name
 				+ ", password=" + password + "]";
 	}
 }

@@ -66,20 +66,20 @@ public class ChargingScreenController implements Initializable {
 				manager.Create_tables();
 			}
 
-			Integer user_id = manager.Search_stored_user(this.user_name, this.password);
-			if(user_id != null) {
+			User user = manager.Search_stored_user(this.user_name, this.password);
+			if(user != null) {
 				if(this.user_type == null) {
-					Client client_account = manager.Search_stored_clients(user_id);
+					Client client_account = manager.Search_stored_clients(user);
 					if(client_account != null) {
 						charge_client_main_menu(client_account);
 						LaunchApplication.stage.hide();
 					} else {
-					    Director director_account = manager.Search_stored_director(user_id);
+					    Director director_account = manager.Search_stored_director(user);
 					    if(director_account != null) {
 					    	charge_director_main_menu(director_account);
 							LaunchApplication.stage.hide();
 					    } else {
-					    	Worker worker_account = manager.Search_stored_worker(user_id);
+					    	Worker worker_account = manager.Search_stored_worker(user);
 					    	if(worker_account != null) {
 					    		charge_worker_main_menu(worker_account);
 					    		LaunchApplication.stage.hide();
@@ -96,14 +96,14 @@ public class ChargingScreenController implements Initializable {
 					System.out.println("No existe ese usuario");
 				} else {
 					if (this.user_type.equals("Client")) {
-						User user = manager.Insert_new_user(user_name, password);
-                        Client client = manager.Insert_new_client(user);
+						User new_user = manager.Insert_new_user(user_name, password);
+                        Client client = manager.Insert_new_client(new_user);
                         charge_client_main_menu(client);
 						LaunchApplication.stage.hide();
 					} else {
 						if (this.user_type.equals("Director")) {
-							User user = manager.Insert_new_user(user_name, password);
-							Director director = manager.Insert_new_director(user);
+							User new_user = manager.Insert_new_user(user_name, password);
+							Director director = manager.Insert_new_director(new_user);
 							charge_director_main_menu(director);
 							LaunchApplication.stage.hide();
 						} else {
@@ -116,7 +116,6 @@ public class ChargingScreenController implements Initializable {
 					}
 				}
 			}
-			manager.Close_connection();
 		} catch (Exception error_occur) {
 			error_occur.printStackTrace();
 			manager.Close_connection();

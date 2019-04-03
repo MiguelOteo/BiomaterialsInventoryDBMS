@@ -62,9 +62,7 @@ public class AccountDirectorController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		delete_account_button.setOnAction((ActionEvent event) -> {
-			manager_object.Stablish_connection();
-			manager_object.Delete_stored_user(director_account.getUser_id());
-			manager_object.Close_connection();
+			manager_object.Delete_stored_user(director_account.getUser().getUserId());
 			Stage stage = (Stage) account_window.getScene().getWindow();
 			LaunchApplication.stage.show();
 			ChargingScreenController.main_menu_stage.close();
@@ -81,7 +79,6 @@ public class AccountDirectorController implements Initializable {
 
 	@FXML
 	private void update_information(MouseEvent event) {
-		manager_object.Stablish_connection();
 		if (!this.name_field.getText().equals("")) {
 			director_account.setDirector_name(this.name_field.getText());
 			this.name_field.setText("");
@@ -101,16 +98,14 @@ public class AccountDirectorController implements Initializable {
 			this.telephone_field.setText("");
 		}
 		manager_object.Update_director_info(director_account);
-		manager_object.Close_connection();
 	}
 
 	@FXML
 	private void change_password(MouseEvent event) {
-		manager_object.Stablish_connection();
 		if (!(this.password_field.getText().equals("") && this.repeat_password_field.getText().equals("")
 				&& this.new_password_field.getText().equals(""))
 				&& (this.new_password_field.getText().equals(this.repeat_password_field.getText()))) {
-			manager_object.Change_password(this.new_password_field.getText(), director_account.getUser_id());
+			manager_object.Change_password(this.new_password_field.getText(), director_account.getUser().getUserId());
 			this.password_field.setText("");
 			this.repeat_password_field.setText("");
 			this.new_password_field.setText("");
@@ -119,6 +114,5 @@ public class AccountDirectorController implements Initializable {
 			this.repeat_password_field.setText("");
 			this.new_password_field.setText("");
 		}
-		manager_object.Close_connection();
 	}
 }

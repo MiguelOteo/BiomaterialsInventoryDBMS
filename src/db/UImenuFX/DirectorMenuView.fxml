@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -50,6 +51,16 @@
                         <Image url="@src.IconPictures/user-tie-white.png" />
                      </image>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
+               <children>
+                  <Label fx:id="current_pane_option_label1" layoutX="168.0" layoutY="14.0" text="Transactions list">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXTreeTableView layoutX="14.0" layoutY="46.0" prefHeight="580.0" prefWidth="430.0" styleClass="list_color" />
                </children>
             </Pane>
          </children>
