@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import db.model.Interface;
 import db.pojos.Benefits;
 import db.pojos.Biomaterial;
 import db.pojos.Category;
@@ -15,7 +16,7 @@ import db.pojos.User;
 import db.pojos.Utility;
 import db.pojos.Worker;
 
-public class SQLManager {
+public class SQLManager implements Interface{
 
 	private Connection sqlite_connection;
 
