@@ -1,14 +1,14 @@
 package db.jpa;
 
 import java.io.BufferedReader;
+
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
 import db.model.Interface;
-import db.pojos.Category;
-import db.pojos.Client;
-
+import db.pojos.*;
 
 import javax.persistence.*;
 
@@ -20,7 +20,7 @@ public class JPAManager implements Interface {
 	/*  ---------------   CREATE METHODS JPA   ------------------*/
 	
 	
-	public boolean Create_new_Category(Category category) {
+	public boolean Insert_new_category(Category category) {
 		try{
 			
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
@@ -29,10 +29,10 @@ public class JPAManager implements Interface {
 			
 		System.out.println("Please, input the new category info:");
 						
-			category.setCategory_name("PlatinumMAX");
-			category.setPenalization(1600/4);
-			category.setMaximum(1800);
-			category.setMinimum(1600);
+			category.setCategory_name(category.getCategory_name());
+			category.setPenalization(category.getMinimum()/4);
+			category.setMaximum(category.getMaximum());
+			category.setMinimum(category.getMinimum());
 			em.persist(category);
 			
 			em.close();
@@ -47,16 +47,20 @@ public class JPAManager implements Interface {
 	
 	
 	
-	public boolean Create_new_ClientAccount(Client client) {
+	public Client Insert_new_client(User user) {
 		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 			EntityManager em = factory.createEntityManager();
 			em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
 			
 			em.getTransaction().begin();
 			
+			Client client = new Client();
 			System.out.println("Please, input the client info:");
-			
+				System.out.println("Input User ID: ");
+				int id = Integer.parseInt(br.readLine());
+				client.setClient_id(id);
 				client.setName("Siemens");
 				client.setResponsible("Carlos");
 				client.setBank_account("1234");
@@ -68,75 +72,67 @@ public class JPAManager implements Interface {
 			
 			em.close();
 			factory.close();
-			return true;
+			return client;
 			
 		} catch (EntityNotFoundException new_client_account_error) {
 			new_client_account_error.printStackTrace();
-			return false;
+			return null;
+		} catch (IOException read_error) {
+			read_error.printStackTrace();
+			return null;
 		}
 	}
 	
-	public boolean Create_new_Client(Client client) {
-		try {
-			
-			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-			EntityManager em = factory.createEntityManager();
-			em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
-			
-			em.getTransaction().begin();
-			
-			System.out.println("Please, input the client info:");
-			
-				client.setName("Siemens");
-
-				
-			// Insert client into the DB
-			em.persist(client);
-			em.getTransaction().commit();
-
-			
-			em.close();
-			factory.close();
-			return true;
-			
-		} catch (EntityNotFoundException new_client_error) {
-			new_client_error.printStackTrace();
-			return false;
-		}
-	}
 	
 	
 	
 	/*  ---------------   UPDATE METHODS JPA   ------------------*/
 	
-	private static void printAllClients() {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-		EntityManager em = factory.createEntityManager();
-		em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
-		Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
-		@SuppressWarnings("unchecked")
-		List<Client> clients = (List<Client>) q1.getResultList();
-		// Print the clients
-		for (Client client : clients) {
-			System.out.println(client);
+	public List<Client> List_all_clients() {
+		
+		try {
+			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
+			EntityManager em = factory.createEntityManager();
+			em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
+			Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
+			@SuppressWarnings("unchecked")
+			List<Client> clients = (List<Client>) q1.getResultList();
+			// Print the clients
+				for (Client client : clients) {
+					System.out.println(client);
+				}
+			
+		return clients;
+		
+		} catch (EntityNotFoundException List_all_clients_error) {
+			List_all_clients_error.printStackTrace();
+			return null;
 		}
 	}
 	
-	private static void printAllCategories() {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-		EntityManager em = factory.createEntityManager();
-		em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
-		Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
-		@SuppressWarnings("unchecked")
-		List<Category> categories = (List<Category>) q1.getResultList();
-		// Print the clients
-		for (Category category : categories) {
-			System.out.println(category);
+	public List<Category> List_all_categories() {
+		
+		try {
+			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
+			EntityManager em = factory.createEntityManager();
+			em = Persistence.createEntityManagerFactory("project-provider").createEntityManager();
+			Query q1 = em.createNativeQuery("SELECT * FROM Client", Client.class);
+			@SuppressWarnings("unchecked")
+			List<Category> categories = (List<Category>) q1.getResultList();
+			// Print the clients
+				for (Category category : categories) {
+					System.out.println(category);
+				}
+		return categories;
+		
+		} catch (EntityNotFoundException List_all_clients_error) {
+			List_all_clients_error.printStackTrace();
+			return null;
 		}
 	}
 	
 	
-	public boolean Update_client_info(Client client) throws IOException{
+	public boolean Update_client_info(Client client) {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
@@ -147,17 +143,17 @@ public class JPAManager implements Interface {
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();
 			
-			Query q = em.createNativeQuery("SELECT * FROM Client WHERE name LIKE ?", Client.class);
+			//Query q = em.createNativeQuery("SELECT * FROM Client WHERE name LIKE ?", Client.class);
 
 			System.out.println("List of all clients: ");
-			printAllClients();
+			List_all_clients();
 			System.out.println("Please, select the client to update. Type it's ID: ");
 			
 
 			int client_id = Integer.parseInt(reader.readLine());
-			Query q2 = em.createNativeQuery("SELECT * FROM Client WHERE client_id = ?", Client.class);
-			q2.setParameter(1, client_id);
-			Client c = (Client) q2.getSingleResult();
+			Query q = em.createNativeQuery("SELECT * FROM Client WHERE client_id = ?", Client.class);
+			q.setParameter(1, client_id);
+			Client c = (Client) q.getSingleResult();
 			
 			em.getTransaction().begin();
 			System.out.println("Please, set the new info of client: ");
@@ -182,10 +178,13 @@ public class JPAManager implements Interface {
 		} catch (EntityNotFoundException update_client_error) {
 			update_client_error.printStackTrace();
 			return false;
+		} catch (IOException read_error) {
+			read_error.printStackTrace();
+			return false;
 		}
 	}
 	
-	public boolean Update_category_info(Category category) throws IOException{
+	public boolean Update_category_info(Category category) {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
@@ -196,17 +195,19 @@ public class JPAManager implements Interface {
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();
 			
+			/* NOT NECESSARY
 			Query q = em.createNativeQuery("SELECT * FROM Category WHERE name LIKE ?", Category.class);
-
+			q.setParameter(1, reader.readLine());
+			*/
 			System.out.println("List of all categories: ");
-			printAllCategories();
+			List_all_categories();
 			System.out.println("Please, select the category to update. Type it's ID: ");
 			
 
 			int cat_id = Integer.parseInt(reader.readLine());
-			Query q2 = em.createNativeQuery("SELECT * FROM Category WHERE category_id = ?", Category.class);
-			q2.setParameter(1, cat_id);
-			Client c = (Client) q2.getSingleResult();
+			Query q = em.createNativeQuery("SELECT * FROM Category WHERE category_id = ?", Category.class);
+			q.setParameter(1, cat_id);
+			Client c = (Client) q.getSingleResult();
 			
 			em.getTransaction().begin();
 			System.out.println("Please, set the new info of the category: ");
@@ -230,13 +231,16 @@ public class JPAManager implements Interface {
 		} catch (EntityNotFoundException update_client_error) {
 			update_client_error.printStackTrace();
 			return false;
+		} catch (IOException read_error) {
+			read_error.printStackTrace();
+			return false;
 		}
 	}
 	
 	
 	/*  ---------------   DELETE METHODS JPA   ------------------*/
 	
-	public boolean Delete_client(Client client) {
+	public boolean Delete_stored_client(Client client) {
 		try {
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 			EntityManager em = factory.createEntityManager();
@@ -261,7 +265,7 @@ public class JPAManager implements Interface {
 		}
 	}
 	
-	public boolean Delete_category(Category category) {
+	public boolean Delete_stored_category(Category category) {
 		try {
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 			EntityManager em = factory.createEntityManager();
@@ -287,7 +291,7 @@ public class JPAManager implements Interface {
 	
 	/*  ---------------   READ METHODS JPA   ------------------*/
 	
-	public boolean Read_client_info(Client client) {
+	public Client Search_stored_client(User user) {
 		try {
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 			EntityManager em = factory.createEntityManager();
@@ -297,30 +301,32 @@ public class JPAManager implements Interface {
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();
 			
-			Query q_client = em.createNativeQuery("SELECT FROM Client", Client.class);
+			Query q_client = em.createNativeQuery("SELECT * FROM client c WHERE c.user_id LIKE ?", Client.class);
+			q_client.setParameter(1, user.getUserId());
 			
-						/*For reading more than one result we use List
+						/*
+						For reading more than one result we use List
 						List<Client> list1 = q_client.getResultList();
 						List<Category> list2 = q_category.getResultList();
 						*/
 			
 			/*For reading ONE single result --- In this case we are reading a single result*/
-			Client c = (Client) q_client.getSingleResult();
+			Client client = (Client) q_client.getSingleResult();
 			
 			
 			em.getTransaction().commit();
 			em.close();
 			factory.close();
 			
-			return true;
+			return client;
 			
 		} catch (EntityNotFoundException update_client_error) {
 			update_client_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
-	public boolean Read_category_info(Category category) {
+	public Category Search_category_info(Category category) {
 		try {
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 			EntityManager em = factory.createEntityManager();
@@ -330,21 +336,131 @@ public class JPAManager implements Interface {
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();
 			
-			Query q_category = em.createNativeQuery("SELECT category_name FROM Category" , Category.class);
+			Query q_category = em.createNativeQuery("SELECT * FROM Category c WHERE c.category_id LIKE ?" , Category.class);
+			q_category.setParameter(1, category.getCategory_id());
 			
-			Category o = (Category) q_category.getSingleResult();
+			Category cat = (Category) q_category.getSingleResult();
 			
 			em.getTransaction().commit();
 			em.close();
 			factory.close();
 			
-			return true;
+			return cat;
 			
 		} catch (EntityNotFoundException update_client_error) {
 			update_client_error.printStackTrace();
-			return false;
+			return null;
 		}
+	
 	}
 	
+	
+	public boolean Stablish_connection() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Create_tables() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Check_if_tables_exist() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public User Insert_new_user(String user_name, String password) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Director Insert_new_director(User user){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Worker Insert_new_worker(User user) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public boolean Insert_new_benefits(Benefits benefits) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_utility(Utility utility) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_maintenance(Maintenance maintenance) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_transaction(Transaction transaction) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_biomaterial(Biomaterial biomaterial) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public void Change_password(String password, Integer user_id) {
+		System.out.println("Not implemented");
+	}
+	public boolean Update_director_info(Director director) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public User Search_stored_user(String name, String password) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Director Search_stored_director(User user) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Worker Search_stored_worker(User user) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public User Search_user_by_id(Integer user_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Director Search_director_by_id(Integer director_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Transaction> Search_stored_transaction(Client client){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<User> List_all_users(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Transaction> List_all_transactions(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Biomaterial> List_all_biomaterials(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Director> List_all_directors(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Worker> List_all_workers(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public boolean Delete_stored_user(Integer user_id) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Close_connection() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public List<Transaction> Search_stored_transactions(Client client) {
+		System.out.println("Not implemented");
+		return null;
+	}
 	
 }

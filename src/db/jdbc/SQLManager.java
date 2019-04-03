@@ -287,7 +287,7 @@ public class SQLManager implements Interface{
 			String table = "INSERT INTO category(category_name, penalization, max, min) " + "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, category.getCategory_name());
-			template.setFloat(2, category.getPenalization());
+			template.setFloat(2, category.getMinimum()/4);
 			template.setInt(3, category.getMaximum());
 			template.setInt(4, category.getMinimum());
 			template.executeUpdate();
@@ -300,7 +300,7 @@ public class SQLManager implements Interface{
 	}
 
 	// Utility(heat_cold, flexibility, resistance, pressure, strength)
-	public boolean Isert_new_utility(Utility utility) {
+	public boolean Insert_new_utility(Utility utility) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO utility(heat_cold, flexibility, resistance, pressure, strength) "
@@ -387,6 +387,9 @@ public class SQLManager implements Interface{
 		}
 	}
 	
+	
+	
+	
 	// -----> UPDATE METHODS <-----
 	
 	public void Change_password(String password, Integer user_id) {
@@ -441,6 +444,25 @@ public class SQLManager implements Interface{
 		}
 	}
 
+	public boolean Update_category_info(Category category) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "UPDATE category SET name = ?, maximum = ?, minimum = ? WHERE category_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, category.getCategory_name());
+			template.setInt(2, category.getMaximum());
+			template.setInt(3, category.getMinimum());
+			template.setInt(4, category.getCategory_id());
+			statement.close();
+			
+			return true;
+		} catch (SQLException update_category_error) {
+			update_category_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	
 	// -----> SEARCH METHODS <-----
 
 	// Selects all users objects with the same user_name from the data base and returns them
@@ -464,7 +486,7 @@ public class SQLManager implements Interface{
 	}
 	
 	// Selects the client object with the same user_id from the data base and returns them
-	public Client Search_stored_clients(User user) {
+	public Client Search_stored_client(User user) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM client WHERE user_id LIKE ?";
@@ -525,6 +547,28 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	public Category Search_category_info(Category category) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM category WHERE category_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, category.getCategory_id());
+			ResultSet result_set = template.executeQuery();
+			Category cat = new Category();
+			cat.setCategory_id(result_set.getInt("category_id"));
+			cat.setCategory_name(result_set.getString("name"));
+			cat.setMaximum(result_set.getInt("maximum"));
+			cat.setMinimum(result_set.getInt("minimum"));
+			cat.setPenalization(result_set.getFloat("penalization"));
+			
+			statement.close();
+			return cat;
+		} catch (SQLException search_worker_error) {
+			return null;
+		}
+	}
+	
 	
 	// Selects the user object with the same user_id from the data base and returns it
 	public User Search_user_by_id(Integer user_id) {
@@ -778,12 +822,44 @@ public class SQLManager implements Interface{
 			template.executeUpdate();
 			statement.close();
 			return true;
+		} catch (SQLException delete_user_error) {
+			delete_user_error.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean Delete_stored_client(Client client) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE FROM client WHERE client_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, client.getClient_id());
+			template.executeUpdate();
+			statement.close();
+			
+			return true;
 		} catch (SQLException delete_client_error) {
 			delete_client_error.printStackTrace();
 			return false;
 		}
 	}
-
+	
+	public boolean Delete_stored_category(Category category) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "DELETE FROM category WHERE category_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, category.getCategory_id());
+			template.executeUpdate();
+			statement.close();
+			
+			return true;
+		} catch (SQLException delete_client_error) {
+			delete_client_error.printStackTrace();
+			return false;
+		}
+	}
+	
 	// -----> CLOSE CONNECTION METHOD <-----
 
 	// Close connection with the data base method
@@ -796,4 +872,6 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
+
+
 }

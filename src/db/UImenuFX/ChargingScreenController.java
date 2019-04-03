@@ -69,7 +69,7 @@ public class ChargingScreenController implements Initializable {
 			User user = manager.Search_stored_user(this.user_name, this.password);
 			if(user != null) {
 				if(this.user_type == null) {
-					Client client_account = manager.Search_stored_clients(user);
+					Client client_account = manager.Search_stored_client(user);
 					if(client_account != null) {
 						charge_client_main_menu(client_account);
 						LaunchApplication.stage.hide();
