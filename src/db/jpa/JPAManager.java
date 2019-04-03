@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import db.model.Interface;
 import db.pojos.Category;
 import db.pojos.Client;
 
+
 import javax.persistence.*;
 
-public class JPAManager {
+public class JPAManager implements Interface {
 
 	private static final String PERSISTENCE_PROVIDER = "project-provider";
 	private static EntityManagerFactory factory;
