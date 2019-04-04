@@ -6,7 +6,6 @@ import db.pojos.*;
 
 public interface Interface {
 	
-	
 	public boolean Stablish_connection();
 	
 	public boolean Create_tables();
@@ -49,6 +48,5 @@ public interface Interface {
 	public boolean Delete_stored_client(Client client);
 	public boolean Delete_stored_category(Category category);
 	public boolean Close_connection();
-	
 	
 }

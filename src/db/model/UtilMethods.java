@@ -1,7 +1,5 @@
 package db.model;
 
-
-import java.time.LocalDate;
 import java.util.List;
 
 import db.jdbc.SQLManager;
@@ -9,7 +7,6 @@ import db.pojos.Benefits;
 import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Transaction;
-
 
 public class UtilMethods {
 	
@@ -96,13 +93,6 @@ public class UtilMethods {
 		boolean client_updated = manager.Update_client_info(client); 
 		return client_updated;
 	}
-	
-	
-	public void Create_date_transaction (Transaction transaction) {
-		LocalDate purchase_moment = LocalDate.now();
-		transaction.setTransaction_date(purchase_moment);
-	}
-	
 	
 	public /*boolean*/ void Determine_limiting_date (Client client) {
 		//1 >> we have to get last transaction stored in arrayList<Transaction> with FOR

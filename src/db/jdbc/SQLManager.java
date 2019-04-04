@@ -1,6 +1,7 @@
 package db.jdbc;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -354,7 +355,7 @@ public class SQLManager implements Interface{
 			template.setInt(2, transaction.getClient_id());
 			template.setFloat(3, transaction.getGain());
 			template.setInt(4, transaction.getUnits());
-			template.setDate(5, transaction.getTransaction_date());
+			template.setDate(5, Date.valueOf(LocalDate.now()));
 			template.setInt(6, transaction.getProduct_id());
 			template.executeUpdate();
 			statement.close();

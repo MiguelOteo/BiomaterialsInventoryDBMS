@@ -1,7 +1,7 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Transaction implements Serializable{
 
@@ -11,7 +11,7 @@ public class Transaction implements Serializable{
     private Integer client_id;
     private Integer units;
     private Integer product_id;
-    private LocalDateTime transaction_date;
+    private Date transaction_date;
     
 
 	public Transaction() {
@@ -20,7 +20,7 @@ public class Transaction implements Serializable{
 	}
 	
 	public Transaction(Integer transaction_id, Float gain, Integer client_id, Integer units, Integer product_id,
-			LocalDateTime transaction_date) {
+			Date transaction_date) {
 		super();
 		this.transaction_id = transaction_id;
 		this.gain = gain;
@@ -70,16 +70,14 @@ public class Transaction implements Serializable{
 		this.product_id = product_id;
 	}
 	
-	public LocalDateTime getTransaction_date() {
+	public Date getTransaction_date() {
 		return transaction_date;
 	}
 	
-	public void setTransaction_date(Object object) {
-		this.transaction_date = (LocalDateTime) object;
+	public void setTransaction_date(Date transaction_date) {
+		this.transaction_date = transaction_date;
 	}
 
-
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
