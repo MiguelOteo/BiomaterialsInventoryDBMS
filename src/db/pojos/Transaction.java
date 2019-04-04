@@ -1,7 +1,7 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Transaction implements Serializable{
 
@@ -11,14 +11,16 @@ public class Transaction implements Serializable{
     private Integer client_id;
     private Integer units;
     private Integer product_id;
-    private Date transaction_date;
+    private LocalDateTime transaction_date;
+    
+
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	public Transaction(Integer transaction_id, Float gain, Integer client_id, Integer units, Integer product_id,
-			Date transaction_date) {
+			LocalDateTime transaction_date) {
 		super();
 		this.transaction_id = transaction_id;
 		this.gain = gain;
@@ -47,11 +49,11 @@ public class Transaction implements Serializable{
 	public Integer getClient_id() {
 		return client_id;
 	}
-	
+
 	public void setClient_id(Integer client_id) {
 		this.client_id = client_id;
 	}
-	
+
 	public Integer getUnits() {
 		return units;
 	}
@@ -68,14 +70,14 @@ public class Transaction implements Serializable{
 		this.product_id = product_id;
 	}
 	
-	public Date getTransaction_date() {
+	public LocalDateTime getTransaction_date() {
 		return transaction_date;
 	}
 	
-	public void setTransaction_date(Date transaction_date) {
-		this.transaction_date = transaction_date;
+	public void setTransaction_date(Object object) {
+		this.transaction_date = (LocalDateTime) object;
 	}
-	
+
 
 	
 	@Override
@@ -107,5 +109,12 @@ public class Transaction implements Serializable{
 		return " Transaction ID = " + transaction_id + "\n Gain of transaction = " + gain + "\n Client ID = " + client_id + "\n Units = "
 				+ units + "\n Product ID = " + product_id + "\n Transaction date" + transaction_date;
 	}
+
+	
+	
+	
+	
+	
+	
 }
 

@@ -1,6 +1,8 @@
 package db.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,6 +24,7 @@ public class Client implements Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 	private Integer points;
+	private ArrayList<Transaction> transactions_list;
 
 	public Client() {
 		super();
@@ -105,6 +108,14 @@ public class Client implements Serializable {
 		this.points = points;
 	}
 	
+	public ArrayList<Transaction> getTransactions_list() {
+		return transactions_list;
+	}
+
+	public void setTransactions_list(ArrayList<Transaction> transactions_list) {
+		this.transactions_list = transactions_list;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
