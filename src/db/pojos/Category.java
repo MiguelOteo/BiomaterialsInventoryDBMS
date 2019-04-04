@@ -25,9 +25,10 @@ public class Category extends UtilMethods implements Serializable{
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "category")
 	private Integer category_id;
 	private String category_name;
+	private Integer minimum;
 	private float penalization;
 	private Integer maximum;
-	private Integer minimum;
+	
 	@OneToOne @JoinColumn(name = "benefits_id")
 	private Benefits benefits;
 	@OneToMany @JoinColumn(name = "client_id")
@@ -38,12 +39,12 @@ public class Category extends UtilMethods implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(String category_name, float penalization, Integer maximum, Integer minimum) {
+	public Category(String category_name, Integer maximum, Integer minimum) {
 		super();
 		this.category_name = category_name;
-		this.penalization = penalization;
 		this.maximum = maximum;
 		this.minimum = minimum;
+		this.penalization = minimum/4;
 	}
 
     public Integer getCategory_id() {

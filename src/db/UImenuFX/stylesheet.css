@@ -78,6 +78,11 @@
 	-fx-background-radius: 3;
 }
 
+.list_color {
+	-fx-background-color: white;
+	-fx-border-color: #4f90a5;
+}
+
 
 
 

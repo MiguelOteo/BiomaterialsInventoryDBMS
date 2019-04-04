@@ -33,18 +33,18 @@ public class UtilMethods {
 	// -----> CATEGORY LEVELS METHODS <-----
 
 	public boolean Categories_of_cients(SQLManager manager){
-		boolean None_ok = manager.Insert_new_category(new Category("None", 0, 79, 0));
-		boolean Bronze3_ok = manager.Insert_new_category(new Category("Bronze 3", 80/4, 89, 80));
-		boolean Bronze2_ok = manager.Insert_new_category(new Category("Bronze 2", 90/4, 99, 90));
-		boolean Bronze1_ok = manager.Insert_new_category(new Category("Bronze 1", 100/4, 149, 100));
-		boolean Silver2_ok = manager.Insert_new_category(new Category("Silver 2", 150/4, 279, 150));
-		boolean Silver1_ok = manager.Insert_new_category(new Category("Silver 1", 280/4, 399, 280));
-		boolean Gold2_ok = manager.Insert_new_category(new Category("Gold 2", 400/4, 449, 400));
-		boolean Gold1_ok = manager.Insert_new_category(new Category("Gold 1", 450/4, 549, 450));
-		boolean Diamond2_ok = manager.Insert_new_category(new Category("Diamond 2", 820/4, 919, 820));
-		boolean Diamond1_ok = manager.Insert_new_category(new Category("Diamond 1", 920/4, 999, 920));
-		boolean Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 550/4, 1299, 1000));
-		boolean Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 650/4, 1599, 1300));
+		boolean None_ok = manager.Insert_new_category(new Category("None", 79, 0));
+		boolean Bronze3_ok = manager.Insert_new_category(new Category("Bronze 3", 89, 80));
+		boolean Bronze2_ok = manager.Insert_new_category(new Category("Bronze 2", 99, 90));
+		boolean Bronze1_ok = manager.Insert_new_category(new Category("Bronze 1", 149, 100));
+		boolean Silver2_ok = manager.Insert_new_category(new Category("Silver 2", 279, 150));
+		boolean Silver1_ok = manager.Insert_new_category(new Category("Silver 1", 399, 280));
+		boolean Gold2_ok = manager.Insert_new_category(new Category("Gold 2", 449, 400));
+		boolean Gold1_ok = manager.Insert_new_category(new Category("Gold 1", 549, 450));
+		boolean Diamond2_ok = manager.Insert_new_category(new Category("Diamond 2", 919, 820));
+		boolean Diamond1_ok = manager.Insert_new_category(new Category("Diamond 1", 999, 920));
+		boolean Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 1299, 1000));
+		boolean Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 1599, 1300));
 		
 		if(None_ok| Bronze3_ok| Bronze2_ok| Bronze1_ok| Silver2_ok| Silver1_ok| Gold2_ok| Gold1_ok| Diamond2_ok| Diamond1_ok| Platinum2_ok| Platinum1_ok) {
 			return true;
