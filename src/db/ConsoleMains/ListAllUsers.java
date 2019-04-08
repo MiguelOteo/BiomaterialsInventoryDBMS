@@ -5,6 +5,7 @@ import java.util.List;
 import db.jdbc.SQLManager;
 import db.pojos.Client;
 import db.pojos.Director;
+import db.pojos.User;
 import db.pojos.Worker;
 
 public class ListAllUsers {
@@ -20,6 +21,12 @@ public class ListAllUsers {
 		}
 		
 		if(everything_ok) {
+			
+			System.out.println("-----> USER LIST <-----\n");
+			List<User> users_list = manager.List_all_users();
+			for (User user : users_list) {
+				System.out.print(user + "\n\n");
+	        }
 			
 			System.out.println("-----> DIRECTOR LIST <-----\n");
 			List<Director> director_list = manager.List_all_directors();

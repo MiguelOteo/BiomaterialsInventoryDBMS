@@ -63,6 +63,7 @@ public class AccountDirectorController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		delete_account_button.setOnAction((ActionEvent event) -> {
 			manager_object.Delete_stored_user(director_account.getUser().getUserId());
+			manager_object.Close_connection();
 			Stage stage = (Stage) account_window.getScene().getWindow();
 			LaunchApplication.stage.show();
 			ChargingScreenController.main_menu_stage.close();

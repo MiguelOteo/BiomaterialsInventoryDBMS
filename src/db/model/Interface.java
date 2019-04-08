@@ -45,7 +45,6 @@ public interface Interface {
 	public List<Worker> List_all_workers();
 	
 	public boolean Delete_stored_user(Integer user_id);
-	public boolean Delete_stored_client(Client client);
 	public boolean Delete_stored_category(Category category);
 	public boolean Close_connection();
 	

@@ -175,6 +175,7 @@ public class SQLManager implements Interface{
 		    user.setUserName(result_set.getString("user_name"));
 		    user.setPassword(result_set.getString("password"));
 		    user.setUserId(result_set.getInt("user_id"));
+		    System.out.println(user);
 		    statement.close();
 		    return user;
 		} catch (SQLException insert_user_error) {
@@ -825,22 +826,6 @@ public class SQLManager implements Interface{
 			return true;
 		} catch (SQLException delete_user_error) {
 			delete_user_error.printStackTrace();
-			return false;
-		}
-	}
-
-	public boolean Delete_stored_client(Client client) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM client WHERE client_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, client.getClient_id());
-			template.executeUpdate();
-			statement.close();
-			
-			return true;
-		} catch (SQLException delete_client_error) {
-			delete_client_error.printStackTrace();
 			return false;
 		}
 	}
