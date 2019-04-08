@@ -175,7 +175,6 @@ public class SQLManager implements Interface{
 		    user.setUserName(result_set.getString("user_name"));
 		    user.setPassword(result_set.getString("password"));
 		    user.setUserId(result_set.getInt("user_id"));
-		    System.out.println(user);
 		    statement.close();
 		    return user;
 		} catch (SQLException insert_user_error) {
