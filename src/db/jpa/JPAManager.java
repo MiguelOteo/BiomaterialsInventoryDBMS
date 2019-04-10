@@ -83,10 +83,42 @@ public class JPAManager implements Interface {
 		}
 	}
 	
+	public User Insert_new_user(String user_name, String password) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Director Insert_new_director(User user){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Worker Insert_new_worker(User user) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public boolean Insert_new_benefits(Benefits benefits) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_utility(Utility utility) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_maintenance(Maintenance maintenance) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_transaction(Transaction transaction) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Insert_new_biomaterial(Biomaterial biomaterial) {
+		System.out.println("Not implemented");
+		return false;
+	}
 	
 	
 	
-	/*  ---------------   UPDATE METHODS JPA   ------------------*/
+	/*  ---------------   LIST METHODS JPA   ------------------*/
 	
 	public List<Client> List_all_clients() {
 		
@@ -130,6 +162,30 @@ public class JPAManager implements Interface {
 			return null;
 		}
 	}
+	
+	public List<User> List_all_users(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Transaction> List_all_transactions(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Biomaterial> List_all_biomaterials(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Director> List_all_directors(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Worker> List_all_workers(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	
+	
+	/*  ---------------   UPDATE METHODS JPA   ------------------*/
 	
 	
 	public boolean Update_client_info(Client client) {
@@ -237,6 +293,11 @@ public class JPAManager implements Interface {
 		}
 	}
 	
+	public boolean Update_director_info(Director director) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	
 	
 	/*  ---------------   DELETE METHODS JPA   ------------------*/
 	
@@ -287,6 +348,11 @@ public class JPAManager implements Interface {
 			update_client_error.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean Delete_stored_user(Integer user_id) {
+		System.out.println("Not implemented");
+		return false;
 	}
 	
 	/*  ---------------   READ METHODS JPA   ------------------*/
@@ -354,58 +420,6 @@ public class JPAManager implements Interface {
 	
 	}
 	
-	
-	public boolean Stablish_connection() {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Create_tables() {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Check_if_tables_exist() {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public User Insert_new_user(String user_name, String password) {
-		System.out.println("Not implemented");
-		return null;
-	}
-	public Director Insert_new_director(User user){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public Worker Insert_new_worker(User user) {
-		System.out.println("Not implemented");
-		return null;
-	}
-	public boolean Insert_new_benefits(Benefits benefits) {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Insert_new_utility(Utility utility) {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Insert_new_maintenance(Maintenance maintenance) {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Insert_new_transaction(Transaction transaction) {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public boolean Insert_new_biomaterial(Biomaterial biomaterial) {
-		System.out.println("Not implemented");
-		return false;
-	}
-	public void Change_password(String password, Integer user_id) {
-		System.out.println("Not implemented");
-	}
-	public boolean Update_director_info(Director director) {
-		System.out.println("Not implemented");
-		return false;
-	}
 	public User Search_stored_user(String name, String password) {
 		System.out.println("Not implemented");
 		return null;
@@ -430,36 +444,31 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
-	public List<User> List_all_users(){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public List<Transaction> List_all_transactions(){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public List<Biomaterial> List_all_biomaterials(){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public List<Director> List_all_directors(){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public List<Worker> List_all_workers(){
-		System.out.println("Not implemented");
-		return null;
-	}
-	public boolean Delete_stored_user(Integer user_id) {
+	
+	/* Propias de SQL */
+	
+	public boolean Stablish_connection() {
 		System.out.println("Not implemented");
 		return false;
+	}
+	public boolean Create_tables() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public boolean Check_if_tables_exist() {
+		System.out.println("Not implemented");
+		return false;
+	}
+	public void Change_password(String password, Integer user_id) {
+		System.out.println("Not implemented");
 	}
 	public boolean Close_connection() {
 		System.out.println("Not implemented");
 		return false;
 	}
+	@Override
 	public List<Transaction> Search_stored_transactions(Client client) {
-		System.out.println("Not implemented");
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

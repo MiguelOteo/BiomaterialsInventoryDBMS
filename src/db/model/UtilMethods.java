@@ -1,6 +1,9 @@
 package db.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import db.jdbc.SQLManager;
 import db.pojos.Benefits;
@@ -55,8 +58,6 @@ public class UtilMethods {
 		}
 	}
 	
-	
-	
 	public boolean Benefits_Of_Category(SQLManager manager){
 		boolean None_ok = manager.Insert_new_benefits(new Benefits((float) 0, 0));
 		boolean Bronze3_ok = manager.Insert_new_benefits(new Benefits((float) 0, 20));
@@ -94,42 +95,46 @@ public class UtilMethods {
 		return client_updated;
 	}
 	
-	public /*boolean*/ void Determine_limiting_date (Client client) {
-		//1 >> we have to get last transaction stored in arrayList<Transaction> with FOR
+	public boolean Determine_limit_date (Client client) {
+		//Transaction list
+		ArrayList <Transaction> limiting_date_list = client.getTransactions_list();
+		Transaction limiting_transaction = limiting_date_list.get(limiting_date_list.size()-1);
+		//Dates	
+		Date limiting_date = limiting_transaction.getTransaction_date();
+		LocalDate current = LocalDate.now().minusMonths(3);
+		Date current_date = Date.valueOf(current);
 		
-		//2>> Access to date of the last transaction with getTransaction_date()
-		
-		//3>> Compare with if() month with 3 months of difference
-		
+		if(limiting_date.before(current_date) == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-	
 	
 	public void Set_penalization_to_client(Client client) {
+		
 		SQLManager manager = new SQLManager();
-		 
-		/*check if the client can be or not penalized calling method Determine_limiting_date()
-			use if(boolean)
+		int i = 0;
 		
-		/*if true, client.setpenalization(client.getMinimum()/4);
-			lost_points = client.getPenalization()	
-			category	
+		if(Determine_limit_date(client)==true){
+			
+			client.getCategory().setPenalization(client.getCategory().getMinimum()/4);
+			int lost_points = client.getCategory().getPenalization();	
+		}
 		
-		if (client.getPoints() < category.getMinimum()) CHANGE category from ArrayList<Category> cat_list with a for-each
-		then client.setCategory(cat_list[i])
-		
-		else nothing
-		
-		
-		
-		
-		*/
-		
+		if (client.getPoints() < client.getCategory().getMinimum()) {
+			
+			ArrayList<Category> cat_list = client.getCategory().getCategories_list();
+
+			for (i=0; i<cat_list.size(); i++) {
+
+				if (cat_list.get(i).equals(client.getCategory()) && !cat_list.get(0).equals(client.getCategory())) {
+					break;
+				}
+			}
+			client.setCategory(cat_list.get(i-1));
+		}		
 	}
-	
+
 }
-
-
-
-
-
-
