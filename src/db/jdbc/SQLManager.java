@@ -561,7 +561,7 @@ public class SQLManager implements Interface{
 			cat.setCategory_name(result_set.getString("name"));
 			cat.setMaximum(result_set.getInt("maximum"));
 			cat.setMinimum(result_set.getInt("minimum"));
-			cat.setPenalization(result_set.getFloat("penalization"));
+			cat.setPenalization(result_set.getInt("penalization"));
 			
 			statement.close();
 			return cat;

@@ -27,7 +27,7 @@ public class Category extends UtilMethods implements Serializable{
 	private Integer category_id;
 	private String category_name;
 	private Integer minimum;
-	private float penalization;
+	private int penalization;
 	private Integer maximum;
 	private ArrayList<Category> categories_list;
 	
@@ -73,11 +73,11 @@ public class Category extends UtilMethods implements Serializable{
 		this.category_name = category_name;
 	}
 
-	public float getPenalization() {
+	public int getPenalization() {
 		return penalization;
 	}
 
-	public void setPenalization(float penalization) {
+	public void setPenalization(int penalization) {
 		this.penalization = penalization;
 	}
 	

@@ -120,8 +120,8 @@ public class UtilMethods {
 		if(Determine_limit_date(client)==true){
 			
 			client.getCategory().setPenalization(client.getCategory().getMinimum()/4);
-			float lost_points = client.getCategory().getPenalization();	
-		} //falta entender como funcionan las penalizaciones
+			int lost_points = client.getCategory().getPenalization();	
+		}
 		
 		if (client.getPoints() < client.getCategory().getMinimum()) {
 			
@@ -129,7 +129,7 @@ public class UtilMethods {
 
 			for (i=0; i<cat_list.size(); i++) {
 
-				if (cat_list.get(i) == client.getCategory() && cat_list.get(0) != client.getCategory()) {
+				if (cat_list.get(i).equals(client.getCategory()) && !cat_list.get(0).equals(client.getCategory())) {
 					break;
 				}
 			}
