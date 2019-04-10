@@ -1,19 +1,40 @@
 package db.pojos;
 
 import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAccessType;
 import java.sql.Date;
 
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Biomaterial")
+@XmlType(propOrder = {"biomaterial_id", "utility_id", "name_product", "price_unit", "available_units", "expiration_date", "maintenance_id"})
 public class Biomaterial implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@XmlTransient
 	private Integer biomaterial_id;
+	@XmlTransient
 	private Integer utility_id;
+	@XmlTransient
 	private Integer maintenance_id;
+	@XmlElement
 	private String name_product;
+	@XmlAttribute
 	private Float price_unit;
+	@XmlAttribute
 	private Integer available_units;
+	@XmlAttribute
 	private Date expiration_date;
+	
+	
 	public Biomaterial() {
 		super();
 		// TODO Auto-generated constructor stub
