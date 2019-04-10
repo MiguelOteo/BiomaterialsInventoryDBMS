@@ -1,6 +1,7 @@
 package db.jdbc;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -354,7 +355,7 @@ public class SQLManager implements Interface{
 			template.setInt(2, transaction.getClient_id());
 			template.setFloat(3, transaction.getGain());
 			template.setInt(4, transaction.getUnits());
-			template.setDate(5, transaction.getTransaction_date());
+			template.setDate(5, Date.valueOf(LocalDate.now()));
 			template.setInt(6, transaction.getProduct_id());
 			template.executeUpdate();
 			statement.close();
@@ -824,22 +825,6 @@ public class SQLManager implements Interface{
 			return true;
 		} catch (SQLException delete_user_error) {
 			delete_user_error.printStackTrace();
-			return false;
-		}
-	}
-
-	public boolean Delete_stored_client(Client client) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "DELETE FROM client WHERE client_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, client.getClient_id());
-			template.executeUpdate();
-			statement.close();
-			
-			return true;
-		} catch (SQLException delete_client_error) {
-			delete_client_error.printStackTrace();
 			return false;
 		}
 	}

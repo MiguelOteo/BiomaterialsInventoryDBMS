@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,14 +54,17 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" styleClass="tree-table">
                <children>
-                  <Label fx:id="current_pane_option_label1" layoutX="168.0" layoutY="14.0" text="Transactions list">
+                  <Label fx:id="current_pane_option_label1" layoutX="171.0" layoutY="14.0" text="Transactions list">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView layoutX="14.0" layoutY="46.0" prefHeight="580.0" prefWidth="430.0" styleClass="list_color" />
+                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="14.0" layoutY="46.0" prefHeight="580.0" prefWidth="435.0" showRoot="false" styleClass="split-pane">
+                     <columnResizePolicy>
+                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy></JFXTreeTableView>
                </children>
             </Pane>
          </children>
@@ -86,7 +90,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_buttom" alignment="TOP_LEFT" layoutY="559.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
+            <JFXButton fx:id="finantialStatus_buttom" alignment="TOP_LEFT" layoutY="515.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -185,7 +189,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllTransactions_button" alignment="TOP_LEFT" defaultButton="true" layoutY="515.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all transactions" textFill="#00000080">
+            <JFXButton fx:id="listAllTransactions_button" alignment="TOP_LEFT" defaultButton="true" layoutY="561.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

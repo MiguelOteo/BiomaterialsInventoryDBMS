@@ -78,10 +78,10 @@
 	-fx-background-radius: 3;
 }
 
-.list_color {
-	-fx-background-color: white;
-	-fx-border-color: #4f90a5;
+.list-view, .split-pane { 
+	-fx-background-insets: 0; -fx-padding: 0;
 }
+
 
 
 

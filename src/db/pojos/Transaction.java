@@ -12,6 +12,8 @@ public class Transaction implements Serializable{
     private Integer units;
     private Integer product_id;
     private Date transaction_date;
+    
+
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -47,11 +49,11 @@ public class Transaction implements Serializable{
 	public Integer getClient_id() {
 		return client_id;
 	}
-	
+
 	public void setClient_id(Integer client_id) {
 		this.client_id = client_id;
 	}
-	
+
 	public Integer getUnits() {
 		return units;
 	}
@@ -75,9 +77,7 @@ public class Transaction implements Serializable{
 	public void setTransaction_date(Date transaction_date) {
 		this.transaction_date = transaction_date;
 	}
-	
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,5 +107,12 @@ public class Transaction implements Serializable{
 		return " Transaction ID = " + transaction_id + "\n Gain of transaction = " + gain + "\n Client ID = " + client_id + "\n Units = "
 				+ units + "\n Product ID = " + product_id + "\n Transaction date" + transaction_date;
 	}
+
+	
+	
+	
+	
+	
+	
 }
 

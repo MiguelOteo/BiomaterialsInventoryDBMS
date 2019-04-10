@@ -21,9 +21,11 @@ public class UtilMethods {
 	// -----> SUM ALL GAINS METHOD <-----
 	
 	// Gets a list calling Search_stored_transactions and sum all the gains from them
-	public int Sum_all_client_points(SQLManager manager, Client client) {	
+	public int Sum_all_client_points(Client client) {
+		SQLManager manager = new SQLManager();
 		int points_gains = 0;
 		List<Transaction> transactions_list = manager.Search_stored_transactions(client);
+		
 		for(Transaction transaction: transactions_list) { 
 		     points_gains = points_gains + (int)(transaction.getGain()/difficulty);	
 		}
@@ -52,7 +54,9 @@ public class UtilMethods {
 			return false;
 		}
 	}
-		
+	
+	
+	
 	public boolean Benefits_Of_Category(SQLManager manager){
 		boolean None_ok = manager.Insert_new_benefits(new Benefits((float) 0, 0));
 		boolean Bronze3_ok = manager.Insert_new_benefits(new Benefits((float) 0, 20));
@@ -74,9 +78,12 @@ public class UtilMethods {
 		}
 	}
 	
-	public boolean Assign_category_to_client(SQLManager manager, Client client) {
+	public boolean Assign_category_to_client(Client client) {
+		SQLManager manager = new SQLManager();
+		
 		List<Category> categories_list = manager.List_all_categories();
-		int sum_points = Sum_all_client_points(manager, client) ;
+		
+		int sum_points = Sum_all_client_points(client) ;
 		for(Category category : categories_list) {
 			
 			if(sum_points <= category.getMaximum() &&  sum_points >= category.getMinimum()) {
@@ -86,6 +93,39 @@ public class UtilMethods {
 		boolean client_updated = manager.Update_client_info(client); 
 		return client_updated;
 	}
+	
+	public /*boolean*/ void Determine_limiting_date (Client client) {
+		//1 >> we have to get last transaction stored in arrayList<Transaction> with FOR
+		
+		//2>> Access to date of the last transaction with getTransaction_date()
+		
+		//3>> Compare with if() month with 3 months of difference
+		
+	}
+	
+	
+	public void Set_penalization_to_client(Client client) {
+		SQLManager manager = new SQLManager();
+		 
+		/*check if the client can be or not penalized calling method Determine_limiting_date()
+			use if(boolean)
+		
+		/*if true, client.setpenalization(client.getMinimum()/4);
+			lost_points = client.getPenalization()	
+			category	
+		
+		if (client.getPoints() < category.getMinimum()) CHANGE category from ArrayList<Category> cat_list with a for-each
+		then client.setCategory(cat_list[i])
+		
+		else nothing
+		
+		
+		
+		
+		*/
+		
+	}
+	
 }
 
 

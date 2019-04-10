@@ -2,7 +2,6 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -43,10 +42,6 @@ public class DirectorMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
-	@FXML
-	private ObservableList<TransactionListObject> transactions_objects;
-	@FXML
-	private TreeItem<TransactionListObject> root;
 	@FXML 
 	private static Director director_account;
 	@FXML 
@@ -91,7 +86,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	public static Stage my_account;
 	@FXML
-	private JFXTreeTableView<TransactionListObject> transaction_list;
+	private JFXTreeTableView<TransactionListObject> transactions_tree_view;
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -105,6 +100,7 @@ public class DirectorMenuController implements Initializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_buttom.setOnAction((ActionEvent) -> {
@@ -147,10 +143,10 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		
-		// Transaction list add objects
+		// Transaction list columns creation
 		
 		JFXTreeTableColumn<TransactionListObject, String> client_name = new JFXTreeTableColumn<>("Client name");
-		client_name.setPrefWidth(50);
+		client_name.setPrefWidth(150);
 		client_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -158,7 +154,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Amount");
-		amount.setPrefWidth(20);
+		amount.setPrefWidth(80);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -166,7 +162,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> units = new JFXTreeTableColumn<>("Units");
-		units.setPrefWidth(20);
+		units.setPrefWidth(70);
 		units.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -174,7 +170,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
-		transaction_date.setPrefWidth(30);
+		transaction_date.setPrefWidth(150);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -182,13 +178,17 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		
-		this.transactions_objects = FXCollections.observableArrayList();
-	    //TransactionListObject  objeto = new TransactionListObject("Pepe", (float)30.5, 20, Date.valueOf("2015-04-03")); 
-		//this.transactions_objects.add(objeto);
-	    //root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
-		//this.transaction_list.getColumns().setAll(client_name, amount, units, transaction_date);
-		//transaction_list.setRoot(root);
-		//transaction_list.setShowRoot(false);
+		ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
+		transactions_objects.add(new TransactionListObject("Pepe", "30.5", "20", "2015-04-03"));
+		transactions_objects.add(new TransactionListObject("Pepa", "30.5", "20", "2015-04-03"));
+		transactions_objects.add(new TransactionListObject("Maria", "30.5", "20", "2015-04-03"));
+		transactions_objects.add(new TransactionListObject("Ale", "30.5", "20", "2015-04-03"));
+		transactions_objects.add(new TransactionListObject("Jaime", "30.5", "20", "2015-04-03"));
+		
+		final TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		transactions_tree_view.getColumns().setAll(client_name, amount, units, transaction_date);
+		transactions_tree_view.setRoot(root);
+		transactions_tree_view.setShowRoot(false);
 	}
 
 	// -----> BUTTOM METHODS <-----
@@ -249,22 +249,24 @@ public class DirectorMenuController implements Initializable {
 		return this.menu_window;
 	}
 	  
-	// -----> TRANSACTION LIST CLASS <-----
+
+}
+
+// -----> TRANSACTION LIST CLASS <-----
+
+// To insert columns into the list of transactions with all the information
+class TransactionListObject extends RecursiveTreeObject<TransactionListObject> {
 	
-    // To insert columns into the list of transactions with all the information
-	class TransactionListObject extends RecursiveTreeObject<TransactionListObject> {
-		
-		StringProperty client_name;
-		StringProperty amount;
-		StringProperty units;
-		StringProperty transaction_date;
-		
-		public TransactionListObject(String client_name, Float amount, Integer units, Date transaction_date) {
-			this.client_name = new SimpleStringProperty(client_name);
-			this.amount = new SimpleStringProperty(amount.toString());
-			this.units = new SimpleStringProperty(units.toString());
-			this.transaction_date = new SimpleStringProperty(transaction_date.toString());
-		}
+	StringProperty client_name;
+	StringProperty amount;
+	StringProperty units;
+	StringProperty transaction_date;
+	
+	public TransactionListObject(String client_name, String amount, String units, String transaction_date) {
+		this.client_name = new SimpleStringProperty(client_name);
+		this.amount = new SimpleStringProperty(amount);
+		this.units = new SimpleStringProperty(units);
+		this.transaction_date = new SimpleStringProperty(transaction_date);
 	}
 }
 
