@@ -102,12 +102,13 @@ public class Transaction implements Serializable{
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return " Transaction ID = " + transaction_id + "\n Gain of transaction = " + gain + "\n Client ID = " + client_id + "\n Units = "
-				+ units + "\n Product ID = " + product_id + "\n Transaction date" + transaction_date;
+		return "Transaction [transaction_id=" + transaction_id + ", gain=" + gain + ", client_id=" + client_id
+				+ ", units=" + units + ", product_id=" + product_id + ", transaction_date=" + transaction_date + "]";
 	}
-
+	
 	
 	
 	

@@ -1,4 +1,4 @@
-package xml.db;
+package db.xml;
 
 import java.io.File;
 

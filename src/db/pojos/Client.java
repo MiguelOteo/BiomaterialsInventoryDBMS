@@ -145,6 +145,8 @@ public class Client implements Serializable {
 	public String toString() {
 		return "Client [client_id=" + client_id + ", user=" + user + ", name=" + name + ", telephone=" + telephone
 				+ ", bank_account=" + bank_account + ", responsible=" + responsible + ", category=" + category
-				+ ", points=" + points + "]";
+				+ ", points=" + points + ", transactions_list=" + transactions_list + "]";
 	}
+
+	
 }

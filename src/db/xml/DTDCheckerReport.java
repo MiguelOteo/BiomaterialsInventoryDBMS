@@ -1,4 +1,4 @@
-package xml.db;
+package db.xml;
 
 import java.io.File;
 
@@ -14,7 +14,7 @@ import db.xml.utils.CustomErrorHandler;
 public class DTDCheckerReport {
 
     public static void main(String[] args) {
-        File xmlFile = new File("./xmls/External-Report.xml"); //checks it's well formed and valid
+        File xmlFile = new File("./xmls/External-Biomaterial.xml"); //checks it's well formed and valid
         try {
         	// Create a DocumentBuilderFactory
             DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();

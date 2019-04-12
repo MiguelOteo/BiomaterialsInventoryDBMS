@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import db.jdbc.SQLManager;
 import db.pojos.Benefits;
+import db.pojos.Biomaterial;
 import db.pojos.Category;
 import db.pojos.Client;
+import db.pojos.Maintenance;
 import db.pojos.Transaction;
+import db.pojos.User;
+import db.pojos.Utility;
 
 public class UtilMethods {
 	
@@ -136,5 +141,55 @@ public class UtilMethods {
 			client.setCategory(cat_list.get(i-1));
 		}		
 	}
+	
+	
+	public static void Creation_one_biomaterial(SQLManager manager) {
+		
+		String withoutTime = "2030-01-10";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate exp_date = LocalDate.parse(withoutTime, formatter);
+		
+		manager.Insert_new_biomaterial(new Biomaterial(1, 1, "Polysulphur", (float)100, 1000, Date.valueOf(exp_date)));
+		manager.Insert_new_maintenance(new Maintenance(1, (float) 3.4, "Medium", "Not direct", 36, (float) 22, "Low", ""));
+		manager.Insert_new_utility(new Utility("Hot", "None", "High", (float)1, (float)302, 1));
+		
+		
+	}
+	
+	
+	/*
+	public static void main (String args[]) {
+		
+		
+		SQLManager manager = new SQLManager();
+		manager.Stablish_connection();
+		manager.Create_tables();
+		Creation_one_biomaterial(manager);
+		
+		User u = new User();
+		manager.Insert_new_user("ant03", "1234");
+		Client c = new Client("Antonio", 0001, "", "");
+		manager.Insert_new_client(u);
+		
+		
+		ArrayList<Transaction> lista = new ArrayList<Transaction>();
+		
+		LocalDate dt = LocalDate.now();
+		
+		Transaction t = new Transaction(1, (float)1000, c.getClient_id(), 10, 1, Date.valueOf(dt));
+		lista.add(t);
+		c.setTransactions_list(lista);
+		Biomaterial b = manager.Search_stored_biomaterial(t);
+		
+		System.out.println(c);
+		
+		System.out.println(b);
+		
+		
+		
+		manager.Close_connection();
+	}
+	
+	*/
 
 }
