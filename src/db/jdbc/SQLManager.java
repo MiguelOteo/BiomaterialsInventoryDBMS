@@ -772,8 +772,8 @@ public class SQLManager implements Interface{
 			ResultSet result_set = statement.executeQuery(SQL_code);
 			while (result_set.next()) {
 				Biomaterial biomaterial = new Biomaterial();
-				biomaterial.setName_product(result_set.getString("product_name"));
-				biomaterial.setAvailable_units(result_set.getInt("avaliable_units"));
+				biomaterial.setName_product(result_set.getString("name_product"));
+				biomaterial.setAvailable_units(result_set.getInt("available_units"));
 				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
 				biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
