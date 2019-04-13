@@ -46,5 +46,5 @@ public interface Interface {
 	public boolean Delete_stored_user(Integer user_id);
 	public boolean Delete_stored_category(Category category);
 	public boolean Close_connection();
-	
+	 
 }

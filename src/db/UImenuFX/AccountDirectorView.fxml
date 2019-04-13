@@ -14,11 +14,6 @@
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="80.0" prefWidth="600.0" styleClass="menu_bar_color">
          <children>
-            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="547.0" layoutY="17.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/window-close.png" />
-               </image>
-            </ImageView>
             <Label layoutX="92.0" layoutY="27.0" text="My account">
                <font>
                   <Font name="Ebrima Bold" size="20.0" />

@@ -72,12 +72,7 @@ public class AccountDirectorController implements Initializable {
 	}
 
 	// -----> BUTTON METHODS <-----
-
-	@FXML
-	private void close_app(MouseEvent event) {
-		System.exit(0);
-	}
-
+	
 	@FXML
 	private void update_information(MouseEvent event) {
 		if (!this.name_field.getText().equals("")) {

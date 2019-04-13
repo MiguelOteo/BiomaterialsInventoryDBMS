@@ -142,7 +142,7 @@ public class DirectorMenuController implements Initializable {
 		// Transaction list columns creation
 		
 		JFXTreeTableColumn<TransactionListObject, String> client_name = new JFXTreeTableColumn<>("Client name");
-		client_name.setPrefWidth(150);
+		client_name.setPrefWidth(120);
 		client_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -150,7 +150,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Amount");
-		amount.setPrefWidth(70);
+		amount.setPrefWidth(75);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -166,7 +166,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
-		transaction_date.setPrefWidth(170);
+		transaction_date.setPrefWidth(180);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {

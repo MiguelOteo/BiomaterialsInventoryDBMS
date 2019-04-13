@@ -39,7 +39,7 @@ public class AddTransaction {
 		
 		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id) {
 		Client client = manager.Search_client_by_id(1);
-		Transaction transaction = new Transaction((float)23.654, 45433, biomaterial, client);
+		Transaction transaction = new Transaction((float)654.34, 132384, biomaterial, client);
 		manager.Insert_new_transaction(transaction);
 	}
 }
