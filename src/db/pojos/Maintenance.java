@@ -21,10 +21,9 @@ public class Maintenance implements Serializable{
 	}
 
 
-	public Maintenance(Integer manteinance_id, Float pressure, String o2_supply, String light, Integer humidity,
+	public Maintenance(Float pressure, String o2_supply, String light, Integer humidity,
 			Float temperature, String compatibility, String others) {
 		super();
-		this.manteinance_id = manteinance_id;
 		this.pressure = pressure;
 		this.o2_supply = o2_supply;
 		this.light = light;

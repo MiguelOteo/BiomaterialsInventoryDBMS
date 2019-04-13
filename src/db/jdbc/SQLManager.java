@@ -115,10 +115,9 @@ public class SQLManager implements Interface{
 			statement_8.close();
 
 			Statement statement_9 = this.sqlite_connection.createStatement();
-			String table_9 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER NOT NULL, "
+			String table_9 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
 					+ " transaction_date DATETIME NOT NULL, " + " product_id INTEGER NOT NULL REFERENCES biomaterial(biomaterial_id), "
-					+ " PRIMARY KEY (transaction_id, product_id), "
 					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_9.execute(table_9);
 			statement_9.close();
@@ -348,15 +347,14 @@ public class SQLManager implements Interface{
 	public boolean Insert_new_transaction(Transaction transaction) {
 		try {
 			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO bank_transaction(transaction_id, client_id, gain, units, transaction_date, product_id) "
-					+ "VALUES (?,?,?,?,?,?);";
+			String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, product_id) "
+					+ "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setInt(1, transaction.getTransaction_id());
-			template.setInt(2, transaction.getClient_id());
-			template.setFloat(3, transaction.getGain());
-			template.setInt(4, transaction.getUnits());
-			template.setDate(5, Date.valueOf(LocalDate.now()));
-			template.setInt(6, transaction.getProduct_id());
+			template.setInt(1, transaction.getClient_id());
+			template.setFloat(2, transaction.getGain());
+			template.setInt(3, transaction.getUnits());
+			template.setDate(4, Date.valueOf(LocalDate.now()));
+			template.setInt(5, transaction.getProduct_id());
 			template.executeUpdate();
 			statement.close();
 			return true;

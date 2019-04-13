@@ -157,9 +157,9 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_director_main_menu(Director director) {
 		try {
+			DirectorMenuController.setValues(this.manager, director);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			this.director_controller = new DirectorMenuController(this.manager, director);
 			this.director_controller = loader.getController();
 			this.director_controller.setDirectorName(director.getDirector_name());
 			this.director_controller.setDirectorEmail(director.getEmail());

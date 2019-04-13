@@ -2,6 +2,7 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,6 +13,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
 import db.pojos.Director;
+import db.pojos.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -94,12 +96,6 @@ public class DirectorMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DirectorMenuController(SQLManager manager, Director director) {
-		director_account = director;
-		manager_object = manager;
-
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -154,7 +150,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Amount");
-		amount.setPrefWidth(80);
+		amount.setPrefWidth(70);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -170,7 +166,7 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		JFXTreeTableColumn<TransactionListObject, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
-		transaction_date.setPrefWidth(150);
+		transaction_date.setPrefWidth(170);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -179,12 +175,12 @@ public class DirectorMenuController implements Initializable {
 		});
 		
 		ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
-		transactions_objects.add(new TransactionListObject("Pepe", "30.5", "20", "2015-04-03"));
-		transactions_objects.add(new TransactionListObject("Pepa", "30.5", "20", "2015-04-03"));
-		transactions_objects.add(new TransactionListObject("Maria", "30.5", "20", "2015-04-03"));
-		transactions_objects.add(new TransactionListObject("Ale", "30.5", "20", "2015-04-03"));
-		transactions_objects.add(new TransactionListObject("Jaime", "30.5", "20", "2015-04-03"));
+		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		
+		for(Transaction transaction: transactions_list) {
+			transactions_objects.add(new TransactionListObject("Ejemplo", transaction.getUnits().toString(), transaction.getGain().toString()
+					, transaction.getTransaction_date().toString()));
+		}
 		final TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.getColumns().setAll(client_name, amount, units, transaction_date);
 		transactions_tree_view.setRoot(root);
@@ -248,8 +244,11 @@ public class DirectorMenuController implements Initializable {
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
-	  
-
+	 
+	public static void setValues(SQLManager manager, Director director) {
+		manager_object = manager;
+		director_account = director;
+	}
 }
 
 // -----> TRANSACTION LIST CLASS <-----

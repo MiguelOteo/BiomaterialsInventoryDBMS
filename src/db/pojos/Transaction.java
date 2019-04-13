@@ -19,15 +19,12 @@ public class Transaction implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Transaction(Integer transaction_id, Float gain, Integer client_id, Integer units, Integer product_id,
-			Date transaction_date) {
+	public Transaction(Float gain, Integer client_id, Integer units, Integer product_id) {
 		super();
-		this.transaction_id = transaction_id;
 		this.gain = gain;
 		this.client_id = client_id;
 		this.units = units;
 		this.product_id = product_id;
-		this.transaction_date = transaction_date;
 	}
 	
 	public Integer getTransaction_id() {

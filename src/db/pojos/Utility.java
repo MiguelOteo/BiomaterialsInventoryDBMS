@@ -15,15 +15,13 @@ public class Utility implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Utility(String heat_cold, String flexibility, String resistance, Float pressure, Float strength,
-			Integer utility_id) {
+	public Utility(String heat_cold, String flexibility, String resistance, Float pressure, Float strength) {
 		super();
 		this.heat_cold = heat_cold;
 		this.flexibility = flexibility;
 		this.resistance = resistance;
 		this.pressure = pressure;
 		this.strength = strength;
-		this.utility_id = utility_id;
 	}
 	public String getHeat_cold() {
 		return heat_cold;
