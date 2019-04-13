@@ -178,7 +178,7 @@ public class DirectorMenuController implements Initializable {
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject("Ejemplo", transaction.getUnits().toString(), transaction.getGain().toString()
+			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
 					, transaction.getTransaction_date().toString()));
 		}
 		final TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);

@@ -15,12 +15,12 @@ public interface Interface {
 	public Director Insert_new_director(User user);
 	public Worker Insert_new_worker(User user);
 	public Client Insert_new_client(User user);
-	public boolean Insert_new_benefits(Benefits benefits);
-	public boolean Insert_new_utility(Utility utility);
-	public boolean Insert_new_maintenance(Maintenance maintenance);
-	public boolean Insert_new_transaction(Transaction transaction);
-	public boolean Insert_new_biomaterial(Biomaterial biomaterial);
-	public boolean Insert_new_category(Category category);
+	public Integer Insert_new_benefits(Benefits benefits);
+	public Integer Insert_new_utility(Utility utility);
+	public Integer Insert_new_maintenance(Maintenance maintenance);
+	public Integer Insert_new_transaction(Transaction transaction);
+	public Integer Insert_new_biomaterial(Biomaterial biomaterial);
+	public Integer Insert_new_category(Category category);
 	
 	public void Change_password(String password, Integer user_id);
 	public boolean Update_director_info(Director director);
@@ -31,7 +31,6 @@ public interface Interface {
 	public Director Search_stored_director(User user);
 	public Worker Search_stored_worker(User user);
 	public Client Search_stored_client(User user);
-	public Category Search_category_info(Category category);
 	public User Search_user_by_id(Integer user_id);
 	public Director Search_director_by_id(Integer director_id);
 	public List<Transaction> Search_stored_transactions(Client client);

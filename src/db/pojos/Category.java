@@ -2,7 +2,6 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,9 +28,6 @@ public class Category extends UtilMethods implements Serializable{
 	private Integer minimum;
 	private int penalization;
 	private Integer maximum;
-	private ArrayList<Category> categories_list;
-	
-	
 	@OneToOne @JoinColumn(name = "benefits_id")
 	private Benefits benefits;
 	@OneToMany @JoinColumn(name = "client_id")
@@ -80,14 +76,6 @@ public class Category extends UtilMethods implements Serializable{
 	public void setPenalization(int penalization) {
 		this.penalization = penalization;
 	}
-	
-	public ArrayList<Category> getCategories_list() {
-			return categories_list;
-		}
-	
-		public void setCategories_list(ArrayList<Category> categories_list) {
-			this.categories_list = categories_list;
-		}
 	
 		public Benefits getBenefits() {
 			return benefits;

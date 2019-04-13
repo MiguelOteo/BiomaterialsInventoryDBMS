@@ -20,7 +20,7 @@ public class JPAManager implements Interface {
 	/*  ---------------   CREATE METHODS JPA   ------------------*/
 	
 	
-	public boolean Insert_new_category(Category category) {
+	public Integer Insert_new_category(Category category) {
 		try{
 			
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
@@ -38,10 +38,10 @@ public class JPAManager implements Interface {
 			em.close();
 			factory.close();
 						
-			return true;
+			return null;
 		} catch(EntityNotFoundException new_category_error) {
 			new_category_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
@@ -95,25 +95,25 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
-	public boolean Insert_new_benefits(Benefits benefits) {
+	public Integer Insert_new_benefits(Benefits benefits) {
 		System.out.println("Not implemented");
-		return false;
+		return null;
 	}
-	public boolean Insert_new_utility(Utility utility) {
+	public Integer Insert_new_utility(Utility utility) {
 		System.out.println("Not implemented");
-		return false;
+		return null;
 	}
-	public boolean Insert_new_maintenance(Maintenance maintenance) {
+	public Integer Insert_new_maintenance(Maintenance maintenance) {
 		System.out.println("Not implemented");
-		return false;
+		return null;
 	}
-	public boolean Insert_new_transaction(Transaction transaction) {
+	public Integer Insert_new_transaction(Transaction transaction) {
 		System.out.println("Not implemented");
-		return false;
+		return null;
 	}
-	public boolean Insert_new_biomaterial(Biomaterial biomaterial) {
+	public Integer Insert_new_biomaterial(Biomaterial biomaterial) {
 		System.out.println("Not implemented");
-		return false;
+		return null;
 	}
 	
 	

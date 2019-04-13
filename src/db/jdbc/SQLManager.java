@@ -117,7 +117,7 @@ public class SQLManager implements Interface{
 			Statement statement_9 = this.sqlite_connection.createStatement();
 			String table_9 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
-					+ " transaction_date DATETIME NOT NULL, " + " product_id INTEGER NOT NULL REFERENCES biomaterial(biomaterial_id), "
+					+ " transaction_date DATETIME NOT NULL, " + " biomaterial_id INTEGER NOT NULL REFERENCES biomaterial(biomaterial_id), "
 					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_9.execute(table_9);
 			statement_9.close();
@@ -239,15 +239,13 @@ public class SQLManager implements Interface{
 	// New_Worker(name, password)
 	public Worker Insert_new_worker(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO worker (user_id, name) " + "VALUES (?,?)";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
-			statement.close();
+			template.close();
 			
-			statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM worker WHERE user_id = ?";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());
@@ -256,6 +254,7 @@ public class SQLManager implements Interface{
 			worker.setPassword(result_set.getString("password"));
 			worker.setWorker_id(result_set.getInt("worker_id"));
 			worker.setUser(user);
+			template.close();
 			return worker;
 		} catch(SQLException new_worker_error) {
 			return null;
@@ -263,27 +262,32 @@ public class SQLManager implements Interface{
 	}
 	
 	// Benefits(others, percentage, min_amount, extra_units)
-	public boolean Insert_new_benefits(Benefits benefits) {
+	public Integer Insert_new_benefits(Benefits benefits) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO benefits(percentage, extra_units) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setFloat(1, benefits.getPercentage());
 			//template.setInt(3, benefits.getMin_amount());
 			template.setInt(2, benefits.getExtra_units());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS benefits_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer benefits_id = result_set.getInt("benefits_id");
+			template.close();
+			
+			return benefits_id;
 		} catch (SQLException new_benefits_error) {
 			new_benefits_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
 	// Category(category_name, penalization, maximum, minimum)
-	public boolean Insert_new_category(Category category) {
+	public Integer Insert_new_category(Category category) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO category(category_name, penalization, max, min) " + "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, category.getCategory_name());
@@ -291,18 +295,24 @@ public class SQLManager implements Interface{
 			template.setInt(3, category.getMaximum());
 			template.setInt(4, category.getMinimum());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS category_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer category_id = result_set.getInt("category_id");
+			template.close();
+			
+			return category_id;
 		} catch (SQLException new_category_error) {
 			new_category_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
 	// Utility(heat_cold, flexibility, resistance, pressure, strength)
-	public boolean Insert_new_utility(Utility utility) {
+	public Integer Insert_new_utility(Utility utility) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO utility(heat_cold, flexibility, resistance, pressure, strength) "
 					+ "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
@@ -312,18 +322,24 @@ public class SQLManager implements Interface{
 			template.setFloat(4, utility.getPressure());
 			template.setFloat(5, utility.getStrength());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS utility_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer utility_id = result_set.getInt("utility_id");
+			template.close();
+			
+			return utility_id;
 		} catch (SQLException new_utility_error) {
 			new_utility_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
 	// Maintenance(pressure, humidity, O2_supply, light, temperature, compatibility, others)
-	public boolean Insert_new_maintenance(Maintenance maintenance) {
+	public Integer Insert_new_maintenance(Maintenance maintenance) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO maintenance(pressure, humidity, O2_supply, light, temperature, compatibility, others) "
 					+ "VALUES (?,?,?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
@@ -335,71 +351,86 @@ public class SQLManager implements Interface{
 			template.setString(6, maintenance.getCompatibility());
 			template.setString(7, maintenance.getOthers());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+				
+			String SQL_code = "SELECT last_insert_rowid() AS maintenance_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer maintenance_id = result_set.getInt("maintenance_id");
+			template.close();
+			
+			return maintenance_id;
 		} catch (SQLException new_maintenance_error) {
 			new_maintenance_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
 	// Bank_transaction(client_id, gain, units, transaction_date, product_id)
-	public boolean Insert_new_transaction(Transaction transaction) {
+	public Integer Insert_new_transaction(Transaction transaction) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, product_id) "
+			String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, biomaterial_id) "
 					+ "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setInt(1, transaction.getClient_id());
+			template.setInt(1, transaction.getClient().getClient_id());
 			template.setFloat(2, transaction.getGain());
 			template.setInt(3, transaction.getUnits());
 			template.setDate(4, Date.valueOf(LocalDate.now()));
-			template.setInt(5, transaction.getProduct_id());
+			template.setInt(5, transaction.getBiomaterial().getBiomaterial_id());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS transaction_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer transaction_id = result_set.getInt("transaction_id");
+			template.close();
+			
+			return transaction_id;
 		} catch (SQLException new_transaction_error) {
 			new_transaction_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
 	// Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date)
-	public boolean Insert_new_biomaterial(Biomaterial biomaterial) {
+	public Integer Insert_new_biomaterial(Biomaterial biomaterial) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) "
 					+ "VALUES (?,?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setInt(1, biomaterial.getUtility_id());
-			template.setInt(2, biomaterial.getMaintenance_id());
+			template.setInt(1, biomaterial.getUtility().getUtility_id());
+			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
 			template.setString(3, biomaterial.getName_product());
 			template.setFloat(4, biomaterial.getPrice_unit());
 			template.setInt(5, biomaterial.getAvailable_units());
 			template.setDate(6, biomaterial.getExpiration_date());
 			template.executeUpdate();
-			statement.close();
-			return true;
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS biomaterial_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer biomaterial_id = result_set.getInt("biomaterial_id");
+			template.close();
+			
+			return biomaterial_id;
 		} catch (SQLException new_biomaterial_error) {
 			new_biomaterial_error.printStackTrace();
-			return false;
+			return null;
 		}
 	}
-	
-	
-	
 	
 	// -----> UPDATE METHODS <-----
 	
 	public void Change_password(String password, Integer user_id) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "UPDATE user SET password = ? WHERE user_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, password);
 			template.setInt(2, user_id);
 			template.executeUpdate();
-			statement.close();
+			template.close();
 		} catch (SQLException update_password_error) {
 			update_password_error.printStackTrace();
 		}
@@ -408,7 +439,6 @@ public class SQLManager implements Interface{
 	// Updates the information of a Client(responsible, name, bank_account, telephone)
 	public boolean Update_client_info(Client client) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "UPDATE client SET responsible = ?, name = ?, bank_account = ?, telephone = ? WHERE client_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, client.getResponsible());
@@ -417,7 +447,7 @@ public class SQLManager implements Interface{
 			template.setInt(4, client.getTelephone());
 			template.setInt(5, client.getClient_id());
 			template.executeUpdate();
-			statement.close();
+			template.close();
 			return true;
 		} catch (SQLException update_client_error) {
 			update_client_error.printStackTrace();
@@ -427,7 +457,6 @@ public class SQLManager implements Interface{
 	
 	public boolean Update_director_info(Director director) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "UPDATE director SET name = ?, telephone = ?, email = ? WHERE director_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, director.getDirector_name());
@@ -435,7 +464,7 @@ public class SQLManager implements Interface{
 			template.setString(3, director.getEmail());
 			template.setInt(4, director.getDirector_id());
 			template.executeUpdate();
-			statement.close();
+			template.close();
 			return true;				
 		} catch (SQLException update_director_error) {
 			update_director_error.printStackTrace();
@@ -445,15 +474,13 @@ public class SQLManager implements Interface{
 
 	public boolean Update_category_info(Category category) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "UPDATE category SET name = ?, maximum = ?, minimum = ? WHERE category_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, category.getCategory_name());
 			template.setInt(2, category.getMaximum());
 			template.setInt(3, category.getMinimum());
 			template.setInt(4, category.getCategory_id());
-			statement.close();
-			
+			template.close();	
 			return true;
 		} catch (SQLException update_category_error) {
 			update_category_error.printStackTrace();
@@ -462,12 +489,11 @@ public class SQLManager implements Interface{
 	}
 	
 	
-	// -----> SEARCH METHODS <-----
+	// -----> SEARCH USER DIRECTOR WORKER CLIENT METHODS <-----
 
 	// Selects all users objects with the same user_name from the data base and returns them
 	public User Search_stored_user(String name, String password) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM user WHERE user_name LIKE ? AND password LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, name);
@@ -477,7 +503,7 @@ public class SQLManager implements Interface{
 	        user.setUserId(result_set.getInt("user_id"));
 	        user.setUserName(result_set.getString("user_name"));
 	        user.setPassword(result_set.getString("password"));
-	        statement.close();
+	        template.close();
 	        return user;
 		} catch (SQLException search_user_error) {
 			return null;
@@ -487,7 +513,6 @@ public class SQLManager implements Interface{
 	// Selects the client object with the same user_id from the data base and returns them
 	public Client Search_stored_client(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM client WHERE user_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());
@@ -499,7 +524,7 @@ public class SQLManager implements Interface{
 			client.setBank_account(result_set.getString("bank_account"));
 			client.setTelephone(result_set.getInt("telephone"));
 			client.setUser(user);
-			statement.close();
+			template.close();
 			return client;
 		} catch (SQLException search_client_error) {
 			return null;
@@ -509,7 +534,6 @@ public class SQLManager implements Interface{
 	// Selects the director object with the same user_id from the data base and returns them
 	public Director Search_stored_director(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM director WHERE user_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());
@@ -520,7 +544,7 @@ public class SQLManager implements Interface{
 			director.setEmail(result_set.getString("email"));
 			director.setTelephone(result_set.getInt("telephone"));
 			director.setUser(user);
-			statement.close();
+			template.close();
 			return director;
 		} catch (SQLException search_director_error) {
 			return null;
@@ -530,7 +554,6 @@ public class SQLManager implements Interface{
 	// Selects the director object with the same user_id from the data base and returns them
 	public Worker Search_stored_worker(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM worker WHERE user_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());
@@ -540,48 +563,27 @@ public class SQLManager implements Interface{
 			worker.setWorker_name(result_set.getString("name"));
 			worker.setWorker_id(result_set.getInt("worker_id"));
 			worker.setUser(user);
-			statement.close();
+			template.close();
 			return worker;
 		} catch (SQLException search_worker_error) {
 			return null;
 		}
 	}
 	
-	public Category Search_category_info(Category category) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "SELECT * FROM category WHERE category_id LIKE ?";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, category.getCategory_id());
-			ResultSet result_set = template.executeQuery();
-			Category cat = new Category();
-			cat.setCategory_id(result_set.getInt("category_id"));
-			cat.setCategory_name(result_set.getString("name"));
-			cat.setMaximum(result_set.getInt("maximum"));
-			cat.setMinimum(result_set.getInt("minimum"));
-			cat.setPenalization(result_set.getInt("penalization"));
-			
-			statement.close();
-			return cat;
-		} catch (SQLException search_worker_error) {
-			return null;
-		}
-	}
-	
+	// -----> SEARCH BY ID METHODS <-----
 	
 	// Selects the user object with the same user_id from the data base and returns it
 	public User Search_user_by_id(Integer user_id) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM user WHERE user_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user_id);
 			ResultSet result_set = template.executeQuery();
 			User user = new User();
-			user.setUserId(result_set.getInt("user_id"));
+			user.setUserId(user_id);
 			user.setUserName(result_set.getString("user_name"));
 			user.setPassword(result_set.getString("password"));
-			statement.close();
+			template.close();
 			return user;
 		} catch (SQLException search_user_error) {
 			search_user_error.printStackTrace();
@@ -592,56 +594,125 @@ public class SQLManager implements Interface{
 	// Selects the director object with the same director_id from the data base and returns it
 	public Director Search_director_by_id (Integer director_id) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM director WHERE director_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, director_id);
 			Director director = new Director();
 			ResultSet result_set = template.executeQuery();
-			director.setDirector_id(result_set.getInt("director_id"));
+			director.setDirector_id(director_id);
 			director.setDirector_name(result_set.getString("name"));
 			director.setEmail(result_set.getString("email"));
 			director.setTelephone(result_set.getInt("telephone"));
 			User user = Search_user_by_id(result_set.getInt("user_id"));
 			director.setUser(user);
-			statement.close();
+			template.close();
 			return director;
 		} catch (SQLException search_director_error) {
 			search_director_error.printStackTrace();
 			return null;
 		}
 	}
-	
-	
-	
-	public Biomaterial Search_stored_biomaterial(Transaction transaction) {
-		try {
-			Statement statement = this.sqlite_connection.createStatement();
-			String SQL_code = "SELECT * FROM biomaterial WHERE biomaterial_id LIKE ?";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, transaction.getProduct_id());
-			ResultSet result_set = template.executeQuery();
-			Biomaterial biomaterial = new Biomaterial();
-			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
-			biomaterial.setUtility_id(result_set.getInt("utility_id"));
-			biomaterial.setName_product(result_set.getString("name_product"));
-			biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
-			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
-			biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
-			statement.close();
-			return biomaterial;
-		} catch (SQLException search_client_error) {
-			return null;
+	 
+	// Selects the client object with the same client_id from the data base and returns it
+	public Client Search_client_by_id (Integer client_id) {
+			try {
+				String SQL_code = "SELECT * FROM client WHERE client_id LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, client_id);
+				Client client = new Client();
+				ResultSet result_set = template.executeQuery();
+                client.setBank_account(result_set.getString("bank_account"));
+                client.setClient_id(client_id);
+                client.setName(result_set.getString("name"));
+                client.setPoints(result_set.getInt("points"));
+                client.setResponsible(result_set.getString("responsible"));
+                client.setTelephone(result_set.getInt("telephone"));
+                List<Transaction> transaction_list = Search_stored_transactions(client);
+				User user = Search_user_by_id(result_set.getInt("user_id"));
+				client.setUser(user);
+				template.close();
+				return client;
+			} catch (SQLException search_client_error) {
+				search_client_error.printStackTrace();
+				return null;
 		}
-	}
-
+    }
+		
+	// Selects the utility object with the same utility_id from the data base and returns it
+	public Utility Search_utility_by_id (Integer utility_id) {
+			try {
+				String SQL_code = "SELECT * FROM utility WHERE utility_id LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, utility_id);
+				Utility utility = new Utility();
+				ResultSet result_set = template.executeQuery();
+                utility.setFlexibility(result_set.getString("flexibility"));
+                utility.setHeat_cold(result_set.getString("heat_cold"));
+                utility.setPressure(result_set.getFloat("pressure"));
+                utility.setResistance(result_set.getString("resistance"));
+                utility.setStrength(result_set.getFloat("strength"));
+                utility.setUtility_id(utility_id);
+				template.close();
+				return utility;
+			} catch (SQLException search_utility_error) {
+				search_utility_error.printStackTrace();
+				return null;
+		}
+    }
+	
+	// Selects the maintenance object with the same maintenance_id from the data base and returns it
+	public Maintenance Search_maintenance_by_id (Integer maintenance_id) {
+			try {
+				String SQL_code = "SELECT * FROM maintenance WHERE maintenance_id LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, maintenance_id);
+				Maintenance maintenance = new Maintenance();
+				ResultSet result_set = template.executeQuery();
+                maintenance.setCompatibility(result_set.getString("compatibility"));
+                maintenance.setHumidity(result_set.getInt("humidity"));
+                maintenance.setLight(result_set.getString("light"));
+                maintenance.setO2_supply(result_set.getString("o2_supply"));
+                maintenance.setOthers(result_set.getString("others"));
+                maintenance.setPressure(result_set.getFloat("pressure"));
+                maintenance.setTemperature(result_set.getFloat("temperature"));
+                maintenance.setManteinance_id(maintenance_id);
+				template.close();
+				return maintenance;
+			} catch (SQLException search_maintenance_error) {
+				search_maintenance_error.printStackTrace();
+				return null;
+		}
+    }
+	
+	// Selects the utility object with the same utility_id from the data base and returns it
+	public Biomaterial Search_biomaterial_by_id (Integer biomaterial_id) {
+			try {
+				String SQL_code = "SELECT * FROM biomaterial WHERE biomaterial_id LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, biomaterial_id);
+				Biomaterial biomaterial = new Biomaterial();
+				ResultSet result_set = template.executeQuery();
+                biomaterial.setAvailable_units(result_set.getInt("available_units"));
+                biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+                biomaterial.setName_product(result_set.getString("name_product"));
+                biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+                Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
+                biomaterial.setUtility(utility);
+                Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
+                biomaterial.setMaintenance(maintenance);
+                template.close();
+				return biomaterial;
+			} catch (SQLException search_biomaterial_error) {
+				search_biomaterial_error.printStackTrace();
+				return null;
+		}
+    }
 	
 	// -----> LIST METHODS <-----
 	
 	// Selects all clients objects with the same client_id from the data base and returns them
 	public List<Transaction> Search_stored_transactions(Client client) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM bank_transaction WHERE client_id LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, client.getClient_id());
@@ -649,22 +720,22 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			while (result_set.next()) {
 				Transaction transaction = new Transaction();
-				transaction.setClient_id(result_set.getInt("client_id"));
+				transaction.setClient(client);
 				transaction.setGain(result_set.getFloat("gain"));
-				transaction.setProduct_id(result_set.getInt("product_id"));
+				Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
+				transaction.setBiomaterial(biomaterial);
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
 				transactions_list.add(transaction);
 			}
-			statement.close();
+			template.close();
 			return transactions_list;
 		} catch (SQLException search_transaction_error) {
 			search_transaction_error.printStackTrace();
 			return null;
 		}
 	}
-
 
 	// List all users returning a linkedList with all of them
 	public List<User> List_all_users() {
@@ -721,9 +792,11 @@ public class SQLManager implements Interface{
 			ResultSet result_set = statement.executeQuery(SQL_code);
 			while (result_set.next()) {
 				Transaction transaction = new Transaction();
-				transaction.setClient_id(result_set.getInt("client_id"));
+				Client client = Search_client_by_id(result_set.getInt("client_id"));
+				transaction.setClient(client);
 				transaction.setGain(result_set.getFloat("gain"));
-				transaction.setProduct_id(result_set.getInt("product_id"));
+				Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
+				transaction.setBiomaterial(biomaterial);
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
@@ -774,9 +847,11 @@ public class SQLManager implements Interface{
 				biomaterial.setAvailable_units(result_set.getInt("available_units"));
 				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
-				biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
+				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
+				biomaterial.setMaintenance(maintenance);
 				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
-				biomaterial.setUtility_id(result_set.getInt("utility_id"));
+				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
+				biomaterial.setUtility(utility);
 				biomaterials_list.add(biomaterial);
 			}
 			statement.close();
@@ -839,12 +914,11 @@ public class SQLManager implements Interface{
 	// Delete a user from user table with the given user_id
 	public boolean Delete_stored_user(Integer user_id) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "DELETE FROM user WHERE user_id = ?;";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user_id);
 			template.executeUpdate();
-			statement.close();
+			template.close();
 			return true;
 		} catch (SQLException delete_user_error) {
 			delete_user_error.printStackTrace();
@@ -854,13 +928,11 @@ public class SQLManager implements Interface{
 	
 	public boolean Delete_stored_category(Category category) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String SQL_code = "DELETE FROM category WHERE category_id = ?;";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, category.getCategory_id());
 			template.executeUpdate();
-			statement.close();
-			
+			template.close();
 			return true;
 		} catch (SQLException delete_client_error) {
 			delete_client_error.printStackTrace();

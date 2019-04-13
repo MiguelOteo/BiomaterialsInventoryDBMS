@@ -20,10 +20,13 @@ public class Client implements Serializable {
 	private Integer telephone;
 	private String bank_account;
 	private String responsible;
+	private Integer points;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
-	private Integer points;
+
+	@OneToMany @JoinColumn(name = "transaction_id")
 	private ArrayList<Transaction> transactions_list;
 
 	public Client() {

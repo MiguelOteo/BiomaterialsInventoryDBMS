@@ -8,10 +8,10 @@ public class Transaction implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer transaction_id;
     private Float gain;
-    private Integer client_id;
     private Integer units;
-    private Integer product_id;
     private Date transaction_date;
+    private Biomaterial biomaterial;
+    private Client client;
     
 
 	public Transaction() {
@@ -19,12 +19,12 @@ public class Transaction implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Transaction(Float gain, Integer client_id, Integer units, Integer product_id) {
+	public Transaction(Float gain, Integer units, Biomaterial biomaterial, Client client) {
 		super();
 		this.gain = gain;
-		this.client_id = client_id;
 		this.units = units;
-		this.product_id = product_id;
+		this.biomaterial = biomaterial;
+        this.client = client;
 	}
 	
 	public Integer getTransaction_id() {
@@ -43,12 +43,12 @@ public class Transaction implements Serializable{
 		this.gain = gain;
 	}
 	
-	public Integer getClient_id() {
-		return client_id;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setClient_id(Integer client_id) {
-		this.client_id = client_id;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public Integer getUnits() {
@@ -59,12 +59,12 @@ public class Transaction implements Serializable{
 		this.units = units;
 	}
 	
-	public Integer getProduct_id() {
-		return product_id;
+	public Biomaterial getBiomaterial() {
+		return biomaterial;
 	}
 	
-	public void setProduct_id(Integer product_id) {
-		this.product_id = product_id;
+	public void setBiomaterial(Biomaterial biomaterial) {
+		this.biomaterial = biomaterial;
 	}
 	
 	public Date getTransaction_date() {
@@ -102,8 +102,8 @@ public class Transaction implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Transaction [transaction_id=" + transaction_id + ", gain=" + gain + ", client_id=" + client_id
-				+ ", units=" + units + ", product_id=" + product_id + ", transaction_date=" + transaction_date + "]";
+		return "Transaction [transaction_id=" + transaction_id + ", gain=" + gain + ", client=" + client
+				+ ", units=" + units + ", product=" + biomaterial + ", transaction_date=" + transaction_date + "]";
 	}
 	
 	

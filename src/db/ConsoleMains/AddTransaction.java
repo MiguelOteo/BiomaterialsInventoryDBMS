@@ -6,6 +6,7 @@ import java.sql.Date;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
+import db.pojos.Client;
 import db.pojos.Maintenance;
 import db.pojos.Transaction;
 import db.pojos.Utility;
@@ -25,12 +26,20 @@ public class AddTransaction {
 		}
 		
 		Utility utility = new Utility("cold", "yes", "no", (float)34.7, (float)65.85);
-		manager.Insert_new_utility(utility);
+		Integer utility_id = manager.Insert_new_utility(utility);
+		utility.setUtility_id(utility_id);
+		
 		Maintenance maintenance = new Maintenance((float)34.6, "yes", "yes", 34, (float)54.7, "yes", "others");
-		manager.Insert_new_maintenance(maintenance);
-		Biomaterial biomaterial = new Biomaterial(1, 1, "Plastic", (float)34.2, 30, Date.valueOf("3424-06-03"));
-		manager.Insert_new_biomaterial(biomaterial);
-		Transaction transaction = new Transaction((float)23.654, 1, 45433, 1);
+		Integer maintenance_id = manager.Insert_new_maintenance(maintenance);
+		maintenance.setManteinance_id(maintenance_id);
+		
+		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", (float)34.2, 30, Date.valueOf("3424-06-03"));
+		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
+		biomaterial.setBiomaterial_id(biomaterial_id);
+		
+		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id) {
+		Client client = manager.Search_client_by_id(1);
+		Transaction transaction = new Transaction((float)23.654, 45433, biomaterial, client);
 		manager.Insert_new_transaction(transaction);
 	}
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Maintenance implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Integer manteinance_id;
+	private Integer maintenance_id;
 	private Float pressure;
 	private String o2_supply;
 	private String light;
@@ -35,12 +35,12 @@ public class Maintenance implements Serializable{
 
 
 	public Integer getManteinance_id() {
-		return manteinance_id;
+		return maintenance_id;
 	}
 
 
-	public void setManteinance_id(Integer manteinance_id) {
-		this.manteinance_id = manteinance_id;
+	public void setManteinance_id(Integer maintenance_id) {
+		this.maintenance_id = maintenance_id;
 	}
 
 
@@ -116,7 +116,7 @@ public class Maintenance implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Manteinance [manteinance_id=" + manteinance_id + ", pressure=" + pressure + ", o2_supply=" + o2_supply
+		return "Manteinance [manteinance_id=" + maintenance_id + ", pressure=" + pressure + ", o2_supply=" + o2_supply
 				+ ", light=" + light + ", humidity=" + humidity + ", temperature=" + temperature + ", compatibility="
 				+ compatibility + ", others=" + others + "]";
 	}
@@ -126,7 +126,7 @@ public class Maintenance implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((manteinance_id == null) ? 0 : manteinance_id.hashCode());
+		result = prime * result + ((maintenance_id == null) ? 0 : maintenance_id.hashCode());
 		return result;
 	}
 
@@ -140,10 +140,10 @@ public class Maintenance implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Maintenance other = (Maintenance) obj;
-		if (manteinance_id == null) {
-			if (other.manteinance_id != null)
+		if (maintenance_id == null) {
+			if (other.maintenance_id != null)
 				return false;
-		} else if (!manteinance_id.equals(other.manteinance_id))
+		} else if (!maintenance_id.equals(other.maintenance_id))
 			return false;
 		return true;
 	}	    

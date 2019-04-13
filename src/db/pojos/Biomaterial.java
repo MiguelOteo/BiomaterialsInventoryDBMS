@@ -22,9 +22,9 @@ public class Biomaterial implements Serializable{
 	@XmlTransient
 	private Integer biomaterial_id;
 	@XmlTransient
-	private Integer utility_id;
+	private Utility utility;
 	@XmlTransient
-	private Integer maintenance_id;
+	private Maintenance maintenance;
 	@XmlElement
 	private String name_product;
 	@XmlAttribute
@@ -39,11 +39,11 @@ public class Biomaterial implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Biomaterial(Integer utility_id, Integer maintenance_id, String name_product, Float price_unit,
+	public Biomaterial(Utility utility, Maintenance maintenance, String name_product, Float price_unit,
 			Integer available_units, Date expiration_date) {
 		super();
-		this.utility_id = utility_id;
-		this.maintenance_id = maintenance_id;
+		this.utility = utility;
+		this.maintenance = maintenance;
 		this.name_product = name_product;
 		this.price_unit = price_unit;
 		this.available_units = available_units;
@@ -58,20 +58,20 @@ public class Biomaterial implements Serializable{
 		this.biomaterial_id = biomaterial_id;
 	}
 	
-	public Integer getUtility_id() {
-		return utility_id;
+	public Utility getUtility() {
+		return utility;
 	}
 	
-	public void setUtility_id(Integer utility_id) {
-		this.utility_id = utility_id;
+	public void setUtility(Utility utility) {
+		this.utility = utility;
 	}
 	
-	public Integer getMaintenance_id() {
-		return maintenance_id;
+	public Maintenance getMaintenance() {
+		return maintenance;
 	}
 	
-	public void setMaintenance_id(Integer maintenance_id) {
-		this.maintenance_id = maintenance_id;
+	public void setMaintenance(Maintenance maintenance) {
+		this.maintenance = maintenance;
 	}
 	
 	public String getName_product() {
