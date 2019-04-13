@@ -120,7 +120,7 @@ public class DirectorMenuController implements Initializable {
 				my_account.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(4,4,4));
+						menu_window.setEffect(new BoxBlur(3,3,3));
 					    myAccount_buttom.setDisable(true);
 					}
 				});

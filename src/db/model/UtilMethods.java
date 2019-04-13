@@ -29,8 +29,7 @@ public class UtilMethods {
 
 	// -----> SUM ALL GAINS METHOD <-----
 
-	// Gets a list calling Search_stored_transactions and sum all the gains from
-	// them
+	// Gets a list calling Search_stored_transactions and sum all the gains from them
 	public int Sum_all_client_points(Client client) {
 		SQLManager manager = new SQLManager();
 		int points_gains = 0;
@@ -74,8 +73,7 @@ public class UtilMethods {
 		Integer Platinum1_ok = manager.Insert_new_benefits(new Benefits((float) 0.3, 300));
 	}
 
-	public boolean Assign_category_to_client(Client client) {
-		SQLManager manager = new SQLManager();
+	public boolean Assign_category_to_client(Client client, SQLManager manager) {
 
 		List<Category> categories_list = manager.List_all_categories();
 
@@ -92,7 +90,7 @@ public class UtilMethods {
 
 	public boolean Determine_limit_date(Client client) {
 		// Transaction list
-		ArrayList<Transaction> limiting_date_list = client.getTransactions_list();
+		List<Transaction> limiting_date_list = client.getTransactions_list();
 		Transaction limiting_transaction = limiting_date_list.get(limiting_date_list.size() - 1);
 		// Dates
 		Date limiting_date = limiting_transaction.getTransaction_date();
@@ -106,9 +104,7 @@ public class UtilMethods {
 		}
 	}
 
-	public void Set_penalization_to_client(Client client) {
-
-		SQLManager manager = new SQLManager();
+	public void Set_penalization_to_client(Client client, SQLManager manager) {
 		int i = 0;
 
 		if (Determine_limit_date(client) == true) {
@@ -167,7 +163,7 @@ public class UtilMethods {
 			manager.Insert_new_user("ant03", "1234");
 
 			manager.Insert_new_client(manager.Insert_new_user("ant03", "1234"));
-			ArrayList<Transaction> lista = new ArrayList<Transaction>();
+			List<Transaction> lista = new ArrayList<Transaction>();
 			Client c = new Client("Antonio", 0001, "", "");
 			c.setTransactions_list(lista);
 			manager.Update_client_info(c);

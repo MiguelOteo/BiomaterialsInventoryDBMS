@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1240.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DirectorMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DirectorMenuController">
    <children>
-      <Pane fx:id="menu_main_pane" layoutX="300.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
+      <Pane fx:id="menu_main_pane" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
             <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
                <children>
@@ -70,7 +70,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
+      <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
          <children>
             <VBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="blue_color">
                <children>

@@ -1,7 +1,7 @@
 package db.pojos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,7 +27,7 @@ public class Client implements Serializable {
 	private Category category;
 
 	@OneToMany @JoinColumn(name = "transaction_id")
-	private ArrayList<Transaction> transactions_list;
+	private List<Transaction> transactions_list;
 
 	public Client() {
 		super();
@@ -111,11 +111,11 @@ public class Client implements Serializable {
 		this.points = points;
 	}
 	
-	public ArrayList<Transaction> getTransactions_list() {
+	public List<Transaction> getTransactions_list() {
 		return transactions_list;
 	}
 
-	public void setTransactions_list(ArrayList<Transaction> transactions_list) {
+	public void setTransactions_list(List<Transaction> transactions_list) {
 		this.transactions_list = transactions_list;
 	}
 

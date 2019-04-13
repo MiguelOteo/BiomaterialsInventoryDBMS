@@ -2,6 +2,10 @@
 	-fx-background-color: white;
 }
 
+.border_color {
+	-fx-background-color: #3d5663;
+}
+
 .blue_color {
 	-fx-background-color: #4f90a5;
 }

@@ -50,13 +50,6 @@ public class Category extends UtilMethods implements Serializable{
     	return category_id;
     }
     
-    public Category get_Category_with_id(int id) {
-    	
-    	Category category_type = null;
-    	
-    	return category_type;
-    }
-    
     public void setCategory_id(Integer category_id) {
     	this.category_id = category_id;
     }
@@ -73,7 +66,7 @@ public class Category extends UtilMethods implements Serializable{
 		return penalization;
 	}
 
-	public void setPenalization(int penalization) {
+	public void setPenalization(Integer penalization) {
 		this.penalization = penalization;
 	}
 	
