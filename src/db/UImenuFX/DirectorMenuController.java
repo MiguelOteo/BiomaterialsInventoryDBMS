@@ -149,6 +149,7 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().client_name;
 			}
 		});
+		client_name.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Amount");
 		amount.setPrefWidth(75);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
@@ -157,6 +158,7 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().amount;
 			}
 		});
+		amount.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject, String> units = new JFXTreeTableColumn<>("Units");
 		units.setPrefWidth(70);
 		units.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
@@ -165,6 +167,7 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().units;
 			}
 		});
+		units.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
 		transaction_date.setPrefWidth(180);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
@@ -173,6 +176,7 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().transaction_date;
 			}
 		});
+		transaction_date.setResizable(false);
 		
 		ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
 		List<Transaction> transactions_list = manager_object.List_all_transactions();

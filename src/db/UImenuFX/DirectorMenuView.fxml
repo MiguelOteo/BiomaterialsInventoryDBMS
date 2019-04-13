@@ -61,7 +61,7 @@
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="14.0" layoutY="46.0" prefHeight="580.0" prefWidth="445.0" showRoot="false" styleClass="split-pane">
+                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="14.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="445.0" showRoot="false" styleClass="split-pane">
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
