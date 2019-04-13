@@ -559,7 +559,7 @@ public class SQLManager implements Interface{
 			cat.setCategory_name(result_set.getString("name"));
 			cat.setMaximum(result_set.getInt("maximum"));
 			cat.setMinimum(result_set.getInt("minimum"));
-			cat.setPenalization(result_set.getFloat("penalization"));
+			cat.setPenalization(result_set.getInt("penalization"));
 			
 			statement.close();
 			return cat;
@@ -611,7 +611,33 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	
+	
+	public Biomaterial Search_stored_biomaterial(Transaction transaction) {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM biomaterial WHERE biomaterial_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, transaction.getProduct_id());
+			ResultSet result_set = template.executeQuery();
+			Biomaterial biomaterial = new Biomaterial();
+			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
+			biomaterial.setUtility_id(result_set.getInt("utility_id"));
+			biomaterial.setName_product(result_set.getString("name_product"));
+			biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+			biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
+			statement.close();
+			return biomaterial;
+		} catch (SQLException search_client_error) {
+			return null;
+		}
+	}
 
+	
+	// -----> LIST METHODS <-----
+	
 	// Selects all clients objects with the same client_id from the data base and returns them
 	public List<Transaction> Search_stored_transactions(Client client) {
 		try {
@@ -639,7 +665,6 @@ public class SQLManager implements Interface{
 		}
 	}
 
-	// -----> LIST METHODS <-----
 
 	// List all users returning a linkedList with all of them
 	public List<User> List_all_users() {
@@ -745,8 +770,8 @@ public class SQLManager implements Interface{
 			ResultSet result_set = statement.executeQuery(SQL_code);
 			while (result_set.next()) {
 				Biomaterial biomaterial = new Biomaterial();
-				biomaterial.setName_product(result_set.getString("product_name"));
-				biomaterial.setAvailable_units(result_set.getInt("avaliable_units"));
+				biomaterial.setName_product(result_set.getString("name_product"));
+				biomaterial.setAvailable_units(result_set.getInt("available_units"));
 				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
 				biomaterial.setMaintenance_id(result_set.getInt("maintenance_id"));
