@@ -35,9 +35,9 @@ public class ChargingScreenController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
-	public static AnchorPane charging_main_pane;
+	private static AnchorPane charging_main_pane;
 	@FXML
-	public static Stage main_menu_stage;
+	private static Stage main_menu_stage;
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -50,8 +50,6 @@ public class ChargingScreenController implements Initializable {
 		// TODO - if its needed
 	}
 	
-	// Next algorithm checks if the user account already exist when you create a new one or in 
-	// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
 	public void searching_create_account(String user_name, String password, String user_type) {
 		try {
 			this.user_name = user_name;
@@ -66,23 +64,25 @@ public class ChargingScreenController implements Initializable {
 				manager.Create_tables();
 			}
 
+			// Next algorithm checks if the user account already exist when you create a new one or in 
+			// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
 			User user = manager.Search_stored_user(this.user_name, this.password);
 			if(user != null) {
 				if(this.user_type == null) {
 					Client client_account = manager.Search_stored_client(user);
 					if(client_account != null) {
 						charge_client_main_menu(client_account);
-						LaunchApplication.stage.hide();
+						LaunchApplication.getStage().hide();
 					} else {
 					    Director director_account = manager.Search_stored_director(user);
 					    if(director_account != null) {
 					    	charge_director_main_menu(director_account);
-							LaunchApplication.stage.hide();
+							LaunchApplication.getStage().hide();
 					    } else {
 					    	Worker worker_account = manager.Search_stored_worker(user);
 					    	if(worker_account != null) {
 					    		charge_worker_main_menu(worker_account);
-					    		LaunchApplication.stage.hide();
+					    		LaunchApplication.getStage().hide();
 					    	} else {
 					    		System.exit(0);
 					    	}
@@ -99,18 +99,20 @@ public class ChargingScreenController implements Initializable {
 						User new_user = manager.Insert_new_user(user_name, password);
                         Client client = manager.Insert_new_client(new_user);
                         charge_client_main_menu(client);
-						LaunchApplication.stage.hide();
+						LaunchApplication.getStage().hide();
 					} else {
 						if (this.user_type.equals("Director")) {
 							User new_user = manager.Insert_new_user(user_name, password);
 							Director director = manager.Insert_new_director(new_user);
 							charge_director_main_menu(director);
-							LaunchApplication.stage.hide();
+							LaunchApplication.getStage().hide();
 						} else {
 							if (this.user_type.equals("Worker")) {
 								// TODO - Insert Worker
 		                        // TODO - Worker menu
 								System.out.println("Creando trabajador");
+							} else {
+								System.exit(0);
 							}
 						}
 					}
@@ -134,6 +136,10 @@ public class ChargingScreenController implements Initializable {
 	
 	public WorkerMenuController getWorkerController() {
 		return this.worker_controller;
+	}
+	
+	public static Stage getMain_menu_stage() {
+		return main_menu_stage;
 	}
 	
 	// -----> OTHER METHODS <-----

@@ -46,7 +46,7 @@ public class LogInController implements Initializable {
 	// -----> ESSENTIAL METHODS <-----
 
 	public LogInController() {
-		// Default contructor
+		// Default constructor
 	}
 
 	@Override

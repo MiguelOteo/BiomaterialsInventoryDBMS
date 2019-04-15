@@ -44,9 +44,7 @@ public class DirectorMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
-	@FXML 
 	private static Director director_account;
-	@FXML 
 	private static SQLManager manager_object;
 
 	// -----> FXML ATRIBUTES <-----
@@ -86,7 +84,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private Label telephone;
 	@FXML
-	public static Stage my_account;
+	private static Stage my_account;
 	@FXML
 	private JFXTreeTableView<TransactionListObject> transactions_tree_view;
 
@@ -95,15 +93,20 @@ public class DirectorMenuController implements Initializable {
 	public DirectorMenuController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public static void setValues(SQLManager manager, Director director) {
+		manager_object = manager;
+		director_account = director;
+	}
 
-	@SuppressWarnings("unchecked")
-	@Override
+	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_buttom.setOnAction((ActionEvent) -> {
 			try {
+				AccountDirectorController.setValues(manager_object, director_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 				Parent root = (Parent) loader.load();
-				AccountDirectorController account_controller = new AccountDirectorController(manager_object, director_account);
+				AccountDirectorController account_controller = new AccountDirectorController();
 				account_controller = loader.getController();
 				account_controller.done_button.setOnMouseClicked(new EventHandler<Event>() {
 					@Override
@@ -201,7 +204,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private void log_out(MouseEvent event) {
 		manager_object.Close_connection();
-		LaunchApplication.stage.show();
+		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_buttom.getScene().getWindow();
 		stage.close();
 	}
@@ -247,11 +250,6 @@ public class DirectorMenuController implements Initializable {
 
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
-	}
-	 
-	public static void setValues(SQLManager manager, Director director) {
-		manager_object = manager;
-		director_account = director;
 	}
 }
 

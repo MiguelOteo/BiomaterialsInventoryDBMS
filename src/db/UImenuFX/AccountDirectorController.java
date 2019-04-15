@@ -53,10 +53,10 @@ public class AccountDirectorController implements Initializable {
 	public AccountDirectorController() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public AccountDirectorController(SQLManager manager, Director director) {
-		director_account = director;
+	
+	public static void setValues(SQLManager manager, Director director) {
 		manager_object = manager;
+		director_account = director;
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class AccountDirectorController implements Initializable {
 			manager_object.Delete_stored_user(director_account.getUser().getUserId());
 			manager_object.Close_connection();
 			Stage stage = (Stage) account_window.getScene().getWindow();
-			LaunchApplication.stage.show();
-			ChargingScreenController.main_menu_stage.close();
+			LaunchApplication.getStage().show();
+			ChargingScreenController.getMain_menu_stage().close();
 			stage.close();
 		});
 	}

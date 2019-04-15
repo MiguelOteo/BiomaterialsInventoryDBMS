@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 
 public class LaunchApplication extends Application{
 	
-	public static Stage stage;
+	private static Stage stage;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -31,5 +31,11 @@ public class LaunchApplication extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	// -----> SET AND GET METHODS <-----
+	
+	public static Stage getStage() {
+		return stage;
 	}
 }

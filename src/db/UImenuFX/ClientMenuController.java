@@ -57,7 +57,7 @@ public class ClientMenuController implements Initializable {
 
 	@FXML
 	private void log_out(MouseEvent event) {
-			LaunchApplication.stage.show();
+			LaunchApplication.getStage().show();
 			Stage stage = (Stage) logOut_buttom.getScene().getWindow();
 			stage.close();
 	}

@@ -696,6 +696,7 @@ public class SQLManager implements Interface{
                 biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
                 biomaterial.setName_product(result_set.getString("name_product"));
                 biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+                biomaterial.setBiomaterial_id(biomaterial_id);
                 Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
                 biomaterial.setUtility(utility);
                 Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));

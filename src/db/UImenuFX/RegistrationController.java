@@ -52,7 +52,7 @@ public class RegistrationController implements Initializable {
 	// -----> ESSENTIAL METHODS <-----
 
 	public RegistrationController() {
-
+		// Default constructor
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
@@ -93,7 +93,7 @@ public class RegistrationController implements Initializable {
 						wait.play();
 
 						root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
-						LaunchApplication.stage.getScene().setRoot(root);
+						LaunchApplication.getStage().getScene().setRoot(root);
 					}
 				} catch (IOException charging_screen_error) {
 					charging_screen_error.printStackTrace();
@@ -110,7 +110,7 @@ public class RegistrationController implements Initializable {
 	@FXML // It is triggered when "go back" buttom is pressed
 	private void back_to_menu(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
-		LaunchApplication.stage.getScene().setRoot(root);
+		LaunchApplication.getStage().getScene().setRoot(root);
 	}
 
 	@FXML // It is triggered when "extitCross.png" is pressed
