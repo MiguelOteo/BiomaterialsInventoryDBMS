@@ -18,7 +18,7 @@ import db.pojos.Utility;
 import db.pojos.Worker;
 
 public class SQLManager implements Interface{
-
+	
 	private Connection sqlite_connection;
 
 	public SQLManager() {
@@ -133,10 +133,10 @@ public class SQLManager implements Interface{
 
 	// Checks if all the tables are already created in biomat.db in order to avoid executing the method Create_tables 
 	public boolean Check_if_tables_exist() {
-		
-		String[] tables_array = new String[]{"client", "bank_transaction", "utility",
+			
+		String[] tables_array = new String[]{"user", "director", "client", "worker", "bank_transaction", "utility",
 				"biomaterial", "maintenance", "category", "benefits"};
-		
+			
 		for(int table = 0; table < tables_array.length; table++) {
 			try {
 				DatabaseMetaData meta_data = this.sqlite_connection.getMetaData();
