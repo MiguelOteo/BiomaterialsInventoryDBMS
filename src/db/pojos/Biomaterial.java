@@ -104,6 +104,15 @@ public class Biomaterial implements Serializable{
 	
 	public void setExpiration_date(Date expiration_date) {
 		this.expiration_date = expiration_date;
-	}	
+	}
+	@Override
+	public String toString() {
+		return "Biomaterial [biomaterial_id=" + biomaterial_id + ", utility=" + utility + ", maintenance=" + maintenance
+				+ ", name_product=" + name_product + ", price_unit=" + price_unit + ", available_units="
+				+ available_units + ", expiration_date=" + expiration_date + "]";
+	}
+	
+	
+	
 }
 

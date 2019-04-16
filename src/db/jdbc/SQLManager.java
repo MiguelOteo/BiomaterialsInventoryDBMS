@@ -709,6 +709,29 @@ public class SQLManager implements Interface{
 		}
     }
 	
+	public Transaction Search_transaction_by_id(Integer transaction_id) {
+		try {
+			String SQL_code = "SELECT * FROM bank_transaction WHERE transaction_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, transaction_id);
+			Transaction transaction = new Transaction();
+			ResultSet result_set = template.executeQuery();
+			transaction.setTransaction_id(result_set.getInt("transaction_id"));
+			Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
+			transaction.setBiomaterial(biomaterial);
+			transaction.setTransaction_date(result_set.getDate("transaction_date"));
+			transaction.setGain(result_set.getFloat("gain"));
+			transaction.setUnits(result_set.getInt("units"));
+			Client client = Search_client_by_id(result_set.getInt("client_id"));
+			transaction.setClient(client);
+            template.close();
+			return transaction;
+		} catch (SQLException search_transaction_error) {
+			search_transaction_error.printStackTrace();
+			return null;
+	}
+	}
+	
 	// -----> LIST METHODS <-----
 	
 	// Selects all clients objects with the same client_id from the data base and returns them
@@ -939,6 +962,23 @@ public class SQLManager implements Interface{
 			delete_client_error.printStackTrace();
 			return false;
 		}
+	}
+	
+	
+	public boolean Delete_transaction_from_client(Transaction transaction) {
+		try {
+			String SQL_code = "DELETE FROM bank_transaction WHERE transaction_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, transaction.getTransaction_id());
+			template.executeUpdate();
+			template.close();
+			return true;
+			
+		} catch (SQLException delete_transaction_error) {
+			delete_transaction_error.printStackTrace();
+			return false;
+		}
+	
 	}
 	
 	// -----> CLOSE CONNECTION METHOD <-----
