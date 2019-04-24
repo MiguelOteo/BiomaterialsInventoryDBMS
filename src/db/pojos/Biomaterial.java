@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.sql.Date;
+import db.xml.utils.SQLDateAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -19,7 +21,7 @@ public class Biomaterial implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlTransient
+	@XmlAttribute
 	private Integer biomaterial_id;
 	@XmlTransient
 	private Utility utility;
@@ -32,6 +34,7 @@ public class Biomaterial implements Serializable{
 	@XmlAttribute
 	private Integer available_units;
 	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date expiration_date;
 	
 	
