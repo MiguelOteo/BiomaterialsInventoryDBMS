@@ -73,7 +73,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="myAccount_button1" alignment="TOP_LEFT" layoutX="72.0" layoutY="151.0" onAction="#list_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="List all inventory" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button1" alignment="TOP_LEFT" layoutX="72.0" layoutY="153.0" onAction="#list_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="List all inventory" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -83,12 +83,12 @@
                   <Image url="@src.IconPictures/list-alt.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="myAccount_button2" alignment="TOP_LEFT" layoutX="72.0" layoutY="206.0" onAction="#add_product_to_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="Add product" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button2" alignment="TOP_LEFT" layoutX="72.0" layoutY="210.0" onAction="#add_product_to_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="Add product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="myAccount_button3" alignment="TOP_LEFT" layoutX="72.0" layoutY="267.0" onAction="#delete_from_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button3" alignment="TOP_LEFT" layoutX="72.0" layoutY="269.0" onAction="#delete_from_inventory" prefHeight="34.0" prefWidth="194.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -108,6 +108,21 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="22.0" layoutY="417.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/user-friends.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="45.0" layoutX="24.0" layoutY="203.0" opacity="0.46">
+               <image>
+                  <Image url="@src.IconPictures/plus-black-symbol.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="52.0" fitWidth="44.0" layoutX="25.0" layoutY="258.0" opacity="0.46">
+               <image>
+                  <Image url="@src.IconPictures/minus.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
