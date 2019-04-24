@@ -26,7 +26,6 @@ public class Client implements Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@OneToMany @JoinColumn(name = "transaction_id")
 	private List<Transaction> transactions_list;
 
 	public Client() {
