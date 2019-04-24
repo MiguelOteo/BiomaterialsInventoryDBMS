@@ -8,7 +8,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
+import db.pojos.Client;
 import db.pojos.Director;
+import db.pojos.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +24,8 @@ public class AccountDirectorController implements Initializable {
 
 	private static Director director_account;
 	private static SQLManager manager_object;
+	private static Worker worker_account;
+	private static Client client_account;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -111,4 +115,10 @@ public class AccountDirectorController implements Initializable {
 			this.new_password_field.setText("");
 		}
 	}
+	
+	public static void setValuesWorker(SQLManager manager, Worker worker) {
+		worker_account = worker;
+		manager_object = manager;
+	}
+
 }

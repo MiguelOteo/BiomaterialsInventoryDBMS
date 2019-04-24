@@ -1,5 +1,6 @@
 package db.UImenuFX;
 
+import java.io.IOException;
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -13,12 +14,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
+
 
 public class WorkerMenuController implements Initializable {
 	
@@ -31,40 +42,41 @@ public class WorkerMenuController implements Initializable {
 
 	// -----> FXML ATRIBUTES <-----
 
-	@FXML
-	private AnchorPane menu_window;
-	@FXML
-	private Pane menu_main_pane;
-	@FXML
-	private JFXButton logOut_buttom;
-	@FXML
-    private JFXButton logOut_button1;
-    @FXML
-    private JFXButton myAccount_buttom;
-    @FXML
-    private JFXButton myAccount_button1;
-    @FXML
-    private JFXButton myAccount_button2;
-    @FXML
-    private JFXButton myAccount_button3;
-    @FXML
-    private JFXButton myAccount_button4;
-    @FXML
-    private JFXButton myAccount_button5;
-    @FXML
-    private Label current_pane_option_label;
-    @FXML
-    private ImageView exitButtom;
-    @FXML
-    private ImageView minButtom;
-    @FXML
-    private Label worker_name;
-    @FXML
-    private Label email;
-    @FXML
-    private Label telephone;
-    @FXML
-    private Label current_pane_option_label1;
+	 	@FXML
+	    private AnchorPane menu_window;
+	    @FXML
+	    private Pane menu_main_pane;
+	    @FXML
+	    private JFXButton logOut_button1;
+	    @FXML
+	    private JFXButton myAccount_button;
+	    @FXML
+	    private JFXButton listInventory_button;
+	    @FXML
+	    private JFXButton addProduct_button;
+	    @FXML
+	    private JFXButton removeProduct_button;
+	    @FXML
+	    private JFXButton listTransactions_button;
+	    @FXML
+	    private JFXButton listClients_button;
+	    @FXML
+	    private Label current_pane_option_label;
+	    @FXML
+	    private ImageView exitButton;
+	    @FXML
+	    private ImageView minButton;
+	    @FXML
+	    private Label worker_name;
+	    @FXML
+	    private Label email;
+	    @FXML
+	    private Label telephone;
+	    @FXML
+	    private Label current_pane_option_label1;
+	    @FXML
+	    private static Stage my_account;
+
 	
 	// -----> ESSENTIAL METHODS <-----
 	
@@ -137,7 +149,67 @@ public class WorkerMenuController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		myAccount_button.setOnAction((ActionEvent) -> {
+			try {
+				AccountDirectorController.setValuesWorker(manager, worker_account);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
+				Parent root = (Parent) loader.load();
+				AccountDirectorController account_controller = new AccountDirectorController();
+				account_controller = loader.getController();
+				account_controller.done_button.setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						update_worker_account();
+						menu_window.setEffect(null);
+						my_account.close();
+					}
+				});	
+				my_account = new Stage();
+				my_account.initStyle(StageStyle.UNDECORATED);
+				my_account.setScene(new Scene(root));
+				my_account.setAlwaysOnTop(true);				
+				my_account.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    myAccount_button.setDisable(true);
+					    listInventory_button.setDisable(true);
+					    addProduct_button.setDisable(true);
+					    removeProduct_button.setDisable(true);
+					    listTransactions_button.setDisable(true);
+					    listClients_button.setDisable(true);
+					    logOut_button1.setDisable(true);
+					    minButton.setDisable(true);
+					    exitButton.setDisable(true);
+					}
+				});
+				my_account.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						myAccount_button.setDisable(false);
+						listInventory_button.setDisable(true);
+						addProduct_button.setDisable(true);
+						removeProduct_button.setDisable(true);
+						listTransactions_button.setDisable(true);
+						listClients_button.setDisable(true);
+					    logOut_button1.setDisable(true);
+					    minButton.setDisable(true);
+					    exitButton.setDisable(true);
+						menu_window.setEffect(null);
+					}
+				});		
+				my_account.show();
+			} catch (IOException director_account_error) {
+				director_account_error.printStackTrace();
+				System.exit(0);
+			}
+		});
+			
+			// Biomaterials list columns creation
+			
+		
+		
+
 		
 	}
 	
@@ -151,7 +223,7 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private void log_out(MouseEvent event) {
 			LaunchApplication.getStage().show();
-			Stage stage = (Stage) logOut_buttom.getScene().getWindow();
+			Stage stage = (Stage) logOut_button1.getScene().getWindow();
 			stage.close();
 	}
 	
