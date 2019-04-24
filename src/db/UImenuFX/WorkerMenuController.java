@@ -1,18 +1,24 @@
 package db.UImenuFX;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import db.pojos.Worker;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import com.jfoenix.controls.JFXButton;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class WorkerMenuController implements Initializable {
 	
@@ -31,6 +37,34 @@ public class WorkerMenuController implements Initializable {
 	private Pane menu_main_pane;
 	@FXML
 	private JFXButton logOut_buttom;
+	@FXML
+    private JFXButton logOut_button1;
+    @FXML
+    private JFXButton myAccount_buttom;
+    @FXML
+    private JFXButton myAccount_button1;
+    @FXML
+    private JFXButton myAccount_button2;
+    @FXML
+    private JFXButton myAccount_button3;
+    @FXML
+    private JFXButton myAccount_button4;
+    @FXML
+    private JFXButton myAccount_button5;
+    @FXML
+    private Label current_pane_option_label;
+    @FXML
+    private ImageView exitButtom;
+    @FXML
+    private ImageView minButtom;
+    @FXML
+    private Label worker_name;
+    @FXML
+    private Label email;
+    @FXML
+    private Label telephone;
+    @FXML
+    private Label current_pane_option_label1;
 	
 	// -----> ESSENTIAL METHODS <-----
 	
@@ -42,6 +76,33 @@ public class WorkerMenuController implements Initializable {
 		this.worker_account = worker;
 		this.manager = manager;
 	}
+
+    
+
+    @FXML
+    void add_product_to_inventory(ActionEvent event) {
+    }
+    @FXML
+    void clients_list(ActionEvent event) {
+    }
+    @FXML
+    void delete_from_inventory(ActionEvent event) {
+    }
+
+    @FXML
+    void list_inventory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void min_window(MouseEvent event) {
+
+    }
+
+    @FXML
+    void transaction_records(ActionEvent event) {
+
+    }
 
 	
 	@Override
