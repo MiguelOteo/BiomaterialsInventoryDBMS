@@ -6,6 +6,8 @@ public class Worker {
 	private User user;
 	private String worker_name;
 	private String password;
+	private String email;
+	private Integer telephone;
 	
 	public Worker() {
 		super();
@@ -48,6 +50,24 @@ public class Worker {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(Integer telephone) {
+		this.telephone = telephone;
+	}
 
 	@Override
 	public int hashCode() {
@@ -79,4 +99,6 @@ public class Worker {
 		return "Worker [worker_id=" + worker_id + ", user=" + user + ", worker_name=" + worker_name
 				+ ", password=" + password + "]";
 	}
+
+	
 }

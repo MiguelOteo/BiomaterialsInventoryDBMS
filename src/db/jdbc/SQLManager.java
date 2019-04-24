@@ -613,6 +613,27 @@ public class SQLManager implements Interface{
 		}
 	}
 	 
+	public Worker Search_worker_by_id (Integer worker_id) {
+		try {
+			String SQL_code = "SELECT * FROM worker WHERE worker_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, worker_id);
+			Worker worker = new Worker();
+			ResultSet result_set = template.executeQuery();
+			worker.setWorker_id(worker_id);
+			worker.setWorker_name(result_set.getString("name"));
+			worker.setEmail(result_set.getString("email"));
+			worker.setTelephone(result_set.getInt("telephone"));
+			User user = Search_user_by_id(result_set.getInt("user_id"));
+			worker.setUser(user);
+			template.close();
+			return worker;
+		} catch (SQLException search_director_error) {
+			search_director_error.printStackTrace();
+			return null;
+		}
+	}
+	
 	// Selects the client object with the same client_id from the data base and returns it
 	public Client Search_client_by_id (Integer client_id) {
 			try {

@@ -25,9 +25,9 @@ public class WorkerMenuController implements Initializable {
     // -----> CLASS ATRIBUTES <-----
 
 	@SuppressWarnings("unused")
-	private Worker worker_account;
+	private static Worker worker_account;
 	@SuppressWarnings("unused")
-	private SQLManager manager;
+	private static SQLManager manager;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -77,7 +77,36 @@ public class WorkerMenuController implements Initializable {
 		this.manager = manager;
 	}
 
-    
+	public void update_worker_account() {
+    	worker_account = manager.Search_worker_by_id(worker_account.getWorker_id());
+    	setWorkerEmail(worker_account.getEmail());
+    	setWorkerName(worker_account.getWorker_name());
+		setWorkerTelephone(worker_account.getTelephone());
+	}
+	
+	public void setWorkerName(String name) {
+		this.worker_name.setText("Worker's name: " + name);
+	}
+
+	public void setWorkerEmail(String email) {
+		if (email != null) {
+			this.email.setText("Email: " + email);
+		} else {
+			this.email.setText("Email: No email associated");
+		}
+	}
+
+	public void setWorkerTelephone(Integer telephone) {
+		if (telephone == null) {
+			this.telephone.setText("Telephone: No telephone associated");
+		} else {
+			if (telephone != 0) {
+				this.telephone.setText("Telephone: " + telephone);
+			} else {
+				this.telephone.setText("Telephone: No telephone associated");
+			}
+		}
+	}
 
     @FXML
     void add_product_to_inventory(ActionEvent event) {
@@ -96,7 +125,8 @@ public class WorkerMenuController implements Initializable {
 
     @FXML
     void min_window(MouseEvent event) {
-
+    	Stage stage = (Stage) menu_main_pane.getScene().getWindow();
+		stage.setIconified(true);
     }
 
     @FXML
