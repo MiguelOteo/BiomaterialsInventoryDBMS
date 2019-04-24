@@ -35,9 +35,9 @@ public class LogInController implements Initializable {
 	@FXML
 	private Pane logInPane;
 	@FXML
-	private JFXButton logInButtom;
+	private JFXButton logInButton;
 	@FXML
-	private JFXButton signUpButtom;
+	private JFXButton signUpButton;
 	@FXML
 	private JFXTextField userNameField;
 	@FXML
@@ -51,7 +51,7 @@ public class LogInController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		logInButtom.setOnAction((ActionEvent event) -> {
+		logInButton.setOnAction((ActionEvent event) -> {
 			try {
 				String user_name = userNameField.getText();
 				String password = passwordField.getText();

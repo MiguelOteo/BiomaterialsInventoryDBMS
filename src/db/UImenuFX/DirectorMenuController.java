@@ -54,27 +54,27 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private Pane menu_main_pane;
 	@FXML
-	private JFXButton logOut_buttom;
+	private JFXButton logOut_button;
 	@FXML
-	private JFXButton myAccount_buttom;
+	private JFXButton myAccount_button;
 	@FXML
-	private JFXButton listAllClients_buttom;
+	private JFXButton listAllClients_button;
 	@FXML
-	private JFXButton removeClient_buttom;
+	private JFXButton removeClient_button;
 	@FXML
-	private JFXButton listAllWorkers_buttom;
+	private JFXButton listAllWorkers_button;
 	@FXML
-	private JFXButton addWorker_buttom;
+	private JFXButton addWorker_button;
 	@FXML
-	private JFXButton removeWorker_buttom;
+	private JFXButton removeWorker_button;
 	@FXML
-	private JFXButton listAllTransactions_button;
+	private JFXButton addPromotion_button;
 	@FXML
-	private JFXButton finantialStatus_buttom;
+	private JFXButton finantialStatus_button;
 	@FXML
-	private ImageView minButtom;
+	private ImageView minButton;
 	@FXML
-	private ImageView exitButtom;
+	private ImageView exitButton;
 	@FXML
 	private Label current_pane_option_label;
 	@FXML
@@ -101,7 +101,7 @@ public class DirectorMenuController implements Initializable {
 
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
-		myAccount_buttom.setOnAction((ActionEvent) -> {
+		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
 				AccountDirectorController.setValues(manager_object, director_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
@@ -124,13 +124,33 @@ public class DirectorMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    myAccount_buttom.setDisable(true);
+					    myAccount_button.setDisable(true);
+					    listAllClients_button.setDisable(true);
+					    addPromotion_button.setDisable(true);
+					    listAllWorkers_button.setDisable(true);
+					    removeClient_button.setDisable(true);
+					    removeWorker_button.setDisable(true);
+					    addWorker_button.setDisable(true);
+					    finantialStatus_button.setDisable(true);
+					    logOut_button.setDisable(true);
+					    minButton.setDisable(true);
+					    exitButton.setDisable(true);
 					}
 				});
 				my_account.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						myAccount_buttom.setDisable(false);
+						myAccount_button.setDisable(false);
+					    listAllClients_button.setDisable(false);
+					    addPromotion_button.setDisable(false);
+					    listAllWorkers_button.setDisable(false);
+					    removeClient_button.setDisable(false);
+					    removeWorker_button.setDisable(false);
+					    addWorker_button.setDisable(false);
+					    finantialStatus_button.setDisable(false);
+					    logOut_button.setDisable(false);
+					    minButton.setDisable(false);
+					    exitButton.setDisable(false);
 						menu_window.setEffect(null);
 					}
 				});		
@@ -153,8 +173,8 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		client_name.setResizable(false);
-		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Amount");
-		amount.setPrefWidth(75);
+		JFXTreeTableColumn<TransactionListObject, String> amount = new JFXTreeTableColumn<>("Payment");
+		amount.setPrefWidth(95);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -172,7 +192,7 @@ public class DirectorMenuController implements Initializable {
 		});
 		units.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
-		transaction_date.setPrefWidth(180);
+		transaction_date.setPrefWidth(170);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject, String> param) {
@@ -205,7 +225,7 @@ public class DirectorMenuController implements Initializable {
 	private void log_out(MouseEvent event) {
 		manager_object.Close_connection();
 		LaunchApplication.getStage().show();
-		Stage stage = (Stage) logOut_buttom.getScene().getWindow();
+		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
 	}
 

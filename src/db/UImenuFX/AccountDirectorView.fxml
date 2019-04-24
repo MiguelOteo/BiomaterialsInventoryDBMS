@@ -68,7 +68,7 @@
                   <Font name="Ebrima Bold" size="18.0" />
                </font>
             </Label>
-            <JFXButton fx:id="change_buttom" buttonType="RAISED" layoutX="341.0" layoutY="357.0" onMouseClicked="#change_password" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Change" textFill="#000000b4">
+            <JFXButton fx:id="change_button" buttonType="RAISED" layoutX="341.0" layoutY="357.0" onMouseClicked="#change_password" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Change" textFill="#000000b4">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

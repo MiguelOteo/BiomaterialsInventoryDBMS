@@ -32,7 +32,7 @@ public class AccountDirectorController implements Initializable {
 	@FXML
 	private JFXButton update_button;
 	@FXML
-	private JFXButton change_buttom;
+	private JFXButton change_button;
 	@FXML
 	private JFXButton delete_account_button;
 	@FXML

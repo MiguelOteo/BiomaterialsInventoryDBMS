@@ -43,9 +43,9 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private JFXPasswordField repeatPasswordField;
 	@FXML
-	private JFXButton createAccountButtom;
+	private JFXButton createAccountButton;
 	@FXML
-	private JFXButton goBackButtom;
+	private JFXButton goBackButton;
 	@FXML
 	private StackPane stack_pane;
 
@@ -59,7 +59,7 @@ public class RegistrationController implements Initializable {
 		user_type.getItems().addAll("Client", "Director", "Worker");
 		user_type.getSelectionModel().selectFirst();
 
-		createAccountButtom.setOnAction((ActionEvent event) -> {
+		createAccountButton.setOnAction((ActionEvent event) -> {
 
 			if (passwordField.getText().equals(repeatPasswordField.getText())) {
 				try {

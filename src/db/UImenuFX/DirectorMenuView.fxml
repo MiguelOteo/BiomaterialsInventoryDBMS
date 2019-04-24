@@ -22,12 +22,12 @@
                         <Font name="Ebrima Bold" size="18.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="exitButtom" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@src.IconPictures/window-close.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="minButtom" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="minButton" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@src.IconPictures/window-minimize.png" />
                      </image>
@@ -56,12 +56,12 @@
             </Pane>
             <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" styleClass="tree-table">
                <children>
-                  <Label fx:id="current_pane_option_label1" layoutX="176.0" layoutY="14.0" text="Transactions list">
+                  <Label fx:id="current_pane_option_label1" layoutX="180.0" layoutY="14.0" text="Transactions list">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="14.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="445.0" showRoot="false" styleClass="split-pane">
+                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="14.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="455.0" showRoot="false" styleClass="split-pane">
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
@@ -91,7 +91,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_buttom" alignment="TOP_LEFT" layoutY="515.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
+            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="515.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -103,7 +103,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="myAccount_buttom" alignment="TOP_LEFT" layoutY="122.0" prefHeight="40.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="122.0" prefHeight="40.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -120,7 +120,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllClients_buttom" alignment="TOP_LEFT" layoutY="214.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Clients" textFill="#00000080">
+            <JFXButton fx:id="listAllClients_button" alignment="TOP_LEFT" layoutY="214.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Clients" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -132,7 +132,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="removeClient_buttom" alignment="TOP_LEFT" layoutY="258.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove Client" textFill="#00000080">
+            <JFXButton fx:id="removeClient_button" alignment="TOP_LEFT" layoutY="258.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove Client" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -149,7 +149,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllWorkers_buttom" alignment="TOP_LEFT" layoutY="338.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all workers" textFill="#00000080">
+            <JFXButton fx:id="listAllWorkers_button" alignment="TOP_LEFT" layoutY="338.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all workers" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -161,7 +161,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="addWorker_buttom" alignment="TOP_LEFT" layoutY="382.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add worker" textFill="#00000080">
+            <JFXButton fx:id="addWorker_button" alignment="TOP_LEFT" layoutY="382.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add worker" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -173,7 +173,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="removeWorker_buttom" alignment="TOP_LEFT" layoutY="426.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove worker" textFill="#00000080">
+            <JFXButton fx:id="removeWorker_button" alignment="TOP_LEFT" layoutY="426.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove worker" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -190,7 +190,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllTransactions_button" alignment="TOP_LEFT" defaultButton="true" layoutY="561.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
+            <JFXButton fx:id="addPromotion_button" alignment="TOP_LEFT" defaultButton="true" layoutY="561.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -202,7 +202,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="logOut_buttom" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
+            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

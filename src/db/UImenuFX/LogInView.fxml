@@ -36,7 +36,7 @@
                   <Image url="@src.IconPictures/logoNegro.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="signUpButtom" layoutX="200.0" layoutY="492.0" onMouseClicked="#open_registration" styleClass="starter_small_buttom" text="Signup" textFill="#4f90a5">
+            <JFXButton fx:id="signUpButton" layoutX="200.0" layoutY="492.0" onMouseClicked="#open_registration" styleClass="starter_small_buttom" text="Signup" textFill="#4f90a5">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="logInButtom" buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Login" textFill="#000000b4">
+            <JFXButton fx:id="logInButton" buttonType="RAISED" layoutX="102.0" layoutY="369.0" prefHeight="60.0" prefWidth="210.0" styleClass="starter_buttom" text="Login" textFill="#000000b4">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
