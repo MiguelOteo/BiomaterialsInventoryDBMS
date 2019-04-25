@@ -157,15 +157,12 @@ public class SQLManager implements Interface{
 	// New_User(user_name, password)
 	public User Insert_new_user(String user_name, String password) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO user (user_name, password) " + " VALUES(?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, user_name);
 			template.setString(2, password);
 			template.executeUpdate();
-			statement.close();
 			
-			statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM user WHERE user_name = ?";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, user_name);
@@ -174,7 +171,6 @@ public class SQLManager implements Interface{
 		    user.setUserName(result_set.getString("user_name"));
 		    user.setPassword(result_set.getString("password"));
 		    user.setUserId(result_set.getInt("user_id"));
-		    statement.close();
 		    return user;
 		} catch (SQLException insert_user_error) {
 			return null;
@@ -184,14 +180,12 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
 			
-			statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM client WHERE user_id = ?";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());
@@ -202,7 +196,6 @@ public class SQLManager implements Interface{
 			client.setUser(user);
 			client.setTelephone(0);
 			client.setPoints(0);
-			statement.close();
 			return client;
 		} catch (SQLException new_client_account_error) {
 			return null;
@@ -212,15 +205,12 @@ public class SQLManager implements Interface{
 	// New_Director(name, password) 
 	public Director Insert_new_director(User user) {
 		try {
-			Statement statement = this.sqlite_connection.createStatement();
 			String table = "INSERT INTO director (user_id, name) " + "VALUES (?,?)";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
 			template.executeUpdate();
-			statement.close();
 			
-			statement = this.sqlite_connection.createStatement();
 			String SQL_code = "SELECT * FROM director WHERE user_id = ?";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, user.getUserId());

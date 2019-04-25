@@ -159,11 +159,10 @@ public class WorkerMenuController implements Initializable {
 
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
-				AccountDirectorController.setValuesWorker(manager_object, worker_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 				Parent root = (Parent) loader.load();
 				AccountDirectorController account_controller = new AccountDirectorController();

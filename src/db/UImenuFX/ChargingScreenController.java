@@ -109,6 +109,7 @@ public class ChargingScreenController implements Initializable {
 						} else {
 							if (this.user_type.equals("Worker")) {
 								User new_user = manager.Insert_new_user(user_name, password);
+								System.out.println(user);
 								Worker worker = manager.Insert_new_worker(new_user);
 								charge_worker_main_menu(worker);
 								LaunchApplication.getStage().hide();
