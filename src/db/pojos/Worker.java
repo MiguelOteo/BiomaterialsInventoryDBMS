@@ -5,7 +5,6 @@ public class Worker {
 	private Integer worker_id;
 	private User user;
 	private String worker_name;
-	private String password;
 	private String email;
 	private Integer telephone;
 	
@@ -43,16 +42,6 @@ public class Worker {
 		this.worker_name = worker_name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
-
 	public String getEmail() {
 		return email;
 	}
@@ -68,6 +57,8 @@ public class Worker {
 	public void setTelephone(Integer telephone) {
 		this.telephone = telephone;
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -97,7 +88,7 @@ public class Worker {
 	@Override
 	public String toString() {
 		return "Worker [worker_id=" + worker_id + ", user=" + user + ", worker_name=" + worker_name
-				+ ", password=" + password + "]";
+				+ ", telephone=" + telephone + ", email= " + email + "]";
 	}
 
 	

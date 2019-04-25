@@ -22,7 +22,7 @@ public class AccountDirectorController implements Initializable {
 
 	private static Director director_account;
 	private static SQLManager manager_object;
-
+	
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
@@ -111,4 +111,7 @@ public class AccountDirectorController implements Initializable {
 			this.new_password_field.setText("");
 		}
 	}
+	
+	
+
 }

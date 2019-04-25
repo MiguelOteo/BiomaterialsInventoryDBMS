@@ -108,9 +108,11 @@ public class ChargingScreenController implements Initializable {
 							LaunchApplication.getStage().hide();
 						} else {
 							if (this.user_type.equals("Worker")) {
-								// TODO - Insert Worker
-		                        // TODO - Worker menu
-								System.out.println("Creando trabajador");
+								User new_user = manager.Insert_new_user(user_name, password);
+								System.out.println(user);
+								Worker worker = manager.Insert_new_worker(new_user);
+								charge_worker_main_menu(worker);
+								LaunchApplication.getStage().hide();
 							} else {
 								System.exit(0);
 							}
@@ -183,17 +185,20 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_worker_main_menu(Worker worker) {
 		try {
+			WorkerMenuController.setValues(this.manager, worker);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			this.worker_controller = new WorkerMenuController(this.manager, worker);
 			this.worker_controller = loader.getController();
+			this.worker_controller.setWorkerName(worker.getWorker_name());
+			this.worker_controller.setWorkerEmail(worker.getEmail());
+			this.worker_controller.setWorkerTelephone(worker.getTelephone());
 			this.worker_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
 			main_menu_stage = new Stage();
 			main_menu_stage.initStyle(StageStyle.UNDECORATED);
 			main_menu_stage.setScene(new Scene(root));
 			main_menu_stage.show();
-		} catch (IOException director_menu_error) {
-			director_menu_error.printStackTrace();
+		} catch (IOException worker_menu_error) {
+			worker_menu_error.printStackTrace();
 			System.exit(0);
 		}
 	}
