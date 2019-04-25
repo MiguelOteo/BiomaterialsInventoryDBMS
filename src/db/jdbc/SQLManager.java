@@ -236,7 +236,7 @@ public class SQLManager implements Interface{
 		}
 	}
 	
-	// New_Worker(name, password)
+	
 	public Worker Insert_new_worker(User user) {
 		try {
 			String table = "INSERT INTO worker (user_id, name) " + "VALUES (?,?)";
@@ -251,12 +251,13 @@ public class SQLManager implements Interface{
 			template.setInt(1, user.getUserId());
 			ResultSet result_set = template.executeQuery();
 			Worker worker = new Worker();
-			worker.setPassword(result_set.getString("password"));
+			worker.setWorker_name(result_set.getString("name"));
 			worker.setWorker_id(result_set.getInt("worker_id"));
 			worker.setUser(user);
 			template.close();
 			return worker;
 		} catch(SQLException new_worker_error) {
+			new_worker_error.printStackTrace();
 			return null;
 		}
 	}
@@ -559,9 +560,10 @@ public class SQLManager implements Interface{
 			template.setInt(1, user.getUserId());
 			ResultSet result_set = template.executeQuery();
 			Worker worker = new Worker();
-			worker.setPassword(result_set.getString("password"));
-			worker.setWorker_name(result_set.getString("name"));
 			worker.setWorker_id(result_set.getInt("worker_id"));
+			worker.setWorker_name(result_set.getString("name"));
+			worker.setEmail(result_set.getString("email"));
+			worker.setTelephone(result_set.getInt("telephone"));
 			worker.setUser(user);
 			template.close();
 			return worker;
@@ -943,7 +945,6 @@ public class SQLManager implements Interface{
 				Worker worker = new Worker();
 				worker.setWorker_id(result_set.getInt("worker_id"));
 				worker.setWorker_name(result_set.getString("name"));
-				worker.setPassword(result_set.getString("password"));
 			    workers_list.add(worker);
 			}
 			statement.close();
@@ -970,6 +971,21 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
+	
+	public boolean Delete_stored_worker(Integer worker_id) {
+		try {
+			String SQL_code = "DELETE FROM worker WHERE worker_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, worker_id);
+			template.executeUpdate();
+			template.close();
+			return true;
+		} catch (SQLException delete_worker_error) {
+			delete_worker_error.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	public boolean Delete_stored_category(Category category) {
 		try {

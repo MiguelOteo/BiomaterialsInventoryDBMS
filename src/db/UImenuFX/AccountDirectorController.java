@@ -62,6 +62,11 @@ public class AccountDirectorController implements Initializable {
 		manager_object = manager;
 		director_account = director;
 	}
+	
+	public static void setValuesWorker(SQLManager manager, Worker worker) {
+		worker_account = worker;
+		manager_object = manager;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -116,9 +121,6 @@ public class AccountDirectorController implements Initializable {
 		}
 	}
 	
-	public static void setValuesWorker(SQLManager manager, Worker worker) {
-		worker_account = worker;
-		manager_object = manager;
-	}
+	
 
 }
