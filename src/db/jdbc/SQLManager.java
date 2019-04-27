@@ -180,6 +180,7 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
+			System.out.println(user);
 			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
@@ -810,6 +811,8 @@ public class SQLManager implements Interface{
 				client.setResponsible(result_set.getString("responsible"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
+				User user = Search_user_by_id(result_set.getInt("user_id"));
+				client.setUser(user);
 				clients_list.add(client);
 			}
 			statement.close();
@@ -935,6 +938,10 @@ public class SQLManager implements Interface{
 				Worker worker = new Worker();
 				worker.setWorker_id(result_set.getInt("worker_id"));
 				worker.setWorker_name(result_set.getString("name"));
+				worker.setTelephone(result_set.getInt("telephone"));
+				worker.setEmail(result_set.getString("email"));
+				User user = Search_user_by_id(result_set.getInt("user_id"));
+				worker.setUser(user);
 			    workers_list.add(worker);
 			}
 			statement.close();

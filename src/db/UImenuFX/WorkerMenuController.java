@@ -157,9 +157,11 @@ public class WorkerMenuController implements Initializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
+				// TODO - "AccountWorkerView.fxml" and its controller
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 				Parent root = (Parent) loader.load();
 				AccountDirectorController account_controller = new AccountDirectorController();
@@ -195,14 +197,14 @@ public class WorkerMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent event) {
 						myAccount_button.setDisable(false);
-						listInventory_button.setDisable(true);
-						addProduct_button.setDisable(true);
-						removeProduct_button.setDisable(true);
-						listTransactions_button.setDisable(true);
-						listClients_button.setDisable(true);
-						logOut_button.setDisable(true);
-						minButton.setDisable(true);
-						exitButton.setDisable(true);
+						listInventory_button.setDisable(false);
+						addProduct_button.setDisable(false);
+						removeProduct_button.setDisable(false);
+						listTransactions_button.setDisable(false);
+						listClients_button.setDisable(false);
+						logOut_button.setDisable(false);
+						minButton.setDisable(false);
+						exitButton.setDisable(false);
 						menu_window.setEffect(null);
 					}
 				});
@@ -215,7 +217,7 @@ public class WorkerMenuController implements Initializable {
 
 		// Biomaterials list columns creation
 
-		/*JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
+		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
 		product_name.setPrefWidth(120);
 		product_name.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
@@ -271,7 +273,7 @@ public class WorkerMenuController implements Initializable {
 				RecursiveTreeObject::getChildren);
 		biomaterials_tree_view.getColumns().setAll(product_name, available_units, price, exp_date);
 		biomaterials_tree_view.setRoot(root);
-		biomaterials_tree_view.setShowRoot(false);*/
+		biomaterials_tree_view.setShowRoot(false);
 
 	}
 
