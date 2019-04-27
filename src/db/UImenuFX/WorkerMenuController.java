@@ -166,7 +166,7 @@ public class WorkerMenuController implements Initializable {
 				Parent root = (Parent) loader.load();
 				AccountDirectorController account_controller = new AccountDirectorController();
 				account_controller = loader.getController();
-				account_controller.done_button.setOnMouseClicked(new EventHandler<Event>() {
+				account_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event event) {
 						update_worker_account();

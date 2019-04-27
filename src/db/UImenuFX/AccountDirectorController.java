@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class AccountDirectorController implements Initializable {
 
@@ -26,7 +25,7 @@ public class AccountDirectorController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
-	public JFXButton done_button;
+	private JFXButton done_button;
 	@FXML
 	private AnchorPane account_window;
 	@FXML
@@ -64,10 +63,8 @@ public class AccountDirectorController implements Initializable {
 		delete_account_button.setOnAction((ActionEvent event) -> {
 			manager_object.Delete_stored_user(director_account.getUser().getUserId());
 			manager_object.Close_connection();
-			Stage stage = (Stage) account_window.getScene().getWindow();
 			LaunchApplication.getStage().show();
 			ChargingScreenController.getMain_menu_stage().close();
-			stage.close();
 		});
 	}
 
@@ -112,6 +109,9 @@ public class AccountDirectorController implements Initializable {
 		}
 	}
 	
+	// -----> GETTERS AND SETTERS <-----
 	
-
+	public JFXButton getDoneButton() {
+		return done_button;
+	}
 }

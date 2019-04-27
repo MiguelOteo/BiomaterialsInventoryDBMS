@@ -268,8 +268,7 @@ public class SQLManager implements Interface{
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			ResultSet result_set = template.executeQuery();
 			Integer benefits_id = result_set.getInt("benefits_id");
-			template.close();
-			
+			template.close();	
 			return benefits_id;
 		} catch (SQLException new_benefits_error) {
 			new_benefits_error.printStackTrace();
@@ -294,7 +293,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer category_id = result_set.getInt("category_id");
 			template.close();
-			
 			return category_id;
 		} catch (SQLException new_category_error) {
 			new_category_error.printStackTrace();
@@ -321,7 +319,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer utility_id = result_set.getInt("utility_id");
 			template.close();
-			
 			return utility_id;
 		} catch (SQLException new_utility_error) {
 			new_utility_error.printStackTrace();
@@ -350,7 +347,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer maintenance_id = result_set.getInt("maintenance_id");
 			template.close();
-			
 			return maintenance_id;
 		} catch (SQLException new_maintenance_error) {
 			new_maintenance_error.printStackTrace();
@@ -377,7 +373,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer transaction_id = result_set.getInt("transaction_id");
 			template.close();
-			
 			return transaction_id;
 		} catch (SQLException new_transaction_error) {
 			new_transaction_error.printStackTrace();
@@ -405,7 +400,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer biomaterial_id = result_set.getInt("biomaterial_id");
 			template.close();
-			
 			return biomaterial_id;
 		} catch (SQLException new_biomaterial_error) {
 			new_biomaterial_error.printStackTrace();
