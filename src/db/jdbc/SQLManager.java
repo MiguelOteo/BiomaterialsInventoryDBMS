@@ -969,21 +969,6 @@ public class SQLManager implements Interface{
 		}
 	}
 	
-	public boolean Delete_stored_worker(Integer worker_id) {
-		try {
-			String SQL_code = "DELETE FROM worker WHERE worker_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, worker_id);
-			template.executeUpdate();
-			template.close();
-			return true;
-		} catch (SQLException delete_worker_error) {
-			delete_worker_error.printStackTrace();
-			return false;
-		}
-	}
-	
-	
 	public boolean Delete_stored_category(Category category) {
 		try {
 			String SQL_code = "DELETE FROM category WHERE category_id = ?;";
