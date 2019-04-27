@@ -55,7 +55,7 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private Pane menu_main_pane;
 	@FXML
-	private JFXButton logOut_button1;
+	private JFXButton logOut_button;
 	@FXML
 	private JFXButton myAccount_button;
 	@FXML
@@ -69,7 +69,7 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private JFXButton listClients_button;
 	@FXML
-	private Label current_pane_option_label;
+	private Label current_option_label;
 	@FXML
 	private ImageView exitButton;
 	@FXML
@@ -80,8 +80,6 @@ public class WorkerMenuController implements Initializable {
 	private Label email;
 	@FXML
 	private Label telephone;
-	@FXML
-	private Label current_pane_option_label1;
 	@FXML
 	private static Stage my_account;
 	@FXML
@@ -159,7 +157,6 @@ public class WorkerMenuController implements Initializable {
 
 	}
 
-	@SuppressWarnings({ "unused", "unchecked" })
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
@@ -189,7 +186,7 @@ public class WorkerMenuController implements Initializable {
 						removeProduct_button.setDisable(true);
 						listTransactions_button.setDisable(true);
 						listClients_button.setDisable(true);
-						logOut_button1.setDisable(true);
+						logOut_button.setDisable(true);
 						minButton.setDisable(true);
 						exitButton.setDisable(true);
 					}
@@ -203,7 +200,7 @@ public class WorkerMenuController implements Initializable {
 						removeProduct_button.setDisable(true);
 						listTransactions_button.setDisable(true);
 						listClients_button.setDisable(true);
-						logOut_button1.setDisable(true);
+						logOut_button.setDisable(true);
 						minButton.setDisable(true);
 						exitButton.setDisable(true);
 						menu_window.setEffect(null);
@@ -218,7 +215,7 @@ public class WorkerMenuController implements Initializable {
 
 		// Biomaterials list columns creation
 
-		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
+		/*JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
 		product_name.setPrefWidth(120);
 		product_name.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
@@ -274,27 +271,8 @@ public class WorkerMenuController implements Initializable {
 				RecursiveTreeObject::getChildren);
 		biomaterials_tree_view.getColumns().setAll(product_name, available_units, price, exp_date);
 		biomaterials_tree_view.setRoot(root);
-		biomaterials_tree_view.setShowRoot(false);
+		biomaterials_tree_view.setShowRoot(false);*/
 
-	}
-
-	// -----> TRANSACTION LIST CLASS <-----
-
-	// To insert columns into the list of transactions with all the information
-	class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
-
-		StringProperty product_name;
-		StringProperty available_units;
-		StringProperty price_unit;
-		StringProperty expiration_date;
-
-		public BiomaterialListObject(String product_name, String available_units, String price_unit,
-				String expiration_date) {
-			this.product_name = new SimpleStringProperty(product_name);
-			this.available_units = new SimpleStringProperty(available_units);
-			this.price_unit = new SimpleStringProperty(price_unit);
-			this.expiration_date = new SimpleStringProperty(expiration_date);
-		}
 	}
 
 	// -----> BUTTOM METHODS <-----
@@ -307,11 +285,30 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private void log_out(MouseEvent event) {
 		LaunchApplication.getStage().show();
-		Stage stage = (Stage) logOut_button1.getScene().getWindow();
+		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
 	}
 
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
+	}
+}
+
+// -----> TRANSACTION LIST CLASS <-----
+
+// To insert columns into the list of transactions with all the information
+class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
+
+	StringProperty product_name;
+	StringProperty available_units;
+	StringProperty price_unit;
+	StringProperty expiration_date;
+
+	public BiomaterialListObject(String product_name, String available_units, String price_unit,
+			String expiration_date) {
+		this.product_name = new SimpleStringProperty(product_name);
+		this.available_units = new SimpleStringProperty(available_units);
+		this.price_unit = new SimpleStringProperty(price_unit);
+		this.expiration_date = new SimpleStringProperty(expiration_date);
 	}
 }

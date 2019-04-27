@@ -178,7 +178,7 @@
                   <Image url="@src.IconPictures/user-tie-white.png" />
                </image>
             </ImageView>
-            <Label fx:id="current_pane_option_label1" layoutX="179.0" layoutY="85.0" text="Available products list">
+            <Label layoutX="179.0" layoutY="85.0" text="Available products list">
                <font>
                   <Font name="Ebrima Bold" size="16.0" />
                </font>
