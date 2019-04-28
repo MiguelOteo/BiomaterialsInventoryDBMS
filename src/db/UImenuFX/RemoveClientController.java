@@ -52,11 +52,10 @@ public class RemoveClientController implements Initializable{
 	}
 	 
 	@SuppressWarnings("unchecked")
-	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		JFXTreeTableColumn<ClientListObject, String> user_name = new JFXTreeTableColumn<>("User name (Client)");
-		user_name.setPrefWidth(150);
+		JFXTreeTableColumn<ClientListObject, String> user_name = new JFXTreeTableColumn<>("User name");
+		user_name.setPrefWidth(100);
 		user_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ClientListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<ClientListObject, String> param) {
@@ -64,8 +63,17 @@ public class RemoveClientController implements Initializable{
 			}
 		});
 		user_name.setResizable(false);
+		JFXTreeTableColumn<ClientListObject, String> client_id = new JFXTreeTableColumn<>("Client ID");
+		client_id.setPrefWidth(75);
+		client_id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ClientListObject,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<ClientListObject, String> param) {
+				return param.getValue().getValue().client_id;
+			}
+		});
+		client_id.setResizable(false);
 		JFXTreeTableColumn<ClientListObject, String> user_id = new JFXTreeTableColumn<>("User ID");
-		user_id.setPrefWidth(100);
+		user_id.setPrefWidth(75);
 		user_id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ClientListObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<ClientListObject, String> param) {
@@ -73,13 +81,14 @@ public class RemoveClientController implements Initializable{
 			}
 		});
 		user_id.setResizable(false);
+
 		
 		List<Client> clients_list = manager_object.List_all_clients();
 		for(Client client: clients_list) {
-			clients_objects.add(new ClientListObject(client.getUser().getUserName(), client.getUser().getUserId().toString()));
+			clients_objects.add(new ClientListObject(client.getUser().getUserName(), client.getClient_id().toString(),client.getUser().getUserId().toString()));
 		}
 		TreeItem<ClientListObject> root = new RecursiveTreeItem<ClientListObject>(clients_objects, RecursiveTreeObject::getChildren);
-		clients_tree_view.getColumns().setAll(user_name, user_id);
+		clients_tree_view.getColumns().setAll(user_name, client_id, user_id);
 		clients_tree_view.setRoot(root);
 		clients_tree_view.setShowRoot(false);
 		
@@ -117,9 +126,11 @@ class ClientListObject extends RecursiveTreeObject<ClientListObject> {
 	
 	StringProperty user_name;
 	StringProperty user_id;
+	StringProperty client_id;
 	
-	public ClientListObject(String user_name, String user_id) {
+	public ClientListObject(String user_name, String user_id, String client_id) {
 		this.user_name = new SimpleStringProperty(user_name);
 		this.user_id = new SimpleStringProperty(user_id);
+		this.client_id = new SimpleStringProperty(client_id);
 	}
 }

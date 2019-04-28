@@ -95,7 +95,9 @@
 .list-view, .scroll-bar:horizontal .decrement-button {
     -fx-padding:0;
 }
-
+.tree-table-row-cell:selected {
+	-fx-background-color: rgba(79, 144, 165, 0.5);
+}
 
 
 

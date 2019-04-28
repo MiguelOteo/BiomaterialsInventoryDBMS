@@ -106,7 +106,7 @@ public class ChargingScreenController implements Initializable {
 							Director director = manager.Insert_new_director(new_user);
 							charge_director_main_menu(director);
 							LaunchApplication.getStage().hide();
-						} else {
+						} else { 
 							if (this.user_type.equals("Worker")) {
 								User new_user = manager.Insert_new_user(user_name, password);
 								Worker worker = manager.Insert_new_worker(new_user);

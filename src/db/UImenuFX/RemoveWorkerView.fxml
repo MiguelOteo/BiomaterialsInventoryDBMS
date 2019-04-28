@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="account_window" prefHeight="510.0" prefWidth="310.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.RemoveClientController">
+<AnchorPane fx:id="account_window" prefHeight="510.0" prefWidth="310.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.RemoveWorkerController">
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="500.0" prefWidth="300.0" styleClass="white_color">
          <children>
@@ -20,7 +20,7 @@
                         <Image url="@src.IconPictures/window-close.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="70.0" layoutY="23.0" prefHeight="28.0" prefWidth="101.0" text="Delete client">
+                  <Label layoutX="70.0" layoutY="23.0" prefHeight="28.0" prefWidth="108.0" text="Delete worker">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -37,7 +37,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXTreeTableView fx:id="clients_tree_view" layoutX="25.0" layoutY="86.0" prefHeight="370.0" prefWidth="250.0" styleClass="list-view" />
+            <JFXTreeTableView fx:id="worker_tree_view" layoutX="25.0" layoutY="86.0" prefHeight="370.0" prefWidth="250.0" styleClass="list-view" />
          </children>
       </Pane>
    </children>

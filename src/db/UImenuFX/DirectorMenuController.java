@@ -184,6 +184,46 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		
+		removeWorker_button.setOnAction((ActionEvent) -> {
+			try {
+				RemoveWorkerController.setValues(manager_object);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveWorkerView.fxml"));
+				Parent root = (Parent) loader.load();
+				RemoveWorkerController worker_controller = new RemoveWorkerController();
+				worker_controller = loader.getController();
+				worker_controller.getDeleteAccountButton().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});	
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    setAllButtonsOff();
+					}
+				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						setAllButtonsOn();
+						refreshtransactionListView();
+						menu_window.setEffect(null);
+					}
+				});		
+				stage_window.show();
+			} catch(IOException delete_client_error) {
+				delete_client_error.printStackTrace();
+				System.exit(0);
+			}
+		});
+		
 		// Transaction list columns creation
 		
 		JFXTreeTableColumn<TransactionListObject, String> client_name = new JFXTreeTableColumn<>("Client name");
