@@ -17,17 +17,17 @@
          <children>
             <Pane fx:id="menu_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
-                  <Label layoutX="149.0" layoutY="32.0" text="Available products list">
+                  <Label layoutX="149.0" layoutY="32.0" text="Selected products">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView fx:id="biomaterials_tree_view" layoutX="33.0" layoutY="70.0" prefHeight="495.0" prefWidth="874.0" styleClass="list-view">
+                  <JFXTreeTableView fx:id="biomaterials_tree_view" layoutX="61.0" layoutY="70.0" prefHeight="495.0" prefWidth="846.0" styleClass="list-view">
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </JFXTreeTableView>
-                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" onAction="#add_product_to_inventory" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
+                  <JFXButton fx:id="doOrder_button" layoutX="451.0" layoutY="583.0" styleClass="starter_small_buttom" text="Order" textAlignment="CENTER" textFill="#1b1b1b">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
@@ -148,7 +148,7 @@
       </Pane>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
          <children>
-            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="94.0" text="Products">
+            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="207.0" text="Product order">
                <font>
                   <Font name="Ebrima Bold" size="18.0" />
                </font>
