@@ -367,7 +367,7 @@ public class SQLManager implements Interface{
 			template.setInt(5, transaction.getBiomaterial().getBiomaterial_id());
 			template.executeUpdate();
 			template.close();
-			
+		
 			String SQL_code = "SELECT last_insert_rowid() AS transaction_id";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			ResultSet result_set = template.executeQuery();
@@ -638,7 +638,7 @@ public class SQLManager implements Interface{
                 List<Transaction> transaction_list = Search_stored_transactions(client);
 				User user = Search_user_by_id(result_set.getInt("user_id"));
 				client.setUser(user);
-				template.close();
+				template.close(); 
 				return client;
 			} catch (SQLException search_client_error) {
 				search_client_error.printStackTrace();

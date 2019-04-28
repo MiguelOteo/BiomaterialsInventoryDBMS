@@ -34,21 +34,25 @@ public class RemoveClientController implements Initializable{
 	public RemoveClientController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		delete_account_button.setOnAction((ActionEvent event) -> {
-			try {
-				Client client = manager_object.Search_client_by_id(Integer.parseInt(client_id_text_field.getText()));
-				manager_object.Delete_stored_user(client.getUser().getUserId());
-				Stage stage = (Stage) account_window.getScene().getWindow();
+			if(!client_id_text_field.getText().equals("")) {
+				try {
+					Client client = manager_object.Search_client_by_id(Integer.parseInt(client_id_text_field.getText()));
+					manager_object.Delete_stored_user(client.getUser().getUserId());
+					Stage stage = (Stage) account_window.getScene().getWindow();
 				stage.close();
-			} catch (NumberFormatException | NullPointerException insertion_error) {
+				} catch (NumberFormatException insertion_error) {
+					Stage stage = (Stage) account_window.getScene().getWindow();
+					stage.close();
+				}
+			} else {
 				Stage stage = (Stage) account_window.getScene().getWindow();
 				stage.close();
 			}
 		});
-		
 	}
 
 	public static void setValues(SQLManager manager) {

@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -87,6 +88,8 @@ public class DirectorMenuController implements Initializable {
 	private static Stage stage_window;
 	@FXML
 	private JFXTreeTableView<TransactionListObject> transactions_tree_view;
+	@FXML
+	private final ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -114,7 +117,7 @@ public class DirectorMenuController implements Initializable {
 						update_director_account();
 						menu_window.setEffect(null);
 						stage_window.close();
-					}
+					} 
 				});	
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
@@ -171,6 +174,7 @@ public class DirectorMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent event) {
 						setAllButtonsOn();
+						refreshtransactionListView();
 						menu_window.setEffect(null);
 					}
 				});		
@@ -218,19 +222,30 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().transaction_date;
 			}
 		});
+		transactions_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		transaction_date.setResizable(false);
-		
-		ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
-		
 		for(Transaction transaction: transactions_list) {
 			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
 					, transaction.getTransaction_date().toString()));
 		}
-		final TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.getColumns().setAll(client_name, amount, units, transaction_date);
 		transactions_tree_view.setRoot(root);
 		transactions_tree_view.setShowRoot(false);
+	}
+	
+	// -----> REFRESH TRANSACTION LIST VIEW <-----
+	
+	public void refreshtransactionListView() {
+		transactions_objects.clear();
+		List<Transaction> transactions_list = manager_object.List_all_transactions();
+		for(Transaction transaction: transactions_list) {
+			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
+					, transaction.getTransaction_date().toString()));
+		}
+		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		transactions_tree_view.refresh();
 	}
 
 	// -----> BUTTOM METHODS <-----

@@ -41,7 +41,7 @@ public class LogInController implements Initializable {
 	@FXML
 	private JFXTextField userNameField;
 	@FXML
-	private JFXPasswordField passwordField;
+	private JFXPasswordField passwordField; 
 
 	// -----> ESSENTIAL METHODS <-----
 
