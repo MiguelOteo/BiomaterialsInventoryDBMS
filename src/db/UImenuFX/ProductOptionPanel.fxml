@@ -29,7 +29,7 @@
                         <Image url="@src.IconPictures/UpperBarSmall.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="319.0" layoutY="2.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit_button" fitHeight="28.0" fitWidth="40.0" layoutX="319.0" layoutY="2.0" onDragDetected="#close_window" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@src.IconPictures/window-close.png" />
                      </image>

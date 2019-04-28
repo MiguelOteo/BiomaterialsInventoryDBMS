@@ -478,12 +478,12 @@ public class SQLManager implements Interface{
 	// -----> SEARCH USER DIRECTOR WORKER CLIENT METHODS <-----
 
 	// Selects all users objects with the same user_name from the data base and returns them
-	public User Search_stored_user(String name, String password) {
+	public User Search_stored_user(String name/*, String password*/) {
 		try {
-			String SQL_code = "SELECT * FROM user WHERE user_name LIKE ? AND password LIKE ?";
+			String SQL_code = "SELECT * FROM user WHERE user_name LIKE ?"; //AND password LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, name);
-			template.setString(2, password);
+			//template.setString(2, password);
 			ResultSet result_set = template.executeQuery();
 	        User user = new User();
 	        user.setUserId(result_set.getInt("user_id"));
@@ -1006,6 +1006,7 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
+
 
 
 }

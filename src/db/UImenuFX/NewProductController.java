@@ -1,8 +1,10 @@
 package db.UImenuFX;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,9 +14,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,13 +28,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class NewProductController implements Initializable {
 	
 	// -----> CLASS ATTRIBUTESS <-----
 		private static SQLManager manager_object;
-		private ChargeIconController charging_controller;
 		
 	// -----> FXML ATTRIBUTES <-----
 	
@@ -82,16 +80,10 @@ public class NewProductController implements Initializable {
     private Label email;
     @FXML
     private Label telephone;
-
+    @FXML
+    private Stage stage;
     
-    public NewProductController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
     
-    public static void setValues(SQLManager manager) {
-		manager_object = manager;
-	}
     
     
  // -----> GETTERS AND SETTERS <-----
@@ -151,26 +143,44 @@ public class NewProductController implements Initializable {
 	public void setMaintenance_button(JFXCheckBox maintenance_button) {
 		this.maintenance_button = maintenance_button;
 	}
+	
+	public AnchorPane getMenu_window() {
+		return menu_window;
+	}
+
+	public void setMenu_window(AnchorPane menu_window) {
+		this.menu_window = menu_window;
+	}
+
+	public void getNew_product_menu() {
+		
+	}
     
     
     
  // -----> METHODS <-----
     
+	public NewProductController() {
+		super();
+		this.price_button = new Spinner(0, 100000, 0);
+		this.units_button = new Spinner(0, 100000, 0);
+	}
+    
+    public static void setValues(SQLManager manager) {
+		manager_object = manager;
+	}
+	
+	
+	
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			/*String product_name = name_field.getText();
-			Integer units = units_button.getValue();
-			Integer price = price_button.getValue();
-			String exp_date = date_picker.getDayCellFactory().toString();
-			
-			//Faltan los optativos checkBox para maintenance y utility
-			
-			Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(null);
-			manager_object.Insert_new_biomaterial(biomaterial);
+			/*
 			
 			
 			*/
+			Stage stage = (Stage) menu_window.getScene().getWindow();
+			stage.close();
 			
 		} catch (Exception insertion_error) {
 			insertion_error.printStackTrace();
@@ -178,33 +188,43 @@ public class NewProductController implements Initializable {
 		
 		conclude_button.setOnAction((ActionEvent event) -> {
 			try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargeIconView.fxml"));
-			Parent root = (Parent) loader.load();
-			this.charging_controller = new ChargeIconController();
-			this.charging_controller = loader.getController();
-			Stage stage = new Stage();
-			//stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, user_type_string));
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setAlwaysOnTop(true);
-			stage.setScene(new Scene(root));
-			stage.show();
+				String product_name = name_field.getText();
+				Integer units = units_button.getValue();
+				float price = price_button.getValue();
+				//Toma fecha actual, no la introducida. hay que mirar como se hace
+				LocalDate exp_date = date_picker.getValue().now();
+				
+				//Faltan los optativos checkBox para maintenance y utility
+				
+				Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(null);
+				biomaterial.setName_product(product_name);
+				biomaterial.setAvailable_units(units);
+				biomaterial.setPrice_unit(price);
+				biomaterial.setExpiration_date(Date.valueOf(exp_date));
+				//biomaterial.setMaintenance();
+				//biomaterial.setUtility();
+				
+				
+			if (!(product_name.equals(""))) {
+				manager_object.Insert_new_biomaterial(biomaterial);
+				System.out.println("Biomaterial saved into database");
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
+				Parent root = (Parent) loader.load();
+				WorkerMenuController worker_controller = new WorkerMenuController();
+				worker_controller = loader.getController();
+				worker_controller.getAnchorPane().setEffect(null);
+					stage = new Stage();
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setAlwaysOnTop(true);
+					stage.setScene(new Scene(root));
+					stage.show();
 			
-			//Al acabar muestra icono de cargando para simularnos que hemos acabado
-			PauseTransition wait = new PauseTransition(Duration.seconds(2));
-			wait.setOnFinished(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent arg0) {
-					if(charging_controller.getWorker_controller() != null) {
-						charging_controller.removeBlur();
-					}
-					stage.close();
-				}
-	        });
-			wait.play();
 			
-			root = FXMLLoader.load(getClass().getResource("WorkerMenuView.fxml"));
-			LaunchApplication.getStage().getScene().setRoot(root);
 			
+				this.name_field.clear();
+			
+			}
 			} catch (IOException conclude_error) {
 				conclude_error.printStackTrace();
 			}

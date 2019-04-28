@@ -2,12 +2,10 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -15,7 +13,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Transaction;
 import db.pojos.Worker;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -37,18 +34,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 
@@ -251,6 +241,9 @@ public class WorkerMenuController implements Initializable {
 					}
 				});
 				stage_window.show();
+				
+				//Stage stage = (Stage) menu_window.getScene().getWindow();
+				//stage.close();
 				
 			} catch (IOException panel_access_error) {
 				panel_access_error.printStackTrace();
