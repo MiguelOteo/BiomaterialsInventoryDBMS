@@ -420,7 +420,7 @@ public class JPAManager implements Interface {
 	
 	}
 	
-	public User Search_stored_user(String name/*, String password*/) {
+	public User Search_stored_user(String name, String password) {
 		System.out.println("Not implemented");
 		return null;
 	}

@@ -66,7 +66,7 @@ public class ChargingScreenController implements Initializable {
 
 			// Next algorithm checks if the user account already exist when you create a new one or in 
 			// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
-			User user = manager.Search_stored_user(this.user_name/* this.password*/);
+			User user = manager.Search_stored_user(this.user_name, this.password);
 			if(user != null) {
 				if(this.user_type == null) {
 					Client client_account = manager.Search_stored_client(user);

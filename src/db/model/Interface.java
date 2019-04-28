@@ -27,7 +27,7 @@ public interface Interface {
 	public boolean Update_client_info(Client client);
 	public boolean Update_category_info(Category category);
 	
-	public User Search_stored_user(String name/*, String password*/);
+	public User Search_stored_user(String name, String password);
 	public Director Search_stored_director(User user);
 	public Worker Search_stored_worker(User user);
 	public Client Search_stored_client(User user);
