@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,27 +15,79 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.WorkerMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.NewProductController">
    <children>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
             <Pane fx:id="menu_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
-                  <Label layoutX="149.0" layoutY="32.0" text="Available products list">
+                  <Label alignment="CENTER" layoutX="374.0" layoutY="98.0" text="Product information" textFill="#24b7bf">
                      <font>
-                        <Font name="Ebrima Bold" size="16.0" />
+                        <Font name="Ebrima Bold" size="22.0" />
                      </font>
+                     <effect>
+                        <SepiaTone />
+                     </effect>
                   </Label>
-                  <JFXTreeTableView fx:id="biomaterials_tree_view" layoutX="33.0" layoutY="70.0" prefHeight="495.0" prefWidth="874.0" styleClass="list-view">
-                     <columnResizePolicy>
-                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </JFXTreeTableView>
-                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" onAction="#add_product_to_inventory" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
+                  <JFXButton fx:id="conclude_button" layoutX="451.0" layoutY="583.0" styleClass="starter_small_buttom" text="Conclude" textAlignment="CENTER" textFill="#1b1b1b">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
                   </JFXButton>
+                  <Label layoutX="149.0" layoutY="210.0" text="    Product name">
+                     <font>
+                        <Font name="Ebrima" size="17.0" />
+                     </font>
+                     <graphic>
+                        <JFXTextField fx:id="name_field" prefHeight="29.0" prefWidth="256.0" />
+                     </graphic>
+                  </Label>
+                  <Label layoutX="253.0" layoutY="362.0" text="    Price / unit ($)">
+                     <font>
+                        <Font name="Ebrima" size="17.0" />
+                     </font>
+                     <graphic>
+                        <Spinner fx:id="price_button" />
+                     </graphic>
+                  </Label>
+                  <Label layoutX="254.0" layoutY="291.0" text="    Units">
+                     <font>
+                        <Font name="Ebrima" size="17.0" />
+                     </font>
+                     <graphic>
+                        <Spinner fx:id="units_button" />
+                     </graphic>
+                  </Label>
+                  <Label layoutX="246.0" layoutY="443.0" text="Expiration date">
+                     <font>
+                        <Font name="Ebrima" size="17.0" />
+                     </font>
+                     <graphic>
+                        <JFXDatePicker fx:id="date_picker" />
+                     </graphic>
+                  </Label>
+                  <Pane layoutX="694.0" layoutY="240.0" prefHeight="161.0" prefWidth="189.0">
+                     <children>
+                        <JFXCheckBox fx:id="utility_button" layoutX="14.0" layoutY="67.0" text="Utility">
+                           <font>
+                              <Font name="Ebrima" size="17.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="maintenance_button" layoutX="14.0" layoutY="107.0" text="Maintenance">
+                           <font>
+                              <Font name="Ebrima" size="17.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <Label layoutY="1.0" prefHeight="26.0" prefWidth="190.0" text="Additional features" textFill="#727277">
+                           <font>
+                              <Font name="Ebrima Bold" size="20.0" />
+                           </font>
+                           <effect>
+                              <Reflection />
+                           </effect>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>
@@ -148,7 +204,7 @@
       </Pane>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
          <children>
-            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="94.0" text="Products">
+            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="207.0" text="New product">
                <font>
                   <Font name="Ebrima Bold" size="18.0" />
                </font>

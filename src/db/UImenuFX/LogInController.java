@@ -90,7 +90,7 @@ public class LogInController implements Initializable {
 		});
 	}
 
-	// -----> BUTTOM METHODS <-----
+	// -----> BUTTON METHODS <-----
 
 	@FXML
 	private void open_registration(MouseEvent event) throws IOException {

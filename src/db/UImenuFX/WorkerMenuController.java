@@ -35,6 +35,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -69,6 +70,8 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private JFXButton listClients_button;
 	@FXML
+	private JFXButton addSelection_button;
+	@FXML
 	private Label current_option_label;
 	@FXML
 	private ImageView exitButton;
@@ -81,9 +84,10 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	private Label telephone;
 	@FXML
-	private static Stage my_account;
+	private static Stage stage_window;
 	@FXML
 	private JFXTreeTableView<BiomaterialListObject> biomaterials_tree_view;
+	
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -147,15 +151,11 @@ public class WorkerMenuController implements Initializable {
 	}
 
 	@FXML
-	void min_window(MouseEvent event) {
-		Stage stage = (Stage) menu_main_pane.getScene().getWindow();
-		stage.setIconified(true);
-	}
-
-	@FXML
 	void transaction_records(ActionEvent event) {
 
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
@@ -171,54 +171,94 @@ public class WorkerMenuController implements Initializable {
 					public void handle(Event event) {
 						update_worker_account();
 						menu_window.setEffect(null);
-						my_account.close();
+						stage_window.close();
 					}
 				});
-				my_account = new Stage();
-				my_account.initStyle(StageStyle.UNDECORATED);
-				my_account.setScene(new Scene(root));
-				my_account.setAlwaysOnTop(true);
-				my_account.setOnShowing(new EventHandler<WindowEvent>() {
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3, 3, 3));
-						myAccount_button.setDisable(true);
-						listInventory_button.setDisable(true);
-						addProduct_button.setDisable(true);
-						removeProduct_button.setDisable(true);
-						listTransactions_button.setDisable(true);
-						listClients_button.setDisable(true);
-						logOut_button.setDisable(true);
-						minButton.setDisable(true);
-						exitButton.setDisable(true);
+						setAllButtonsOff();
 					}
 				});
-				my_account.setOnHiding(new EventHandler<WindowEvent>() {
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent event) {
-						myAccount_button.setDisable(false);
-						listInventory_button.setDisable(false);
-						addProduct_button.setDisable(false);
-						removeProduct_button.setDisable(false);
-						listTransactions_button.setDisable(false);
-						listClients_button.setDisable(false);
-						logOut_button.setDisable(false);
-						minButton.setDisable(false);
-						exitButton.setDisable(false);
-						menu_window.setEffect(null);
+						setAllButtonsOn();
 					}
 				});
-				my_account.show();
+				stage_window.show();
 			} catch (IOException worker_account_error) {
 				worker_account_error.printStackTrace();
 				System.exit(0);
 			}
 		});
+		
+		
+		addProduct_button.setOnAction((ActionEvent) -> {
+			try {
+				ProductOptionController.setValues(manager_object);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductOptionPanel.fxml"));
+				Parent root = (Parent) loader.load();
+				ProductOptionController option_controller = new ProductOptionController();
+				option_controller = loader.getController();
+				option_controller.getOrderProduct_button().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});
+				option_controller.getNewProduct_button().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});
+					
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    setAllButtonsOff();
+					}
+				});
+				
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						setAllButtonsOn();
+						menu_window.setEffect(null);
+					}
+				});
+				stage_window.show();
+				
+				//Stage stage = (Stage) menu_window.getScene().getWindow();
+				//stage.close();
+				
+			} catch (IOException panel_access_error) {
+				panel_access_error.printStackTrace();
+				System.exit(0);
+			}
+		}); 
+		
+		
+		
+		
 
 		// Biomaterials list columns creation
 
 		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
-		product_name.setPrefWidth(120);
+		product_name.setPrefWidth(250);
 		product_name.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -229,7 +269,7 @@ public class WorkerMenuController implements Initializable {
 		product_name.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> available_units = new JFXTreeTableColumn<>("Available units");
-		available_units.setPrefWidth(120);
+		available_units.setPrefWidth(225);
 		available_units.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -240,7 +280,7 @@ public class WorkerMenuController implements Initializable {
 		available_units.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
-		price.setPrefWidth(120);
+		price.setPrefWidth(200);
 		price.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -251,7 +291,7 @@ public class WorkerMenuController implements Initializable {
 		price.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> exp_date = new JFXTreeTableColumn<>("Expiration date");
-		exp_date.setPrefWidth(120);
+		exp_date.setPrefWidth(200);
 		exp_date.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -261,27 +301,39 @@ public class WorkerMenuController implements Initializable {
 				});
 		exp_date.setResizable(false);
 
+		
 		ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
 		List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
-
-		for (Biomaterial biomaterial : biomaterial_list) {
-			biomaterial_objects.add(new BiomaterialListObject(biomaterial.getName_product(),
-					biomaterial.getAvailable_units().toString(), biomaterial.getPrice_unit().toString(),
-					biomaterial.getExpiration_date().toString()));
+		
+		for(Biomaterial biomaterial: biomaterial_list) {
+			biomaterial_objects.add(new BiomaterialListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
+					, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString()));
 		}
-		final TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects,
-				RecursiveTreeObject::getChildren);
+		
+		final TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
 		biomaterials_tree_view.getColumns().setAll(product_name, available_units, price, exp_date);
 		biomaterials_tree_view.setRoot(root);
 		biomaterials_tree_view.setShowRoot(false);
 
+		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 	}
+	
 
-	// -----> BUTTOM METHODS <-----
+	
+	
+	
+	// -----> BUTTON METHODS <-----
 
 	@FXML
 	private void close_app(MouseEvent event) {
 		System.exit(0);
+	}
+	
+	@FXML
+	void min_window(MouseEvent event) {
+		Stage stage = (Stage) menu_main_pane.getScene().getWindow();
+		stage.setIconified(true);
 	}
 
 	@FXML
@@ -294,13 +346,46 @@ public class WorkerMenuController implements Initializable {
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
+	
+	
+	// -----> ANABLE/DISABLE BUTTONS <-----
+	
+		public void setAllButtonsOff() {
+		    myAccount_button.setDisable(true);
+			listInventory_button.setDisable(true);
+			addProduct_button.setDisable(true);
+			removeProduct_button.setDisable(true);
+			listTransactions_button.setDisable(true);
+			listClients_button.setDisable(true);
+			logOut_button.setDisable(true);
+			minButton.setDisable(true);
+			exitButton.setDisable(true);
+			addSelection_button.setDisable(true);
+		}
+		
+		public void setAllButtonsOn() {
+			myAccount_button.setDisable(false);
+			listInventory_button.setDisable(false);
+			addProduct_button.setDisable(false);
+			removeProduct_button.setDisable(false);
+			listTransactions_button.setDisable(false);
+			listClients_button.setDisable(false);
+			logOut_button.setDisable(false);
+			minButton.setDisable(false);
+			exitButton.setDisable(false);
+			addSelection_button.setDisable(false);
+		    
+		}
+
+	
+	
+	
 }
 
-// -----> TRANSACTION LIST CLASS <-----
+// -----> BIOMATERIALS LIST CLASS <-----
 
-// To insert columns into the list of transactions with all the information
+// To insert columns into the list of biomaterials with all the information
 class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
-
 	StringProperty product_name;
 	StringProperty available_units;
 	StringProperty price_unit;
@@ -314,3 +399,8 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.expiration_date = new SimpleStringProperty(expiration_date);
 	}
 }
+
+
+
+
+
