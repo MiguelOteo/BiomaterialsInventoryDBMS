@@ -24,6 +24,11 @@
                   <Image url="@src.IconPictures/logoNegro.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="547.0" layoutY="13.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/window-close.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutX="5.0" layoutY="85.0" prefHeight="520.0" prefWidth="600.0" styleClass="white_color">

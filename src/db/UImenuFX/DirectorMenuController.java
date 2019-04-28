@@ -27,7 +27,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -222,7 +221,6 @@ public class DirectorMenuController implements Initializable {
 				return param.getValue().getValue().transaction_date;
 			}
 		});
-		transactions_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		transaction_date.setResizable(false);
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		for(Transaction transaction: transactions_list) {

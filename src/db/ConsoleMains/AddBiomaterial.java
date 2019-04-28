@@ -4,9 +4,7 @@ import java.sql.Date;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Client;
 import db.pojos.Maintenance;
-import db.pojos.Transaction;
 import db.pojos.Utility;
 
 public class AddBiomaterial {

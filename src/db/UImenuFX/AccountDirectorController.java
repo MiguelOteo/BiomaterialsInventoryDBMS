@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class AccountDirectorController implements Initializable {
 
@@ -107,6 +108,11 @@ public class AccountDirectorController implements Initializable {
 			this.repeat_password_field.setText("");
 			this.new_password_field.setText("");
 		}
+	}
+	
+	public void close_window() {
+		Stage stage = (Stage) account_window.getScene().getWindow();
+		stage.close();
 	}
 	
 	// -----> GETTERS AND SETTERS <-----

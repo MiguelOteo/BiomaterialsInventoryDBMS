@@ -22,8 +22,8 @@
 	-fx-background-image: url("src.IconPictures/UpperBarBig.png");
 }
 
-.menu_smallBar_color {
-	-fx-background-image: url("src.IconPictures/UpperBarSmall.png");
+.menu_mediumBar_color {
+	-fx-background-image: url("src.IconPictures/UpperBarMedium.png");
 }
 
 .menu_buttom {
