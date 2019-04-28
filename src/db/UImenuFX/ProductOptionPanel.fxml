@@ -22,30 +22,30 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <Pane prefHeight="55.0" prefWidth="358.0">
-               <children>
-                  <ImageView fitHeight="54.0" fitWidth="360.0">
-                     <image>
-                        <Image url="@src.IconPictures/UpperBarSmall.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="exit_button" fitHeight="28.0" fitWidth="40.0" layoutX="319.0" layoutY="2.0" onDragDetected="#close_window" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/window-close.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="71.0" layoutY="16.0" text="Inventory">
-                     <font>
-                        <Font name="Ebrima Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="54.0" fitWidth="57.0" layoutY="3.0" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/logoNegro.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="6.0" prefHeight="55.0" prefWidth="354.0">
+         <children>
+            <ImageView fitHeight="55.0" fitWidth="360.0" layoutY="5.0">
+               <image>
+                  <Image url="@src.IconPictures/UpperBarSmall.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="exit_button" fitHeight="28.0" fitWidth="40.0" layoutX="321.0" layoutY="14.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/window-close.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="71.0" layoutY="21.0" text="Inventory">
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="55.0" fitWidth="57.0" layoutY="8.0" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/logoNegro.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

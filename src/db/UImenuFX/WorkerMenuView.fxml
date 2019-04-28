@@ -15,7 +15,7 @@
    <children>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
-            <Pane fx:id="menu_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
+            <Pane fx:id="worker_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
                   <Label layoutX="149.0" layoutY="32.0" text="Available products list">
                      <font>
@@ -27,16 +27,55 @@
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </JFXTreeTableView>
-                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" onAction="#add_product_to_inventory" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
+                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
                   </JFXButton>
                </children>
             </Pane>
+            <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
+               <children>
+                  <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="94.0" text="Products">
+                     <font>
+                        <Font name="Ebrima Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/window-close.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="minButton" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/window-minimize.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="worker_name" layoutX="566.0" layoutY="20.0" text="Worker name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="email" layoutX="566.0" layoutY="50.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="telephone" layoutX="566.0" layoutY="79.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="72.0" fitWidth="95.0" layoutX="462.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-tie-white.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
-      <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
+      <Pane fx:id="worker_main_menu" layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
          <children>
             <VBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="blue_color">
                <children>
@@ -144,45 +183,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-         </children>
-      </Pane>
-      <Pane layoutX="305.0" layoutY="5.0" prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
-         <children>
-            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="94.0" text="Products">
-               <font>
-                  <Font name="Ebrima Bold" size="18.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/window-close.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="minButton" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/window-minimize.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="worker_name" layoutX="566.0" layoutY="20.0" text="Worker name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="email" layoutX="566.0" layoutY="50.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="telephone" layoutX="566.0" layoutY="79.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="72.0" fitWidth="95.0" layoutX="462.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/user-tie-white.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
    </children>

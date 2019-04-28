@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,14 +20,18 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
-public class ProductOptionController implements Initializable {
+public class ProductOptionController  implements Initializable {
 
+	
+	//-------> CLASS ATTRIBUTES <----------
 	private static SQLManager manager_object;
 	
-	
+	//-------> FXML ATTRIBUTES <----------
     @FXML
     private AnchorPane menu_window;
     @FXML
@@ -39,6 +44,11 @@ public class ProductOptionController implements Initializable {
     private ImageView exit_button;
 
 
+  //-------> GETTERS AND SETTERS <----------
+    
+    
+  //-------> PRINCIPAL METHODS <----------
+    
     public ProductOptionController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -65,6 +75,9 @@ public class ProductOptionController implements Initializable {
 				stage_window.setAlwaysOnTop(true);
 				stage_window.show();
 				
+				Stage previous_stage = (Stage) menu_window.getScene().getWindow();
+				previous_stage.close();
+				
 			} catch (IOException access_new_error) {
 				access_new_error.printStackTrace();
 			}
@@ -77,14 +90,25 @@ public class ProductOptionController implements Initializable {
 				Parent root = (Parent) loader.load();
 				OrderProductController order_controller = new OrderProductController();
 				order_controller = loader.getController();
-				order_controller.getMenu_window().setEffect(null);
+				order_controller.getOrder_pane().setEffect(null);
 				
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
 				stage_window.setScene(new Scene(root));
 				stage_window.setAlwaysOnTop(true);
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						
+						
+					}
+					
+				});
+				
 				stage_window.show();
-				LaunchApplication.getStage().hide();
+				//LaunchApplication.getStage().hide();
+				/*Stage previous_stage = (Stage) menu_window.getScene().getWindow();
+				previous_stage.close();*/
 			
 			} catch (IOException access_new_error) {
 				access_new_error.printStackTrace();
@@ -95,6 +119,9 @@ public class ProductOptionController implements Initializable {
 		
 		
 	}
+	
+	
+	
 	
 	
     //------------> GETTERS AND SETTERS <---------------

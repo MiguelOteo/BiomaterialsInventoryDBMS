@@ -19,9 +19,9 @@
    <children>
       <Pane layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
-            <Pane fx:id="menu_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
+            <Pane fx:id="new_product_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
-                  <Label alignment="CENTER" layoutX="374.0" layoutY="98.0" text="Product information" textFill="#24b7bf">
+                  <Label alignment="CENTER" layoutX="383.0" layoutY="96.0" text="PRODUCT INSERTION" textFill="#24b7bf">
                      <font>
                         <Font name="Ebrima Bold" size="22.0" />
                      </font>
@@ -34,12 +34,12 @@
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <Label layoutX="149.0" layoutY="210.0" text="    Product name">
+                  <Label layoutX="179.0" layoutY="211.0" prefHeight="29.0" prefWidth="395.0" text="   Product name">
                      <font>
                         <Font name="Ebrima" size="17.0" />
                      </font>
                      <graphic>
-                        <JFXTextField fx:id="name_field" prefHeight="29.0" prefWidth="256.0" />
+                        <JFXTextField fx:id="name_field" prefHeight="29.0" prefWidth="235.0" />
                      </graphic>
                   </Label>
                   <Label layoutX="253.0" layoutY="362.0" text="    Price / unit ($)">
@@ -47,7 +47,7 @@
                         <Font name="Ebrima" size="17.0" />
                      </font>
                      <graphic>
-                        <Spinner fx:id="price_button" />
+                        <Spinner fx:id="price_button" editable="true" />
                      </graphic>
                   </Label>
                   <Label layoutX="254.0" layoutY="291.0" text="    Units">
@@ -55,7 +55,7 @@
                         <Font name="Ebrima" size="17.0" />
                      </font>
                      <graphic>
-                        <Spinner fx:id="units_button" />
+                        <Spinner fx:id="units_button" editable="true" />
                      </graphic>
                   </Label>
                   <Label layoutX="246.0" layoutY="443.0" text="Expiration date">
@@ -66,7 +66,7 @@
                         <JFXDatePicker fx:id="date_picker" />
                      </graphic>
                   </Label>
-                  <Pane layoutX="694.0" layoutY="240.0" prefHeight="161.0" prefWidth="189.0">
+                  <Pane fx:id="features_pane" layoutX="694.0" layoutY="240.0" prefHeight="161.0" prefWidth="189.0">
                      <children>
                         <JFXCheckBox fx:id="utility_button" layoutX="14.0" layoutY="67.0" text="Utility">
                            <font>
@@ -88,6 +88,45 @@
                         </Label>
                      </children>
                   </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
+               <children>
+                  <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="207.0" text="New product">
+                     <font>
+                        <Font name="Ebrima Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/window-close.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="minButton" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/window-minimize.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="worker_name" layoutX="566.0" layoutY="20.0" text="Worker name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="email" layoutX="566.0" layoutY="50.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="telephone" layoutX="566.0" layoutY="79.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="72.0" fitWidth="95.0" layoutX="462.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-tie-white.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>
@@ -200,45 +239,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-         </children>
-      </Pane>
-      <Pane layoutX="305.0" layoutY="5.0" prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
-         <children>
-            <Label fx:id="current_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="207.0" text="New product">
-               <font>
-                  <Font name="Ebrima Bold" size="18.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/window-close.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="minButton" fitHeight="25.0" fitWidth="34.0" layoutX="853.0" layoutY="16.0" onMouseClicked="#min_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/window-minimize.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="worker_name" layoutX="566.0" layoutY="20.0" text="Worker name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="email" layoutX="566.0" layoutY="50.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="telephone" layoutX="566.0" layoutY="79.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="72.0" fitWidth="95.0" layoutX="462.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/user-tie-white.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
    </children>

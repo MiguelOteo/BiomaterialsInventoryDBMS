@@ -1,6 +1,7 @@
 package db.UImenuFX;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,7 +28,6 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -52,38 +52,40 @@ public class WorkerMenuController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
-	private AnchorPane menu_window;
-	@FXML
-	private Pane menu_main_pane;
-	@FXML
-	private JFXButton logOut_button;
-	@FXML
-	private JFXButton myAccount_button;
-	@FXML
-	private JFXButton listInventory_button;
-	@FXML
-	private JFXButton addProduct_button;
-	@FXML
-	private JFXButton removeProduct_button;
-	@FXML
-	private JFXButton listTransactions_button;
-	@FXML
-	private JFXButton listClients_button;
-	@FXML
-	private JFXButton addSelection_button;
-	@FXML
-	private Label current_option_label;
-	@FXML
-	private ImageView exitButton;
-	@FXML
-	private ImageView minButton;
-	@FXML
-	private Label worker_name;
-	@FXML
-	private Label email;
-	@FXML
-	private Label telephone;
-	@FXML
+    private AnchorPane menu_window;
+    @FXML
+    private Pane worker_main_pane;
+    @FXML
+    private Pane worker_main_menu;
+    @FXML
+    private JFXButton addSelection_button;
+    @FXML
+    private Label current_option_label;
+    @FXML
+    private ImageView exitButton;
+    @FXML
+    private ImageView minButton;
+    @FXML
+    private Label worker_name;
+    @FXML
+    private Label email;
+    @FXML
+    private Label telephone;
+    @FXML
+    private JFXButton logOut_button;
+    @FXML
+    private JFXButton myAccount_button;
+    @FXML
+    private JFXButton listInventory_button;
+    @FXML
+    private JFXButton addProduct_button;
+    @FXML
+    private JFXButton removeProduct_button;
+    @FXML
+    private JFXButton listTransactions_button;
+    @FXML
+    private JFXButton listClients_button;
+    @FXML
 	private static Stage stage_window;
 	@FXML
 	private JFXTreeTableView<BiomaterialListObject> biomaterials_tree_view;
@@ -109,10 +111,25 @@ public class WorkerMenuController implements Initializable {
 
 	// --------------> GET AND SET METHODS <-----------------
 
+	
+	public Pane getWorker_main_pane() {
+		return worker_main_pane;
+	}
+	public void setWorker_main_pane(Pane worker_main_pane) {
+		this.worker_main_pane = worker_main_pane;
+	}
+	
+	public Pane getWorker_main_menu() {
+		return worker_main_menu;
+	}
+
+	public void setWorker_main_menu(Pane worker_main_menu) {
+		this.worker_main_menu = worker_main_menu;
+	}
+
 	public void setWorkerName(String name) {
 		this.worker_name.setText("Worker's name: " + name);
 	}
-
 	public void setWorkerEmail(String email) {
 		if (email != null) {
 			this.email.setText("Email: " + email);
@@ -120,7 +137,6 @@ public class WorkerMenuController implements Initializable {
 			this.email.setText("Email: No email associated");
 		}
 	}
-
 	public void setWorkerTelephone(Integer telephone) {
 		if (telephone == null) {
 			this.telephone.setText("Telephone: No telephone associated");
@@ -132,31 +148,11 @@ public class WorkerMenuController implements Initializable {
 			}
 		}
 	}
-
-	@FXML
-	void add_product_to_inventory(ActionEvent event) {
-	}
-
-	@FXML
-	void clients_list(ActionEvent event) {
-	}
-
-	@FXML
-	void delete_from_inventory(ActionEvent event) {
-	}
-
-	@FXML
-	void list_inventory(ActionEvent event) {
-
-	}
-
-	@FXML
-	void transaction_records(ActionEvent event) {
-
-	}
-	
 	
 
+	
+	//----------> ESSENTIAL METHODS <---------------
+	
 	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		myAccount_button.setOnAction((ActionEvent) -> {
@@ -206,6 +202,8 @@ public class WorkerMenuController implements Initializable {
 				Parent root = (Parent) loader.load();
 				ProductOptionController option_controller = new ProductOptionController();
 				option_controller = loader.getController();
+				
+				//ORDER BUTTON
 				option_controller.getOrderProduct_button().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event event) {
@@ -213,14 +211,6 @@ public class WorkerMenuController implements Initializable {
 						stage_window.close();
 					}
 				});
-				option_controller.getNewProduct_button().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});
-					
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
 				stage_window.setScene(new Scene(root));
@@ -232,7 +222,35 @@ public class WorkerMenuController implements Initializable {
 					    setAllButtonsOff();
 					}
 				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						setAllButtonsOn();
+						menu_window.setEffect(null);
+					}
+				});
+				stage_window.show();
 				
+				
+				//NEW PRODUCT BUTTON
+				option_controller.getNewProduct_button().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    setAllButtonsOff();
+					}
+				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent event) {
@@ -315,6 +333,9 @@ public class WorkerMenuController implements Initializable {
 		biomaterials_tree_view.setRoot(root);
 		biomaterials_tree_view.setShowRoot(false);
 
+		
+		//Ables the selection of several biomaterials of treeTable
+		//next step: associate selection's id to a variable being read by Order product controller
 		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 	}
@@ -332,7 +353,7 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	void min_window(MouseEvent event) {
-		Stage stage = (Stage) menu_main_pane.getScene().getWindow();
+		Stage stage = (Stage) worker_main_pane.getScene().getWindow();
 		stage.setIconified(true);
 	}
 
@@ -341,6 +362,7 @@ public class WorkerMenuController implements Initializable {
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
+		manager_object.Close_connection();
 	}
 
 	public AnchorPane getAnchorPane() {

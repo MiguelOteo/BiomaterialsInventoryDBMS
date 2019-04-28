@@ -20,16 +20,31 @@ public class OrderProductController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 	
 	private static SQLManager manager_object;
-	private ChargingScreenController charging_controller;
 	
 	// -----> FXML ATRIBUTES <-----
 	
 	@FXML
     private AnchorPane menu_window;
     @FXML
-    private Pane menu_main_pane;
+    private Pane worker_menu_pane;
+    @FXML
+    private Pane order_pane;
+    @FXML
+    private Pane useless_panel;
     @FXML
     private JFXButton doOrder_button;
+    @FXML
+    private Label current_option_label;
+    @FXML
+    private ImageView exitButton;
+    @FXML
+    private ImageView minButton;
+    @FXML
+    private Label worker_name;
+    @FXML
+    private Label email;
+    @FXML
+    private Label telephone;
     @FXML
     private JFXButton logOut_button;
     @FXML
@@ -44,20 +59,7 @@ public class OrderProductController implements Initializable {
     private JFXButton listTransactions_button;
     @FXML
     private JFXButton listClients_button;
-    @FXML
-    private Label current_option_label;
-    @FXML
-    private ImageView exitButton;
-    @FXML
-    private ImageView minButton;
-    @FXML
-    private Label worker_name;
-    @FXML
-    private Label email;
-    @FXML
-    private Label telephone;
-
-		
+	
 	// -----> GETTERS AND SETTERS <-----
 	
     public AnchorPane getMenu_window() {
@@ -66,6 +68,21 @@ public class OrderProductController implements Initializable {
 
 	public void setMenu_window(AnchorPane menu_window) {
 		this.menu_window = menu_window;
+	}
+	
+	public Pane getOrder_pane() {
+		return order_pane;
+	}
+	public void setOrder_pane(Pane order_pane) {
+		this.order_pane = order_pane;
+	}
+	
+	public Pane getUseless_panel() {
+		return useless_panel;
+	}
+
+	public void setUseless_panel(Pane useless_panel) {
+		this.useless_panel = useless_panel;
 	}
 
 	public JFXButton getDoOrder_button() {
@@ -84,7 +101,9 @@ public class OrderProductController implements Initializable {
 	public static void setValues(SQLManager manager) {
 		manager_object = manager;
 	}
-	
+	public SQLManager getValues() {
+		return this.manager_object;
+	}
 	
 
 	public OrderProductController() {
@@ -115,7 +134,7 @@ public class OrderProductController implements Initializable {
 
     @FXML
     void min_window(MouseEvent event) {
-    	Stage stage = (Stage) menu_main_pane.getScene().getWindow();
+    	Stage stage = (Stage) worker_menu_pane.getScene().getWindow();
 		stage.setIconified(true);
     }
 
