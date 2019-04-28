@@ -10,26 +10,23 @@ import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 public class ProductOptionController  implements Initializable {
 
 	
 	//-------> CLASS ATTRIBUTES <----------
 	private static SQLManager manager_object;
+	private OrderProductController order_controller;
+	private WorkerMenuController controller;
 	
 	//-------> FXML ATTRIBUTES <----------
     @FXML
@@ -38,10 +35,6 @@ public class ProductOptionController  implements Initializable {
     private JFXButton newProduct_button;
     @FXML
     private JFXButton orderProduct_button;
-    @FXML
-	private static Stage stage_window;
-    @FXML
-    private ImageView exit_button;
 
 
   //-------> GETTERS AND SETTERS <----------
@@ -69,11 +62,11 @@ public class ProductOptionController  implements Initializable {
 				newProduct_controller = loader.getController();
 				newProduct_controller.getMenu_window().setEffect(null);
 				
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);
-				stage_window.show();
+				Stage stage = new Stage();
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(new Scene(root));
+				stage.setAlwaysOnTop(true);
+				stage.show();
 				
 				Stage previous_stage = (Stage) menu_window.getScene().getWindow();
 				previous_stage.close();
@@ -85,42 +78,49 @@ public class ProductOptionController  implements Initializable {
 		
 		orderProduct_button.setOnAction((ActionEvent event) -> {
 			try {
+				/*				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
+				Parent root = (Parent) loader.load();
+				controller = new WorkerMenuController();
+				controller = loader.getController();
+				*/
+				
 				OrderProductController.setValues(manager_object);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderProductView.fxml"));
 				Parent root = (Parent) loader.load();
-				OrderProductController order_controller = new OrderProductController();
+				order_controller = new OrderProductController();
 				order_controller = loader.getController();
-				order_controller.getOrder_pane().setEffect(null);
 				
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						
-						
+				
+				
+				Stage stage = new Stage();
+				stage.setOnShowing((event_handler) -> {
+					try {
+						//this.controller.open_order_panel(event_handler);
+						this.order_controller.open_order_panel(event_handler);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					
 				});
+				stage.setAlwaysOnTop(true);
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(new Scene(root));
+				stage.show();
 				
-				stage_window.show();
-				//LaunchApplication.getStage().hide();
-				/*Stage previous_stage = (Stage) menu_window.getScene().getWindow();
-				previous_stage.close();*/
 			
 			} catch (IOException access_new_error) {
 				access_new_error.printStackTrace();
 			}
 		});
 		
-		
-		
-		
 	}
 	
-	
+	@FXML
+	public void close_window(MouseEvent event) {
+    	Stage stage = (Stage) this.menu_window.getScene().getWindow();
+		stage.close();
+    }
 	
 	
 	
@@ -143,30 +143,21 @@ public class ProductOptionController  implements Initializable {
 		this.orderProduct_button = orderProduct_button;
 	}
 
+	
+	
+	
 	// -----> ANABLE/DISABLE BUTTONS <-----
 	
-			public void setAllButtonsOff() {
-			    this.newProduct_button.setDisable(true);
-				this.orderProduct_button.setDisable(true);
-	
-			}
+	public void setAllButtonsOff() {
+		this.newProduct_button.setDisable(true);
+		this.orderProduct_button.setDisable(true);
+	}
 			
-			public void setAllButtonsOn() {
-				this.newProduct_button.setDisable(false);
-				this.orderProduct_button.setDisable(false);
-			    
-			}
+	public void setAllButtonsOn() {
+		this.newProduct_button.setDisable(false);
+		this.orderProduct_button.setDisable(false);
+	}
 	
-	
-	//------------> BUTTON METHODS <---------------
-	
-	@FXML
-    void close_window(MouseEvent event) {
-    	Stage stage = (Stage) menu_window.getScene().getWindow();
-		stage.close();
-    }
-
-    
     
 }
 

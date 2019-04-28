@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,6 +26,7 @@
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
                   </JFXButton>
+                  <JFXTreeTableView fx:id="selection_tree_view" layoutX="307.0" layoutY="120.0" prefHeight="400.0" prefWidth="360.0" />
                </children>
             </Pane>
             <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
@@ -68,7 +70,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="useless_panel" depthTest="DISABLE" focusTraversable="true" layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color" visible="false">
+      <Pane fx:id="worker_main_menu" layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
          <children>
             <VBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="blue_color">
                <children>

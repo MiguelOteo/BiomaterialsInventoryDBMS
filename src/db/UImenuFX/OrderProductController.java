@@ -1,19 +1,32 @@
 package db.UImenuFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
+import db.pojos.Worker;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class OrderProductController implements Initializable {
 
@@ -25,14 +38,16 @@ public class OrderProductController implements Initializable {
 	
 	@FXML
     private AnchorPane menu_window;
+	@FXML
+	private Pane worker_main_menu;
     @FXML
     private Pane worker_menu_pane;
     @FXML
     private Pane order_pane;
     @FXML
-    private Pane useless_panel;
-    @FXML
     private JFXButton doOrder_button;
+    @FXML
+    private JFXTreeTableView<SelectionListObject> selection_tree_view;
     @FXML
     private Label current_option_label;
     @FXML
@@ -46,24 +61,30 @@ public class OrderProductController implements Initializable {
     @FXML
     private Label telephone;
     @FXML
-    private JFXButton logOut_button;
-    @FXML
-    private JFXButton myAccount_button;
-    @FXML
-    private JFXButton listInventory_button;
-    @FXML
-    private JFXButton addProduct_button;
-    @FXML
-    private JFXButton removeProduct_button;
-    @FXML
-    private JFXButton listTransactions_button;
-    @FXML
-    private JFXButton listClients_button;
-	
+    private Stage stage;
+
 	// -----> GETTERS AND SETTERS <-----
 	
+    
+    
     public AnchorPane getMenu_window() {
 		return menu_window;
+	}
+
+	public Pane getWorker_main_menu() {
+		return worker_main_menu;
+	}
+
+	public void setWorker_main_menu(Pane worker_main_menu) {
+		this.worker_main_menu = worker_main_menu;
+	}
+
+	public Pane getWorker_menu_pane() {
+		return worker_menu_pane;
+	}
+
+	public void setWorker_menu_pane(Pane worker_menu_pane) {
+		this.worker_menu_pane = worker_menu_pane;
 	}
 
 	public void setMenu_window(AnchorPane menu_window) {
@@ -75,14 +96,6 @@ public class OrderProductController implements Initializable {
 	}
 	public void setOrder_pane(Pane order_pane) {
 		this.order_pane = order_pane;
-	}
-	
-	public Pane getUseless_panel() {
-		return useless_panel;
-	}
-
-	public void setUseless_panel(Pane useless_panel) {
-		this.useless_panel = useless_panel;
 	}
 
 	public JFXButton getDoOrder_button() {
@@ -96,25 +109,29 @@ public class OrderProductController implements Initializable {
 		
 	// -----> ESSENTIAL METHODS <-----
 	
-	
-	
-	public static void setValues(SQLManager manager) {
-		manager_object = manager;
-	}
-	public SQLManager getValues() {
-		return this.manager_object;
-	}
-	
-
 	public OrderProductController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public static void setValues(SQLManager manager) {
+		manager_object = manager;
+	}
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
+		
+		
+	}
+	
+	
+	@FXML
+	public void open_order_panel(WindowEvent event_handler) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
+		this.worker_main_menu.getChildren().removeAll();
+		this.worker_main_menu.getChildren().setAll(menu_panel);
 	}
 	
 	
@@ -126,13 +143,6 @@ public class OrderProductController implements Initializable {
     }
 
     @FXML
-    void log_out(MouseEvent event) {
-    	LaunchApplication.getStage().show();
-		Stage stage = (Stage) logOut_button.getScene().getWindow();
-		stage.close();
-    }
-
-    @FXML
     void min_window(MouseEvent event) {
     	Stage stage = (Stage) worker_menu_pane.getScene().getWindow();
 		stage.setIconified(true);
@@ -140,3 +150,20 @@ public class OrderProductController implements Initializable {
 
 	
 }
+
+
+//-----> SELECTION LIST CLASS <-----
+
+//To insert columns into the list of selected biomaterials with all the information
+class SelectionListObject extends RecursiveTreeObject<SelectionListObject> {
+	StringProperty product_name;
+	StringProperty available_units;
+	StringProperty price_unit;
+	StringProperty expiration_date;
+
+	public SelectionListObject(String product_name, String available_units) {
+		this.product_name = new SimpleStringProperty(product_name);
+		this.available_units = new SimpleStringProperty(available_units);
+	}
+}
+

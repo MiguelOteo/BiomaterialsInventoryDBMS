@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.WorkerMenuController">
    <children>
-      <Pane layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
+      <Pane fx:id="worker_main_panel" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
-            <Pane fx:id="worker_main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
+            <Pane layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
                   <Label layoutX="149.0" layoutY="32.0" text="Available products list">
                      <font>

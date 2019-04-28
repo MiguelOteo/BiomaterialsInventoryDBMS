@@ -48,13 +48,14 @@ public class WorkerMenuController implements Initializable {
 
 	private static Worker worker_account;
 	private static SQLManager manager_object;
+	private OrderProductController order_controller;
 
 	// -----> FXML ATRIBUTES <-----
 
 	@FXML
     private AnchorPane menu_window;
     @FXML
-    private Pane worker_main_pane;
+    private Pane worker_main_panel;
     @FXML
     private Pane worker_main_menu;
     @FXML
@@ -101,6 +102,14 @@ public class WorkerMenuController implements Initializable {
 		manager_object = manager;
 		worker_account = worker;
 	}
+	
+	public static Worker getValueWorker() {
+		return worker_account;
+	}
+	public static SQLManager getManager() {
+		return manager_object;
+	}
+	
 
 	public void update_worker_account() {
 		worker_account = manager_object.Search_worker_by_id(worker_account.getWorker_id());
@@ -111,18 +120,20 @@ public class WorkerMenuController implements Initializable {
 
 	// --------------> GET AND SET METHODS <-----------------
 
-	
-	public Pane getWorker_main_pane() {
-		return worker_main_pane;
+	public AnchorPane getAnchorPane() {
+		return this.menu_window;
 	}
-	public void setWorker_main_pane(Pane worker_main_pane) {
-		this.worker_main_pane = worker_main_pane;
+	public Pane getWorker_main_panel() {
+		return worker_main_panel;
+	}
+	public void setWorker_main_panel(Pane worker_main_panel) {
+		this.worker_main_panel = worker_main_panel;
 	}
 	
 	public Pane getWorker_main_menu() {
 		return worker_main_menu;
 	}
-
+	
 	public void setWorker_main_menu(Pane worker_main_menu) {
 		this.worker_main_menu = worker_main_menu;
 	}
@@ -262,8 +273,10 @@ public class WorkerMenuController implements Initializable {
 				
 				//Stage stage = (Stage) menu_window.getScene().getWindow();
 				//stage.close();
+				stage_window.wait();
+				stage_window.close();
 				
-			} catch (IOException panel_access_error) {
+			} catch (IOException | InterruptedException panel_access_error) {
 				panel_access_error.printStackTrace();
 				System.exit(0);
 			}
@@ -338,6 +351,10 @@ public class WorkerMenuController implements Initializable {
 		//next step: associate selection's id to a variable being read by Order product controller
 		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
+		
+		
+		
+		
 	}
 	
 
@@ -353,7 +370,7 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	void min_window(MouseEvent event) {
-		Stage stage = (Stage) worker_main_pane.getScene().getWindow();
+		Stage stage = (Stage) this.menu_window.getScene().getWindow();
 		stage.setIconified(true);
 	}
 
@@ -365,10 +382,6 @@ public class WorkerMenuController implements Initializable {
 		manager_object.Close_connection();
 	}
 
-	public AnchorPane getAnchorPane() {
-		return this.menu_window;
-	}
-	
 	
 	// -----> ANABLE/DISABLE BUTTONS <-----
 	
@@ -400,6 +413,12 @@ public class WorkerMenuController implements Initializable {
 		}
 
 	
+		@FXML
+		public void open_order_panel(WindowEvent event_handler) throws IOException {
+			Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
+			this.order_controller.getWorker_main_menu().getChildren().removeAll();
+			this.order_controller.getWorker_menu_pane().getChildren().setAll(menu_panel);
+		}
 	
 	
 }
