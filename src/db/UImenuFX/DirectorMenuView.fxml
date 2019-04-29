@@ -54,9 +54,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" styleClass="tree-table">
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
-                  <Label fx:id="current_pane_option_label1" layoutX="179.0" layoutY="14.0" text="Transactions list">
+                  <Label layoutX="179.0" layoutY="14.0" text="Transactions list">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -91,7 +91,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="515.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
+            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="515.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -120,7 +120,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllClients_button" alignment="TOP_LEFT" layoutY="206.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Clients" textFill="#00000080">
+            <JFXButton fx:id="listAllClients_button" alignment="TOP_LEFT" layoutY="206.0" onMouseClicked="#list_all_clients_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Clients" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

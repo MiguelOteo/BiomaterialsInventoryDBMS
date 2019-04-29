@@ -54,6 +54,8 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private Pane menu_main_pane;
 	@FXML
+	private Pane main_pane;
+	@FXML
 	private JFXButton logOut_button;
 	@FXML
 	private JFXButton myAccount_button;
@@ -86,6 +88,8 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private static Stage stage_window;
 	@FXML
+	private static Stage stage_main;
+	@FXML
 	private JFXTreeTableView<TransactionListObject> transactions_tree_view;
 	@FXML
 	private final ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
@@ -103,6 +107,8 @@ public class DirectorMenuController implements Initializable {
 
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		finantialStatus_button.setDisable(true);
+		
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
 				AccountDirectorController.setValues(manager_object, director_account);
@@ -287,6 +293,25 @@ public class DirectorMenuController implements Initializable {
 	}
 
 	// -----> BUTTOM METHODS <-----
+	
+	@FXML
+	private void list_all_clients_button(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("List all clients");
+		setAllButtonsOn();
+		listAllClients_button.setDisable(true);
+		Pane list_all_clients_pane = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(list_all_clients_pane);
+	}
+	
+	@FXML
+	private void finantial_status_button(MouseEvent event) throws IOException { 
+		current_pane_option_label.setText("Finantial status");
+		setAllButtonsOn();
+		finantialStatus_button.setDisable(true);
+		Parent root = FXMLLoader.load(getClass().getResource("DirectorMenuView.fxml"));
+		stage_main.getScene().setRoot(root);
+	}
 
 	@FXML
 	private void close_app(MouseEvent event) {
@@ -340,10 +365,14 @@ public class DirectorMenuController implements Initializable {
 		}
 	}
 
+	public static void setStage(Stage stage) {
+		stage_main = stage;
+	}
+	
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
-
+	
 	// -----> ANABLE/DISABLE BUTTONS <-----
 	
 	public void setAllButtonsOff() {
