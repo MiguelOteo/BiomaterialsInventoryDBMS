@@ -36,31 +36,23 @@ public class NewProductController implements Initializable {
 		private static SQLManager manager_object;
 		
 	// -----> FXML ATTRIBUTES <-----
-	
+
 		@FXML
 	    private Pane new_product_pane;
-
 	    @FXML
 	    private JFXButton conclude_button;
-
 	    @FXML
 	    private JFXTextField name_field;
-
 	    @FXML
 	    private Spinner<Float> price_button;
-
 	    @FXML
 	    private Spinner<Integer> units_button;
-
 	    @FXML
 	    private JFXDatePicker date_picker;
-
 	    @FXML
 	    private Pane features_pane;
-
 	    @FXML
 	    private JFXCheckBox utility_button;
-
 	    @FXML
 	    private JFXCheckBox maintenance_button;
     
@@ -207,12 +199,7 @@ public class NewProductController implements Initializable {
     }
 
     
-    @FXML
-	public void open_newProduct_panel(WindowEvent event_handler) throws IOException {
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
-		this.features_pane.getChildren().removeAll();
-		this.features_pane.getChildren().setAll(menu_panel);
-	}
+    
     
 }
 

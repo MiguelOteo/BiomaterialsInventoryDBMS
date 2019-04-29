@@ -48,7 +48,8 @@ public class WorkerMenuController implements Initializable {
 
 	private static Worker worker_account;
 	private static SQLManager manager_object;
-	private OrderProductController order_controller;
+	private static WorkerMenuController worker_controller;
+
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -101,6 +102,10 @@ public class WorkerMenuController implements Initializable {
 	public static void setValues(SQLManager manager, Worker worker) {
 		manager_object = manager;
 		worker_account = worker;
+	}
+	
+	public static void setController(WorkerMenuController controller) {
+		worker_controller = controller;
 	}
 	
 	public static Worker getValueWorker() {
@@ -205,87 +210,6 @@ public class WorkerMenuController implements Initializable {
 			}
 		});
 		
-		
-		addProduct_button.setOnAction((ActionEvent) -> {
-			try {
-				ProductOptionController.setValues(manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductOptionPanel.fxml"));
-				Parent root = (Parent) loader.load();
-				ProductOptionController option_controller = new ProductOptionController();
-				option_controller = loader.getController();
-				
-				//ORDER BUTTON
-				option_controller.getOrderProduct_button().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent event) {
-						setAllButtonsOn();
-						menu_window.setEffect(null);
-					}
-				});
-				stage_window.show();
-				
-				
-				//NEW PRODUCT BUTTON
-				option_controller.getNewProduct_button().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent event) {
-						setAllButtonsOn();
-						menu_window.setEffect(null);
-					}
-				});
-				stage_window.show();
-				
-				//Stage stage = (Stage) menu_window.getScene().getWindow();
-				//stage.close();
-				stage_window.wait();
-				stage_window.close();
-				
-			} catch (IOException | InterruptedException panel_access_error) {
-				panel_access_error.printStackTrace();
-				System.exit(0);
-			}
-		}); 
-		
-		
-		
-		
-
 		// Biomaterials list columns creation
 
 		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
@@ -349,17 +273,8 @@ public class WorkerMenuController implements Initializable {
 		
 		//Ables the selection of several biomaterials of treeTable
 		//next step: associate selection's id to a variable being read by Order product controller
-		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
-		
-		
-		
-		
+		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
 	}
-	
-
-	
-	
 	
 	// -----> BUTTON METHODS <-----
 
@@ -412,9 +327,15 @@ public class WorkerMenuController implements Initializable {
 		    
 		}
 
-	
-	
-	
+		@FXML
+		public void open_option_panel(MouseEvent event) throws IOException {
+			Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
+			ProductOptionController.setValues(worker_controller);
+			worker_main_panel.getChildren().removeAll();
+			worker_main_panel.getChildren().setAll(menu_panel);
+		}
+		
+		
 }
 
 // -----> BIOMATERIALS LIST CLASS <-----

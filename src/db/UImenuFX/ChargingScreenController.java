@@ -194,6 +194,7 @@ public class ChargingScreenController implements Initializable {
 			this.worker_controller.setWorkerEmail(worker.getEmail());
 			this.worker_controller.setWorkerTelephone(worker.getTelephone());
 			this.worker_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
+			WorkerMenuController.setController(worker_controller);
 			main_menu_stage = new Stage();
 			main_menu_stage.initStyle(StageStyle.UNDECORATED);
 			main_menu_stage.setScene(new Scene(root));

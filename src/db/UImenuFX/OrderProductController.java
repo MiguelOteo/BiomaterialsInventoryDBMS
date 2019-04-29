@@ -34,6 +34,7 @@ public class OrderProductController implements Initializable {
 	
 	private static SQLManager manager_object;
 	
+	
 	// -----> FXML ATRIBUTES <-----
 	
 	 @FXML
@@ -74,12 +75,8 @@ public class OrderProductController implements Initializable {
 	}
 	
 	
-	@FXML
-	public void open_order_panel(WindowEvent event_handler) throws IOException {
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
-		this.order_panel.getChildren().removeAll();
-		this.order_panel.getChildren().setAll(menu_panel);
-	}
+	
+	
 	
 }
 

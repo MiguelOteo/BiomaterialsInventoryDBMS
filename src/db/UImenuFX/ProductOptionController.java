@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,8 +25,9 @@ public class ProductOptionController  implements Initializable {
 
 	
 	//-------> CLASS ATTRIBUTES <----------
+	
 	private static SQLManager manager_object;
-	private OrderProductController order_controller;
+	private static WorkerMenuController worker_controller;
 	
 	//-------> FXML ATTRIBUTES <----------
     @FXML
@@ -36,7 +38,7 @@ public class ProductOptionController  implements Initializable {
     private JFXButton orderProduct_button;
 
 
-  //-------> GETTERS AND SETTERS <----------
+ 
     
     
   //-------> PRINCIPAL METHODS <----------
@@ -45,65 +47,13 @@ public class ProductOptionController  implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
     
-    public static void setValues(SQLManager manager) {
-		manager_object = manager;
+    public static void setValues(WorkerMenuController controller) {
+		worker_controller = controller;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		newProduct_button.setOnAction((ActionEvent event) -> {
-			
-			try {
-				NewProductController.setValues(manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("NewProductView.fxml"));
-				Parent root = (Parent) loader.load();
-				NewProductController newProduct_controller = new NewProductController();
-				newProduct_controller = loader.getController();
-				
-				
-				Stage stage = new Stage();
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(root));
-				stage.setAlwaysOnTop(true);
-				stage.show();
-				
-				Stage previous_stage = (Stage) menu_window.getScene().getWindow();
-				previous_stage.close();
-				
-			} catch (IOException access_new_error) {
-				access_new_error.printStackTrace();
-			}
-		});
-		
-		orderProduct_button.setOnAction((ActionEvent event) -> {
-			try {
-				OrderProductController.setValues(manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
-				Parent root = (Parent) loader.load();
-				order_controller = new OrderProductController();
-				order_controller = loader.getController();
-				
-				Stage stage = new Stage();
-				stage.setOnShowing((event_handler) -> {
-					try {
-						this.order_controller.open_order_panel(event_handler);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				});
-				stage.setAlwaysOnTop(true);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(root));
-				stage.show();
-				
-				Stage previous_stage = (Stage) menu_window.getScene().getWindow();
-				previous_stage.close();
-			
-			} catch (IOException access_new_error) {
-				access_new_error.printStackTrace();
-			}
-		});
-		
+
 	}
 	
 	@FXML
@@ -148,6 +98,20 @@ public class ProductOptionController  implements Initializable {
 		this.orderProduct_button.setDisable(false);
 	}
 	
+
+	@FXML
+	public void open_order_panel(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
+		worker_controller.getWorker_main_panel().getChildren().removeAll();
+		worker_controller.getWorker_main_panel().getChildren().setAll(menu_panel);
+	}
+
+	@FXML
+	public void open_newProduct_panel(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("NewProductView.fxml"));
+		worker_controller.getWorker_main_panel().getChildren().removeAll();
+		worker_controller.getWorker_main_panel().getChildren().setAll(menu_panel);
+	}
     
 }
 
