@@ -180,7 +180,6 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
-			System.out.println(user);
 			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());

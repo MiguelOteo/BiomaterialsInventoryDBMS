@@ -93,7 +93,6 @@ public class RemoveWorkerController implements Initializable{
 			delete_account_button.setOnAction((ActionEvent event) -> {
 				TreeItem<WorkerListObject> worker_object = worker_tree_view.getSelectionModel().getSelectedItem();
 				if(worker_object != null) {
-					System.out.println(worker_object.getValue().user_id.getValue().toString());
 					manager_object.Delete_stored_user(Integer.parseInt(worker_object.getValue().user_id.getValue().toString()));
 					Stage stage = (Stage) account_window.getScene().getWindow();
 					stage.close();
