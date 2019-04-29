@@ -556,6 +556,28 @@ public class SQLManager implements Interface{
 		}
 	}
 	
+	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial) {
+		try {
+			String SQL_code = "SELECT * FROM boimaterial WHERE biomaterial_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomaterial.getBiomaterial_id());
+			ResultSet result_set = template.executeQuery();
+			Biomaterial worker = new Biomaterial();
+			biomaterial.setAvailable_units(result_set.getInt("available_units"));
+			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
+			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+			biomaterial.setName_product(result_set.getString("name_product"));
+			biomaterial.setPrice_unit(result_set.getInt("price_unit"));
+			biomaterial.setUtility(Search_utility_by_id(result_set.getInt("utility_id")));
+			biomaterial.setMaintenance(Search_maintenance_by_id(result_set.getInt("maintenance_id")));
+			
+			template.close();
+			return worker;
+		} catch (SQLException search_worker_error) {
+			return null;
+		}
+	}
+	
 	// -----> SEARCH BY ID METHODS <-----
 	
 	// Selects the user object with the same user_id from the data base and returns it

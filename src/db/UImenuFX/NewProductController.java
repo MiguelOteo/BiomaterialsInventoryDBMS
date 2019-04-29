@@ -6,28 +6,22 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
+import db.pojos.Maintenance;
+import db.pojos.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class NewProductController implements Initializable {
 	
@@ -95,9 +89,11 @@ public class NewProductController implements Initializable {
 	
 	
 	
-    @Override
+    @SuppressWarnings("unlikely-arg-type")
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
+    	//Set values of spinners
 		SpinnerValueFactory<Integer> UnitsvalueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000000000, 0);
         this.units_button.setValueFactory(UnitsvalueFactory);
         SpinnerValueFactory<Integer> PricevalueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000000000, 0);
@@ -105,46 +101,29 @@ public class NewProductController implements Initializable {
     	
     	
 		conclude_button.setOnAction((ActionEvent event) -> {
-			try {
-				String product_name = name_field.getText();
-				Integer units = (Integer) units_button.getValue();
-				Integer price = (Integer) price_button.getValue();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				LocalDate exp_date = date_picker.getValue();
-				System.out.println(exp_date);
-				//Faltan los optativos checkBox para maintenance y utility
+			String product_name = name_field.getText();
+			Integer units = (Integer) units_button.getValue();
+			Integer price = (Integer) price_button.getValue();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate exp_date = date_picker.getValue();
+			
+			if (!product_name.equals("")) {
 				
-				Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(null);
+				Biomaterial biomaterial = new Biomaterial();
 				biomaterial.setName_product(product_name);
 				biomaterial.setAvailable_units(units);
 				biomaterial.setPrice_unit(price);
 				biomaterial.setExpiration_date(Date.valueOf(exp_date));
-				//biomaterial.setMaintenance();
-				//biomaterial.setUtility();
+				biomaterial.setMaintenance(new Maintenance());
+				biomaterial.setUtility(null);
+				biomaterial.setMaintenance(null);
 				
-				
-			if (!(product_name.equals(""))) {
-				manager_object.Insert_new_biomaterial(biomaterial);
-				System.out.println("Biomaterial saved into database");
-				
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("NewProductView.fxml"));
-				Parent root = (Parent) loader.load();
-				WorkerMenuController worker_controller = new WorkerMenuController();
-				worker_controller = loader.getController();
-				worker_controller.getAnchorPane().setEffect(null);
-					Stage stage = new Stage();
-					stage.initStyle(StageStyle.UNDECORATED);
-					stage.setAlwaysOnTop(true);
-					stage.setScene(new Scene(root));
-					stage.show();
-			
-			
-			
-				this.name_field.clear();
-			
-			}
-			} catch (IOException conclude_error) {
-				conclude_error.printStackTrace();
+				if(!product_name.equals(manager_object.Search_stored_biomaterial(biomaterial))) {
+
+					manager_object.Insert_new_biomaterial(biomaterial);
+					System.out.println("Biomaterial saved into database");
+		
+				} else System.out.println("Product already existing");
 			}
 		});
 		
