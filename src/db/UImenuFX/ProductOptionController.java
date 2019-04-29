@@ -3,30 +3,25 @@ package db.UImenuFX;
 
 import java.io.IOException;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import db.jdbc.SQLManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class ProductOptionController  implements Initializable {
 
 	
 	//-------> CLASS ATTRIBUTES <----------
 	
-	private static SQLManager manager_object;
 	private static WorkerMenuController worker_controller;
 	
 	//-------> FXML ATTRIBUTES <----------
@@ -62,7 +57,7 @@ public class ProductOptionController  implements Initializable {
 		stage.close();
     }
 	
-	
+
 	
     //------------> GETTERS AND SETTERS <---------------
 	

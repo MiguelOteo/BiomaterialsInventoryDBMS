@@ -90,16 +90,16 @@ public class SQLManager implements Interface{
 			Statement statement_6 = this.sqlite_connection.createStatement();
 			String table_6 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " heat_cold INTEGER default NULL, " + " flexibility TEXT default 'no', "
-					+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
-					+ " strength REAL NOT NULL)";
+					+ " resistance TEXT default 'yes', " + " pressure REAL default 1, "
+					+ " strength REAL)";
 			statement_6.execute(table_6);
 			statement_6.close();
 
 			Statement statement_7 = this.sqlite_connection.createStatement();
 			String table_7 = "CREATE TABLE maintenance " + "(maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " pressure REAL NOT NULL default 1, " + " humidity INT NOT NULL default 50, "
+					+ " pressure REAL default 1, " + " humidity INT default 50, "
 					+ " O2_supply TEXT default 'no', " + " light TEXT default 'no', "
-					+ " temperature REAL NOT NULL default 20, " + " compatibility TEXT, "
+					+ " temperature REAL default 20, " + " compatibility TEXT, "
 					+ " others TEXT default NULL)";
 			statement_7.execute(table_7);
 			statement_7.close();
@@ -916,6 +916,58 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	// List all utilities returning a linkedList with all of them
+		public List<Utility> List_all_utilities() {
+			try {
+				Statement statement = this.sqlite_connection.createStatement();
+				String SQL_code = "SELECT * FROM utility";
+				List<Utility> utilities_list = new LinkedList<Utility>();
+				ResultSet result_set = statement.executeQuery(SQL_code);
+				while (result_set.next()) {
+					Utility utility = new Utility();
+					utility.setFlexibility(result_set.getString("flexibility"));
+	                utility.setHeat_cold(result_set.getString("heat_cold"));
+	                utility.setPressure(result_set.getFloat("pressure"));
+	                utility.setResistance(result_set.getString("resistance"));
+	                utility.setStrength(result_set.getFloat("strength"));
+	                utility.setUtility_id(result_set.getInt("utility_id"));
+					utilities_list.add(utility);
+				}
+				statement.close();
+				return utilities_list;
+			} catch (SQLException list_utilities_error) {
+				list_utilities_error.printStackTrace();
+				return null;
+			}
+		}
+		
+		// List all maintenances returning a linkedList with all of them
+				public List<Maintenance> List_all_maintenances() {
+					try {
+						Statement statement = this.sqlite_connection.createStatement();
+						String SQL_code = "SELECT * FROM maintenance";
+						List<Maintenance> maintenance_list = new LinkedList<Maintenance>();
+						ResultSet result_set = statement.executeQuery(SQL_code);
+						while (result_set.next()) {
+							Maintenance maintenance = new Maintenance();
+							maintenance.setCompatibility(result_set.getString("compatibility"));
+			                maintenance.setHumidity(result_set.getInt("humidity"));
+			                maintenance.setLight(result_set.getString("light"));
+			                maintenance.setO2_supply(result_set.getString("o2_supply"));
+			                maintenance.setOthers(result_set.getString("others"));
+			                maintenance.setPressure(result_set.getFloat("pressure"));
+			                maintenance.setTemperature(result_set.getFloat("temperature"));
+			                maintenance.setManteinance_id(result_set.getInt("maintenance_id"));
+			                maintenance_list.add(maintenance);
+						}
+						statement.close();
+						return maintenance_list;
+					} catch (SQLException list_maintenances_error) {
+						list_maintenances_error.printStackTrace();
+						return null;
+					}
+				}
 	
 	// List all directors returning a linkedList with all of them
 	public List<Director> List_all_directors() {
