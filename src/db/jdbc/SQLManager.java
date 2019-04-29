@@ -180,6 +180,7 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
+			System.out.println(user);
 			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
@@ -267,8 +268,7 @@ public class SQLManager implements Interface{
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			ResultSet result_set = template.executeQuery();
 			Integer benefits_id = result_set.getInt("benefits_id");
-			template.close();
-			
+			template.close();	
 			return benefits_id;
 		} catch (SQLException new_benefits_error) {
 			new_benefits_error.printStackTrace();
@@ -293,7 +293,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer category_id = result_set.getInt("category_id");
 			template.close();
-			
 			return category_id;
 		} catch (SQLException new_category_error) {
 			new_category_error.printStackTrace();
@@ -320,7 +319,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer utility_id = result_set.getInt("utility_id");
 			template.close();
-			
 			return utility_id;
 		} catch (SQLException new_utility_error) {
 			new_utility_error.printStackTrace();
@@ -349,7 +347,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer maintenance_id = result_set.getInt("maintenance_id");
 			template.close();
-			
 			return maintenance_id;
 		} catch (SQLException new_maintenance_error) {
 			new_maintenance_error.printStackTrace();
@@ -370,13 +367,12 @@ public class SQLManager implements Interface{
 			template.setInt(5, transaction.getBiomaterial().getBiomaterial_id());
 			template.executeUpdate();
 			template.close();
-			
+		
 			String SQL_code = "SELECT last_insert_rowid() AS transaction_id";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			ResultSet result_set = template.executeQuery();
 			Integer transaction_id = result_set.getInt("transaction_id");
 			template.close();
-			
 			return transaction_id;
 		} catch (SQLException new_transaction_error) {
 			new_transaction_error.printStackTrace();
@@ -404,7 +400,6 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer biomaterial_id = result_set.getInt("biomaterial_id");
 			template.close();
-			
 			return biomaterial_id;
 		} catch (SQLException new_biomaterial_error) {
 			new_biomaterial_error.printStackTrace();
@@ -643,7 +638,7 @@ public class SQLManager implements Interface{
                 List<Transaction> transaction_list = Search_stored_transactions(client);
 				User user = Search_user_by_id(result_set.getInt("user_id"));
 				client.setUser(user);
-				template.close();
+				template.close(); 
 				return client;
 			} catch (SQLException search_client_error) {
 				search_client_error.printStackTrace();
@@ -810,6 +805,8 @@ public class SQLManager implements Interface{
 				client.setResponsible(result_set.getString("responsible"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
+				User user = Search_user_by_id(result_set.getInt("user_id"));
+				client.setUser(user);
 				clients_list.add(client);
 			}
 			statement.close();
@@ -935,6 +932,10 @@ public class SQLManager implements Interface{
 				Worker worker = new Worker();
 				worker.setWorker_id(result_set.getInt("worker_id"));
 				worker.setWorker_name(result_set.getString("name"));
+				worker.setTelephone(result_set.getInt("telephone"));
+				worker.setEmail(result_set.getString("email"));
+				User user = Search_user_by_id(result_set.getInt("user_id"));
+				worker.setUser(user);
 			    workers_list.add(worker);
 			}
 			statement.close();
@@ -961,21 +962,6 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
-	
-	public boolean Delete_stored_worker(Integer worker_id) {
-		try {
-			String SQL_code = "DELETE FROM worker WHERE worker_id = ?;";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, worker_id);
-			template.executeUpdate();
-			template.close();
-			return true;
-		} catch (SQLException delete_worker_error) {
-			delete_worker_error.printStackTrace();
-			return false;
-		}
-	}
-	
 	
 	public boolean Delete_stored_category(Category category) {
 		try {
@@ -1020,6 +1006,7 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
+
 
 
 }

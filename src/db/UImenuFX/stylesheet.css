@@ -22,6 +22,10 @@
 	-fx-background-image: url("src.IconPictures/UpperBarBig.png");
 }
 
+.menu_mediumBar_color {
+	-fx-background-image: url("src.IconPictures/UpperBarMedium.png");
+}
+
 .menu_buttom {
 	-fx-font-weight: bold;
 	-fx-font-size: 14;
@@ -91,7 +95,9 @@
 .list-view, .scroll-bar:horizontal .decrement-button {
     -fx-padding:0;
 }
-
+.tree-table-row-cell:selected {
+	-fx-background-color: rgba(79, 144, 165, 0.5);
+}
 
 
 

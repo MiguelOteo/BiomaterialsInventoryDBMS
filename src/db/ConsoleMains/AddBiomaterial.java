@@ -4,12 +4,10 @@ import java.sql.Date;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Client;
 import db.pojos.Maintenance;
-import db.pojos.Transaction;
 import db.pojos.Utility;
 
-public class AddTransaction {
+public class AddBiomaterial {
 	
 	public static void main(String[] args) {
 		
@@ -34,9 +32,5 @@ public class AddTransaction {
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		
-		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id)
-		Client client = manager.Search_client_by_id(3);
-		Transaction transaction = new Transaction((float)6, 34243, biomaterial, client);
-		manager.Insert_new_transaction(transaction);
 	}
 }

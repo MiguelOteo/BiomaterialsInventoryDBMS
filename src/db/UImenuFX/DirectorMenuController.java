@@ -84,9 +84,11 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private Label telephone;
 	@FXML
-	private static Stage my_account;
+	private static Stage stage_window;
 	@FXML
 	private JFXTreeTableView<TransactionListObject> transactions_tree_view;
+	@FXML
+	private final ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -108,57 +110,117 @@ public class DirectorMenuController implements Initializable {
 				Parent root = (Parent) loader.load();
 				AccountDirectorController account_controller = new AccountDirectorController();
 				account_controller = loader.getController();
-				account_controller.done_button.setOnMouseClicked(new EventHandler<Event>() {
+				account_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event event) {
 						update_director_account();
 						menu_window.setEffect(null);
-						my_account.close();
-					}
+						stage_window.close();
+					} 
 				});	
-				my_account = new Stage();
-				my_account.initStyle(StageStyle.UNDECORATED);
-				my_account.setScene(new Scene(root));
-				my_account.setAlwaysOnTop(true);				
-				my_account.setOnShowing(new EventHandler<WindowEvent>() {
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    myAccount_button.setDisable(true);
-					    listAllClients_button.setDisable(true);
-					    addPromotion_button.setDisable(true);
-					    listAllWorkers_button.setDisable(true);
-					    removeClient_button.setDisable(true);
-					    removeWorker_button.setDisable(true);
-					    addWorker_button.setDisable(true);
-					    finantialStatus_button.setDisable(true);
-					    logOut_button.setDisable(true);
-					    minButton.setDisable(true);
-					    exitButton.setDisable(true);
+					    setAllButtonsOff();
 					}
 				});
-				my_account.setOnHiding(new EventHandler<WindowEvent>() {		
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						myAccount_button.setDisable(false);
-					    listAllClients_button.setDisable(false);
-					    addPromotion_button.setDisable(false);
-					    listAllWorkers_button.setDisable(false);
-					    removeClient_button.setDisable(false);
-					    removeWorker_button.setDisable(false);
-					    addWorker_button.setDisable(false);
-					    finantialStatus_button.setDisable(false);
-					    logOut_button.setDisable(false);
-					    minButton.setDisable(false);
-					    exitButton.setDisable(false);
+						setAllButtonsOn();
 						menu_window.setEffect(null);
 					}
 				});		
-				my_account.show();
+				stage_window.show();
 			} catch (IOException director_account_error) {
 				director_account_error.printStackTrace();
 				System.exit(0);
 			
+			}
+		});
+		
+		removeClient_button.setOnAction((ActionEvent) -> {
+			try {
+				RemoveClientController.setValues(manager_object);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveClientView.fxml"));
+				Parent root = (Parent) loader.load();
+				RemoveClientController client_controller = new RemoveClientController();
+				client_controller = loader.getController();
+				client_controller.getDeleteAccountButton().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});	
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    setAllButtonsOff();
+					}
+				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						setAllButtonsOn();
+						refreshtransactionListView();
+						menu_window.setEffect(null);
+					}
+				});		
+				stage_window.show();
+			} catch(IOException delete_client_error) {
+				delete_client_error.printStackTrace();
+				System.exit(0);
+			}
+		});
+		
+		removeWorker_button.setOnAction((ActionEvent) -> {
+			try {
+				RemoveWorkerController.setValues(manager_object);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveWorkerView.fxml"));
+				Parent root = (Parent) loader.load();
+				RemoveWorkerController worker_controller = new RemoveWorkerController();
+				worker_controller = loader.getController();
+				worker_controller.getDeleteAccountButton().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});	
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+					    setAllButtonsOff();
+					}
+				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						setAllButtonsOn();
+						refreshtransactionListView();
+						menu_window.setEffect(null);
+					}
+				});		
+				stage_window.show();
+			} catch(IOException delete_client_error) {
+				delete_client_error.printStackTrace();
+				System.exit(0);
 			}
 		});
 		
@@ -200,18 +262,28 @@ public class DirectorMenuController implements Initializable {
 			}
 		});
 		transaction_date.setResizable(false);
-		
-		ObservableList<TransactionListObject> transactions_objects = FXCollections.observableArrayList();
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
-		
 		for(Transaction transaction: transactions_list) {
 			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
 					, transaction.getTransaction_date().toString()));
 		}
-		final TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.getColumns().setAll(client_name, amount, units, transaction_date);
 		transactions_tree_view.setRoot(root);
 		transactions_tree_view.setShowRoot(false);
+	}
+	
+	// -----> REFRESH TRANSACTION LIST VIEW <-----
+	
+	public void refreshtransactionListView() {
+		transactions_objects.clear();
+		List<Transaction> transactions_list = manager_object.List_all_transactions();
+		for(Transaction transaction: transactions_list) {
+			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
+					, transaction.getTransaction_date().toString()));
+		}
+		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		transactions_tree_view.refresh();
 	}
 
 	// -----> BUTTOM METHODS <-----
@@ -270,6 +342,36 @@ public class DirectorMenuController implements Initializable {
 
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
+	}
+
+	// -----> ANABLE/DISABLE BUTTONS <-----
+	
+	public void setAllButtonsOff() {
+	    myAccount_button.setDisable(true);
+	    listAllClients_button.setDisable(true);
+	    addPromotion_button.setDisable(true);
+	    listAllWorkers_button.setDisable(true);
+	    removeClient_button.setDisable(true);
+	    removeWorker_button.setDisable(true);
+	    addWorker_button.setDisable(true);
+	    finantialStatus_button.setDisable(true);
+	    logOut_button.setDisable(true);
+	    minButton.setDisable(true);
+	    exitButton.setDisable(true);
+	}
+	
+	public void setAllButtonsOn() {
+		myAccount_button.setDisable(false);
+	    listAllClients_button.setDisable(false);
+	    addPromotion_button.setDisable(false);
+	    listAllWorkers_button.setDisable(false);
+	    removeClient_button.setDisable(false);
+	    removeWorker_button.setDisable(false);
+	    addWorker_button.setDisable(false);
+	    finantialStatus_button.setDisable(false);
+	    logOut_button.setDisable(false);
+	    minButton.setDisable(false);
+	    exitButton.setDisable(false);
 	}
 }
 

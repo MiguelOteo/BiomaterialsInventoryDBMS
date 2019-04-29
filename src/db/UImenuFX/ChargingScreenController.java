@@ -89,11 +89,11 @@ public class ChargingScreenController implements Initializable {
 					    }
 					}
 				} else {
-					System.out.println("El usuario ya existe");
+					manager.Close_connection();
 				}
 			} else {
 				if (this.user_type == null) {
-					System.out.println("No existe ese usuario");
+					manager.Close_connection();
 				} else {
 					if (this.user_type.equals("Client")) {
 						User new_user = manager.Insert_new_user(user_name, password);
@@ -106,14 +106,14 @@ public class ChargingScreenController implements Initializable {
 							Director director = manager.Insert_new_director(new_user);
 							charge_director_main_menu(director);
 							LaunchApplication.getStage().hide();
-						} else {
+						} else { 
 							if (this.user_type.equals("Worker")) {
 								User new_user = manager.Insert_new_user(user_name, password);
-								System.out.println(user);
 								Worker worker = manager.Insert_new_worker(new_user);
 								charge_worker_main_menu(worker);
 								LaunchApplication.getStage().hide();
 							} else {
+								manager.Close_connection();
 								System.exit(0);
 							}
 						}
