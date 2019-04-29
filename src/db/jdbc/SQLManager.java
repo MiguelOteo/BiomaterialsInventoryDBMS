@@ -702,7 +702,7 @@ public class SQLManager implements Interface{
                 biomaterial.setAvailable_units(result_set.getInt("available_units"));
                 biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
                 biomaterial.setName_product(result_set.getString("name_product"));
-                biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+                biomaterial.setPrice_unit(result_set.getInt("price_unit"));
                 biomaterial.setBiomaterial_id(biomaterial_id);
                 Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
                 biomaterial.setUtility(utility);
@@ -882,7 +882,7 @@ public class SQLManager implements Interface{
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
 				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
 				biomaterial.setMaintenance(maintenance);
-				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+				biomaterial.setPrice_unit(result_set.getInt("price_unit"));
 				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
 				biomaterial.setUtility(utility);
 				biomaterials_list.add(biomaterial);

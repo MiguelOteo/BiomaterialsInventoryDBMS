@@ -70,6 +70,16 @@
 	-fx-text-fill: #3e7384;
 }
 
+.features_button {
+	-fx-background-color: rgb(239,239,239);
+	-fx-border-color: #4f90a5;
+	-fx-font-weight: bold;
+	-fx-font-size: 18;
+	-fx-border-width: 2;
+    -fx-border-radius: 1.5;
+	
+}
+
 .log_out_buttom {
 	-fx-text-fill: rgba(0,0,0,0.5);
 	-fx-background-color: #4f90a5;
