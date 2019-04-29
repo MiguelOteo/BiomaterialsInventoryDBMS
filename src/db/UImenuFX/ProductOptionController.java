@@ -26,7 +26,6 @@ public class ProductOptionController  implements Initializable {
 	//-------> CLASS ATTRIBUTES <----------
 	private static SQLManager manager_object;
 	private OrderProductController order_controller;
-	private WorkerMenuController controller;
 	
 	//-------> FXML ATTRIBUTES <----------
     @FXML
@@ -60,7 +59,7 @@ public class ProductOptionController  implements Initializable {
 				Parent root = (Parent) loader.load();
 				NewProductController newProduct_controller = new NewProductController();
 				newProduct_controller = loader.getController();
-				newProduct_controller.getMenu_window().setEffect(null);
+				
 				
 				Stage stage = new Stage();
 				stage.initStyle(StageStyle.UNDECORATED);
@@ -78,28 +77,17 @@ public class ProductOptionController  implements Initializable {
 		
 		orderProduct_button.setOnAction((ActionEvent event) -> {
 			try {
-				/*				
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
-				Parent root = (Parent) loader.load();
-				controller = new WorkerMenuController();
-				controller = loader.getController();
-				*/
-				
 				OrderProductController.setValues(manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderProductView.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
 				Parent root = (Parent) loader.load();
 				order_controller = new OrderProductController();
 				order_controller = loader.getController();
 				
-				
-				
 				Stage stage = new Stage();
 				stage.setOnShowing((event_handler) -> {
 					try {
-						//this.controller.open_order_panel(event_handler);
 						this.order_controller.open_order_panel(event_handler);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
@@ -108,6 +96,8 @@ public class ProductOptionController  implements Initializable {
 				stage.setScene(new Scene(root));
 				stage.show();
 				
+				Stage previous_stage = (Stage) menu_window.getScene().getWindow();
+				previous_stage.close();
 			
 			} catch (IOException access_new_error) {
 				access_new_error.printStackTrace();

@@ -413,12 +413,6 @@ public class WorkerMenuController implements Initializable {
 		}
 
 	
-		@FXML
-		public void open_order_panel(WindowEvent event_handler) throws IOException {
-			Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
-			this.order_controller.getWorker_main_menu().getChildren().removeAll();
-			this.order_controller.getWorker_menu_pane().getChildren().setAll(menu_panel);
-		}
 	
 	
 }

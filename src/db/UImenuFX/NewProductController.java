@@ -28,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class NewProductController implements Initializable {
 	
@@ -36,62 +37,50 @@ public class NewProductController implements Initializable {
 		
 	// -----> FXML ATTRIBUTES <-----
 	
-    @FXML
-    private AnchorPane menu_window;
-    @FXML
-    private Pane menu_main_pane;
-    @FXML
-    private JFXButton conclude_button;
-    @FXML
-    private JFXTextField name_field;
-    @FXML
-    private Spinner<Integer> price_button;
-    @FXML
-    private Spinner<Integer> units_button;
-    @FXML
-    private JFXDatePicker date_picker;
-    @FXML
-    private JFXCheckBox utility_button;
-    @FXML
-    private JFXCheckBox maintenance_button;
-    @FXML
-    private JFXButton logOut_button;
-    @FXML
-    private JFXButton myAccount_button;
-    @FXML
-    private JFXButton listInventory_button;
-    @FXML
-    private JFXButton addProduct_button;
-    @FXML
-    private JFXButton removeProduct_button;
-    @FXML
-    private JFXButton listTransactions_button;
-    @FXML
-    private JFXButton listClients_button;
-    @FXML
-    private Label current_option_label;
-    @FXML
-    private ImageView exitButton;
-    @FXML
-    private ImageView minButton;
-    @FXML
-    private Label worker_name;
-    @FXML
-    private Label email;
-    @FXML
-    private Label telephone;
-    @FXML
-    private Stage stage;
+		@FXML
+	    private Pane new_product_pane;
+
+	    @FXML
+	    private JFXButton conclude_button;
+
+	    @FXML
+	    private JFXTextField name_field;
+
+	    @FXML
+	    private Spinner<Float> price_button;
+
+	    @FXML
+	    private Spinner<Integer> units_button;
+
+	    @FXML
+	    private JFXDatePicker date_picker;
+
+	    @FXML
+	    private Pane features_pane;
+
+	    @FXML
+	    private JFXCheckBox utility_button;
+
+	    @FXML
+	    private JFXCheckBox maintenance_button;
     
     
     
     
  // -----> GETTERS AND SETTERS <-----
     
-    public JFXButton getConclude_button() {
-		return conclude_button;
+    
+	public Pane getFeatures_pane() {
+		return features_pane;
 	}
 
+	public void setFeatures_pane(Pane features_pane) {
+		this.features_pane = features_pane;
+	}
+	
+	public JFXButton getConclude_button() {
+			return conclude_button;
+	}
 	public void setConclude_button(JFXButton conclude_button) {
 		this.conclude_button = conclude_button;
 	}
@@ -104,11 +93,11 @@ public class NewProductController implements Initializable {
 		this.name_field = name_field;
 	}
 
-	public Spinner<Integer> getPrice_button() {
+	public Spinner<Float> getPrice_button() {
 		return price_button;
 	}
 
-	public void setPrice_button(Spinner<Integer> price_button) {
+	public void setPrice_button(Spinner<Float> price_button) {
 		this.price_button = price_button;
 	}
 
@@ -143,23 +132,19 @@ public class NewProductController implements Initializable {
 	public void setMaintenance_button(JFXCheckBox maintenance_button) {
 		this.maintenance_button = maintenance_button;
 	}
-	
-	public AnchorPane getMenu_window() {
-		return menu_window;
+    
+    public Pane getNew_product_pane() {
+		return new_product_pane;
 	}
 
-	public void setMenu_window(AnchorPane menu_window) {
-		this.menu_window = menu_window;
+	public void setNew_product_pane(Pane new_product_pane) {
+		this.new_product_pane = new_product_pane;
 	}
-
-	public void getNew_product_menu() {
-		
-	}
-    
-    
     
  // -----> METHODS <-----
     
+	
+
 	public NewProductController() {
 		super();
 		this.price_button = new Spinner(0, 100000, 0);
@@ -174,18 +159,6 @@ public class NewProductController implements Initializable {
 	
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			/*
-			
-			
-			*/
-			Stage stage = (Stage) menu_window.getScene().getWindow();
-			stage.close();
-			
-		} catch (Exception insertion_error) {
-			insertion_error.printStackTrace();
-		}
-		
 		conclude_button.setOnAction((ActionEvent event) -> {
 			try {
 				String product_name = name_field.getText();
@@ -209,12 +182,12 @@ public class NewProductController implements Initializable {
 				manager_object.Insert_new_biomaterial(biomaterial);
 				System.out.println("Biomaterial saved into database");
 				
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("NewProductView.fxml"));
 				Parent root = (Parent) loader.load();
 				WorkerMenuController worker_controller = new WorkerMenuController();
 				worker_controller = loader.getController();
 				worker_controller.getAnchorPane().setEffect(null);
-					stage = new Stage();
+					Stage stage = new Stage();
 					stage.initStyle(StageStyle.UNDECORATED);
 					stage.setAlwaysOnTop(true);
 					stage.setScene(new Scene(root));
@@ -231,31 +204,15 @@ public class NewProductController implements Initializable {
 		});
 		
 		
+    }
+
     
-}
+    @FXML
+	public void open_newProduct_panel(WindowEvent event_handler) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("OrderProductView.fxml"));
+		this.features_pane.getChildren().removeAll();
+		this.features_pane.getChildren().setAll(menu_panel);
+	}
     
- // -----> BUTTON METHODS <-----
-
-	@FXML
-    void close_app(MouseEvent event) {
-    	System.exit(0);
-    }
-
-    @FXML
-    void log_out(MouseEvent event) {
-    	LaunchApplication.getStage().show();
-		Stage stage = (Stage) logOut_button.getScene().getWindow();
-		stage.close();
-    }
-
-    @FXML
-    void min_window(MouseEvent event) {
-    	Stage stage = (Stage) menu_main_pane.getScene().getWindow();
-		stage.setIconified(true);
-    }
-
-
-	
-
 }
 
