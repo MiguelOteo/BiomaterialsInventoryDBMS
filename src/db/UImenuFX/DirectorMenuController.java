@@ -35,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -53,6 +54,8 @@ public class DirectorMenuController implements Initializable {
 	private AnchorPane menu_window;
 	@FXML
 	private Pane menu_main_pane;
+	@FXML
+	private Pane pane_backup;
 	@FXML
 	private Pane main_pane;
 	@FXML
@@ -107,6 +110,7 @@ public class DirectorMenuController implements Initializable {
 
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		this.pane_backup = menu_main_pane;
 		finantialStatus_button.setDisable(true);
 		
 		myAccount_button.setOnAction((ActionEvent) -> {
@@ -132,13 +136,12 @@ public class DirectorMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
+						stage_window.initModality(Modality.APPLICATION_MODAL);
 					}
 				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						setAllButtonsOn();
 						menu_window.setEffect(null);
 					}
 				});		
@@ -172,13 +175,12 @@ public class DirectorMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
+						stage_window.initModality(Modality.APPLICATION_MODAL);
 					}
 				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						setAllButtonsOn();
 						refreshtransactionListView();
 						menu_window.setEffect(null);
 					}
@@ -207,19 +209,17 @@ public class DirectorMenuController implements Initializable {
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
 				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
+				stage_window.setAlwaysOnTop(true);		
 				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
+						stage_window.initModality(Modality.APPLICATION_MODAL);
 					}
 				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						setAllButtonsOn();
-						refreshtransactionListView();
 						menu_window.setEffect(null);
 					}
 				});		
@@ -274,6 +274,7 @@ public class DirectorMenuController implements Initializable {
 					, transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
+		transactions_tree_view.setPlaceholder(new Label("No transactions found"));
 		transactions_tree_view.getColumns().setAll(client_name, amount, units, transaction_date);
 		transactions_tree_view.setRoot(root);
 		transactions_tree_view.setShowRoot(false);
@@ -306,11 +307,11 @@ public class DirectorMenuController implements Initializable {
 	
 	@FXML
 	private void finantial_status_button(MouseEvent event) throws IOException { 
-		current_pane_option_label.setText("Finantial status");
 		setAllButtonsOn();
 		finantialStatus_button.setDisable(true);
 		Parent root = FXMLLoader.load(getClass().getResource("DirectorMenuView.fxml"));
 		stage_main.getScene().setRoot(root);
+		// TODO - Labels
 	}
 
 	@FXML
