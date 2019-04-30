@@ -137,7 +137,7 @@ public class UtilMethods {
 		manager.Insert_new_maintenance(maintenance);
 		Utility utility = new Utility("Hot", "None", "High", (float) 1, (float) 302);
 		manager.Insert_new_utility(utility);
-		manager.Insert_new_biomaterial(new Biomaterial(utility, maintenance, "Polysulphur", (float) 100, 1000, Date.valueOf(exp_date)));
+		manager.Insert_new_biomaterial(new Biomaterial(utility, maintenance, "Polysulphur", 100, 1000, Date.valueOf(exp_date)));
 
 	}
 

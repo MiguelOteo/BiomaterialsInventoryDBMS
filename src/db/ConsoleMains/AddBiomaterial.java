@@ -28,7 +28,7 @@ public class AddBiomaterial {
 		Integer maintenance_id = manager.Insert_new_maintenance(maintenance);
 		maintenance = manager.Search_maintenance_by_id(maintenance_id);
 		
-		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", (float)34.2, 30, Date.valueOf("3424-06-03"));
+		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", 34, 30, Date.valueOf("3424-06-03"));
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		
