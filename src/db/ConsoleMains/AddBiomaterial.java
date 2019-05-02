@@ -20,15 +20,9 @@ public class AddBiomaterial {
 			everything_ok = manager.Create_tables();
 		}
 		
-		Utility utility = new Utility("cold", "yes", "no", (float)34.7, (float)65.85);
-		Integer utility_id = manager.Insert_new_utility(utility);
-		utility = manager.Search_utility_by_id(utility_id);
 		
-		Maintenance maintenance = new Maintenance((float)34.6, "yes", "yes", 34, (float)54.7, "yes", "others");
-		Integer maintenance_id = manager.Insert_new_maintenance(maintenance);
-		maintenance = manager.Search_maintenance_by_id(maintenance_id);
 		
-		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", 34, 30, Date.valueOf("3424-06-03"));
+		Biomaterial biomaterial = new Biomaterial(null, null, "Plastic", 34, 30, Date.valueOf("2424-06-03"));
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		

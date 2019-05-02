@@ -36,6 +36,7 @@ public class NewProductController implements Initializable {
 	
 		private static SQLManager manager_object;
 		private static WorkerMenuController worker_controller;
+		private static Biomaterial biomaterial;
 		
 	// -----> FXML ATTRIBUTES <-----
 		
@@ -98,6 +99,10 @@ public class NewProductController implements Initializable {
 	public static void setValues(WorkerMenuController controller) {
 		worker_controller = controller;
 	}
+	
+	public Biomaterial getBiomaterial() {
+		return biomaterial;
+	}
     
     @SuppressWarnings("unlikely-arg-type")
 	@Override
@@ -143,7 +148,7 @@ public class NewProductController implements Initializable {
 		features_button.setOnAction((ActionEvent event) -> {
 			try {
 				
-				FeaturesController.setValues(manager_object);
+				FeaturesController.setValues(manager_object/*, worker_controller*/);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductFeaturesView.fxml"));
 				Parent root = (Parent) loader.load();
 				FeaturesController controller = loader.getController();
@@ -165,7 +170,7 @@ public class NewProductController implements Initializable {
     }
     
     
-	@SuppressWarnings("unlikely-arg-type")
+    @SuppressWarnings("unlikely-arg-type")
 	@FXML
     public Biomaterial add_new_biomaterial(ActionEvent event) {
     	String product_name = name_field.getText();
@@ -189,7 +194,7 @@ public class NewProductController implements Initializable {
 			
 			//NULL ERROR A LA HORA DE REGISTRAR EL BIOMATERIAL PORQUE NO LE INSERTO AUN LOS ULTIMOS 2 ATRIBUTOS
 			if(!product_name.equals(manager_object.Search_stored_biomaterial(biomaterial))) {
-
+				FeaturesController.setBiomaterial(biomaterial);
 				manager_object.Insert_new_biomaterial(biomaterial);
 	
 			} else {

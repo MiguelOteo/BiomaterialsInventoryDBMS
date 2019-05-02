@@ -12,6 +12,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
+import db.pojos.Maintenance;
 import db.pojos.Utility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -35,16 +36,17 @@ public class FeaturesController implements Initializable {
 	//----------------> CLASS ATTRIBUTES <-----------------
 	
 	private static SQLManager manager_object;
-	private static NewProductController controller;
+	private static NewProductController product;
+	private static Biomaterial biomaterial;
 	
 	
 	//----------------> FXML ATTRIBUTES <------------------
-    @FXML
-    private AnchorPane account_window;
-    @FXML
-    private JFXButton done_button;
-    @FXML
-    private ImageView close_button;
+	@FXML
+	private AnchorPane account_window;
+	@FXML
+	private JFXButton done_button;
+	@FXML
+	private ImageView close_button;
     @FXML
     private JFXTreeTableView<UtilityListObject> utility_tree_view;
     @FXML
@@ -63,10 +65,14 @@ public class FeaturesController implements Initializable {
     
     //--------------------> MAIN FUNCTIONS <-----------------
     
-    public static void setValues(SQLManager manager) {
+    public static void setValues(SQLManager manager/*, WorkerMenuController worker_controller*/) {
     	manager_object = manager;
+    	//controller = worker_controller;
     }
     
+    public static void setBiomaterial(Biomaterial biomat) {
+    	biomaterial = biomat;
+    }
     
 
 	@Override
@@ -74,6 +80,7 @@ public class FeaturesController implements Initializable {
 		// TODO Auto-generated method stub
 		
 		
+		//Table generators
 		JFXTreeTableColumn<UtilityListObject, String> utilities = new JFXTreeTableColumn<>("Utilities");
 		utilities.setPrefWidth(100);
 		utilities.setCellValueFactory(
@@ -99,14 +106,54 @@ public class FeaturesController implements Initializable {
 
 		
 		
+		JFXTreeTableColumn<MaintenanceListObject, String> maintenances = new JFXTreeTableColumn<>("Maintenance");
+		maintenances.setPrefWidth(100);
+		maintenances.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().maintenance;
+					}
+				});
+		maintenances.setResizable(false);
+		
+		ObservableList<MaintenanceListObject> maintenance_objects = FXCollections.observableArrayList();
+		List<Maintenance> maintenance_list = manager_object.List_all_maintenances();
+		
+		for(Maintenance maintenance: maintenance_list) {
+			maintenance_objects.add(new MaintenanceListObject(maintenance.getManteinance_id().toString()));
+		}
+		
+		TreeItem<MaintenanceListObject> root_maint = new RecursiveTreeItem<MaintenanceListObject>(maintenance_objects, RecursiveTreeObject::getChildren);
+		maintenance_tree_view.getColumns().setAll(maintenances);
+		maintenance_tree_view.setRoot(root_maint);
+		maintenance_tree_view.setShowRoot(false);
+		
+		
 		
 		done_button.setOnAction((ActionEvent event) -> {
+			
 			TreeItem<UtilityListObject> utility_object = utility_tree_view.getSelectionModel().getSelectedItem();
+			TreeItem<MaintenanceListObject> maintenance_object = maintenance_tree_view.getSelectionModel().getSelectedItem();
 		
-			if (utility_object != null) {
-				Biomaterial biomaterial = manager_object.Search_stored_biomaterial(controller.add_new_biomaterial(event));
+			if (utility_object != null | maintenance_object != null) {
+				biomaterial = product.getBiomaterial();
+				System.out.println("biomaterial id: " + biomaterial.getBiomaterial_id());
+				
+				Integer utility_id = Integer.parseInt(utility_object.getValue().utility.getValue().toString());
+				Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance.getValue().toString());
+					Utility utility = manager_object.Search_utility_by_id(utility_id);
+					Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
+					biomaterial.setUtility(utility);
+					biomaterial.setMaintenance(maintenance);
+				manager_object.Update_biomaterial_features(biomaterial);
 				
 			}
+			
+			
+			Stage stage = (Stage) account_window.getScene().getWindow();
+			stage.close();
+			
 		});
 			
 		

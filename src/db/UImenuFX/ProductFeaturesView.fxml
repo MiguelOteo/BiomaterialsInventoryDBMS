@@ -30,7 +30,7 @@
             </ImageView>
             <Label layoutX="70.0" layoutY="16.0" prefHeight="28.0" prefWidth="101.0" text="Features">
                <font>
-                  <Font name="Ebrima Bold" size="16.0" />
+                  <Font name="Ebrima Bold" size="18.0" />
                </font>
             </Label>
             <ImageView fx:id="close_button" fitHeight="28.0" fitWidth="40.0" layoutX="477.0" layoutY="14.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
@@ -38,8 +38,18 @@
                   <Image url="@src.IconPictures/window-close.png" />
                </image>
             </ImageView>
-            <JFXTreeTableView fx:id="utility_tree_view" layoutX="12.0" layoutY="68.0" prefHeight="391.0" prefWidth="247.0" />
-            <JFXTreeTableView fx:id="maintenance_tree_view" layoutX="269.0" layoutY="68.0" prefHeight="391.0" prefWidth="247.0" />
+            <JFXTreeTableView fx:id="utility_tree_view" layoutX="12.0" layoutY="109.0" prefHeight="350.0" prefWidth="247.0" />
+            <JFXTreeTableView fx:id="maintenance_tree_view" layoutX="269.0" layoutY="109.0" prefHeight="350.0" prefWidth="247.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="74.0" prefHeight="28.0" prefWidth="101.0" text="Utility" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="74.0" prefHeight="28.0" prefWidth="101.0" text="Maintenance" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

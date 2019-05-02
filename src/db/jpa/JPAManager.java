@@ -183,6 +183,14 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
+	public List<Utility> List_all_utilities(){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public List<Maintenance> List_all_maintenances() {
+		System.out.println("Not implemented");
+		return null;
+	}
 	
 	
 	/*  ---------------   UPDATE METHODS JPA   ------------------*/
@@ -298,6 +306,11 @@ public class JPAManager implements Interface {
 		return false;
 	}
 	
+	public boolean Update_biomaterial_features(Biomaterial biomaterial) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	
 	
 	/*  ---------------   DELETE METHODS JPA   ------------------*/
 	
@@ -355,6 +368,15 @@ public class JPAManager implements Interface {
 		return false;
 	}
 	
+	public boolean Delete_transaction_from_client(Transaction transaction) {
+		System.out.println("Not implemented");
+		return false;
+	}
+	
+	public boolean Delete_biomaterial_by_id(Integer biomat_id) {
+		System.out.println("Not implemented");
+		return false;
+	}
 	/*  ---------------   READ METHODS JPA   ------------------*/
 	
 	public Client Search_stored_client(User user) {
@@ -432,6 +454,10 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
+	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial) {
+		System.out.println("Not implemented");
+		return null;
+	}
 	public User Search_user_by_id(Integer user_id) {
 		System.out.println("Not implemented");
 		return null;
@@ -440,7 +466,31 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
+	public Client Search_client_by_id (Integer client_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Worker Search_worker_by_id (Integer worker_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
 	public List<Transaction> Search_stored_transaction(Client client){
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Transaction Search_transaction_by_id(Integer transaction_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Biomaterial Search_biomaterial_by_id (Integer biomaterial_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Maintenance Search_maintenance_by_id (Integer maintenance_id) {
+		System.out.println("Not implemented");
+		return null;
+	}
+	public Utility Search_utility_by_id (Integer utility_id) {
 		System.out.println("Not implemented");
 		return null;
 	}
