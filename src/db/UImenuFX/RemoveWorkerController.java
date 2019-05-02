@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -86,6 +87,7 @@ public class RemoveWorkerController implements Initializable{
 				worker_objects.add(new WorkerListObject(worker.getUser().getUserName(), worker.getUser().getUserId().toString(), worker.getWorker_id().toString()));
 			}
 			TreeItem<WorkerListObject> root = new RecursiveTreeItem<WorkerListObject>(worker_objects, RecursiveTreeObject::getChildren);
+			worker_tree_view.setPlaceholder(new Label("No workers found"));
 			worker_tree_view.getColumns().setAll(user_name, worker_id, user_id);
 			worker_tree_view.setRoot(root);
 			worker_tree_view.setShowRoot(false);
@@ -93,7 +95,6 @@ public class RemoveWorkerController implements Initializable{
 			delete_account_button.setOnAction((ActionEvent event) -> {
 				TreeItem<WorkerListObject> worker_object = worker_tree_view.getSelectionModel().getSelectedItem();
 				if(worker_object != null) {
-					System.out.println(worker_object.getValue().user_id.getValue().toString());
 					manager_object.Delete_stored_user(Integer.parseInt(worker_object.getValue().user_id.getValue().toString()));
 					Stage stage = (Stage) account_window.getScene().getWindow();
 					stage.close();

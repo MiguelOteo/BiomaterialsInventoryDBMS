@@ -78,7 +78,6 @@ public class RegistrationController implements Initializable {
 						stage.setAlwaysOnTop(true);
 						stage.setScene(new Scene(root));
 						stage.show();
-						
 						PauseTransition wait = new PauseTransition(Duration.seconds(2));
 						wait.setOnFinished(new EventHandler<ActionEvent>() {
 							@Override

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="account_window" prefHeight="525.0" prefWidth="538.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.FeaturesController">
+   <children>
+      <Pane layoutX="5.0" layoutY="5.0" prefHeight="515.0" prefWidth="528.0" styleClass="white_color">
+         <children>
+            <JFXButton fx:id="done_button" layoutX="213.0" layoutY="468.0" prefHeight="28.0" prefWidth="101.0" styleClass="starter_small_buttom" text="Done" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="60.0" fitWidth="528.0">
+               <image>
+                  <Image url="@src.IconPictures/UpperBarSmall.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/logoNegro.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="70.0" layoutY="16.0" prefHeight="28.0" prefWidth="101.0" text="Features">
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="close_button" fitHeight="28.0" fitWidth="40.0" layoutX="477.0" layoutY="14.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src.IconPictures/window-close.png" />
+               </image>
+            </ImageView>
+            <JFXTreeTableView fx:id="utility_tree_view" layoutX="12.0" layoutY="109.0" prefHeight="350.0" prefWidth="247.0" />
+            <JFXTreeTableView fx:id="maintenance_tree_view" layoutX="269.0" layoutY="109.0" prefHeight="350.0" prefWidth="247.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="74.0" prefHeight="28.0" prefWidth="101.0" text="Utility" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="74.0" prefHeight="28.0" prefWidth="101.0" text="Maintenance" textFill="#4f90a5">
+               <font>
+                  <Font name="Ebrima Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

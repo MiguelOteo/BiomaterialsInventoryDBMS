@@ -30,7 +30,7 @@ public class Biomaterial implements Serializable{
 	@XmlElement
 	private String name_product;
 	@XmlAttribute
-	private Float price_unit;
+	private Integer price_unit;
 	@XmlAttribute
 	private Integer available_units;
 	@XmlAttribute
@@ -42,7 +42,7 @@ public class Biomaterial implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Biomaterial(Utility utility, Maintenance maintenance, String name_product, Float price_unit,
+	public Biomaterial(Utility utility, Maintenance maintenance, String name_product, Integer price_unit,
 			Integer available_units, Date expiration_date) {
 		super();
 		this.utility = utility;
@@ -85,11 +85,11 @@ public class Biomaterial implements Serializable{
 		this.name_product = name_product;
 	}
 	
-	public Float getPrice_unit() {
+	public Integer getPrice_unit() {
 		return price_unit;
 	}
 	
-	public void setPrice_unit(Float price_unit) {
+	public void setPrice_unit(Integer price_unit) {
 		this.price_unit = price_unit;
 	}
 	

@@ -90,16 +90,16 @@ public class SQLManager implements Interface{
 			Statement statement_6 = this.sqlite_connection.createStatement();
 			String table_6 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " heat_cold INTEGER default NULL, " + " flexibility TEXT default 'no', "
-					+ " resistance TEXT default 'yes', " + " pressure REAL NOT NULL default 1, "
-					+ " strength REAL NOT NULL)";
+					+ " resistance TEXT default 'yes', " + " pressure REAL default 1, "
+					+ " strength REAL)";
 			statement_6.execute(table_6);
 			statement_6.close();
 
 			Statement statement_7 = this.sqlite_connection.createStatement();
 			String table_7 = "CREATE TABLE maintenance " + "(maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " pressure REAL NOT NULL default 1, " + " humidity INT NOT NULL default 50, "
+					+ " pressure REAL default 1, " + " humidity INT default 50, "
 					+ " O2_supply TEXT default 'no', " + " light TEXT default 'no', "
-					+ " temperature REAL NOT NULL default 20, " + " compatibility TEXT, "
+					+ " temperature REAL default 20, " + " compatibility TEXT, "
 					+ " others TEXT default NULL)";
 			statement_7.execute(table_7);
 			statement_7.close();
@@ -180,7 +180,6 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
-			System.out.println(user);
 			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
@@ -383,15 +382,15 @@ public class SQLManager implements Interface{
 	// Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date)
 	public Integer Insert_new_biomaterial(Biomaterial biomaterial) {
 		try {
-			String table = "INSERT INTO biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date) "
-					+ "VALUES (?,?,?,?,?,?);";
+			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date) "
+					+ "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			template.setInt(1, biomaterial.getUtility().getUtility_id());
+			/*template.setInt(1, biomaterial.getUtility().getUtility_id());
 			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
-			template.setString(3, biomaterial.getName_product());
-			template.setFloat(4, biomaterial.getPrice_unit());
-			template.setInt(5, biomaterial.getAvailable_units());
-			template.setDate(6, biomaterial.getExpiration_date());
+			*/template.setString(1, biomaterial.getName_product());
+			template.setFloat(2, biomaterial.getPrice_unit());
+			template.setInt(3, biomaterial.getAvailable_units());
+			template.setDate(4, biomaterial.getExpiration_date());
 			template.executeUpdate();
 			template.close();
 			
@@ -466,6 +465,21 @@ public class SQLManager implements Interface{
 			template.setInt(2, category.getMaximum());
 			template.setInt(3, category.getMinimum());
 			template.setInt(4, category.getCategory_id());
+			template.close();	
+			return true;
+		} catch (SQLException update_category_error) {
+			update_category_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Update_biomaterial_features(Biomaterial biomaterial) {
+		try {
+			String SQL_code = "UPDATE biomaterial SET utility_id = ?, maintenance_id = ? WHERE biomaterial_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomaterial.getUtility().getUtility_id());
+			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
+			template.setInt(3, biomaterial.getBiomaterial_id());
 			template.close();	
 			return true;
 		} catch (SQLException update_category_error) {
@@ -550,6 +564,28 @@ public class SQLManager implements Interface{
 			worker.setEmail(result_set.getString("email"));
 			worker.setTelephone(result_set.getInt("telephone"));
 			worker.setUser(user);
+			template.close();
+			return worker;
+		} catch (SQLException search_worker_error) {
+			return null;
+		}
+	}
+	
+	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial) {
+		try {
+			String SQL_code = "SELECT * FROM boimaterial WHERE biomaterial_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomaterial.getBiomaterial_id());
+			ResultSet result_set = template.executeQuery();
+			Biomaterial worker = new Biomaterial();
+			biomaterial.setAvailable_units(result_set.getInt("available_units"));
+			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
+			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+			biomaterial.setName_product(result_set.getString("name_product"));
+			biomaterial.setPrice_unit(result_set.getInt("price_unit"));
+			biomaterial.setUtility(Search_utility_by_id(result_set.getInt("utility_id")));
+			biomaterial.setMaintenance(Search_maintenance_by_id(result_set.getInt("maintenance_id")));
+			
 			template.close();
 			return worker;
 		} catch (SQLException search_worker_error) {
@@ -703,12 +739,12 @@ public class SQLManager implements Interface{
                 biomaterial.setAvailable_units(result_set.getInt("available_units"));
                 biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
                 biomaterial.setName_product(result_set.getString("name_product"));
-                biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
+                biomaterial.setPrice_unit(result_set.getInt("price_unit"));
                 biomaterial.setBiomaterial_id(biomaterial_id);
-                Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
+                /*Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
                 biomaterial.setUtility(utility);
                 Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
-                biomaterial.setMaintenance(maintenance);
+                biomaterial.setMaintenance(maintenance);*/
                 template.close();
 				return biomaterial;
 			} catch (SQLException search_biomaterial_error) {
@@ -881,11 +917,12 @@ public class SQLManager implements Interface{
 				biomaterial.setAvailable_units(result_set.getInt("available_units"));
 				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
-				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
+				/*Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
 				biomaterial.setMaintenance(maintenance);
-				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
 				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
-				biomaterial.setUtility(utility);
+				biomaterial.setUtility(utility);*/
+				biomaterial.setPrice_unit(result_set.getInt("price_unit"));
+				
 				biomaterials_list.add(biomaterial);
 			}
 			statement.close();
@@ -895,6 +932,58 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	// List all utilities returning a linkedList with all of them
+		public List<Utility> List_all_utilities() {
+			try {
+				Statement statement = this.sqlite_connection.createStatement();
+				String SQL_code = "SELECT * FROM utility";
+				List<Utility> utilities_list = new LinkedList<Utility>();
+				ResultSet result_set = statement.executeQuery(SQL_code);
+				while (result_set.next()) {
+					Utility utility = new Utility();
+					utility.setFlexibility(result_set.getString("flexibility"));
+	                utility.setHeat_cold(result_set.getString("heat_cold"));
+	                utility.setPressure(result_set.getFloat("pressure"));
+	                utility.setResistance(result_set.getString("resistance"));
+	                utility.setStrength(result_set.getFloat("strength"));
+	                utility.setUtility_id(result_set.getInt("utility_id"));
+					utilities_list.add(utility);
+				}
+				statement.close();
+				return utilities_list;
+			} catch (SQLException list_utilities_error) {
+				list_utilities_error.printStackTrace();
+				return null;
+			}
+		}
+		
+		// List all maintenances returning a linkedList with all of them
+				public List<Maintenance> List_all_maintenances() {
+					try {
+						Statement statement = this.sqlite_connection.createStatement();
+						String SQL_code = "SELECT * FROM maintenance";
+						List<Maintenance> maintenance_list = new LinkedList<Maintenance>();
+						ResultSet result_set = statement.executeQuery(SQL_code);
+						while (result_set.next()) {
+							Maintenance maintenance = new Maintenance();
+							maintenance.setCompatibility(result_set.getString("compatibility"));
+			                maintenance.setHumidity(result_set.getInt("humidity"));
+			                maintenance.setLight(result_set.getString("light"));
+			                maintenance.setO2_supply(result_set.getString("o2_supply"));
+			                maintenance.setOthers(result_set.getString("others"));
+			                maintenance.setPressure(result_set.getFloat("pressure"));
+			                maintenance.setTemperature(result_set.getFloat("temperature"));
+			                maintenance.setManteinance_id(result_set.getInt("maintenance_id"));
+			                maintenance_list.add(maintenance);
+						}
+						statement.close();
+						return maintenance_list;
+					} catch (SQLException list_maintenances_error) {
+						list_maintenances_error.printStackTrace();
+						return null;
+					}
+				}
 	
 	// List all directors returning a linkedList with all of them
 	public List<Director> List_all_directors() {
@@ -992,6 +1081,21 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	
+	}
+	
+	public boolean Delete_biomaterial_by_id(Integer biomat_id) {
+		try {
+			String SQL_code = "DELETE FROM biomaterial WHERE biomaterial_id = ?;";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomat_id);
+			template.executeUpdate();
+			template.close();
+			return true;
+			
+		} catch (SQLException delete_biomaterial_error) {
+			delete_biomaterial_error.printStackTrace();
+			return false;
+		}
 	}
 	
 	// -----> CLOSE CONNECTION METHOD <-----

@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -85,9 +86,10 @@ public class RemoveClientController implements Initializable{
 		
 		List<Client> clients_list = manager_object.List_all_clients();
 		for(Client client: clients_list) {
-			clients_objects.add(new ClientListObject(client.getUser().getUserName(), client.getClient_id().toString(),client.getUser().getUserId().toString()));
+			clients_objects.add(new ClientListObject(client.getUser().getUserName(), client.getUser().getUserId().toString(), client.getClient_id().toString()));
 		}
 		TreeItem<ClientListObject> root = new RecursiveTreeItem<ClientListObject>(clients_objects, RecursiveTreeObject::getChildren);
+		clients_tree_view.setPlaceholder(new Label("No clients found"));
 		clients_tree_view.getColumns().setAll(user_name, client_id, user_id);
 		clients_tree_view.setRoot(root);
 		clients_tree_view.setShowRoot(false);
