@@ -26,7 +26,7 @@
             <SepiaTone />
          </effect>
       </Label>
-      <JFXButton fx:id="conclude_button" layoutX="750.0" layoutY="540.0" styleClass="starter_small_buttom" text="Conclude" textAlignment="CENTER" textFill="#4f90a5">
+      <JFXButton fx:id="conclude_button" layoutX="750.0" layoutY="540.0" onMouseClicked="#add_new_biomaterial" styleClass="starter_small_buttom" text="Conclude" textAlignment="CENTER" textFill="#4f90a5">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
@@ -49,7 +49,7 @@
       </Label>
       <JFXTextField fx:id="name_field" focusColor="#4f90a5" labelFloat="true" layoutX="217.0" layoutY="206.0" prefHeight="29.0" prefWidth="215.0" promptText="Product name" unFocusColor="#4d4d4d80" />
       <JFXDatePicker fx:id="date_picker" defaultColor="#4f90a5" layoutX="213.0" layoutY="451.0" promptText="Expiration date" />
-      <JFXButton fx:id="features_button" layoutX="641.0" layoutY="274.0" prefHeight="77.0" prefWidth="110.0" styleClass="features_button" stylesheets="@stylesheet.css" text="Features" textAlignment="CENTER" textFill="#4f90a5">
+      <JFXButton fx:id="features_button" layoutX="641.0" layoutY="274.0" onMouseClicked="#open_features_panel" prefHeight="77.0" prefWidth="110.0" styleClass="features_button" stylesheets="@stylesheet.css" text="Features" textAlignment="CENTER" textFill="#4f90a5">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>

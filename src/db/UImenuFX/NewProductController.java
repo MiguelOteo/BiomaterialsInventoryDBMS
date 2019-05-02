@@ -14,8 +14,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Maintenance;
-import db.pojos.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -104,7 +100,7 @@ public class NewProductController implements Initializable {
 		return biomaterial;
 	}
     
-    @SuppressWarnings("unlikely-arg-type")
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
@@ -113,66 +109,34 @@ public class NewProductController implements Initializable {
         this.units_button.setValueFactory(UnitsvalueFactory);
         SpinnerValueFactory<Integer> PricevalueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000000000, 0);
         this.price_button.setValueFactory(PricevalueFactory);
+        
+        FeaturesController.setValues(manager_object/*, worker_controller*/);
     	
-    	
-		conclude_button.setOnAction((ActionEvent event) -> {
-			String product_name = name_field.getText();
-			Integer units = (Integer) units_button.getValue();
-			Integer price = (Integer) price_button.getValue();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate exp_date = date_picker.getValue();
-			
-			if (!product_name.equals("")) {
-				
-				Biomaterial biomaterial = new Biomaterial();
-				biomaterial.setName_product(product_name);
-				biomaterial.setAvailable_units(units);
-				biomaterial.setPrice_unit(price);
-				biomaterial.setExpiration_date(Date.valueOf(exp_date));
-				
-				biomaterial.setUtility(manager_object.Search_utility_by_id(manager_object.Insert_new_utility(new Utility())));
-				biomaterial.setMaintenance(manager_object.Search_maintenance_by_id(manager_object.Insert_new_maintenance(new Maintenance())));
-				
-				
-				//NULL ERROR A LA HORA DE REGISTRAR EL BIOMATERIAL PORQUE NO LE INSERTO AUN LOS ULTIMOS 2 ATRIBUTOS
-				if(!product_name.equals(manager_object.Search_stored_biomaterial(biomaterial))) {
-
-					manager_object.Insert_new_biomaterial(biomaterial);
-					System.out.println("Biomaterial saved into database");
-		
-				} else System.out.println("Product already existing");
-			}
-		});
-		
-	
-		features_button.setOnAction((ActionEvent event) -> {
-			try {
-				
-				FeaturesController.setValues(manager_object/*, worker_controller*/);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductFeaturesView.fxml"));
-				Parent root = (Parent) loader.load();
-				FeaturesController controller = loader.getController();
-				
-				//worker_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
-				
-				Stage stage = new Stage();
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(root));
-				stage.setAlwaysOnTop(true);
-				stage.show();
-				
-			} catch (IOException features_error) {
-				features_error.printStackTrace();
-				System.exit(0);
-			}
-		});
-    
     }
     
     
-    @SuppressWarnings("unlikely-arg-type")
 	@FXML
-    public Biomaterial add_new_biomaterial(ActionEvent event) {
+	public void open_features_panel() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductFeaturesView.fxml"));
+			Parent root = (Parent) loader.load();
+			FeaturesController controller = loader.getController();
+			
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(new Scene(root));
+			stage.setAlwaysOnTop(true);
+			stage.show();
+			
+		} catch (IOException features_error) {
+			features_error.printStackTrace();
+			System.exit(0);
+		}
+	}
+	
+	
+	@FXML
+    public void add_new_biomaterial(ActionEvent event) {
     	String product_name = name_field.getText();
 		Integer units = (Integer) units_button.getValue();
 		Integer price = (Integer) price_button.getValue();
@@ -187,22 +151,13 @@ public class NewProductController implements Initializable {
 			biomaterial.setAvailable_units(units);
 			biomaterial.setPrice_unit(price);
 			biomaterial.setExpiration_date(Date.valueOf(exp_date));
+			biomaterial.setUtility(null);
+			biomaterial.setMaintenance(null);
 			
-			biomaterial.setUtility(manager_object.Search_utility_by_id(manager_object.Insert_new_utility(new Utility())));
-			biomaterial.setMaintenance(manager_object.Search_maintenance_by_id(manager_object.Insert_new_maintenance(new Maintenance())));
 			
-			
-			//NULL ERROR A LA HORA DE REGISTRAR EL BIOMATERIAL PORQUE NO LE INSERTO AUN LOS ULTIMOS 2 ATRIBUTOS
-			if(!product_name.equals(manager_object.Search_stored_biomaterial(biomaterial))) {
-				FeaturesController.setBiomaterial(biomaterial);
-				manager_object.Insert_new_biomaterial(biomaterial);
-	
-			} else {
-				System.out.println("Product already existing");
-				return null;
-			}
+			manager_object.Insert_new_biomaterial(biomaterial);
+			FeaturesController.setBiomaterial(manager_object.Search_biomaterial_by_id(biomaterial.getBiomaterial_id()));
 		}
-		return biomaterial;
 	}
     
     

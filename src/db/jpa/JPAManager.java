@@ -305,6 +305,10 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return false;
 	}
+	public boolean Update_worker_info(Worker worker) {
+		System.out.println("Not implemented");
+		return false;
+	}
 	
 	public boolean Update_biomaterial_features(Biomaterial biomaterial) {
 		System.out.println("Not implemented");

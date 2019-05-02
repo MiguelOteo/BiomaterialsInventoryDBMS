@@ -3,9 +3,6 @@ package db.UImenuFX;
 import java.io.IOException;
 
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -17,13 +14,12 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Maintenance;
-import db.pojos.Utility;
 import db.pojos.Worker;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -33,7 +29,6 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -177,12 +172,14 @@ public class WorkerMenuController implements Initializable {
 	
 	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
 				// TODO - "AccountWorkerView.fxml" and its controller
+				AccountWorkerController.setValues(manager_object, worker_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 				Parent root = (Parent) loader.load();
-				AccountDirectorController account_controller = new AccountDirectorController();
+				AccountWorkerController account_controller = new AccountWorkerController();
 				account_controller = loader.getController();
 				account_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
@@ -190,31 +187,34 @@ public class WorkerMenuController implements Initializable {
 						update_worker_account();
 						menu_window.setEffect(null);
 						stage_window.close();
-					}
-				});
+					} 
+				});	
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
 				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);
+				stage_window.setAlwaysOnTop(true);				
 				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3, 3, 3));
-						setAllButtonsOff();
+						menu_window.setEffect(new BoxBlur(3,3,3));
+						stage_window.initModality(Modality.APPLICATION_MODAL);
 					}
 				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						setAllButtonsOn();
+						menu_window.setEffect(null);
 					}
-				});
+				});		
 				stage_window.show();
 			} catch (IOException worker_account_error) {
 				worker_account_error.printStackTrace();
 				System.exit(0);
 			}
 		});
+		
+		
+		
 		
 		// Biomaterials list columns creation
 
@@ -303,45 +303,21 @@ public class WorkerMenuController implements Initializable {
 		manager_object.Close_connection();
 	}
 
-	
-	// -----> ANABLE/DISABLE BUTTONS <-----
-	
-		public void setAllButtonsOff() {
-		    myAccount_button.setDisable(true);
-			listInventory_button.setDisable(true);
-			addProduct_button.setDisable(true);
-			removeProduct_button.setDisable(true);
-			listTransactions_button.setDisable(true);
-			listClients_button.setDisable(true);
-			logOut_button.setDisable(true);
-			minButton.setDisable(true);
-			exitButton.setDisable(true);
-			addSelection_button.setDisable(true);
-		}
-		
-		public void setAllButtonsOn() {
-			myAccount_button.setDisable(false);
-			listInventory_button.setDisable(false);
-			addProduct_button.setDisable(false);
-			removeProduct_button.setDisable(false);
-			listTransactions_button.setDisable(false);
-			listClients_button.setDisable(false);
-			logOut_button.setDisable(false);
-			minButton.setDisable(false);
-			exitButton.setDisable(false);
-			addSelection_button.setDisable(false);
-		    
-		}
 
-		@FXML
-		public void open_option_panel(MouseEvent event) throws IOException {
-			Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
-			ProductOptionController.setValues(worker_controller);
-			worker_main_panel.getChildren().removeAll();
-			worker_main_panel.getChildren().setAll(menu_panel);
-		}
+	@FXML
+	public void open_option_panel(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
+		ProductOptionController.setValues(worker_controller);
+		worker_main_panel.getChildren().removeAll();
+		worker_main_panel.getChildren().setAll(menu_panel);
+	}
 		
-		
+	@FXML
+	public void open_list_inventory_panel(MouseEvent event) throws IOException {
+		AnchorPane menu_panel = FXMLLoader.load(getClass().getResource("WorkerMenuView.fxml"));
+		menu_window.getChildren().removeAll();
+		menu_window.getChildren().setAll(menu_panel);
+	}
 		
 		
 }
