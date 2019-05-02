@@ -457,6 +457,23 @@ public class SQLManager implements Interface{
 		}
 	}
 
+	public boolean Update_worker_info(Worker worker) {
+		try {
+			String SQL_code = "UPDATE worker SET name = ?, telephone = ?, email = ? WHERE worker_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, worker.getWorker_name());
+			template.setInt(2, worker.getTelephone());
+			template.setString(3, worker.getEmail());
+			template.setInt(4, worker.getWorker_id());
+			template.executeUpdate();
+			template.close();
+			return true;				
+		} catch (SQLException update_worker_error) {
+			update_worker_error.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean Update_category_info(Category category) {
 		try {
 			String SQL_code = "UPDATE category SET name = ?, maximum = ?, minimum = ? WHERE category_id = ?";

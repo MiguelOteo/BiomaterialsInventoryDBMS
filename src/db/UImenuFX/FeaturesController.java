@@ -63,9 +63,19 @@ public class FeaturesController implements Initializable {
 		this.account_window = account_window;
 	}
     
+	public JFXButton getDone_button() {
+		return done_button;
+	}
+
+	public void setDone_button(JFXButton done_button) {
+		this.done_button = done_button;
+	}
+	
     //--------------------> MAIN FUNCTIONS <-----------------
     
-    public static void setValues(SQLManager manager/*, WorkerMenuController worker_controller*/) {
+    
+
+	public static void setValues(SQLManager manager/*, WorkerMenuController worker_controller*/) {
     	manager_object = manager;
     	//controller = worker_controller;
     }
@@ -99,12 +109,12 @@ public class FeaturesController implements Initializable {
 			utility_objects.add(new UtilityListObject(utility.getUtility_id().toString()));
 		}
 		
-		TreeItem<UtilityListObject> root = new RecursiveTreeItem<UtilityListObject>(utility_objects, RecursiveTreeObject::getChildren);
+		final TreeItem<UtilityListObject> root = new RecursiveTreeItem<UtilityListObject>(utility_objects, RecursiveTreeObject::getChildren);
 		utility_tree_view.getColumns().setAll(utilities);
 		utility_tree_view.setRoot(root);
 		utility_tree_view.setShowRoot(false);
 
-		
+		/*
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> maintenances = new JFXTreeTableColumn<>("Maintenance");
 		maintenances.setPrefWidth(100);
@@ -124,11 +134,11 @@ public class FeaturesController implements Initializable {
 			maintenance_objects.add(new MaintenanceListObject(maintenance.getManteinance_id().toString()));
 		}
 		
-		TreeItem<MaintenanceListObject> root_maint = new RecursiveTreeItem<MaintenanceListObject>(maintenance_objects, RecursiveTreeObject::getChildren);
+		final TreeItem<MaintenanceListObject> root_maint = new RecursiveTreeItem<MaintenanceListObject>(maintenance_objects, RecursiveTreeObject::getChildren);
 		maintenance_tree_view.getColumns().setAll(maintenances);
 		maintenance_tree_view.setRoot(root_maint);
 		maintenance_tree_view.setShowRoot(false);
-		
+		*/
 		
 		
 		done_button.setOnAction((ActionEvent event) -> {
@@ -137,8 +147,9 @@ public class FeaturesController implements Initializable {
 			TreeItem<MaintenanceListObject> maintenance_object = maintenance_tree_view.getSelectionModel().getSelectedItem();
 		
 			if (utility_object != null | maintenance_object != null) {
-				biomaterial = product.getBiomaterial();
-				System.out.println("biomaterial id: " + biomaterial.getBiomaterial_id());
+				biomaterial = manager_object.Search_biomaterial_by_id(product.getBiomaterial().getBiomaterial_id());
+				
+				System.out.println("biomaterial: " + biomaterial);
 				
 				Integer utility_id = Integer.parseInt(utility_object.getValue().utility.getValue().toString());
 				Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance.getValue().toString());
@@ -146,7 +157,10 @@ public class FeaturesController implements Initializable {
 					Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
 					biomaterial.setUtility(utility);
 					biomaterial.setMaintenance(maintenance);
-				manager_object.Update_biomaterial_features(biomaterial);
+					
+				if(manager_object.Update_biomaterial_features(biomaterial) == true) {
+					System.out.println("Updated sucessfully");
+				} else System.out.println("Update error");
 				
 			}
 			
@@ -174,7 +188,7 @@ public class FeaturesController implements Initializable {
 
 class UtilityListObject extends RecursiveTreeObject<UtilityListObject> {
 	StringProperty utility;
-
+	//StringProperty 
     public UtilityListObject(String utility) {
     	this.utility = new SimpleStringProperty(utility);
     }

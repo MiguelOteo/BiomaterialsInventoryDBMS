@@ -26,6 +26,7 @@ public interface Interface {
 	public boolean Update_director_info(Director director);
 	public boolean Update_client_info(Client client);
 	public boolean Update_category_info(Category category);
+	public boolean Update_worker_info(Worker worker);
 	public boolean Update_biomaterial_features(Biomaterial biomaterial);
 	
 	public User Search_stored_user(String name, String password);
