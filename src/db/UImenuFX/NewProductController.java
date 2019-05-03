@@ -155,13 +155,7 @@ public class NewProductController implements Initializable {
 					}
 				});		
 				stage_window.show();
-    			/*
-    			 stage = new Stage();
-    			stage.initStyle(StageStyle.UNDECORATED);
-    			stage.setScene(new Scene(root));
-    			stage.setAlwaysOnTop(true);
-    			stage.show();
-    			*/
+    			
     			
     		} catch (IOException features_error) {
     			features_error.printStackTrace();
@@ -170,11 +164,10 @@ public class NewProductController implements Initializable {
         });
         
         conclude_button.setOnAction((ActionEvent) -> {
+        	
         	String product_name = name_field.getText();
-        		units_button.getEditor();
-    		Integer units = (Integer)units_button.getValue();
-    		System.out.println(units);
-    		Integer price = price_button.getValue();
+        	Integer units = units_button.getValue();
+    		Integer price = price_button.getValue().intValue();
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     		LocalDate exp_date = date_picker.getValue();
     		
@@ -188,7 +181,6 @@ public class NewProductController implements Initializable {
     			
     			FeaturesController.setValue(manager_object);
     			Integer bio_id = manager_object.Insert_new_biomaterial(biomaterial);
-    			System.out.println(bio_id + "nos echa el error aqui");
     			System.out.println("Biomaterial: " + manager_object.Search_biomaterial_by_id(bio_id));
     			FeaturesController.setBiomaterial(manager_object.Search_biomaterial_by_id(bio_id));
     		}

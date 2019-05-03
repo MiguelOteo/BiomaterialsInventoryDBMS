@@ -72,8 +72,8 @@ public class OrderProductController implements Initializable {
 		manager_object = manager;
 	}
 	
-	public static void setItems(Biomaterial selection) {
-		selected_items = selection;
+	public static void setItems(Biomaterial biomaterial) {
+		selected_items = biomaterial;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -82,7 +82,27 @@ public class OrderProductController implements Initializable {
 		
 		
 		doOrder_button.setOnAction((ActionEvent) -> {
-			selected_items.setAvailable_units(selected_items.getAvailable_units() + Integer.parseInt(units_order.getText()));
+			
+			
+			System.out.println(selected_items);
+			
+			/*METODO PARA UNA LISTA DE SELECCIONADOS
+			for(Biomaterial biomaterial: selected_items) {
+				biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
+				
+				
+				
+				if (manager_object.Update_biomaterial_units(biomaterial) == true) {
+					System.out.println("new units: " + biomaterial.getAvailable_units());
+					System.out.println("Units updated");
+					
+				} else System.out.println("Error on units update");
+			}
+			
+			 */
+
+			
+			 selected_items.setAvailable_units(selected_items.getAvailable_units() + Integer.parseInt(units_order.getText()));
 			
 			if (manager_object.Update_biomaterial_units(selected_items) == true) {
 				System.out.println("Units updated");
@@ -114,26 +134,39 @@ public class OrderProductController implements Initializable {
 				});
 		units.setResizable(false);
 		
-		//ESTO ES LO QUE HAY QUE CAMBIAR, PARA QUE SOLO MUESTRE LOS IDS SELECCIONADOS
+		
 		List<Biomaterial> biomaterial_selection = new ArrayList<Biomaterial>();
 		System.out.println(selected_items);
+		//ADD ALL PARA CUANDO TENGAMOS LA LISTA
 		biomaterial_selection.add(selected_items);
 		
 		for(Biomaterial biomaterial: biomaterial_selection) {
 			biomaterial_objects.add(new SelectionListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()));
 		}
 		
-		final TreeItem<SelectionListObject> root = new RecursiveTreeItem<SelectionListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
+		TreeItem<SelectionListObject> root = new RecursiveTreeItem<SelectionListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
 		selection_tree_view.setPlaceholder(new Label("No selected products"));
 		selection_tree_view.getColumns().setAll(product_name, units);
 		selection_tree_view.setRoot(root);
 		selection_tree_view.setShowRoot(false);
 		
+		
+		
 	}
 	
 	
 	
+	// -----> REFRESH BIOMATERIAL LIST VIEW <-----
 	
+		public void refreshSelectionListView(List<Biomaterial> selection) {
+			biomaterial_objects.clear();
+			List<Biomaterial> biomaterial_list = selection;
+			for(Biomaterial biomaterial: biomaterial_list) {
+				biomaterial_objects.add(new SelectionListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()));
+			}
+			TreeItem<SelectionListObject> root = new RecursiveTreeItem<SelectionListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
+			selection_tree_view.refresh();
+			}
 	
 }
 

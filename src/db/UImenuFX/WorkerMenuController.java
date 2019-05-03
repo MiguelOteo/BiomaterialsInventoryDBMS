@@ -224,7 +224,7 @@ public class WorkerMenuController implements Initializable {
 		// Biomaterials list columns creation
 
 		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
-		product_name.setPrefWidth(245);
+		product_name.setPrefWidth(240);
 		product_name.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -246,7 +246,7 @@ public class WorkerMenuController implements Initializable {
 		available_units.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
-		price.setPrefWidth(195);
+		price.setPrefWidth(190);
 		price.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -257,7 +257,7 @@ public class WorkerMenuController implements Initializable {
 		price.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> exp_date = new JFXTreeTableColumn<>("Expiration date");
-		exp_date.setPrefWidth(195);
+		exp_date.setPrefWidth(190);
 		exp_date.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -359,11 +359,15 @@ public class WorkerMenuController implements Initializable {
 	@FXML
 	public void add_selection(MouseEvent event) {
 		TreeItem<BiomaterialListObject> selection = biomaterials_tree_view.getSelectionModel().getSelectedItem();
+		
 		//PROXIMAMENTE HAY QUE PASARLE UNA LISTA EN VEZ DE UN BIOMATERIAL SOLO
+		
 		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(Integer.parseInt(selection.getValue().bio_id.getValue().toString()));
+		 
 		System.out.println(biomaterial);
 		OrderProductController.setValues(manager_object);
 		OrderProductController.setItems(biomaterial);
+		
 	}
 		
 }
