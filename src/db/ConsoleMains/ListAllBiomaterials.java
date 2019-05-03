@@ -34,13 +34,6 @@ public class ListAllBiomaterials {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			Integer biomaterial_id = Integer.parseInt(br.readLine()); 
 			System.out.println(manager.Search_biomaterial_by_id(biomaterial_id));
-
-/*
-			System.out.println("Delete a biomaterial. ID: ");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			Integer biomaterial_id = Integer.parseInt(br.readLine()); 
-			System.out.println(manager.Delete_biomaterial_by_id(biomaterial_id));
-			*/
 			
 			
 		}

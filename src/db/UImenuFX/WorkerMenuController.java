@@ -308,6 +308,8 @@ public class WorkerMenuController implements Initializable {
 	public void open_option_panel(MouseEvent event) throws IOException {
 		Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
 		ProductOptionController.setValues(worker_controller);
+		NewProductController.setManager(manager_object);
+		OrderProductController.setValues(manager_object);
 		worker_main_panel.getChildren().removeAll();
 		worker_main_panel.getChildren().setAll(menu_panel);
 	}

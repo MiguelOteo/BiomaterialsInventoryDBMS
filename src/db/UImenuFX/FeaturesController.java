@@ -19,9 +19,9 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -36,7 +36,6 @@ public class FeaturesController implements Initializable {
 	//----------------> CLASS ATTRIBUTES <-----------------
 	
 	private static SQLManager manager_object;
-	private static NewProductController product;
 	private static Biomaterial biomaterial;
 	
 	
@@ -51,6 +50,10 @@ public class FeaturesController implements Initializable {
     private JFXTreeTableView<UtilityListObject> utility_tree_view;
     @FXML
     private JFXTreeTableView<MaintenanceListObject> maintenance_tree_view;
+    @FXML
+    private final ObservableList<UtilityListObject> utility_objects = FXCollections.observableArrayList();
+    @FXML
+    private final ObservableList<MaintenanceListObject> maintenance_objects = FXCollections.observableArrayList();
 
     
     //--------------------> GETTERS AND SETTERS <-----------------
@@ -75,9 +78,8 @@ public class FeaturesController implements Initializable {
     
     
 
-	public static void setValues(SQLManager manager/*, WorkerMenuController worker_controller*/) {
+	public static void setValue(SQLManager manager) {
     	manager_object = manager;
-    	//controller = worker_controller;
     }
     
     public static void setBiomaterial(Biomaterial biomat) {
@@ -85,95 +87,248 @@ public class FeaturesController implements Initializable {
     }
     
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 		
 		//Table generators
-		JFXTreeTableColumn<UtilityListObject, String> utilities = new JFXTreeTableColumn<>("Utilities");
-		utilities.setPrefWidth(100);
-		utilities.setCellValueFactory(
+		JFXTreeTableColumn<UtilityListObject, String> heat_cold = new JFXTreeTableColumn<>("Heat/Cold");
+		heat_cold.setPrefWidth(160);
+		heat_cold.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
-						return param.getValue().getValue().utility;
+						return param.getValue().getValue().heat_cold;
 					}
 				});
-		utilities.setResizable(false);
+		heat_cold.setResizable(false);
 		
-		ObservableList<UtilityListObject> utility_objects = FXCollections.observableArrayList();
+		JFXTreeTableColumn<UtilityListObject, String> flexibility = new JFXTreeTableColumn<>("Flexibility");
+		flexibility.setPrefWidth(160);
+		flexibility.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
+						return param.getValue().getValue().flexibility;
+					}
+				});
+		flexibility.setResizable(false);
+		
+		JFXTreeTableColumn<UtilityListObject, String> strength = new JFXTreeTableColumn<>("Strength");
+		strength.setPrefWidth(160);
+		strength.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
+						return param.getValue().getValue().strength;
+					}
+				});
+		strength.setResizable(false);
+		
+		JFXTreeTableColumn<UtilityListObject, String> resistance = new JFXTreeTableColumn<>("Resistance");
+		resistance.setPrefWidth(160);
+		resistance.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
+						return param.getValue().getValue().resistance;
+					}
+				});
+		resistance.setResizable(false);
+		
+		JFXTreeTableColumn<UtilityListObject, String> pressure = new JFXTreeTableColumn<>("Pressure");
+		pressure.setPrefWidth(160);
+		pressure.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
+						return param.getValue().getValue().pressure;
+					}
+				});
+		pressure.setResizable(false);
+		
+		JFXTreeTableColumn<UtilityListObject, String> util_id = new JFXTreeTableColumn<>("id");
+		util_id.setPrefWidth(30);
+		util_id.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<UtilityListObject, String> param) {
+						return param.getValue().getValue().utility_id;
+					}
+				});
+		util_id.setResizable(false);
+		
+		
 		List<Utility> utility_list = manager_object.List_all_utilities();
-		
 		for(Utility utility: utility_list) {
-			utility_objects.add(new UtilityListObject(utility.getUtility_id().toString()));
+			utility_objects.add(new UtilityListObject(utility.getHeat_cold().toString(), utility.getFlexibility(), utility.getResistance(), utility.getPressure().toString(), utility.getStrength().toString(), utility.getUtility_id().toString()));
 		}
 		
-		final TreeItem<UtilityListObject> root = new RecursiveTreeItem<UtilityListObject>(utility_objects, RecursiveTreeObject::getChildren);
-		utility_tree_view.getColumns().setAll(utilities);
+		TreeItem<UtilityListObject> root = new RecursiveTreeItem<UtilityListObject>(utility_objects, RecursiveTreeObject::getChildren);
+		utility_tree_view.getColumns().setAll(util_id, heat_cold, flexibility, resistance, pressure, strength);
+		utility_tree_view.setPlaceholder(new Label("No utilities found"));
 		utility_tree_view.setRoot(root);
 		utility_tree_view.setShowRoot(false);
 
-		/*
 		
-		JFXTreeTableColumn<MaintenanceListObject, String> maintenances = new JFXTreeTableColumn<>("Maintenance");
-		maintenances.setPrefWidth(100);
-		maintenances.setCellValueFactory(
+		
+		
+		//MAINTENANCE TABLE
+		JFXTreeTableColumn<MaintenanceListObject, String> compatibility = new JFXTreeTableColumn<>("Compatibility");
+		compatibility.setPrefWidth(100);
+		compatibility.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
-						return param.getValue().getValue().maintenance;
+						return param.getValue().getValue().compatibility;
 					}
 				});
-		maintenances.setResizable(false);
+		compatibility.setResizable(false);
 		
-		ObservableList<MaintenanceListObject> maintenance_objects = FXCollections.observableArrayList();
+		JFXTreeTableColumn<MaintenanceListObject, String> humidity = new JFXTreeTableColumn<>("Humidity");
+		humidity.setPrefWidth(100);
+		humidity.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().humidity;
+					}
+				});
+		humidity.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> light = new JFXTreeTableColumn<>("Light");
+		light.setPrefWidth(100);
+		light.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().light;
+					}
+				});
+		light.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> o2_supply = new JFXTreeTableColumn<>("Oxygen sypply");
+		o2_supply.setPrefWidth(100);
+		o2_supply.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().o2_supply;
+					}
+				});
+		o2_supply.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> temperature = new JFXTreeTableColumn<>("Temperature");
+		temperature.setPrefWidth(100);
+		temperature.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().temperature;
+					}
+				});
+		temperature.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> pressureM = new JFXTreeTableColumn<>("Pressure");
+		pressureM.setPrefWidth(100);
+		pressureM.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().pressure;
+					}
+				});
+		pressureM.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> others = new JFXTreeTableColumn<>("Others");
+		others.setPrefWidth(100);
+		others.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().others;
+					}
+				});
+		others.setResizable(false);
+		
+		JFXTreeTableColumn<MaintenanceListObject, String> maint_id = new JFXTreeTableColumn<>("id");
+		maint_id.setPrefWidth(30);
+		maint_id.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MaintenanceListObject, String> param) {
+						return param.getValue().getValue().maintenance_id;
+					}
+				});
+		maint_id.setResizable(false);
+		
+		
 		List<Maintenance> maintenance_list = manager_object.List_all_maintenances();
 		
 		for(Maintenance maintenance: maintenance_list) {
-			maintenance_objects.add(new MaintenanceListObject(maintenance.getManteinance_id().toString()));
+			maintenance_objects.add(new MaintenanceListObject(maintenance.getCompatibility(), maintenance.getHumidity().toString(), maintenance.getLight()
+					, maintenance.getO2_supply(), maintenance.getTemperature().toString(), maintenance.getPressure().toString(), maintenance.getOthers(), maintenance.getManteinance_id().toString()));
 		}
 		
 		final TreeItem<MaintenanceListObject> root_maint = new RecursiveTreeItem<MaintenanceListObject>(maintenance_objects, RecursiveTreeObject::getChildren);
-		maintenance_tree_view.getColumns().setAll(maintenances);
+		maintenance_tree_view.getColumns().setAll(maint_id, compatibility, humidity, light, o2_supply, temperature, pressureM, others);
 		maintenance_tree_view.setRoot(root_maint);
 		maintenance_tree_view.setShowRoot(false);
-		*/
 		
 		
-		done_button.setOnAction((ActionEvent event) -> {
+		
+		
+		
+		done_button.setOnAction((ActionEvent) -> {
 			
 			TreeItem<UtilityListObject> utility_object = utility_tree_view.getSelectionModel().getSelectedItem();
 			TreeItem<MaintenanceListObject> maintenance_object = maintenance_tree_view.getSelectionModel().getSelectedItem();
 		
 			if (utility_object != null | maintenance_object != null) {
-				biomaterial = manager_object.Search_biomaterial_by_id(product.getBiomaterial().getBiomaterial_id());
 				
-				System.out.println("biomaterial: " + biomaterial);
+				Integer utility_id = Integer.parseInt(utility_object.getValue().utility_id.getValue().toString());
+				Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString());
 				
-				Integer utility_id = Integer.parseInt(utility_object.getValue().utility.getValue().toString());
-				Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance.getValue().toString());
 					Utility utility = manager_object.Search_utility_by_id(utility_id);
 					Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
 					biomaterial.setUtility(utility);
+					
+					System.out.println(biomaterial.getUtility());
+					
 					biomaterial.setMaintenance(maintenance);
 					
+					System.out.println(biomaterial.getMaintenance());
+					
 				if(manager_object.Update_biomaterial_features(biomaterial) == true) {
-					System.out.println("Updated sucessfully");
-				} else System.out.println("Update error");
+					
+					System.out.println("Updated sucessfully/n" + biomaterial);
+					
+					Stage stage = (Stage) account_window.getScene().getWindow();
+					stage.close();
+					
+				} else {
+					System.out.println("Update error");
+					Stage stage = (Stage) account_window.getScene().getWindow();
+					stage.close();
+				}
 				
+			} else {
+				System.out.println("No features added to biomaterial");
+				Stage stage = (Stage) account_window.getScene().getWindow();
+				stage.close();
 			}
 			
 			
-			Stage stage = (Stage) account_window.getScene().getWindow();
-			stage.close();
+			
 			
 		});
 			
 		
 	}
     
-    //-------------------> BUTTON FUNCITONS <------------------
+    //-------------------> BUTTON FUNCTIONS <------------------
     
     @FXML
     void close_window(MouseEvent event) {
@@ -187,18 +342,44 @@ public class FeaturesController implements Initializable {
 }
 
 class UtilityListObject extends RecursiveTreeObject<UtilityListObject> {
-	StringProperty utility;
-	//StringProperty 
-    public UtilityListObject(String utility) {
-    	this.utility = new SimpleStringProperty(utility);
+	StringProperty heat_cold;
+	StringProperty flexibility;
+	StringProperty resistance;
+	StringProperty pressure;
+	StringProperty strength;
+	StringProperty utility_id;
+	
+    public UtilityListObject(String heat_cold, String flexibility, String resistance, String pressure, String strength, String utility_id) {
+    	this.heat_cold = new SimpleStringProperty(heat_cold);
+    	this.flexibility = new SimpleStringProperty(flexibility);
+    	this.resistance = new SimpleStringProperty(resistance);
+    	this.pressure = new SimpleStringProperty(pressure);
+    	this.strength = new SimpleStringProperty(strength);
+    	this.utility_id = new SimpleStringProperty(utility_id);
     }
 }
 
 
 class MaintenanceListObject extends RecursiveTreeObject<MaintenanceListObject> {
-	StringProperty maintenance;
+	StringProperty humidity;
+	StringProperty o2_supply;
+	StringProperty light;
+	StringProperty pressure;
+	StringProperty temperature;
+	StringProperty compatibility;
+	StringProperty others;
+	StringProperty maintenance_id;
 
-    public MaintenanceListObject(String maintenance) {
-    	this.maintenance = new SimpleStringProperty(maintenance);
+	
+    public MaintenanceListObject(String pressure, String humidity, String o2_supply, String light, String temperature, String compatibility, String others, String maintenance_id) {
+    	this.humidity = new SimpleStringProperty(humidity);
+    	this.o2_supply = new SimpleStringProperty(o2_supply);
+    	this.light = new SimpleStringProperty(light);
+    	this.temperature = new SimpleStringProperty(temperature);
+    	this.pressure = new SimpleStringProperty(pressure);
+    	this.compatibility = new SimpleStringProperty(compatibility);
+    	this.others = new SimpleStringProperty(others);
+    	this.maintenance_id = new SimpleStringProperty(maintenance_id);
+
     }
 }

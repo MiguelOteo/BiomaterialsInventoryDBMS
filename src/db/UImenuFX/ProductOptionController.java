@@ -31,9 +31,6 @@ public class ProductOptionController  implements Initializable {
     private JFXButton newProduct_button;
     @FXML
     private JFXButton orderProduct_button;
-
-
- 
     
     
   //-------> PRINCIPAL METHODS <----------

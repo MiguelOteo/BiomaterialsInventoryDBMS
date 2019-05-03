@@ -22,6 +22,7 @@ public class Java2XmlBiomaterial {
 		
 	private static void printBiomaterials() {
 		Query q1 = em.createNativeQuery("SELECT * FROM biomaterials", Biomaterial.class);
+		@SuppressWarnings("unchecked")
 		List<Biomaterial> reps = (List<Biomaterial>) q1.getResultList();
 		// Print the departments
 		for (Biomaterial rep : reps) {
