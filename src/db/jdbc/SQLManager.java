@@ -499,8 +499,22 @@ public class SQLManager implements Interface{
 			template.setInt(3, biomaterial.getBiomaterial_id());
 			template.close();	
 			return true;
-		} catch (SQLException update_category_error) {
-			update_category_error.printStackTrace();
+		} catch (SQLException update_features_error) {
+			update_features_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Update_biomaterial_units(Biomaterial biomaterial) {
+		try {
+			String SQL_code = "UPDATE biomaterial SET available_units = ? WHERE biomaterial_id = ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, biomaterial.getAvailable_units());
+			template.setInt(2, biomaterial.getBiomaterial_id());
+			template.close();	
+			return true;
+		} catch (SQLException update_units_error) {
+			update_units_error.printStackTrace();
 			return false;
 		}
 	}

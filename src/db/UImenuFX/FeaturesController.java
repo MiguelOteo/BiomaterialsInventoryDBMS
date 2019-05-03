@@ -70,9 +70,6 @@ public class FeaturesController implements Initializable {
 		return done_button;
 	}
 
-	public void setDone_button(JFXButton done_button) {
-		this.done_button = done_button;
-	}
 	
     //--------------------> MAIN FUNCTIONS <-----------------
     
@@ -95,7 +92,7 @@ public class FeaturesController implements Initializable {
 		
 		//Table generators
 		JFXTreeTableColumn<UtilityListObject, String> heat_cold = new JFXTreeTableColumn<>("Heat/Cold");
-		heat_cold.setPrefWidth(160);
+		heat_cold.setPrefWidth(165);
 		heat_cold.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -106,7 +103,7 @@ public class FeaturesController implements Initializable {
 		heat_cold.setResizable(false);
 		
 		JFXTreeTableColumn<UtilityListObject, String> flexibility = new JFXTreeTableColumn<>("Flexibility");
-		flexibility.setPrefWidth(160);
+		flexibility.setPrefWidth(165);
 		flexibility.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -117,7 +114,7 @@ public class FeaturesController implements Initializable {
 		flexibility.setResizable(false);
 		
 		JFXTreeTableColumn<UtilityListObject, String> strength = new JFXTreeTableColumn<>("Strength");
-		strength.setPrefWidth(160);
+		strength.setPrefWidth(165);
 		strength.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -128,7 +125,7 @@ public class FeaturesController implements Initializable {
 		strength.setResizable(false);
 		
 		JFXTreeTableColumn<UtilityListObject, String> resistance = new JFXTreeTableColumn<>("Resistance");
-		resistance.setPrefWidth(160);
+		resistance.setPrefWidth(165);
 		resistance.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -139,7 +136,7 @@ public class FeaturesController implements Initializable {
 		resistance.setResizable(false);
 		
 		JFXTreeTableColumn<UtilityListObject, String> pressure = new JFXTreeTableColumn<>("Pressure");
-		pressure.setPrefWidth(160);
+		pressure.setPrefWidth(165);
 		pressure.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<UtilityListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -177,7 +174,7 @@ public class FeaturesController implements Initializable {
 		
 		//MAINTENANCE TABLE
 		JFXTreeTableColumn<MaintenanceListObject, String> compatibility = new JFXTreeTableColumn<>("Compatibility");
-		compatibility.setPrefWidth(100);
+		compatibility.setPrefWidth(105);
 		compatibility.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -188,7 +185,7 @@ public class FeaturesController implements Initializable {
 		compatibility.setResizable(false);
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> humidity = new JFXTreeTableColumn<>("Humidity");
-		humidity.setPrefWidth(100);
+		humidity.setPrefWidth(105);
 		humidity.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -199,7 +196,7 @@ public class FeaturesController implements Initializable {
 		humidity.setResizable(false);
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> light = new JFXTreeTableColumn<>("Light");
-		light.setPrefWidth(100);
+		light.setPrefWidth(105);
 		light.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -210,7 +207,7 @@ public class FeaturesController implements Initializable {
 		light.setResizable(false);
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> o2_supply = new JFXTreeTableColumn<>("Oxygen sypply");
-		o2_supply.setPrefWidth(100);
+		o2_supply.setPrefWidth(105);
 		o2_supply.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -221,7 +218,7 @@ public class FeaturesController implements Initializable {
 		o2_supply.setResizable(false);
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> temperature = new JFXTreeTableColumn<>("Temperature");
-		temperature.setPrefWidth(100);
+		temperature.setPrefWidth(105);
 		temperature.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -243,7 +240,7 @@ public class FeaturesController implements Initializable {
 		pressureM.setResizable(false);
 		
 		JFXTreeTableColumn<MaintenanceListObject, String> others = new JFXTreeTableColumn<>("Others");
-		others.setPrefWidth(100);
+		others.setPrefWidth(105);
 		others.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<MaintenanceListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -294,16 +291,11 @@ public class FeaturesController implements Initializable {
 					Utility utility = manager_object.Search_utility_by_id(utility_id);
 					Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
 					biomaterial.setUtility(utility);
-					
-					System.out.println(biomaterial.getUtility());
-					
 					biomaterial.setMaintenance(maintenance);
-					
-					System.out.println(biomaterial.getMaintenance());
 					
 				if(manager_object.Update_biomaterial_features(biomaterial) == true) {
 					
-					System.out.println("Updated sucessfully/n" + biomaterial);
+					System.out.println("Updated sucessfully");
 					
 					Stage stage = (Stage) account_window.getScene().getWindow();
 					stage.close();

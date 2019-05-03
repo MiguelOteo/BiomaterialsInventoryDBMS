@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.WorkerMenuController">
    <children>
-      <Pane layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
+      <Pane fx:id="menu_main_pane" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
             <Pane fx:id="worker_main_panel" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
                <children>
@@ -22,12 +22,12 @@
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView fx:id="biomaterials_tree_view" layoutX="33.0" layoutY="70.0" prefHeight="495.0" prefWidth="874.0" styleClass="list-view">
+                  <JFXTreeTableView fx:id="biomaterials_tree_view" editable="true" layoutX="33.0" layoutY="70.0" prefHeight="495.0" prefWidth="874.0" styleClass="list-view">
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </JFXTreeTableView>
-                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
+                  <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" onMouseClicked="#add_selection" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
@@ -96,7 +96,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </JFXButton>
-            <Label layoutX="8.0" layoutY="414.0" text="Transactions record" textFill="#ffffffb1">
+            <Label layoutX="7.0" layoutY="464.0" text="Transactions record" textFill="#ffffffb1">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -111,7 +111,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="128.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="135.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -123,7 +123,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listInventory_button" alignment="TOP_LEFT" layoutY="250.0" onMouseClicked="#open_list_inventory_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List inventory" textFill="#00000080">
+            <JFXButton fx:id="listInventory_button" alignment="TOP_LEFT" layoutY="252.0" onMouseClicked="#open_list_inventory_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List inventory" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -135,19 +135,19 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="addProduct_button" alignment="TOP_LEFT" layoutY="294.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product" textFill="#00000080">
+            <JFXButton fx:id="addProduct_button" alignment="TOP_LEFT" layoutY="308.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="47.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@src.IconPictures/dolly-solid.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="removeProduct_button" alignment="TOP_LEFT" layoutY="338.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
+            <JFXButton fx:id="removeProduct_button" alignment="TOP_LEFT" layoutY="360.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -159,7 +159,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="448.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Transaction records" textFill="#00000080">
+            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="495.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Transaction records" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -171,7 +171,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listClients_button" alignment="TOP_LEFT" layoutY="500.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List clients" textFill="#00000080">
+            <JFXButton fx:id="listClients_button" alignment="TOP_LEFT" layoutY="545.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List clients" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

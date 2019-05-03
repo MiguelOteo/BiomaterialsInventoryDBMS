@@ -14,6 +14,8 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
+import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,16 +23,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class NewProductController implements Initializable {
 	
 	// -----> CLASS ATTRIBUTES <-----
 	
 		private static SQLManager manager_object;
-		@SuppressWarnings("unused")
 		private static WorkerMenuController worker_controller;
 		private static Biomaterial biomaterial;
 		
@@ -50,6 +54,8 @@ public class NewProductController implements Initializable {
 	    private JFXDatePicker date_picker;
 	    @FXML
 	    private JFXButton features_button;
+	    @FXML
+	    private static Stage stage_window;
 	    
     
  // -----> GETTERS AND SETTERS <-----
@@ -105,6 +111,7 @@ public class NewProductController implements Initializable {
 	}
     
 	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
@@ -123,12 +130,38 @@ public class NewProductController implements Initializable {
     			Parent root = (Parent) loader.load();
     			FeaturesController controller = new FeaturesController();
     			controller = loader.getController();
-    			
-    			Stage stage = new Stage();
+    			controller.getDone_button().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						worker_controller.getAnchorPane().setEffect(null);
+						stage_window.close();
+					}
+				});
+    			stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);				
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						worker_controller.getAnchorPane().setEffect(new BoxBlur(3,3,3));
+						stage_window.initModality(Modality.APPLICATION_MODAL);
+					}
+				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						worker_controller.getAnchorPane().setEffect(null);
+					}
+				});		
+				stage_window.show();
+    			/*
+    			 stage = new Stage();
     			stage.initStyle(StageStyle.UNDECORATED);
     			stage.setScene(new Scene(root));
     			stage.setAlwaysOnTop(true);
     			stage.show();
+    			*/
     			
     		} catch (IOException features_error) {
     			features_error.printStackTrace();
