@@ -137,6 +137,7 @@ public class OrderProductController implements Initializable {
 		
 		List<Biomaterial> biomaterial_selection = new ArrayList<Biomaterial>();
 		System.out.println(selected_items);
+		
 		//ADD ALL PARA CUANDO TENGAMOS LA LISTA
 		biomaterial_selection.add(selected_items);
 		
@@ -155,7 +156,7 @@ public class OrderProductController implements Initializable {
 	}
 	
 	
-	
+	/*
 	// -----> REFRESH BIOMATERIAL LIST VIEW <-----
 	
 		public void refreshSelectionListView(List<Biomaterial> selection) {
@@ -167,7 +168,7 @@ public class OrderProductController implements Initializable {
 			TreeItem<SelectionListObject> root = new RecursiveTreeItem<SelectionListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
 			selection_tree_view.refresh();
 			}
-	
+*/	
 }
 
 

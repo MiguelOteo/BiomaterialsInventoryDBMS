@@ -179,7 +179,6 @@ public class WorkerMenuController implements Initializable {
 	
 	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
-		this.pane_backup = menu_main_pane;
 		
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
@@ -218,6 +217,47 @@ public class WorkerMenuController implements Initializable {
 				worker_account_error.printStackTrace();
 				System.exit(0);
 			}
+		});
+		
+		
+		
+		removeProduct_button.setOnAction((ActionEvent) -> {
+			try {
+				RemoveProductController.setValues(manager_object);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveProductView.fxml"));
+				Parent root = (Parent) loader.load();
+				RemoveProductController product_controller = new RemoveProductController();
+				product_controller = loader.getController();
+				product_controller.getDelete_button().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event event) {
+						menu_window.setEffect(null);
+						stage_window.close();
+					}
+				});	
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);		
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent arg0) {
+						menu_window.setEffect(new BoxBlur(3,3,3));
+						stage_window.initModality(Modality.APPLICATION_MODAL);
+					}
+				});
+				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+					@Override
+					public void handle(WindowEvent event) {
+						menu_window.setEffect(null);
+					}
+				});		
+				stage_window.show();
+			} catch(IOException delete_product_error) {
+				delete_product_error.printStackTrace();
+				System.exit(0);
+			}
+			
 		});
 		
 		
