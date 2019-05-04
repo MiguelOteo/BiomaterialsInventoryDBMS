@@ -293,18 +293,11 @@ public class FeaturesController implements Initializable {
 					biomaterial.setUtility(utility);
 					biomaterial.setMaintenance(maintenance);
 					
-				if(manager_object.Update_biomaterial_features(biomaterial) == true) {
-					
-					System.out.println("Updated sucessfully");
+					manager_object.Update_biomaterial_features(biomaterial);
 					
 					Stage stage = (Stage) account_window.getScene().getWindow();
 					stage.close();
 					
-				} else {
-					System.out.println("Update error");
-					Stage stage = (Stage) account_window.getScene().getWindow();
-					stage.close();
-				}
 				
 			} else {
 				System.out.println("No features added to biomaterial");

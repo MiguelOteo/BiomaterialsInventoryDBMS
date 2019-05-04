@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
@@ -21,14 +21,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx.util.converter.IntegerStringConverter;
 
 public class NewProductController implements Initializable {
 	
@@ -45,9 +44,9 @@ public class NewProductController implements Initializable {
 	    @FXML
 	    private JFXButton conclude_button;
 	    @FXML
-	    private Spinner<Integer> price_button;
+	    private JFXComboBox<Integer> units_button;
 	    @FXML
-	    private Spinner<Integer> units_button;
+	    private JFXComboBox<Integer> price_button;
 	    @FXML
 	    private JFXTextField name_field;
 	    @FXML
@@ -60,39 +59,10 @@ public class NewProductController implements Initializable {
     
  // -----> GETTERS AND SETTERS <-----
     
-	    
-		public JFXTextField getName_field() {
-			return name_field;
-		}
-		public Spinner<Integer> getPrice_button() {
-			return price_button;
-		}
-		public void setPrice_button(Spinner<Integer> price_button) {
-			this.price_button = price_button;
-		}
-		public Spinner<Integer> getUnits_button() {
-			return units_button;
-		}
-		public void setUnits_button(Spinner<Integer> units_button) {
-			this.units_button = units_button;
-		}
-		public void setName_field(JFXTextField name_field) {
-			this.name_field = name_field;
-		}
-		public JFXDatePicker getDate_picker() {
-			return date_picker;
-		}
-		public void setDate_picker(JFXDatePicker date_picker) {
-			this.date_picker = date_picker;
-		}
-		
-		
-		
 	
-    
- // -----> METHODS <-----
-    
 	
+ // -----> ESSENTIAL METHODS <-----
+    
 
 	public NewProductController() {
 		super();
@@ -111,16 +81,14 @@ public class NewProductController implements Initializable {
 	}
     
 	
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	
-    	//Set values of spinners
-		SpinnerValueFactory<Integer> UnitsvalueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000000000, 0);
-        this.units_button.setValueFactory(UnitsvalueFactory);
-        SpinnerValueFactory<Integer> PricevalueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000000000, 0);
-        this.price_button.setValueFactory(PricevalueFactory);
-        
+		
+			units_button.getItems().addAll(50, 100, 250, 500, 1000);
+			price_button.getItems().addAll(10, 20,50, 80, 100);
+    		units_button.setConverter(new IntegerStringConverter());
+    		price_button.setConverter(new IntegerStringConverter());
+    		
         
         features_button.setOnAction((ActionEvent) -> {
         	
@@ -163,19 +131,22 @@ public class NewProductController implements Initializable {
     		}
         });
         
+       
+        
+        
         conclude_button.setOnAction((ActionEvent) -> {
         	
+        	
         	String product_name = name_field.getText();
-        	Integer units = units_button.getValue();
-    		Integer price = price_button.getValue().intValue();
-    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     		LocalDate exp_date = date_picker.getValue();
-    		
+    		Integer units = units_button.getValue();
+    		Integer price = price_button.getValue();
+        	
     		if (!product_name.equals("")) {
     			Biomaterial biomaterial = new Biomaterial();
     			biomaterial.setName_product(product_name);
-    			biomaterial.setAvailable_units(units);
-    			biomaterial.setPrice_unit(price);
+    			biomaterial.setAvailable_units(units.intValue());
+    			biomaterial.setPrice_unit(price.intValue());
     			biomaterial.setExpiration_date(Date.valueOf(exp_date));
     			
     			
