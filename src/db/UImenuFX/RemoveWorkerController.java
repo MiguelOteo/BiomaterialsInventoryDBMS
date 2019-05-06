@@ -44,7 +44,7 @@ public class RemoveWorkerController implements Initializable{
 		@FXML
 		private final ObservableList<WorkerListObject> worker_objects = FXCollections.observableArrayList();
 		
-		// -----> ESSENTIAL METHODS <-----+
+		// -----> ESSENTIAL METHODS <-----
 		
 		public RemoveWorkerController() {
 			// TODO Auto-generated constructor stub

@@ -148,10 +148,14 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_client_main_menu(Client client) {
 		try {
+			ClientMenuController.setValues(this.manager, client);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientMenuView.fxml"));
 			Parent root = (Parent) loader.load();
-			this.client_controller = new ClientMenuController(this.manager, client);
 			this.client_controller = loader.getController();
+			System.out.println(client.getName());
+			this.client_controller.setClientName(client.getName());
+			this.client_controller.setClientEmail(client.getEmail());
+			this.client_controller.setClientTelephone(client.getTelephone());
 			this.client_controller.getAnchorPane().setEffect(new BoxBlur(4,4,4));
 			main_menu_stage = new Stage();
 			main_menu_stage.initStyle(StageStyle.UNDECORATED);

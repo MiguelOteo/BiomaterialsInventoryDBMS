@@ -21,6 +21,7 @@ public class Client implements Serializable {
 	private String bank_account;
 	private String responsible;
 	private Integer points;
+	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
@@ -109,7 +110,13 @@ public class Client implements Serializable {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	
+	public String getEmail() {
+	    return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public List<Transaction> getTransactions_list() {
 		return transactions_list;
 	}
