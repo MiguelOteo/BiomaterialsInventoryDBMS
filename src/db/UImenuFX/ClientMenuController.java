@@ -80,6 +80,16 @@ public class ClientMenuController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		setAllButtonsOn();
+	    mainmenu_button.setDisable(true);
+		try{
+			Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
+		    main_pane.getChildren().removeAll();
+		    main_pane.getChildren().setAll(mainmenu_pane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
 				AccountClientController.setValues(manager_object, client_account);
@@ -175,6 +185,7 @@ public class ClientMenuController implements Initializable {
 	}
 	public void update_client_account() {
 		client_account = manager_object.Search_client_by_id(client_account.getClient_id());
+    	
     	setClientEmail(client_account.getEmail());
     	setClientName(client_account.getName());
 		setClientTelephone(client_account.getTelephone());
@@ -206,7 +217,6 @@ public void setClientTelephone(Integer telephone) {
 	}
 	@FXML
 	private void loadmarketplace(MouseEvent event) throws IOException {
-		System.out.println("holiwi he entrado en el metro de vanaina");
 		setAllButtonsOn();
 		marketplace_button.setDisable(true);
 		Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
@@ -215,4 +225,21 @@ public void setClientTelephone(Integer telephone) {
 		
 	}
 	
+	@FXML 
+	private void openClub (MouseEvent event) throws IOException{
+		setAllButtonsOn();
+	    club_button.setDisable(true);
+		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("BengClubView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(bengclub_pane);
+	}
+	
+	@FXML 
+	private void openmainmenu (MouseEvent event) throws IOException{
+		setAllButtonsOn();
+	    mainmenu_button.setDisable(true);
+		Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(mainmenu_pane);
+	}
 }

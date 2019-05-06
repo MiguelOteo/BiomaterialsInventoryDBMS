@@ -75,18 +75,21 @@ public class AccountClientController implements Initializable {
 	@FXML
 	private void update_information(MouseEvent event) {
 		if (!this.name_field.getText().equals("")) {
+			System.out.println(this.name_field.getText());
 			client_account.setName(this.name_field.getText());
 			this.name_field.setText("");
 		} else {
 			this.name_field.setText("");
 		}
 		if (!this.email_field.getText().equals("")) {
+			System.out.println(this.email_field.getText());
 			client_account.setEmail(this.email_field.getText());
 			this.email_field.setText("");
 		} else {
 			this.email_field.setText("");
 		}
 		if (!this.telephone_field.getText().equals("")) {
+			System.out.println(Integer.parseInt(this.telephone_field.getText()));
 			client_account.setTelephone(Integer.parseInt(this.telephone_field.getText()));
 			this.telephone_field.setText("");
 		} else {

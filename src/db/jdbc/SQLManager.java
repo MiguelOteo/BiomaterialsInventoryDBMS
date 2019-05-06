@@ -59,7 +59,7 @@ public class SQLManager implements Interface{
 			
 			Statement statement_2 = this.sqlite_connection.createStatement();
 			String table_2 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " responsible TEXT, " + " name TEXT," + " bank_account TEXT UNIQUE, "
+					+ " responsible TEXT, " + " name TEXT, " + "email TEXT, " + " bank_account TEXT UNIQUE, "
 					+ " telephone INTEGER default 0, " + " points INTEGER NOT NULL default 0, " 
 					+ " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";
 			statement_2.execute(table_2);
@@ -424,13 +424,14 @@ public class SQLManager implements Interface{
 	// Updates the information of a Client(responsible, name, bank_account, telephone)
 	public boolean Update_client_info(Client client) {
 		try {
-			String SQL_code = "UPDATE client SET responsible = ?, name = ?, bank_account = ?, telephone = ? WHERE client_id = ?";
+			String SQL_code = "UPDATE client SET responsible = ?, name = ?, email = ?, bank_account=?, telephone = ? WHERE client_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
-			template.setString(3, client.getName());
-			template.setInt(4, client.getTelephone());
-			template.setInt(5, client.getClient_id());
+			template.setString(3, client.getEmail());
+			template.setString(4, client.getBank_account());
+			template.setInt(5, client.getTelephone());
+			template.setInt(6, client.getClient_id());
 			template.executeUpdate();
 			template.close();
 			return true;
@@ -553,6 +554,7 @@ public class SQLManager implements Interface{
 			client.setName(result_set.getString("name"));
 			client.setResponsible(result_set.getString("responsible"));
 			client.setBank_account(result_set.getString("bank_account"));
+	        client.setEmail(result_set.getString("email"));
 			client.setTelephone(result_set.getInt("telephone"));
 			client.setUser(user);
 			template.close();
@@ -697,6 +699,7 @@ public class SQLManager implements Interface{
 				Client client = new Client();
 				ResultSet result_set = template.executeQuery();
                 client.setBank_account(result_set.getString("bank_account"));
+                client.setEmail(result_set.getString("email"));
                 client.setClient_id(client_id);
                 client.setName(result_set.getString("name"));
                 client.setPoints(result_set.getInt("points"));
@@ -870,6 +873,7 @@ public class SQLManager implements Interface{
 				client.setClient_id(result_set.getInt("client_id"));
 				client.setName(result_set.getString("name"));
 				client.setResponsible(result_set.getString("responsible"));
+				client.setEmail(result_set.getString("email"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
 				User user = Search_user_by_id(result_set.getInt("user_id"));

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="29.0" layoutY="110.0" prefHeight="21.0" prefWidth="530.0" text="WELCOME DEAR CLIENT!">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -12,7 +13,16 @@
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTreeTableView layoutX="14.0" layoutY="142.0" prefHeight="457.0" prefWidth="360.0" />
       <Pane layoutX="455.0" layoutY="118.0" prefHeight="486.0" prefWidth="471.0" />
+      <Label layoutX="67.0" layoutY="133.0" text="Available products list">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="biomaterials_tree_view" editable="true" layoutX="44.0" layoutY="154.0" prefHeight="446.0" prefWidth="546.0" styleClass="list-view">
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
    </children>
 </Pane>
