@@ -2,9 +2,23 @@ package db.pojos;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+
+@Entity
+@Table(name = "benefit")
 public class Benefits implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(generator = "benefit")
+	@TableGenerator(name = "benefit", table = "sqlite_sequence",
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefit")
 	private Integer benefits_id;
 	private Float percentage;
 	//private Integer min_amount;
@@ -22,6 +36,16 @@ public class Benefits implements Serializable {
 		this.extra_units = extraUnits;
 	}
 
+
+	
+	
+	public Integer getBenefits_id() {
+		return benefits_id;
+	}
+
+	public void setBenefits_id(Integer benefits_id) {
+		this.benefits_id = benefits_id;
+	}
 
 	public Float getPercentage() {
 		return percentage;

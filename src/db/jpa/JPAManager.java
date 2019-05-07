@@ -41,7 +41,7 @@ public class JPAManager implements Interface {
 			em.getTransaction().commit();
 			em.close();
 						
-			return null;
+			return cat.getCategory_id();
 		} catch(EntityNotFoundException new_category_error) {
 			new_category_error.printStackTrace();
 			return null;
@@ -89,6 +89,33 @@ public class JPAManager implements Interface {
 		}
 	}
 	
+	
+	public Integer Insert_new_benefits(Benefits benefits) {
+		try{
+			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
+			
+			em.getTransaction().begin();
+			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+			em.getTransaction().commit();
+			
+			Benefits benefit = new Benefits();
+			
+			em.getTransaction().begin();
+			
+			benefit.setExtra_units(benefits.getExtra_units());
+			benefit.setPercentage(benefits.getPercentage());
+			
+			em.persist(benefits);
+			em.getTransaction().commit();
+			em.close();
+						
+			return benefit.getBenefits_id();
+		} catch(EntityNotFoundException new_category_error) {
+			new_category_error.printStackTrace();
+			return null;
+		}
+	}
+	
 	public User Insert_new_user(String user_name, String password) {
 		System.out.println("Not implemented");
 		return null;
@@ -98,10 +125,6 @@ public class JPAManager implements Interface {
 		return null;
 	}
 	public Worker Insert_new_worker(User user) {
-		System.out.println("Not implemented");
-		return null;
-	}
-	public Integer Insert_new_benefits(Benefits benefits) {
 		System.out.println("Not implemented");
 		return null;
 	}
