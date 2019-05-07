@@ -2,21 +2,20 @@ package db.pojos;
 
 import java.io.Serializable;
 
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.sql.Date;
-import db.xml.utils.SQLDateAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Biomaterial")
-@XmlType(propOrder = {"biomaterial_id", "utility_id", "name_product", "price_unit", "available_units", "expiration_date", "maintenance_id"})
+@XmlType(propOrder = {"product_name", "price_unit", "available_units"})
 public class Biomaterial implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -28,13 +27,13 @@ public class Biomaterial implements Serializable{
 	@XmlTransient
 	private Maintenance maintenance;
 	@XmlElement
-	private String name_product;
-	@XmlAttribute
+	private String product_name;
+	@XmlElement
 	private Integer price_unit;
-	@XmlAttribute
+	@XmlElement
 	private Integer available_units;
-	@XmlAttribute
-	@XmlJavaTypeAdapter(SQLDateAdapter.class)
+	@XmlTransient
+	//@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date expiration_date;
 	
 	
@@ -47,7 +46,7 @@ public class Biomaterial implements Serializable{
 		super();
 		this.utility = utility;
 		this.maintenance = maintenance;
-		this.name_product = name_product;
+		this.product_name = name_product;
 		this.price_unit = price_unit;
 		this.available_units = available_units;
 		this.expiration_date = expiration_date;
@@ -78,11 +77,11 @@ public class Biomaterial implements Serializable{
 	}
 	
 	public String getName_product() {
-		return name_product;
+		return product_name;
 	}
 	
 	public void setName_product(String name_product) {
-		this.name_product = name_product;
+		this.product_name = name_product;
 	}
 	
 	public Integer getPrice_unit() {
@@ -111,7 +110,7 @@ public class Biomaterial implements Serializable{
 	@Override
 	public String toString() {
 		return "Biomaterial [biomaterial_id=" + biomaterial_id + ", utility=" + utility + ", maintenance=" + maintenance
-				+ ", name_product=" + name_product + ", price_unit=" + price_unit + ", available_units="
+				+ ", product_name=" + product_name + ", price_unit=" + price_unit + ", available_units="
 				+ available_units + ", expiration_date=" + expiration_date + "]";
 	}
 	
