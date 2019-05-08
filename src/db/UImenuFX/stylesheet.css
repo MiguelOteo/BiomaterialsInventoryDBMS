@@ -109,6 +109,10 @@
 	-fx-background-color: rgba(79, 144, 165, 0.5);
 }
 
+.line-chart {
+	-fx-stroke: #4f90a5;
+}
+
 
 
 

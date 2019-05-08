@@ -12,6 +12,7 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
+import db.pojos.Client;
 import db.pojos.Director;
 import db.pojos.Transaction;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,6 +27,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -47,6 +53,8 @@ public class DirectorMenuController implements Initializable {
 
 	private static Director director_account;
 	private static SQLManager manager_object;
+	@SuppressWarnings("rawtypes")
+	private Series series = new XYChart.Series();
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -58,6 +66,12 @@ public class DirectorMenuController implements Initializable {
 	private Pane pane_backup;
 	@FXML
 	private Pane main_pane;
+	@FXML
+	private CategoryAxis number;
+	@FXML
+	private NumberAxis amount_purchased;
+	@FXML
+	private LineChart<?, ?> line_chart;
 	@FXML
 	private JFXButton logOut_button;
 	@FXML
@@ -270,8 +284,8 @@ public class DirectorMenuController implements Initializable {
 		transaction_date.setResizable(false);
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
-					, transaction.getTransaction_date().toString()));
+			transactions_objects.add(new TransactionListObject(transaction.getTransaction_id().toString(),transaction.getClient().getUser().getUserName()
+					, transaction.getUnits().toString(), transaction.getGain().toString(), transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.setPlaceholder(new Label("No transactions found"));
@@ -286,8 +300,8 @@ public class DirectorMenuController implements Initializable {
 		transactions_objects.clear();
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject(transaction.getClient().getUser().getUserName(), transaction.getUnits().toString(), transaction.getGain().toString()
-					, transaction.getTransaction_date().toString()));
+			transactions_objects.add(new TransactionListObject(transaction.getTransaction_id().toString(), transaction.getClient().getUser().getUserName()
+					, transaction.getUnits().toString(), transaction.getGain().toString(), transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.refresh();
@@ -295,11 +309,23 @@ public class DirectorMenuController implements Initializable {
 
 	// -----> BUTTOM METHODS <-----
 	
-    @FXML
+	@FXML @SuppressWarnings({ "unchecked", "rawtypes" })
     private void selected_item_list_view(MouseEvent event) throws IOException {
     	TreeItem<TransactionListObject> transaction_object = transactions_tree_view.getSelectionModel().getSelectedItem();
     	if(transaction_object != null) {
-    		
+    		Integer transaction_id = Integer.parseInt(transaction_object.getValue().transaction_id.getValue());
+    		Client client = manager_object.Search_transaction_by_id(transaction_id).getClient();
+            List<Transaction> transactions_list = manager_object.Search_stored_transactions(client);
+            series = new XYChart.Series();
+            series.getData().clear();
+            series.getData().add(new XYChart.Data("1", transactions_list.get(transactions_list.size() - 5).getGain()));
+           	series.getData().add(new XYChart.Data("2", transactions_list.get(transactions_list.size() - 4).getGain()));
+           	series.getData().add(new XYChart.Data("3", transactions_list.get(transactions_list.size() - 3).getGain()));
+           	series.getData().add(new XYChart.Data("4", transactions_list.get(transactions_list.size() - 2).getGain()));
+           	series.getData().add(new XYChart.Data("5", transactions_list.get(transactions_list.size() - 1).getGain()));  
+           	series.setName("Payment $");
+           	line_chart.getData().clear();
+            line_chart.getData().add(series);
     	}
     }
 	
@@ -419,12 +445,14 @@ public class DirectorMenuController implements Initializable {
 // To insert columns into the list of transactions with all the information
 class TransactionListObject extends RecursiveTreeObject<TransactionListObject> {
 	
+	StringProperty transaction_id;
 	StringProperty client_name;
 	StringProperty amount;
 	StringProperty units;
 	StringProperty transaction_date;
 	
-	public TransactionListObject(String client_name, String amount, String units, String transaction_date) {
+	public TransactionListObject(String transaction_id, String client_name, String amount, String units, String transaction_date) {
+		this.transaction_id = new SimpleStringProperty(transaction_id);
 		this.client_name = new SimpleStringProperty(client_name);
 		this.amount = new SimpleStringProperty(amount);
 		this.units = new SimpleStringProperty(units);

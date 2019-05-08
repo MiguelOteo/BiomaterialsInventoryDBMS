@@ -64,49 +64,19 @@
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="13.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="455.0" showRoot="false" styleClass="split-pane">
+                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="13.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selected_item_list_view" prefHeight="585.0" prefWidth="455.0" showRoot="false" styleClass="split-pane">
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </JFXTreeTableView>
-                  <LineChart layoutX="486.0" layoutY="78.0" prefHeight="400.0" prefWidth="440.0" styleClass="list-view">
+                  <LineChart fx:id="line_chart" createSymbols="false" layoutX="486.0" layoutY="63.0" prefHeight="541.0" prefWidth="440.0" styleClass="line-chart" title="Client transaction record">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis fx:id="number" label="Last five transactions" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis animated="false" side="LEFT" />
+                      <NumberAxis fx:id="amount_purchased" animated="false" side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <Label layoutX="627.0" layoutY="54.0" text="Last five transactions done">
-                     <font>
-                        <Font name="Ebrima Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="621.0" layoutY="464.0" text="X axis: transactions / Y axis:  payment($) " textFill="#000000b3">
-                     <font>
-                        <Font name="Ebrima Bold" size="11.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="554.0" layoutY="510.0" prefHeight="25.0" prefWidth="173.0" text="Last transaction date: ">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="554.0" layoutY="535.0" prefHeight="25.0" prefWidth="104.0" text="Client name: ">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="725.0" layoutY="510.0" text="&quot;Last date&quot;" textFill="#000000b1">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="658.0" layoutY="535.0" text="&quot;Client name&quot;" textFill="#000000b1">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
                </children>
             </Pane>
          </children>
