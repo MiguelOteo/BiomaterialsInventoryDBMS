@@ -60,8 +60,7 @@ public class MarketplaceController implements Initializable {
 	@FXML
 	private final ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
 	
-	public static void setValues(MarketplaceController controller,SQLManager manager) {
-		marketplace_controller = controller;
+	public static void setValues(SQLManager manager) {
 		manager_object=manager;
 	}
 	@Override
@@ -69,7 +68,7 @@ public class MarketplaceController implements Initializable {
 			
 
 		// Biomaterials list columns creation
-
+System.out.println("JEJE");
 				JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
 				product_name.setPrefWidth(240);
 				product_name.setCellValueFactory(
@@ -125,8 +124,19 @@ public class MarketplaceController implements Initializable {
 						});
 				id.setResizable(false);
 				
+				JFXTreeTableColumn<BiomaterialListObject, String> Action = new JFXTreeTableColumn<>("Action");
+				product_name.setPrefWidth(240);
+				product_name.setCellValueFactory(
+						new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
+							@Override
+							public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
+								return param.getValue().getValue().action;
+							}
+						});
+				product_name.setResizable(false);
 				List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 				System.out.println(biomaterial_list);
+				System.out.println("LOL");
 				for(Biomaterial biomaterial: biomaterial_list) {
 					biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(), biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
 							, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString()));
@@ -149,6 +159,7 @@ public class MarketplaceController implements Initializable {
 
 // To insert columns into the list of biomaterials with all the information
 class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
+	protected ObservableValue<String> action;
 	StringProperty product_name;
 	StringProperty available_units;
 	StringProperty price_unit;
@@ -162,6 +173,7 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.price_unit = new SimpleStringProperty(price_unit);
 		this.expiration_date = new SimpleStringProperty(expiration_date);
 		this.bio_id = new SimpleStringProperty(id);
+		
 	}
 }}
 

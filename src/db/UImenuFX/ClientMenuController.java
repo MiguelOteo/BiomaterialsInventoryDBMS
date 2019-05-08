@@ -219,9 +219,11 @@ public void setClientTelephone(Integer telephone) {
 	private void loadmarketplace(MouseEvent event) throws IOException {
 		setAllButtonsOn();
 		marketplace_button.setDisable(true);
+		MarketplaceController.setValues(manager_object);
 		Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(marketplace_pane);
+		
 		
 	}
 	
