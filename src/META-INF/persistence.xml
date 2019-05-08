@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <persistence
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://BENGMAT-store/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
@@ -12,9 +12,12 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
 		<!-- Entity Class -->
-		<class>sample.db.pojos.Employee</class>
-		<class>sample.db.pojos.Department</class>
-		<class>sample.db.pojos.Report</class>
+		<class>db.pojos.Biomaterial</class>
+		<class>db.pojos.BiomaterialList</class>
+		<class>db.pojos.Category</class>
+		<class>db.pojos.Client</class>
+		<class>db.pojos.Benefits</class>
+		
 
 		<properties>
 			<!-- Connection properties -->

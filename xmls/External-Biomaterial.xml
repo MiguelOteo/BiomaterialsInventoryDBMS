@@ -1,21 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-The type of the attribute "id" of Employee needs
+The type of the attribute "id" of Biomaterials needs
 to be CDATA instead of ID, since DTD doesn't allow
 IDs that start with a number
 
 It's a template in DTD language
 -->
-<!DOCTYPE Report [
-   <!ELEMENT Report (name, content, date, Authors)>
-   <!ELEMENT name (#PCDATA)>
-   <!ELEMENT content (#PCDATA)>
-   <!ELEMENT date (#PCDATA)>
-   <!ELEMENT Authors (Employee+)>
-   <!ELEMENT Employee (dob, address, salary)>
-   <!ATTLIST Employee name CDATA #REQUIRED
-                  	  id CDATA #REQUIRED>
-   <!ELEMENT dob (#PCDATA)>
-   <!ELEMENT address (#PCDATA)>
-   <!ELEMENT salary (#PCDATA)>
+<!DOCTYPE BiomaterialList [
+	<!ELEMENT BiomaterialList (Products)>
+	<!ELEMENT Products (Biomaterial+)>
+    <!ELEMENT Biomaterial (product_name, price_unit, available_units)>
+    <!ATTLIST Biomaterial biomaterialId CDATA #REQUIRED>
+    <!ELEMENT product_name (#PCDATA)>
+    <!ELEMENT price_unit (#PCDATA)>
+    <!ELEMENT available_units (#PCDATA)>
 ]>
+<BiomaterialList>
+    <Products>
+        <Biomaterial biomaterialId="1">
+            <product_name>qq</product_name>
+            <price_unit>50</price_unit>
+            <available_units>50</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="2">
+            <product_name>qq</product_name>
+            <price_unit>50</price_unit>
+            <available_units>50</available_units>
+        </Biomaterial>
+    </Products>
+</BiomaterialList>

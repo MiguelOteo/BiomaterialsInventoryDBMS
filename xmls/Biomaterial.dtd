@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-									<!--makes a reference to DTD-->
+<!--makes a reference to DTD-->
 <!--
 The type of the attribute "id" of Employee needs
 to be CDATA instead of ID, since DTD doesn't allow
@@ -7,10 +6,12 @@ IDs that start with a number
 
 It's a template in DTD language
 -->
-<!DOCTYPE Biomaterial [
-   <!ELEMENT Biomaterial (name_product, price_unit, available_units, expiration_date)>
-   <!ELEMENT name_product (#PCDATA)>
-   <!ELEMENT price_unit (#PCDATA)>
-   <!ELEMENT expiration_date (#PCDATA)>
+<!DOCTYPE BiomaterialList [
+	<!ELEMENT BiomaterialList(Products)>
+	<!ELEMENT Products (Biomaterial+)>
+    <!ELEMENT Biomaterial (product_name, price_unit, available_units)>
+    <!ATTLIST Biomaterial biomaterial_id CDATA #REQUIRED>
+    <!ELEMENT product_name (#PCDATA)>
+    <!ELEMENT price_unit (#PCDATA)>
+    <!ELEMENT available_units (#PCDATA)>
 ]>
-
