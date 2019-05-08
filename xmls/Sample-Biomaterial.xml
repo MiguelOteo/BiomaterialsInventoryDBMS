@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Report>
-    <name>External Sales Report</name>
-    <content>Eh, better than expected!</content>
-    <date>2016-11-09</date>
-    <Authors>
-        <Employee id="2" name="Employee-0">
-            <dob>2016-12-20</dob>
-            <address>Address-0</address>
-            <salary>0.0</salary>
-        </Employee>
-        <Employee id="3" name="Employee-1">
-            <dob>2016-12-21</dob>
-            <address>Address-1</address>
-            <salary>101.0</salary>
-        </Employee>
-    </Authors>
-</Report>
+<BiomaterialList>
+    <Products>
+        <Biomaterial biomaterialId="1">
+            <product_name>qq</product_name>
+            <price_unit>50</price_unit>
+            <available_units>50</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="2">
+            <product_name>qq</product_name>
+            <price_unit>50</price_unit>
+            <available_units>50</available_units>
+        </Biomaterial>
+    </Products>
+</BiomaterialList>

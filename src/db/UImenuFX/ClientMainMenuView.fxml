@@ -7,7 +7,7 @@
 
 <Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" layoutX="29.0" layoutY="110.0" prefHeight="21.0" prefWidth="530.0" text="WELCOME DEAR CLIENT!">
+      <Label alignment="CENTER" layoutX="29.0" layoutY="69.0" prefHeight="21.0" prefWidth="530.0" text="WELCOME DEAR CLIENT!">
          <font>
             <Font name="Ebrima Bold" size="16.0" />
          </font>
