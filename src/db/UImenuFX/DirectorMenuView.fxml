@@ -69,9 +69,9 @@
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </JFXTreeTableView>
-                  <LineChart fx:id="line_chart" createSymbols="false" layoutX="486.0" layoutY="63.0" prefHeight="541.0" prefWidth="440.0" styleClass="line-chart" title="Client transaction record">
+                  <LineChart fx:id="line_chart" createSymbols="false" layoutX="486.0" layoutY="63.0" prefHeight="541.0" prefWidth="440.0" styleClass="chart-series-line" title="Client transactions record">
                     <xAxis>
-                      <CategoryAxis fx:id="number" label="Last five transactions" side="BOTTOM" />
+                      <CategoryAxis fx:id="number" label="Last transactions done by the client (Up to eight)" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis fx:id="amount_purchased" animated="false" side="LEFT" />
