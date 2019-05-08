@@ -1,7 +1,7 @@
 package db.UImenuFX;
 
 
-import java.awt.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -24,7 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Button;import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -58,7 +58,7 @@ public class MarketplaceController implements Initializable {
 	@FXML
 	private ImageView itemimg2;
 	@FXML
-	private Label item_information;
+	private Label iteminformation;
 	@FXML
 	private final ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
 	
@@ -83,16 +83,7 @@ public class MarketplaceController implements Initializable {
 						});
 				product_name.setResizable(false);
 
-				JFXTreeTableColumn<BiomaterialListObject, String> available_units = new JFXTreeTableColumn<>("Available units");
-				available_units.setPrefWidth(120);
-				available_units.setCellValueFactory(
-						new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-							@Override
-							public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-								return param.getValue().getValue().available_units;
-							}
-						});
-				available_units.setResizable(false);
+				
 
 				JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
 				price.setPrefWidth(90);
@@ -105,16 +96,7 @@ public class MarketplaceController implements Initializable {
 						});
 				price.setResizable(false);
 
-				JFXTreeTableColumn<BiomaterialListObject, String> exp_date = new JFXTreeTableColumn<>("Expiration date");
-				exp_date.setPrefWidth(90);
-				exp_date.setCellValueFactory(
-						new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-							@Override
-							public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-								return param.getValue().getValue().expiration_date;
-							}
-						});
-				exp_date.setResizable(false);
+				
 
 				JFXTreeTableColumn<BiomaterialListObject, String> id = new JFXTreeTableColumn<>("id");
 				id.setPrefWidth(40);
@@ -127,16 +109,33 @@ public class MarketplaceController implements Initializable {
 						});
 				id.setResizable(false);
 				
-				JFXTreeTableColumn<BiomaterialListObject, JFXButton> action = new JFXTreeTableColumn<>("Action");
-				action.setPrefWidth(40);
-				action.setCellValueFactory(
+				JFXTreeTableColumn<BiomaterialListObject, JFXButton> action = new JFXTreeTableColumn<>("Quantity");
+				action.setPrefWidth(200);
+			
+				
+					
+				action.setResizable(false);
+				JFXTreeTableColumn<BiomaterialListObject, JFXButton> plus = new JFXTreeTableColumn<>("Plus");
+				plus.setPrefWidth(100);
+				plus.setCellValueFactory(
 						new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXButton>, ObservableValue<JFXButton>>() {
 							@Override
 							public ObservableValue<JFXButton> call(CellDataFeatures<BiomaterialListObject, JFXButton> param) {
-								return param.getValue().getValue().button;
+								return param.getValue().getValue().plus;
 							}
 						});
-				product_name.setResizable(false);
+				plus.setResizable(false);
+				JFXTreeTableColumn<BiomaterialListObject, JFXButton> minus = new JFXTreeTableColumn<>("Minus");
+				minus.setPrefWidth(100);
+				minus.setCellValueFactory(
+						new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXButton>, ObservableValue<JFXButton>>() {
+							@Override
+							public ObservableValue<JFXButton> call(CellDataFeatures<BiomaterialListObject, JFXButton> param) {
+								return param.getValue().getValue().minus;
+							}
+						});
+				minus.setResizable(false);
+				action.getColumns().addAll(plus, minus);
 				List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 				for(Biomaterial biomaterial: biomaterial_list) {
 					biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(), biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
@@ -144,7 +143,7 @@ public class MarketplaceController implements Initializable {
 				}
 				
 				TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
-				biomaterials_tree_view.getColumns().setAll(id, product_name, available_units, price, exp_date, action);
+				biomaterials_tree_view.getColumns().setAll(id, product_name, price, action);
 				biomaterials_tree_view.setRoot(root);
 				biomaterials_tree_view.setShowRoot(false);
 
@@ -161,7 +160,7 @@ public class MarketplaceController implements Initializable {
 		TreeItem<BiomaterialListObject> biomaterial_object = biomaterials_tree_view.getSelectionModel().getSelectedItem();
 	    System.out.println(Integer.parseInt(biomaterial_object.getValue().bio_id.getValue().toString()));
 	    if(biomaterial_object!=null) {
-	    	
+	    	iteminformation.setText(biomaterial_object.getValue().product_name.getValue().toString());
 	    }
 	    
 	}
@@ -174,8 +173,14 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 	StringProperty price_unit;
 	StringProperty expiration_date;
 	StringProperty bio_id;
-    ObjectProperty<JFXButton> button;
+    ObjectProperty<JFXButton> plus;
+    ObjectProperty<JFXButton> minus;
 	@SuppressWarnings("unchecked")
+	@FXML
+	private ImageView add;
+	@FXML
+	private ImageView sub;
+	
 	public BiomaterialListObject(String id, String product_name, String available_units, String price_unit,
 			String expiration_date) {
 		this.product_name = new SimpleStringProperty(product_name);
@@ -183,8 +188,10 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.price_unit = new SimpleStringProperty(price_unit);
 		this.expiration_date = new SimpleStringProperty(expiration_date);
 		this.bio_id = new SimpleStringProperty(id);
-		Button button = new JFXButton("smth");
-		this.button=new SimpleObjectProperty(button);
+		Button plus = new JFXButton("Plus");
+		Button minus = new JFXButton("Minus");
+		this.plus=new SimpleObjectProperty(plus);
+		this.minus=new SimpleObjectProperty(minus);
 		
 	}
 	

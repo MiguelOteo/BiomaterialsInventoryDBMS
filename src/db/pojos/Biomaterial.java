@@ -35,6 +35,8 @@ public class Biomaterial implements Serializable{
 	@XmlTransient
 	//@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date expiration_date;
+	@XmlAttribute
+	private String information;
 	
 	
 	public Biomaterial() {
@@ -52,6 +54,12 @@ public class Biomaterial implements Serializable{
 		this.expiration_date = expiration_date;
 	}
 	
+	public String getInformation() {
+		return information;
+	}
+	public void setInformation(String information) {
+		this.information=information;
+	}
 	public Integer getBiomaterial_id() {
 		return biomaterial_id;
 	}

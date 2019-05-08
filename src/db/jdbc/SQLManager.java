@@ -109,7 +109,7 @@ public class SQLManager implements Interface{
 					+ " utility_id INTEGER REFERENCES utility (utility_id), "
 					+ " name_product TEXT NOT NULL, "
 					+ " price_unit INTEGER NULL default 1, " + " available_units INTEGER NOT NULL, "
-					+ " expiration_date DATETIME, "
+					+ " expiration_date DATETIME, " + "information TEXT,"
 					+ " maintenance_id INTEGER REFERENCES maintenance(maintenance_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_8.execute(table_8);
 			statement_8.close();
@@ -383,8 +383,8 @@ public class SQLManager implements Interface{
 	// Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date)
 	public Integer Insert_new_biomaterial(Biomaterial biomaterial) {
 		try {
-			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date) "
-					+ "VALUES (?,?,?,?);";
+			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date, information) "
+					+ "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			/*template.setInt(1, biomaterial.getUtility().getUtility_id());
 			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
@@ -392,6 +392,7 @@ public class SQLManager implements Interface{
 			template.setFloat(2, biomaterial.getPrice_unit());
 			template.setInt(3, biomaterial.getAvailable_units());
 			template.setDate(4, biomaterial.getExpiration_date());
+			template.setString(5, biomaterial.getInformation());
 			template.executeUpdate();
 			template.close();
 			
@@ -615,6 +616,7 @@ public class SQLManager implements Interface{
 			biomaterial.setAvailable_units(result_set.getInt("available_units"));
 			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
+			biomaterial.setInformation(result_set.getString("information"));
 			biomaterial.setName_product(result_set.getString("name_product"));
 			biomaterial.setPrice_unit(result_set.getInt("price_unit"));
 			biomaterial.setUtility(Search_utility_by_id(result_set.getInt("utility_id")));
