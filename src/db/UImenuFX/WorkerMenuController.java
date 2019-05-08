@@ -95,6 +95,8 @@ public class WorkerMenuController implements Initializable {
     @FXML
 	private static Stage stage_window;
 	@FXML
+	private static Stage stage_main;
+	@FXML
 	private JFXTreeTableView<BiomaterialListObject> biomaterials_tree_view;
 	@FXML
 	private final ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
@@ -179,6 +181,9 @@ public class WorkerMenuController implements Initializable {
 	
 	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		this.pane_backup = menu_main_pane;
+		listInventory_button.setDisable(true);
+		
 		
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
@@ -249,6 +254,7 @@ public class WorkerMenuController implements Initializable {
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
+						refreshBiomaterialListView();
 						menu_window.setEffect(null);
 					}
 				});		
@@ -375,6 +381,8 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	public void open_option_panel(MouseEvent event) throws IOException {
+		setAllButtonsOn();
+		addProduct_button.setDisable(true);
 		Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
 		ProductOptionController.setValues(worker_controller);
 		NewProductController.setManager(manager_object);
@@ -386,13 +394,11 @@ public class WorkerMenuController implements Initializable {
 		
 	@FXML
 	public void open_list_inventory_panel(MouseEvent event) throws IOException {
-		AnchorPane menu_panel = FXMLLoader.load(getClass().getResource("WorkerMenuView.fxml"));
-		ProductOptionController.setValues(worker_controller);
-		NewProductController.setManager(manager_object);
-		NewProductController.setValues(worker_controller);
-		OrderProductController.setValues(manager_object);
-		menu_window.getChildren().removeAll();
-		menu_window.getChildren().setAll(menu_panel);
+		setAllButtonsOn();
+		listInventory_button.setDisable(true);
+		Parent root = FXMLLoader.load(getClass().getResource("WorkerMenuView.fxml"));
+		WorkerMenuController.setController(worker_controller);
+		stage_main.getScene().setRoot(root);
 	}
 		
 	
@@ -409,7 +415,29 @@ public class WorkerMenuController implements Initializable {
 		OrderProductController.setItems(biomaterial);
 		
 	}
-		
+	
+	
+	public void setAllButtonsOn() {
+		this.addProduct_button.setDisable(false);
+		this.addSelection_button.setDisable(false);
+		this.listClients_button.setDisable(false);
+		this.listInventory_button.setDisable(false);
+		this.listTransactions_button.setDisable(false);
+		this.myAccount_button.setDisable(false);
+		this.removeProduct_button.setDisable(false);
+	}
+	
+	public void setAllButtonsOff() {
+		this.addProduct_button.setDisable(true);
+		this.addSelection_button.setDisable(true);
+		this.listClients_button.setDisable(true);
+		this.listInventory_button.setDisable(true);
+		this.listTransactions_button.setDisable(true);
+		this.myAccount_button.setDisable(true);
+		this.removeProduct_button.setDisable(true);
+	}
+	
+	
 }
 
 // -----> BIOMATERIALS LIST CLASS <-----
