@@ -196,6 +196,7 @@ public class SQLManager implements Interface{
 			client.setUser(user);
 			client.setTelephone(0);
 			client.setPoints(0);
+			client.setCategory(new Category("None", 79, 0));
 			return client;
 		} catch (SQLException new_client_account_error) {
 			return null;
@@ -807,7 +808,7 @@ public class SQLManager implements Interface{
 		} catch (SQLException search_transaction_error) {
 			search_transaction_error.printStackTrace();
 			return null;
-	}
+		}
 	}
 	
 	// -----> LIST METHODS <-----

@@ -35,7 +35,8 @@ public class AddTransaction {
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		
 		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id)
-		Client client = manager.Search_client_by_id(3);
+		Client client = manager.Search_client_by_id(1);
+		System.out.println(client);
 		Transaction transaction = new Transaction((float)6, 34243, biomaterial, client);
 		manager.Insert_new_transaction(transaction);
 	}

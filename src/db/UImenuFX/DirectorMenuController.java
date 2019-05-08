@@ -180,9 +180,9 @@ public class DirectorMenuController implements Initializable {
 				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
-					public void handle(WindowEvent event) {
-						refreshtransactionListView();
-						menu_window.setEffect(null);
+					public void handle(WindowEvent event) {	
+							refreshTransactionListView();
+							menu_window.setEffect(null);
 					}
 				});		
 				stage_window.show();
@@ -282,7 +282,7 @@ public class DirectorMenuController implements Initializable {
 	
 	// -----> REFRESH TRANSACTION LIST VIEW <-----
 	
-	public void refreshtransactionListView() {
+	public void refreshTransactionListView() {
 		transactions_objects.clear();
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		for(Transaction transaction: transactions_list) {
@@ -295,11 +295,20 @@ public class DirectorMenuController implements Initializable {
 
 	// -----> BUTTOM METHODS <-----
 	
+    @FXML
+    private void selected_item_list_view(MouseEvent event) throws IOException {
+    	TreeItem<TransactionListObject> transaction_object = transactions_tree_view.getSelectionModel().getSelectedItem();
+    	if(transaction_object != null) {
+    		
+    	}
+    }
+	
 	@FXML
 	private void list_all_clients_button(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("List all clients");
 		setAllButtonsOn();
 		listAllClients_button.setDisable(true);
+		ListAllClientsController.setValues(manager_object);
 		Pane list_all_clients_pane = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(list_all_clients_pane);
