@@ -43,7 +43,7 @@
          </font>
       </JFXPasswordField>
       <JFXComboBox fx:id="user_type" focusColor="#4f90a5" labelFloat="true" layoutX="96.0" layoutY="387.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" visibleRowCount="3" />
-      <JFXButton fx:id="createAccountButton" buttonType="RAISED" layoutX="96.0" layoutY="468.0" prefHeight="60.0" prefWidth="240.0" styleClass="starter_buttom" text="Create accout">
+      <JFXButton fx:id="createAccountButton" buttonType="RAISED" layoutX="96.0" layoutY="468.0" prefHeight="60.0" prefWidth="240.0" styleClass="starter_buttom" text="Create account">
          <font>
             <Font name="Ebrima Bold" size="20.0" />
          </font>

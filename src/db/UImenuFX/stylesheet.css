@@ -160,6 +160,10 @@
 .default-color0.chart-series-line { -fx-stroke: #4f90a5; }
 .default-color0.chart-line-symbol { -fx-background-color: #4f90a5, white;}
 
-
+/*Label style*/
+.label-style label {
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
 
 

@@ -51,7 +51,7 @@ public class ListAllClientsController implements Initializable{
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		// Transaction list columns creation
+		// Client list columns creation
 		
 		JFXTreeTableColumn<ClientListObject2, String> client_name = new JFXTreeTableColumn<>("Client name");
 		client_name.setPrefWidth(180);
@@ -115,7 +115,7 @@ public class ListAllClientsController implements Initializable{
 		client_tree_view.setShowRoot(false);
 	}
 
-// -----> REFRESH TRANSACTION LIST VIEW <-----
+// -----> REFRESH CLIENTS LIST VIEW <-----
 
 	public void refreshClientListView() {
 		clients_objects.clear();

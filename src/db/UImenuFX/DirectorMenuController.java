@@ -349,6 +349,17 @@ public class DirectorMenuController implements Initializable {
 	}
 	
 	@FXML
+	private void list_all_workers_button(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("List all workers");
+		setAllButtonsOn();
+		listAllWorkers_button.setDisable(true);
+		ListAllWorkersController.setValues(manager_object);
+		Pane list_all_workers_pane = FXMLLoader.load(getClass().getResource("ListAllWorkersView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(list_all_workers_pane);
+	}
+	
+	@FXML
 	private void finantial_status_button(MouseEvent event) throws IOException { 
 		setAllButtonsOn();
 		finantialStatus_button.setDisable(true);
