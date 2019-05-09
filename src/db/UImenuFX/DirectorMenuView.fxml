@@ -102,7 +102,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="515.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
+            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="477.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -172,19 +172,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="addWorker_button" alignment="TOP_LEFT" layoutY="382.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add worker" textFill="#00000080">
-               <font>
-                  <Font name="Ebrima Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/user-plus.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="removeWorker_button" alignment="TOP_LEFT" layoutY="426.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove worker" textFill="#00000080">
+            <JFXButton fx:id="removeWorker_button" alignment="TOP_LEFT" layoutY="384.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove worker" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -196,12 +184,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="14.0" layoutY="490.0" text="Business" textFill="#ffffffb4">
+            <Label layoutX="14.0" layoutY="452.0" text="Business" textFill="#ffffffb4">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="addPromotion_button" alignment="TOP_LEFT" defaultButton="true" layoutY="561.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
+            <JFXButton fx:id="addPromotion_button" alignment="TOP_LEFT" defaultButton="true" layoutY="523.0" onMouseClicked="#add_promotion_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

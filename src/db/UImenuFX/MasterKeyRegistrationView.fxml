@@ -20,7 +20,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="done_button" layoutX="106.0" layoutY="149.0" styleClass="starter_small_buttom" stylesheets="@stylesheet.css" text="Enter password" textFill="#4f90a5">
+            <JFXButton fx:id="done_button" layoutX="122.0" layoutY="149.0" styleClass="starter_small_buttom" stylesheets="@stylesheet.css" text="Submit key" textFill="#4f90a5">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

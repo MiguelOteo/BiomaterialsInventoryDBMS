@@ -85,8 +85,6 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private JFXButton listAllWorkers_button;
 	@FXML
-	private JFXButton addWorker_button;
-	@FXML
 	private JFXButton removeWorker_button;
 	@FXML
 	private JFXButton addPromotion_button;
@@ -360,6 +358,17 @@ public class DirectorMenuController implements Initializable {
 	}
 	
 	@FXML
+	private void add_promotion_button(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Add promotion");
+		setAllButtonsOn();
+		addPromotion_button.setDisable(true);
+		AddPromotionController.setValues(manager_object);
+		Pane add_promotion_pane = FXMLLoader.load(getClass().getResource("AddPromotionView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(add_promotion_pane);
+	}
+	
+	@FXML
 	private void finantial_status_button(MouseEvent event) throws IOException { 
 		setAllButtonsOn();
 		finantialStatus_button.setDisable(true);
@@ -388,10 +397,10 @@ public class DirectorMenuController implements Initializable {
 	}
 	
 	public void update_director_account() {
-	    	director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
-	    	setDirectorEmail(director_account.getEmail());
-	    	setDirectorName(director_account.getDirector_name());
-    		setDirectorTelephone(director_account.getTelephone());
+	    director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
+	   	setDirectorEmail(director_account.getEmail());
+	   	setDirectorName(director_account.getDirector_name());
+    	setDirectorTelephone(director_account.getTelephone());
 	}
 
 	// -----> SET AND GET METHODS <-----
@@ -437,7 +446,6 @@ public class DirectorMenuController implements Initializable {
 	    listAllWorkers_button.setDisable(true);
 	    removeClient_button.setDisable(true);
 	    removeWorker_button.setDisable(true);
-	    addWorker_button.setDisable(true);
 	    finantialStatus_button.setDisable(true);
 	    logOut_button.setDisable(true);
 	    minButton.setDisable(true);
@@ -451,7 +459,6 @@ public class DirectorMenuController implements Initializable {
 	    listAllWorkers_button.setDisable(false);
 	    removeClient_button.setDisable(false);
 	    removeWorker_button.setDisable(false);
-	    addWorker_button.setDisable(false);
 	    finantialStatus_button.setDisable(false);
 	    logOut_button.setDisable(false);
 	    minButton.setDisable(false);

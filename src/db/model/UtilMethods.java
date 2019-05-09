@@ -52,10 +52,10 @@ public class UtilMethods {
 		Integer Silver1_ok = manager.Insert_new_category(new Category("Silver 1", 399, 280));
 		Integer Gold2_ok = manager.Insert_new_category(new Category("Gold 2", 449, 400));
 		Integer Gold1_ok = manager.Insert_new_category(new Category("Gold 1", 549, 450));
-		Integer Diamond2_ok = manager.Insert_new_category(new Category("Diamond 2", 919, 820));
-		Integer Diamond1_ok = manager.Insert_new_category(new Category("Diamond 1", 999, 920));
-		Integer Platinum2_ok = manager.Insert_new_category(new Category("Platinum 2", 1299, 1000));
-		Integer Platinum1_ok = manager.Insert_new_category(new Category("Platinum 1", 1599, 1300));
+		Integer Platinum2_ok = manager.Insert_new_category(new Category("Diamond 2", 919, 820));
+		Integer Platinum1_ok = manager.Insert_new_category(new Category("Diamond 1", 999, 920));
+		Integer Diamond2_ok = manager.Insert_new_category(new Category("Platinum 2", 1299, 1000));
+		Integer Diamond1_ok = manager.Insert_new_category(new Category("Platinum 1", 1599, 1300));
 	}
 
 	public void Benefits_Of_Category(SQLManager manager) {
@@ -67,10 +67,10 @@ public class UtilMethods {
 		Integer Silver1_ok = manager.Insert_new_benefits(new Benefits((float) 0.05, 120));
 		Integer Gold2_ok = manager.Insert_new_benefits(new Benefits((float) 0.1, 140));
 		Integer Gold1_ok = manager.Insert_new_benefits(new Benefits((float) 0.15, 160));
-		Integer Diamond2_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 200));
-		Integer Diamond1_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 220));
-		Integer Platinum2_ok = manager.Insert_new_benefits(new Benefits((float) 0.25, 250));
-		Integer Platinum1_ok = manager.Insert_new_benefits(new Benefits((float) 0.3, 300));
+		Integer Platinum2_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 200));
+		Integer Platinum1_ok = manager.Insert_new_benefits(new Benefits((float) 0.2, 220));
+		Integer Diamond2_ok = manager.Insert_new_benefits(new Benefits((float) 0.25, 250));
+		Integer Diamond1_ok = manager.Insert_new_benefits(new Benefits((float) 0.3, 300));
 	}
 
 	public boolean Assign_category_to_client(Client client, SQLManager manager) {
