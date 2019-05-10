@@ -255,30 +255,15 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.minus=new SimpleObjectProperty(minus);
 		this.plus.get().setOnAction((MouseClickEvent) -> {
 			this.total=new SimpleIntegerProperty(total+1);
-			System.out.println(total);
-			marketplace_controller.refreshBiomaterialsListView(total);
+			System.out.println(this.total);
+			marketplace_controller.refreshBiomaterialsListView(this.total.intValue());
 			});
 		this.minus.get().setOnAction((MouseClickEvent) -> {
 			this.total=new SimpleIntegerProperty(total-1);
-			System.out.println(total);
-			marketplace_controller.refreshBiomaterialsListView(total);
+			System.out.println(this.total);
+			marketplace_controller.refreshBiomaterialsListView(this.total.intValue());
 			});
 	}
-	public void addunits() {
-	    this.plus.get().setOnAction((MouseClickEvent) -> {
-	    Integer total= new Integer(this.total.getValue());
-		this.total=new SimpleIntegerProperty(total+1);
-		marketplace_controller.refreshBiomaterialsListView(total);
-		System.out.println(total);
-		});
-	}
-	public void substractunits() {
-		   this.minus.get().setOnAction((MouseClickEvent) -> {
-			    Integer total= new Integer(this.total.getValue());
-				this.total=new SimpleIntegerProperty(total-1);
-				marketplace_controller.refreshBiomaterialsListView(total);
-				System.out.println(total);
-				});
-	}
+	
 }}
 
