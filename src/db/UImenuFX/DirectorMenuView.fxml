@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -57,28 +52,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0">
-               <children>
-                  <Label layoutX="179.0" layoutY="14.0" text="Transactions list">
-                     <font>
-                        <Font name="Ebrima Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXTreeTableView fx:id="transactions_tree_view" layoutX="13.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selected_item_list_view" prefHeight="585.0" prefWidth="455.0" showRoot="false" styleClass="split-pane">
-                     <columnResizePolicy>
-                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </JFXTreeTableView>
-                  <LineChart fx:id="line_chart" createSymbols="false" layoutX="486.0" layoutY="63.0" prefHeight="541.0" prefWidth="440.0" styleClass="chart-series-line" title="Client transactions record">
-                    <xAxis>
-                      <CategoryAxis fx:id="number" label="Last transactions done by the client (Up to eight)" side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis fx:id="amount_purchased" animated="false" side="LEFT" />
-                    </yAxis>
-                  </LineChart>
-               </children>
-            </Pane>
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" />
          </children>
       </Pane>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
