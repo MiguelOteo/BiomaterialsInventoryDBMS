@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ProductOptionController">
+<Pane fx:id="main_pain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ProductOptionController">
    <children>
       <JFXButton fx:id="newProduct_button" layoutX="194.0" layoutY="333.0" onMouseClicked="#open_newProduct_panel" prefHeight="99.0" prefWidth="151.0" styleClass="charging_screen_bg_color" text="New product" textFill="#4f90a5">
          <font>

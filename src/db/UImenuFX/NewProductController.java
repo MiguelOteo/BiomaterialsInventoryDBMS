@@ -35,7 +35,7 @@ public class NewProductController implements Initializable {
 	
 		private static SQLManager manager_object;
 		private static WorkerMenuController worker_controller;
-		private static Biomaterial biomaterial;
+		private Biomaterial biomaterial;
 		
 	// -----> FXML ATTRIBUTES <-----
 		
@@ -56,10 +56,6 @@ public class NewProductController implements Initializable {
 	    @FXML
 	    private static Stage stage_window;
 	    
-    
- // -----> GETTERS AND SETTERS <-----
-    
-	
 	
  // -----> ESSENTIAL METHODS <-----
     
@@ -68,11 +64,8 @@ public class NewProductController implements Initializable {
 		super();
 	}
 	
-	public static void setValues(WorkerMenuController controller) {
-		worker_controller = controller;
-	}
 	
-	public static void setManager(SQLManager manager) {
+	public static void setValues(SQLManager manager) {
 		manager_object = manager;
 	}
 	
@@ -89,7 +82,7 @@ public class NewProductController implements Initializable {
     		units_button.setConverter(new IntegerStringConverter());
     		price_button.setConverter(new IntegerStringConverter());
     		
-        
+        /*ERROR NO SE ABRE*/
         features_button.setOnAction((ActionEvent) -> {
         	
         	try {

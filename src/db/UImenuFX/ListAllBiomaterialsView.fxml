@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="worker_main_panel" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ListAllBiomaterialsController">
+   <children>
+      <Label layoutX="149.0" layoutY="32.0" text="Available products list">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="biomaterials_tree_view" editable="true" layoutX="33.0" layoutY="70.0" prefHeight="495.0" prefWidth="874.0" styleClass="list-view">
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <JFXButton fx:id="addSelection_button" layoutX="402.0" layoutY="582.0" onMouseClicked="#add_selection" styleClass="starter_small_buttom" text="Confirm selection" textAlignment="CENTER" textFill="#1b1b1b">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</Pane>

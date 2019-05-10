@@ -3,17 +3,10 @@ package db.UImenuFX;
 import java.io.IOException;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import db.jdbc.SQLManager;
-import db.pojos.Biomaterial;
 import db.pojos.Worker;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -23,12 +16,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,10 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 
@@ -49,7 +32,7 @@ public class WorkerMenuController implements Initializable {
 
 	private static Worker worker_account;
 	private static SQLManager manager_object;
-	private static WorkerMenuController worker_controller;
+	private ListAllBiomaterialsController list_all_bimaterials_controller;
 
 
 	// -----> FXML ATRIBUTES <-----
@@ -57,17 +40,13 @@ public class WorkerMenuController implements Initializable {
 	@FXML
     private AnchorPane menu_window;
     @FXML
-    private Pane worker_main_panel;
+    private Pane menu_main_pane;
     @FXML
-    private Pane worker_main_menu;
-	@FXML
+    private Pane main_pane;
+    @FXML
 	private Pane pane_backup;
-	@FXML
-	private Pane menu_main_pane;
     @FXML
-    private JFXButton addSelection_button;
-    @FXML
-    private Label current_option_label;
+    private Label current_pane_option_label;
     @FXML
     private ImageView exitButton;
     @FXML
@@ -96,10 +75,7 @@ public class WorkerMenuController implements Initializable {
 	private static Stage stage_window;
 	@FXML
 	private static Stage stage_main;
-	@FXML
-	private JFXTreeTableView<BiomaterialListObject> biomaterials_tree_view;
-	@FXML
-	private final ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
+	
 
 	
 
@@ -114,8 +90,8 @@ public class WorkerMenuController implements Initializable {
 		worker_account = worker;
 	}
 	
-	public static void setController(WorkerMenuController controller) {
-		worker_controller = controller;
+	public static void setStage(Stage stage) {
+		stage_main = stage;
 	}
 	
 	public static Worker getValueWorker() {
@@ -138,19 +114,14 @@ public class WorkerMenuController implements Initializable {
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
-	public Pane getWorker_main_panel() {
-		return worker_main_panel;
-	}
-	public void setWorker_main_panel(Pane worker_main_panel) {
-		this.worker_main_panel = worker_main_panel;
-	}
 	
-	public Pane getWorker_main_menu() {
-		return worker_main_menu;
-	}
 	
-	public void setWorker_main_menu(Pane worker_main_menu) {
-		this.worker_main_menu = worker_main_menu;
+	public Pane getMain_pane() {
+		return main_pane;
+	}
+
+	public void setMain_pane(Pane main_pane) {
+		this.main_pane = main_pane;
 	}
 
 	public void setWorkerName(String name) {
@@ -179,7 +150,6 @@ public class WorkerMenuController implements Initializable {
 	
 	//----------> ESSENTIAL METHODS <---------------
 	
-	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		this.pane_backup = menu_main_pane;
 		listInventory_button.setDisable(true);
@@ -228,6 +198,7 @@ public class WorkerMenuController implements Initializable {
 		
 		removeProduct_button.setOnAction((ActionEvent) -> {
 			try {
+				current_pane_option_label.setText("Remove biomaterial");
 				RemoveProductController.setValues(manager_object);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveProductView.fxml"));
 				Parent root = (Parent) loader.load();
@@ -254,8 +225,10 @@ public class WorkerMenuController implements Initializable {
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						refreshBiomaterialListView();
 						menu_window.setEffect(null);
+						if (list_all_bimaterials_controller != null) {
+							list_all_bimaterials_controller.refreshBiomaterialListView();
+						}
 					}
 				});		
 				stage_window.show();
@@ -266,96 +239,23 @@ public class WorkerMenuController implements Initializable {
 			
 		});
 		
-		
-		// Biomaterials list columns creation
-
-		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
-		product_name.setPrefWidth(240);
-		product_name.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-						return param.getValue().getValue().product_name;
-					}
-				});
-		product_name.setResizable(false);
-
-		JFXTreeTableColumn<BiomaterialListObject, String> available_units = new JFXTreeTableColumn<>("Available units");
-		available_units.setPrefWidth(220);
-		available_units.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-						return param.getValue().getValue().available_units;
-					}
-				});
-		available_units.setResizable(false);
-
-		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
-		price.setPrefWidth(190);
-		price.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-						return param.getValue().getValue().price_unit;
-					}
-				});
-		price.setResizable(false);
-
-		JFXTreeTableColumn<BiomaterialListObject, String> exp_date = new JFXTreeTableColumn<>("Expiration date");
-		exp_date.setPrefWidth(190);
-		exp_date.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-						return param.getValue().getValue().expiration_date;
-					}
-				});
-		exp_date.setResizable(false);
-
-		JFXTreeTableColumn<BiomaterialListObject, String> id = new JFXTreeTableColumn<>("id");
-		id.setPrefWidth(40);
-		id.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<BiomaterialListObject, String> param) {
-						return param.getValue().getValue().bio_id;
-					}
-				});
-		id.setResizable(false);
-		
-		List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
-		
-		for(Biomaterial biomaterial: biomaterial_list) {
-			biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(), biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
-					, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString()));
+		try {
+			setAllButtonsOn();
+			listInventory_button.setDisable(true);
+			ListAllBiomaterialsController.setValues(manager_object);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllBiomaterialsView.fxml"));
+			Pane list_pane = loader.load();
+			list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
+			main_pane.getChildren().removeAll();
+			main_pane.getChildren().setAll(list_pane);
+			
+		} catch (IOException list_error) {
+			list_error.printStackTrace();
 		}
-		
-		TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
-		biomaterials_tree_view.getColumns().setAll(id, product_name, available_units, price, exp_date);
-		biomaterials_tree_view.setRoot(root);
-		biomaterials_tree_view.setShowRoot(false);
-
-		
-		//Ables the selection of several biomaterials of treeTable
-		//next step: associate selection's id to a variable being read by Order product controller
-		biomaterials_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
 	}
 	
 	
-	
-	// -----> REFRESH BIOMATERIAL LIST VIEW <-----
-	
-		public void refreshBiomaterialListView() {
-			biomaterial_objects.clear();
-			List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
-			for(Biomaterial biomaterial: biomaterial_list) {
-				biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(), biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
-						, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString()));
-			}
-			TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
-			biomaterials_tree_view.refresh();
-		}
+
 	
 	
 	// -----> BUTTON METHODS <-----
@@ -383,43 +283,29 @@ public class WorkerMenuController implements Initializable {
 	public void open_option_panel(MouseEvent event) throws IOException {
 		setAllButtonsOn();
 		addProduct_button.setDisable(true);
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
-		ProductOptionController.setValues(worker_controller);
-		NewProductController.setManager(manager_object);
-		NewProductController.setValues(worker_controller);
-		OrderProductController.setValues(manager_object);
-		worker_main_panel.getChildren().removeAll();
-		worker_main_panel.getChildren().setAll(menu_panel);
-	}
-		
-	@FXML
-	public void open_list_inventory_panel(MouseEvent event) throws IOException {
-		setAllButtonsOn();
-		listInventory_button.setDisable(true);
-		Parent root = FXMLLoader.load(getClass().getResource("WorkerMenuView.fxml"));
-		WorkerMenuController.setController(worker_controller);
-		stage_main.getScene().setRoot(root);
+		ProductOptionController.setValues(manager_object);
+		Pane option_pane = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(option_pane);
 	}
 		
 	
 	@FXML
-	public void add_selection(MouseEvent event) {
-		TreeItem<BiomaterialListObject> selection = biomaterials_tree_view.getSelectionModel().getSelectedItem();
-		
-		//PROXIMAMENTE HAY QUE PASARLE UNA LISTA EN VEZ DE UN BIOMATERIAL SOLO
-		
-		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(Integer.parseInt(selection.getValue().bio_id.getValue().toString()));
-		 
-		System.out.println(biomaterial);
-		OrderProductController.setValues(manager_object);
-		OrderProductController.setItems(biomaterial);
-		
+	private void list_inventory_button(MouseEvent event) throws IOException { 
+		current_pane_option_label.setText("Products");
+		setAllButtonsOn();
+		listInventory_button.setDisable(true);
+		ListAllBiomaterialsController.setValues(manager_object);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllBiomaterialsView.fxml"));
+		Pane list_pane = loader.load();
+		list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(list_pane);
 	}
 	
 	
 	public void setAllButtonsOn() {
 		this.addProduct_button.setDisable(false);
-		this.addSelection_button.setDisable(false);
 		this.listClients_button.setDisable(false);
 		this.listInventory_button.setDisable(false);
 		this.listTransactions_button.setDisable(false);
@@ -429,7 +315,6 @@ public class WorkerMenuController implements Initializable {
 	
 	public void setAllButtonsOff() {
 		this.addProduct_button.setDisable(true);
-		this.addSelection_button.setDisable(true);
 		this.listClients_button.setDisable(true);
 		this.listInventory_button.setDisable(true);
 		this.listTransactions_button.setDisable(true);
@@ -440,25 +325,7 @@ public class WorkerMenuController implements Initializable {
 	
 }
 
-// -----> BIOMATERIALS LIST CLASS <-----
 
-// To insert columns into the list of biomaterials with all the information
-class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
-	StringProperty product_name;
-	StringProperty available_units;
-	StringProperty price_unit;
-	StringProperty expiration_date;
-	StringProperty bio_id;
-
-	public BiomaterialListObject(String id, String product_name, String available_units, String price_unit,
-			String expiration_date) {
-		this.product_name = new SimpleStringProperty(product_name);
-		this.available_units = new SimpleStringProperty(available_units);
-		this.price_unit = new SimpleStringProperty(price_unit);
-		this.expiration_date = new SimpleStringProperty(expiration_date);
-		this.bio_id = new SimpleStringProperty(id);
-	}
-}
 
 
 

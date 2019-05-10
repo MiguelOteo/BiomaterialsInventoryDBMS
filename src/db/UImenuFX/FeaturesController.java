@@ -305,9 +305,6 @@ public class FeaturesController implements Initializable {
 				stage.close();
 			}
 			
-			
-			
-			
 		});
 			
 		

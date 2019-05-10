@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -39,7 +40,7 @@ public class OrderProductController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 	
 	 @FXML
-	 private Pane order_panel;
+	 private Pane order_pane;
 	 @FXML
 	 private JFXButton doOrder_button;
 	 @FXML
@@ -79,38 +80,6 @@ public class OrderProductController implements Initializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
-		doOrder_button.setOnAction((ActionEvent) -> {
-			
-			
-			System.out.println(selected_items);
-			
-			/*METODO PARA UNA LISTA DE SELECCIONADOS
-			for(Biomaterial biomaterial: selected_items) {
-				biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
-				
-				
-				
-				if (manager_object.Update_biomaterial_units(biomaterial) == true) {
-					System.out.println("new units: " + biomaterial.getAvailable_units());
-					System.out.println("Units updated");
-					
-				} else System.out.println("Error on units update");
-			}
-			
-			 */
-
-			
-			 selected_items.setAvailable_units(selected_items.getAvailable_units() + Integer.parseInt(units_order.getText()));
-			
-			if (manager_object.Update_biomaterial_units(selected_items) == true) {
-				System.out.println("Units updated");
-				
-			} else System.out.println("Error on units update");
-			
-		});
-		
 		
 		JFXTreeTableColumn<SelectionListObject, String> product_name = new JFXTreeTableColumn<>("Product");
 		product_name.setPrefWidth(180);
@@ -153,6 +122,37 @@ public class OrderProductController implements Initializable {
 		
 		
 		
+	}
+	
+	/*NO ACTUALZIA PORQUE BIOMATERIAL ES ESTATICO*/
+	
+	@FXML
+	public void do_order_button(MouseEvent event) {
+		System.out.println(selected_items);
+		
+		/*METODO PARA UNA LISTA DE SELECCIONADOS
+		for(Biomaterial biomaterial: selected_items) {
+			biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
+			
+			
+			
+			if (manager_object.Update_biomaterial_units(biomaterial) == true) {
+				System.out.println("new units: " + biomaterial.getAvailable_units());
+				System.out.println("Units updated");
+				
+			} else System.out.println("Error on units update");
+		}
+		
+		 */
+
+		Biomaterial biomaterial = selected_items;
+		 biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
+		
+		if (manager_object.Update_biomaterial_units(biomaterial) == true) {
+			System.out.println("Units updated");
+			System.out.println(manager_object.Search_biomaterial_by_id(biomaterial.getBiomaterial_id()));
+			
+		} else System.out.println("Error on units update");
 	}
 	
 	
