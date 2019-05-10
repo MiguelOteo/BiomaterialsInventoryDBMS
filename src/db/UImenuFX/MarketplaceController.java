@@ -185,6 +185,7 @@ public class MarketplaceController implements Initializable {
 	}
 	TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
 	biomaterials_tree_view.refresh();
+	
 }
     
 	@FXML 
@@ -239,6 +240,7 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		else {
 			this.total= new SimpleIntegerProperty(0);
 		}
+		MarketplaceController marketplace_controller = new MarketplaceController();
 		Button plus = new JFXButton("");
 		Button minus = new JFXButton("");
 		Image pls = new Image(getClass().getResourceAsStream("src.IconPictures/plus-black-symbol.png"));
@@ -255,7 +257,8 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.minus=new SimpleObjectProperty(minus);
 		this.plus.get().setOnAction((MouseClickEvent) -> {
 			this.total=new SimpleIntegerProperty(total+1);
-			System.out.println(this.total);
+			System.out.println(this.total.intValue());
+			System.out.println(marketplace_controller);
 			marketplace_controller.refreshBiomaterialsListView(this.total.intValue());
 			});
 		this.minus.get().setOnAction((MouseClickEvent) -> {
