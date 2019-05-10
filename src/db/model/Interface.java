@@ -34,7 +34,6 @@ public interface Interface {
 	public Director Search_stored_director(User user);
 	public Worker Search_stored_worker(User user);
 	public Client Search_stored_client(User user);
-	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial);
 	public User Search_user_by_id(Integer user_id);
 	public Client Search_client_by_id (Integer client_id);
 	public Worker Search_worker_by_id (Integer worker_id);

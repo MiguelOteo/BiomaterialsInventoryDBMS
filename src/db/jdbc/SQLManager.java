@@ -485,6 +485,7 @@ public class SQLManager implements Interface{
 			template.setInt(2, category.getMaximum());
 			template.setInt(3, category.getMinimum());
 			template.setInt(4, category.getCategory_id());
+			template.executeUpdate();
 			template.close();	
 			return true;
 		} catch (SQLException update_category_error) {
@@ -500,6 +501,7 @@ public class SQLManager implements Interface{
 			template.setInt(1, biomaterial.getUtility().getUtility_id());
 			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
 			template.setInt(3, biomaterial.getBiomaterial_id());
+			template.executeUpdate();
 			template.close();	
 			return true;
 		} catch (SQLException update_features_error) {
@@ -514,6 +516,7 @@ public class SQLManager implements Interface{
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setInt(1, biomaterial.getAvailable_units());
 			template.setInt(2, biomaterial.getBiomaterial_id());
+			template.executeUpdate();
 			template.close();	
 			return true;
 		} catch (SQLException update_units_error) {
@@ -606,28 +609,7 @@ public class SQLManager implements Interface{
 		}
 	}
 	
-	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial) {
-		try {
-			String SQL_code = "SELECT * FROM boimaterial WHERE biomaterial_id LIKE ?";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, biomaterial.getBiomaterial_id());
-			ResultSet result_set = template.executeQuery();
-			Biomaterial worker = new Biomaterial();
-			biomaterial.setAvailable_units(result_set.getInt("available_units"));
-			biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
-			biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
-			biomaterial.setInformation(result_set.getString("information"));
-			biomaterial.setName_product(result_set.getString("name_product"));
-			biomaterial.setPrice_unit(result_set.getInt("price_unit"));
-			biomaterial.setUtility(Search_utility_by_id(result_set.getInt("utility_id")));
-			biomaterial.setMaintenance(Search_maintenance_by_id(result_set.getInt("maintenance_id")));
-			
-			template.close();
-			return worker;
-		} catch (SQLException search_worker_error) {
-			return null;
-		}
-	}
+	
 	
 	// -----> SEARCH BY ID METHODS <-----
 	

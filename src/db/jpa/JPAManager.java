@@ -456,10 +456,6 @@ public class JPAManager implements Interface {
 		System.out.println("Not implemented");
 		return null;
 	}
-	public Biomaterial Search_stored_biomaterial(Biomaterial biomaterial) {
-		System.out.println("Not implemented");
-		return null;
-	}
 	public User Search_user_by_id(Integer user_id) {
 		System.out.println("Not implemented");
 		return null;

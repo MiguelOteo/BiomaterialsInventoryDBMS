@@ -34,7 +34,7 @@ public class OrderProductController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 	
 	private static SQLManager manager_object;
-	private static Biomaterial selected_items;
+	private static Integer id_items;
 	
 	
 	// -----> FXML ATRIBUTES <-----
@@ -61,6 +61,7 @@ public class OrderProductController implements Initializable {
 		this.doOrder_button = doOrder_button;
 	}
 	
+	
 		
 	// -----> ESSENTIAL METHODS <-----
 	
@@ -73,8 +74,8 @@ public class OrderProductController implements Initializable {
 		manager_object = manager;
 	}
 	
-	public static void setItems(Biomaterial biomaterial) {
-		selected_items = biomaterial;
+	public static void setItemsID(Integer id) {
+		id_items = id;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -105,10 +106,9 @@ public class OrderProductController implements Initializable {
 		
 		
 		List<Biomaterial> biomaterial_selection = new ArrayList<Biomaterial>();
-		System.out.println(selected_items);
 		
 		//ADD ALL PARA CUANDO TENGAMOS LA LISTA
-		biomaterial_selection.add(selected_items);
+		biomaterial_selection.add(manager_object.Search_biomaterial_by_id(id_items));
 		
 		for(Biomaterial biomaterial: biomaterial_selection) {
 			biomaterial_objects.add(new SelectionListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()));
@@ -128,7 +128,6 @@ public class OrderProductController implements Initializable {
 	
 	@FXML
 	public void do_order_button(MouseEvent event) {
-		System.out.println(selected_items);
 		
 		/*METODO PARA UNA LISTA DE SELECCIONADOS
 		for(Biomaterial biomaterial: selected_items) {
@@ -145,30 +144,15 @@ public class OrderProductController implements Initializable {
 		
 		 */
 
-		Biomaterial biomaterial = selected_items;
-		 biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
-		
-		if (manager_object.Update_biomaterial_units(biomaterial) == true) {
-			System.out.println("Units updated");
-			System.out.println(manager_object.Search_biomaterial_by_id(biomaterial.getBiomaterial_id()));
-			
-		} else System.out.println("Error on units update");
+		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(id_items);
+		biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
+				 
+		manager_object.Update_biomaterial_units(biomaterial);
 	}
 	
 	
-	/*
-	// -----> REFRESH BIOMATERIAL LIST VIEW <-----
 	
-		public void refreshSelectionListView(List<Biomaterial> selection) {
-			biomaterial_objects.clear();
-			List<Biomaterial> biomaterial_list = selection;
-			for(Biomaterial biomaterial: biomaterial_list) {
-				biomaterial_objects.add(new SelectionListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()));
-			}
-			TreeItem<SelectionListObject> root = new RecursiveTreeItem<SelectionListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
-			selection_tree_view.refresh();
-			}
-*/	
+	
 }
 
 

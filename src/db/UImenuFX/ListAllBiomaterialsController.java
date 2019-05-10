@@ -71,7 +71,6 @@ public class ListAllBiomaterialsController implements Initializable {
 		// TODO Auto-generated method stub
 	
 		
-		refreshBiomaterialListView();
 		
 	// Biomaterials list columns creation
 
@@ -169,11 +168,10 @@ public class ListAllBiomaterialsController implements Initializable {
 		
 		//PROXIMAMENTE HAY QUE PASARLE UNA LISTA EN VEZ DE UN BIOMATERIAL SOLO
 		
+		
 		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(Integer.parseInt(selection.getValue().bio_id.getValue().toString()));
-		 
-		System.out.println(biomaterial);
 		OrderProductController.setValues(manager_object);
-		OrderProductController.setItems(biomaterial);
+		OrderProductController.setItemsID(biomaterial.getBiomaterial_id());
 		
 	}
 	
