@@ -240,7 +240,7 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		else {
 			this.total= new SimpleIntegerProperty(0);
 		}
-		MarketplaceController marketplace_controller = new MarketplaceController();
+	    
 		Button plus = new JFXButton("");
 		Button minus = new JFXButton("");
 		Image pls = new Image(getClass().getResourceAsStream("src.IconPictures/plus-black-symbol.png"));
@@ -259,14 +259,13 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 			this.total=new SimpleIntegerProperty(total+1);
 			System.out.println(this.total.intValue());
 			System.out.println(marketplace_controller);
-			marketplace_controller.refreshBiomaterialsListView(this.total.intValue());
+			refreshBiomaterialsListView(this.total.intValue());
 			});
 		this.minus.get().setOnAction((MouseClickEvent) -> {
 			this.total=new SimpleIntegerProperty(total-1);
 			System.out.println(this.total);
-			marketplace_controller.refreshBiomaterialsListView(this.total.intValue());
+			refreshBiomaterialsListView(this.total.intValue());
 			});
 	}
-	
 }}
 
