@@ -33,6 +33,8 @@ public class WorkerMenuController implements Initializable {
 	private static Worker worker_account;
 	private static SQLManager manager_object;
 	private ListAllBiomaterialsController list_all_bimaterials_controller;
+	private FeaturesController features_controller;
+	private static Integer biomaterial_id;
 
 
 	// -----> FXML ATRIBUTES <-----
@@ -71,6 +73,8 @@ public class WorkerMenuController implements Initializable {
     private JFXButton listTransactions_button;
     @FXML
     private JFXButton listClients_button;
+    @FXML
+    private JFXButton update_button;
     @FXML
 	private static Stage stage_window;
 	@FXML
@@ -115,7 +119,10 @@ public class WorkerMenuController implements Initializable {
 		return this.menu_window;
 	}
 	
-	
+	public static void setBioID(Integer id) {
+		biomaterial_id = id;
+		
+	}
 	public Pane getMain_pane() {
 		return main_pane;
 	}
@@ -303,6 +310,22 @@ public class WorkerMenuController implements Initializable {
 		main_pane.getChildren().setAll(list_pane);
 	}
 	
+	@FXML
+	private void update_product_button(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Update features");
+		setAllButtonsOn();
+		update_button.setDisable(true);
+		FeaturesController.setValue(manager_object);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductFeaturesView.fxml"));
+		Pane update_pane = loader.load();
+		features_controller = (FeaturesController) loader.getController();
+		features_controller.getMain_bar().setVisible(false);
+		features_controller.getAccount_window().setStyle("-fx-background-color: white;");
+		features_controller.getId_label().setText("Biomaterial [ id: " + biomaterial_id + " ]");
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(update_pane);
+	}
+	
 	
 	public void setAllButtonsOn() {
 		this.addProduct_button.setDisable(false);
@@ -311,6 +334,7 @@ public class WorkerMenuController implements Initializable {
 		this.listTransactions_button.setDisable(false);
 		this.myAccount_button.setDisable(false);
 		this.removeProduct_button.setDisable(false);
+		this.update_button.setDisable(false);
 	}
 	
 	public void setAllButtonsOff() {
@@ -320,7 +344,10 @@ public class WorkerMenuController implements Initializable {
 		this.listTransactions_button.setDisable(true);
 		this.myAccount_button.setDisable(true);
 		this.removeProduct_button.setDisable(true);
+		this.update_button.setDisable(true);
 	}
+
+	
 	
 	
 }

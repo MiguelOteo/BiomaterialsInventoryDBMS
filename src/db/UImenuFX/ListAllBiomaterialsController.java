@@ -172,6 +172,7 @@ public class ListAllBiomaterialsController implements Initializable {
 		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(Integer.parseInt(selection.getValue().bio_id.getValue().toString()));
 		OrderProductController.setValues(manager_object);
 		OrderProductController.setItemsID(biomaterial.getBiomaterial_id());
+		WorkerMenuController.setBioID(biomaterial.getBiomaterial_id());
 		
 	}
 	

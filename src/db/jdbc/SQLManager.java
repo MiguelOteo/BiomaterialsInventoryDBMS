@@ -109,7 +109,7 @@ public class SQLManager implements Interface{
 					+ " utility_id INTEGER REFERENCES utility (utility_id), "
 					+ " name_product TEXT NOT NULL, "
 					+ " price_unit INTEGER NULL default 1, " + " available_units INTEGER NOT NULL, "
-					+ " expiration_date DATETIME, " + "information TEXT,"
+					+ " expiration_date DATETIME, " + "information TEXT default 'none',"
 					+ " maintenance_id INTEGER REFERENCES maintenance(maintenance_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_8.execute(table_8);
 			statement_8.close();
@@ -380,7 +380,7 @@ public class SQLManager implements Interface{
 		}
 	}
 
-	// Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date)
+	// Biomaterial(utility_id, maintenance_id, name_product, price_unit, available_units, expiration_date, information)
 	public Integer Insert_new_biomaterial(Biomaterial biomaterial) {
 		try {
 			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date, information) "

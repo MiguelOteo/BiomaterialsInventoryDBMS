@@ -34,7 +34,7 @@ public class OrderProductController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 	
 	private static SQLManager manager_object;
-	private static Integer id_items;
+	private static Integer id_item;
 	
 	
 	// -----> FXML ATRIBUTES <-----
@@ -75,7 +75,7 @@ public class OrderProductController implements Initializable {
 	}
 	
 	public static void setItemsID(Integer id) {
-		id_items = id;
+		id_item = id;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -108,7 +108,7 @@ public class OrderProductController implements Initializable {
 		List<Biomaterial> biomaterial_selection = new ArrayList<Biomaterial>();
 		
 		//ADD ALL PARA CUANDO TENGAMOS LA LISTA
-		biomaterial_selection.add(manager_object.Search_biomaterial_by_id(id_items));
+		biomaterial_selection.add(manager_object.Search_biomaterial_by_id(id_item));
 		
 		for(Biomaterial biomaterial: biomaterial_selection) {
 			biomaterial_objects.add(new SelectionListObject(biomaterial.getName_product(), biomaterial.getAvailable_units().toString()));
@@ -124,27 +124,14 @@ public class OrderProductController implements Initializable {
 		
 	}
 	
-	/*NO ACTUALZIA PORQUE BIOMATERIAL ES ESTATICO*/
 	
 	@FXML
 	public void do_order_button(MouseEvent event) {
 		
-		/*METODO PARA UNA LISTA DE SELECCIONADOS
-		for(Biomaterial biomaterial: selected_items) {
-			biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
-			
-			
-			
-			if (manager_object.Update_biomaterial_units(biomaterial) == true) {
-				System.out.println("new units: " + biomaterial.getAvailable_units());
-				System.out.println("Units updated");
-				
-			} else System.out.println("Error on units update");
-		}
+		/*METODO PARA UNA LISTA DE SELECCIONADOS*/
 		
-		 */
-
-		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(id_items);
+		/*METODO PARA UN SOLO PRODUCTO SELECCIONADO*/
+		Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(id_item);
 		biomaterial.setAvailable_units(biomaterial.getAvailable_units() + Integer.parseInt(units_order.getText()));
 				 
 		manager_object.Update_biomaterial_units(biomaterial);
