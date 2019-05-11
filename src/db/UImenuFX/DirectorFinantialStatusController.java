@@ -13,6 +13,8 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import db.jdbc.SQLManager;
 import db.pojos.Client;
 import db.pojos.Transaction;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -157,6 +159,26 @@ public class DirectorFinantialStatusController implements Initializable{
            		client_id_backup = client.getClient_id();
     		}
     	}
+	}
+}
+
+//-----> TRANSACTION LIST CLASS <-----
+
+//To insert columns into the list of transactions with all the information
+class TransactionListObject extends RecursiveTreeObject<TransactionListObject> {
+	
+	StringProperty transaction_id;
+	StringProperty client_name;
+	StringProperty amount;
+	StringProperty units;
+	StringProperty transaction_date;
+	
+	public TransactionListObject(String transaction_id, String client_name, String amount, String units, String transaction_date) {
+		this.transaction_id = new SimpleStringProperty(transaction_id);
+		this.client_name = new SimpleStringProperty(client_name);
+		this.amount = new SimpleStringProperty(amount);
+		this.units = new SimpleStringProperty(units);
+		this.transaction_date = new SimpleStringProperty(transaction_date);
 	}
 }
 

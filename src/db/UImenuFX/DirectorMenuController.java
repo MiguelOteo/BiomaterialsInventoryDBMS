@@ -7,14 +7,9 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import db.jdbc.SQLManager;
 
 import db.pojos.Director;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -53,8 +48,6 @@ public class DirectorMenuController implements Initializable {
 	private AnchorPane menu_window;
 	@FXML
 	private Pane menu_main_pane;
-	@FXML
-	private Pane pane_backup;
 	@FXML
 	private Pane main_pane;
 	@FXML
@@ -103,7 +96,6 @@ public class DirectorMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.pane_backup = menu_main_pane;
 		finantialStatus_button.setDisable(true);
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
@@ -348,10 +340,6 @@ public class DirectorMenuController implements Initializable {
 		}
 	}
 
-	public static void setStage(Stage stage) {
-		stage_main = stage;
-	}
-	
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
@@ -382,26 +370,6 @@ public class DirectorMenuController implements Initializable {
 	    logOut_button.setDisable(false);
 	    minButton.setDisable(false);
 	    exitButton.setDisable(false);
-	}
-}
-
-// -----> TRANSACTION LIST CLASS <-----
-
-// To insert columns into the list of transactions with all the information
-class TransactionListObject extends RecursiveTreeObject<TransactionListObject> {
-	
-	StringProperty transaction_id;
-	StringProperty client_name;
-	StringProperty amount;
-	StringProperty units;
-	StringProperty transaction_date;
-	
-	public TransactionListObject(String transaction_id, String client_name, String amount, String units, String transaction_date) {
-		this.transaction_id = new SimpleStringProperty(transaction_id);
-		this.client_name = new SimpleStringProperty(client_name);
-		this.amount = new SimpleStringProperty(amount);
-		this.units = new SimpleStringProperty(units);
-		this.transaction_date = new SimpleStringProperty(transaction_date);
 	}
 }
 

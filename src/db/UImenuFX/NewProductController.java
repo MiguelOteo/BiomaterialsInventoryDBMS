@@ -22,13 +22,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class NewProductController implements Initializable {
@@ -47,7 +47,7 @@ public class NewProductController implements Initializable {
 	    @FXML
 	    private JFXComboBox<Integer> units_button;
 	    @FXML
-	    private JFXComboBox<Integer> price_button;
+	    private JFXComboBox<Float> price_button;
 	    @FXML
 	    private JFXTextField name_field;
 	    @FXML
@@ -75,9 +75,9 @@ public class NewProductController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		units_button.getItems().addAll(50, 100, 250, 500, 1000);
-		price_button.getItems().addAll(10, 20,50, 80, 100);
+		price_button.getItems().addAll((float)10, (float)20,(float)50, (float)80, (float)100);
    		units_button.setConverter(new IntegerStringConverter());
-   		price_button.setConverter(new IntegerStringConverter());
+   		price_button.setConverter(new FloatStringConverter());
     	
    		
    		
@@ -123,22 +123,20 @@ public class NewProductController implements Initializable {
    		
     }
     
-	
-    
 	@FXML
 	public void conclude_creation(MouseEvent event) {
 		
 		String product_name = name_field.getText();
 		LocalDate exp_date = date_picker.getValue();
 		Integer units = units_button.getValue();
-		Integer price = price_button.getValue();
+		Float price = price_button.getValue();
 		//String info = information_field.getText();
     	
 		if (!product_name.equals("")) {
 			Biomaterial biomaterial = new Biomaterial();
 			biomaterial.setName_product(product_name);
 			biomaterial.setAvailable_units(units.intValue());
-			biomaterial.setPrice_unit(price.intValue());
+			biomaterial.setPrice_unit(price.floatValue());
 			biomaterial.setExpiration_date(Date.valueOf(exp_date));
 			//biomaterial.setInformation(info);
 			

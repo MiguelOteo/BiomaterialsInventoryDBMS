@@ -30,12 +30,12 @@ public class AddTransaction {
 		Integer maintenance_id = manager.Insert_new_maintenance(maintenance);
 		maintenance = manager.Search_maintenance_by_id(maintenance_id);
 		
-		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", 34, 30, Date.valueOf("3424-06-03"));
+		Biomaterial biomaterial = new Biomaterial(utility, maintenance, "Plastic", (float)34, 30, Date.valueOf("3424-06-03"));
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		
 		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id)
-		Client client = manager.Search_client_by_id(3);
+		Client client = manager.Search_client_by_id(6);
 		System.out.println(client);
 		Transaction transaction = new Transaction((float)30, 34243, biomaterial, client);
 		manager.Insert_new_transaction(transaction);

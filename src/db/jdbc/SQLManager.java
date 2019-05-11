@@ -122,6 +122,13 @@ public class SQLManager implements Interface{
 			statement_9.execute(table_9);
 			statement_9.close();
 			
+			// ManyToMany relation tables
+			
+			//Statement statement_10 = this.sqlite_connection.createStatement();
+			//String table_10 = "CREATE TABLE transaction_biomaterial " + "(transaction_id INTEGER ";
+			//statement_10.execute(table_10);
+			//statement_10.close();
+			
 			return true;
 		} catch (SQLException tables_error) {
 			tables_error.printStackTrace();
@@ -758,7 +765,7 @@ public class SQLManager implements Interface{
                 biomaterial.setAvailable_units(result_set.getInt("available_units"));
                 biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
                 biomaterial.setName_product(result_set.getString("name_product"));
-                biomaterial.setPrice_unit(result_set.getInt("price_unit"));
+                biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
                 biomaterial.setBiomaterial_id(biomaterial_id);
                 /*Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
                 biomaterial.setUtility(utility);
@@ -941,7 +948,7 @@ public class SQLManager implements Interface{
 				biomaterial.setMaintenance(maintenance);
 				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
 				biomaterial.setUtility(utility);*/
-				biomaterial.setPrice_unit(result_set.getInt("price_unit"));
+				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
 				
 				biomaterials_list.add(biomaterial);
 			}
