@@ -311,6 +311,25 @@ public class WorkerMenuController implements Initializable {
 	}
 	
 	@FXML
+	public void list_transactions(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListTransactionsView.fxml"));
+		ListTransactionsController.setValues(manager_object);
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(menu_panel);
+		
+	}
+	
+	@FXML
+	public void list_clients(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
+		ListAllClientsController.setValues(manager_object);
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(menu_panel);
+		
+	}
+
+	
+	@FXML
 	private void update_product_button(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("Update features");
 		setAllButtonsOn();
