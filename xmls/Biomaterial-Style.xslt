@@ -16,6 +16,7 @@
             <td><i><xsl:value-of select="@product_name" /></i></td>
             <td><xsl:value-of select="price_unit" /></td>
             <td><xsl:value-of select="available_units" /></td>
+            <td><xsl:value-of select="@information" /></td>
             </tr>
          </xsl:if>
       </xsl:for-each>

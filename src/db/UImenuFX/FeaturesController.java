@@ -302,6 +302,9 @@ public class FeaturesController implements Initializable {
 			Integer utility_id = Integer.parseInt(utility_object.getValue().utility_id.getValue().toString());
 			Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString());
 			
+			
+			System.out.println(biomaterial_id);
+			
 				Utility utility = manager_object.Search_utility_by_id(utility_id);
 				Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
 				Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(biomaterial_id);

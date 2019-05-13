@@ -15,7 +15,7 @@ import java.sql.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Biomaterial")
-@XmlType(propOrder = {"product_name", "price_unit", "available_units"})
+@XmlType(propOrder = {"product_name", "price_unit", "available_units", "information"})
 public class Biomaterial implements Serializable{
 
 	private static final long serialVersionUID = 1L;

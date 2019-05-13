@@ -37,6 +37,7 @@ public class NewProductController implements Initializable {
 	
 		private static SQLManager manager_object;
 		private static WorkerMenuController worker_controller;
+		private static FeaturesController controller;
 		
 	// -----> FXML ATTRIBUTES <-----
 		
@@ -142,7 +143,7 @@ public class NewProductController implements Initializable {
 			
 			Integer bio_id = manager_object.Insert_new_biomaterial(biomaterial);
 			System.out.println(bio_id);
-			FeaturesController controller = new FeaturesController();
+			FeaturesController.setValue(manager_object);
 			controller.setBiomaterialID(bio_id);
 		}
 	}

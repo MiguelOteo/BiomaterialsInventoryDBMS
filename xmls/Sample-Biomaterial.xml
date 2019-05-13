@@ -2,14 +2,9 @@
 <BiomaterialList>
     <Products>
         <Biomaterial biomaterialId="1">
-            <product_name>qq</product_name>
-            <price_unit>50</price_unit>
-            <available_units>50</available_units>
-        </Biomaterial>
-        <Biomaterial biomaterialId="2">
-            <product_name>qq</product_name>
-            <price_unit>50</price_unit>
-            <available_units>50</available_units>
+            <product_name>Metal bar</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
         </Biomaterial>
     </Products>
 </BiomaterialList>
