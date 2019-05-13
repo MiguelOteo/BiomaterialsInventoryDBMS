@@ -95,9 +95,9 @@
       </xsl:for-each>
    </table>
    
-   
+   <!--
  <!Aqui acaba la tabla[]>  
-   
+   -->
    
        </div>
     </div>

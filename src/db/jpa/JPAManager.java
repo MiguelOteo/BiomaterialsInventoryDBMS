@@ -1,10 +1,5 @@
 package db.jpa;
 
-import java.io.BufferedReader;
-
-
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import db.model.Interface;
@@ -22,12 +17,6 @@ public class JPAManager implements Interface {
 	
 	public Integer Insert_new_category(Category category) {
 		try{
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Category cat = new Category();
 			
 			em.getTransaction().begin();
@@ -52,26 +41,11 @@ public class JPAManager implements Interface {
 	
 	public Client Insert_new_client(User user) {
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			em.getTransaction().begin();
 			
 			Client client = new Client();
-			System.out.println("Please, input the client info:");
-				System.out.println("Input User ID: ");
-				int id = Integer.parseInt(br.readLine());
-				
 				client.setUser(user);
-				client.setClient_id(id);
-				client.setName("Siemens");
-				client.setResponsible("Carlos");
-				client.setBank_account("1234");
-				client.setTelephone(1234);
+				client.setName(user.getUserName());
 			// Insert client into the DB
 			em.persist(client);
 			em.getTransaction().commit();
@@ -83,21 +57,12 @@ public class JPAManager implements Interface {
 		} catch (EntityNotFoundException new_client_account_error) {
 			new_client_account_error.printStackTrace();
 			return null;
-		} catch (IOException read_error) {
-			read_error.printStackTrace();
-			return null;
 		}
 	}
 	
 	
 	public Integer Insert_new_benefits(Benefits benefits) {
 		try{
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Benefits benefit = new Benefits();
 			
 			em.getTransaction().begin();
@@ -152,12 +117,6 @@ public class JPAManager implements Interface {
 	public List<Client> List_all_clients() {
 		
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Query q1 = em.createNativeQuery("SELECT * FROM client", Client.class);
 			
 			@SuppressWarnings("unchecked")
@@ -178,12 +137,6 @@ public class JPAManager implements Interface {
 	public List<Category> List_all_categories() {
 		
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Query q1 = em.createNativeQuery("SELECT * FROM category", Category.class);
 			@SuppressWarnings("unchecked")
 			List<Category> categories = q1.getResultList();
@@ -235,11 +188,6 @@ public class JPAManager implements Interface {
 	
 	public boolean Update_client_info(Client client) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
 			
 			Query q = em.createNativeQuery("SELECT * FROM client WHERE client_id = ?", Client.class);
 			q.setParameter(1, client.getClient_id());
@@ -263,11 +211,6 @@ public class JPAManager implements Interface {
 	
 	public boolean Update_category_info(Category category) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
 			
 			Query q = em.createNativeQuery("SELECT * FROM category WHERE category_id = ?", Category.class);
 			q.setParameter(1, category.getCategory_id());
@@ -313,12 +256,6 @@ public class JPAManager implements Interface {
 	
 	public boolean Delete_stored_client(Client client) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			em.getTransaction().begin();
 			em.remove(client);
 			em.getTransaction().commit();
@@ -334,12 +271,6 @@ public class JPAManager implements Interface {
 	
 	public boolean Delete_stored_category(Category category) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			em.getTransaction().begin();
 			em.remove(category);
 			em.getTransaction().commit();
@@ -371,12 +302,6 @@ public class JPAManager implements Interface {
 	
 	public Client Search_stored_client(User user) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Query q_client = em.createNativeQuery("SELECT * FROM client WHERE user_id LIKE ?", Client.class);
 			q_client.setParameter(1, user.getUserId());
 			
@@ -394,12 +319,6 @@ public class JPAManager implements Interface {
 	
 	public Category Search_category_info(Category category) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Query q_category = em.createNativeQuery("SELECT * FROM category WHERE category_id LIKE ?" , Category.class);
 			q_category.setParameter(1, category.getCategory_id());
 			
@@ -418,12 +337,6 @@ public class JPAManager implements Interface {
 	
 	public Client Search_client_by_id (Integer client_id) {
 		try {
-			em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
-			
-			em.getTransaction().begin();
-			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-			em.getTransaction().commit();
-			
 			Query q_client = em.createNativeQuery("SELECT * FROM client WHERE client_id LIKE ?", Client.class);
 			q_client.setParameter(1, client_id);
 			
@@ -486,12 +399,34 @@ public class JPAManager implements Interface {
 	}
 	
 	
-	/* Propias de SQL */
+	
 	
 	public boolean Stablish_connection() {
-		System.out.println("Not implemented");
-		return false;
+		try {
+		em = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER).createEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
+	
+	public boolean Close_connection() {
+		try {
+			em.close();
+			return true;
+		} catch (Exception close_error){
+			close_error.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	/* Propias de SQL */
+	
 	public boolean Create_tables() {
 		System.out.println("Not implemented");
 		return false;
@@ -503,10 +438,8 @@ public class JPAManager implements Interface {
 	public void Change_password(String password, Integer user_id) {
 		System.out.println("Not implemented");
 	}
-	public boolean Close_connection() {
-		System.out.println("Not implemented");
-		return false;
-	}
+	
 	
 	
 }
+
