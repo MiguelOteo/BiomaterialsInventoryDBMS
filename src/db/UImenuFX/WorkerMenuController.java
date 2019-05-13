@@ -33,6 +33,8 @@ public class WorkerMenuController implements Initializable {
 	private static Worker worker_account;
 	private static SQLManager manager_object;
 	private ListAllBiomaterialsController list_all_bimaterials_controller;
+	private ListAllClientsController list_all_clients_controller;
+	private DirectorFinantialStatusController list_all_transactions_controller;
 	private FeaturesController features_controller;
 	private static Integer biomaterial_id;
 
@@ -290,7 +292,9 @@ public class WorkerMenuController implements Initializable {
 	public void open_option_panel(MouseEvent event) throws IOException {
 		setAllButtonsOn();
 		addProduct_button.setDisable(true);
-		ProductOptionController.setValues(manager_object);
+		if(ProductOptionController.getManager() == null) {
+			ProductOptionController.setValues(manager_object);
+		}
 		Pane option_pane = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(option_pane);
@@ -312,20 +316,24 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	public void list_transactions(MouseEvent event) throws IOException {
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListTransactionsView.fxml"));
-		ListTransactionsController.setValues(manager_object);
+		current_pane_option_label.setText("Finantial status");
+		setAllButtonsOn();
+		listTransactions_button.setDisable(true);
+		DirectorFinantialStatusController.setValues(manager_object);
+		Pane option_pane = FXMLLoader.load(getClass().getResource("DirectorFinantialStatusView.fxml"));
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(menu_panel);
-		
+		main_pane.getChildren().setAll(option_pane);
 	}
 	
 	@FXML
 	public void list_clients(MouseEvent event) throws IOException {
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
+		current_pane_option_label.setText("List all clients");
+		setAllButtonsOn();
+		listClients_button.setDisable(true);
 		ListAllClientsController.setValues(manager_object);
+		Pane option_pane = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(menu_panel);
-		
+		main_pane.getChildren().setAll(option_pane);
 	}
 
 	

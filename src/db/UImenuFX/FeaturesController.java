@@ -37,7 +37,7 @@ public class FeaturesController implements Initializable {
 	//----------------> CLASS ATTRIBUTES <-----------------
 	
 	private static SQLManager manager_object;
-	private Integer biomaterial_id;
+	private static Integer biomaterial_id;
 	
 	
 	//----------------> FXML ATTRIBUTES <------------------
@@ -98,7 +98,7 @@ public class FeaturesController implements Initializable {
     	manager_object = manager;
     }
     
-    public void setBiomaterialID(Integer id) {
+    public static void setBiomaterialID(Integer id) {
     	biomaterial_id = id;
     }
     

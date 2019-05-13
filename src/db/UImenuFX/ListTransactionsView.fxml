@@ -13,7 +13,7 @@
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTreeTableView fx:id="transaction_tree_view" layoutX="20.0" layoutY="46.0" onMouseClicked="#list_transactions" prefHeight="580.0" prefWidth="900.0" styleClass="list-view">
+      <JFXTreeTableView fx:id="transaction_tree_view" layoutX="20.0" layoutY="46.0" prefHeight="580.0" prefWidth="900.0" styleClass="list-view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>

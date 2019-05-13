@@ -37,7 +37,6 @@ public class NewProductController implements Initializable {
 	
 		private static SQLManager manager_object;
 		private static WorkerMenuController worker_controller;
-		private static FeaturesController controller;
 		
 	// -----> FXML ATTRIBUTES <-----
 		
@@ -48,7 +47,7 @@ public class NewProductController implements Initializable {
 	    @FXML
 	    private JFXComboBox<Integer> units_button;
 	    @FXML
-	    private JFXComboBox<Float> price_button;
+	    private JFXComboBox<String> price_button;
 	    @FXML
 	    private JFXTextField name_field;
 	    @FXML
@@ -76,11 +75,9 @@ public class NewProductController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		units_button.getItems().addAll(50, 100, 250, 500, 1000);
-		price_button.getItems().addAll((float)10, (float)20,(float)50, (float)80, (float)100);
+		price_button.getItems().addAll("10", "20","50", "80", "100");
    		units_button.setConverter(new IntegerStringConverter());
-   		price_button.setConverter(new FloatStringConverter());
-    	
-   		
+       		
    		
    		features_button.setOnAction((ActionEvent) -> {
    			try {
@@ -130,7 +127,7 @@ public class NewProductController implements Initializable {
 		String product_name = name_field.getText();
 		LocalDate exp_date = date_picker.getValue();
 		Integer units = units_button.getValue();
-		Float price = price_button.getValue();
+		Float price = Float.parseFloat(price_button.getSelectionModel().getSelectedItem());
 		//String info = information_field.getText();
     	
 		if (!product_name.equals("")) {
@@ -144,7 +141,7 @@ public class NewProductController implements Initializable {
 			Integer bio_id = manager_object.Insert_new_biomaterial(biomaterial);
 			System.out.println(bio_id);
 			FeaturesController.setValue(manager_object);
-			controller.setBiomaterialID(bio_id);
+			FeaturesController.setBiomaterialID(bio_id);
 		}
 	}
 	

@@ -45,6 +45,10 @@ public class ProductOptionController  implements Initializable {
     public static void setValues(SQLManager manager) {
 		manager_object = manager;
 	}
+    
+    public static SQLManager getManager() {
+    	return manager_object;
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
