@@ -501,19 +501,27 @@ public class SQLManager implements Interface{
 		}
 	}
 	
-	public boolean Update_biomaterial_features(Biomaterial biomaterial) {
+	public void Update_biomaterial_features(Biomaterial biomaterial) {
 		try {
-			String SQL_code = "UPDATE biomaterial SET utility_id = ?, maintenance_id = ? WHERE biomaterial_id = ?";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, biomaterial.getUtility().getUtility_id());
-			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
-			template.setInt(3, biomaterial.getBiomaterial_id());
-			template.executeUpdate();
-			template.close();	
-			return true;
+			
+			if(biomaterial.getMaintenance() != null) {
+				String SQL_code = "UPDATE biomaterial SET maintenance_id = ? WHERE biomaterial_id = ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, biomaterial.getMaintenance().getManteinance_id());
+				template.setInt(2, biomaterial.getBiomaterial_id());
+				template.executeUpdate();
+				template.close();	
+			}
+			if(biomaterial.getUtility() != null) {
+				String SQL_code = "UPDATE biomaterial SET utility_id = ? WHERE biomaterial_id = ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, biomaterial.getUtility().getUtility_id());
+				template.setInt(2, biomaterial.getBiomaterial_id());
+				template.executeUpdate();
+				template.close();
+			}
 		} catch (SQLException update_features_error) {
 			update_features_error.printStackTrace();
-			return false;
 		}
 	}
 	

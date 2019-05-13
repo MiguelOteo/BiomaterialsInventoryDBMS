@@ -37,6 +37,7 @@ public class AddPromotionController implements Initializable{
 	@FXML
 	private Pane main_pane;
 	
+	@SuppressWarnings("unused")
 	private static SQLManager manager_object;
 	
 	public AddPromotionController() {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.UpdateFeaturesController">
+   <children>
+      <JFXTreeTableView fx:id="utility_tree_view" layoutX="19.0" layoutY="84.0" prefHeight="230.0" prefWidth="902.0" />
+      <JFXTreeTableView fx:id="maintenance_tree_view" layoutX="19.0" layoutY="348.0" prefHeight="230.0" prefWidth="902.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="419.0" layoutY="56.0" prefHeight="28.0" prefWidth="101.0" text="Utility" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="422.0" layoutY="320.0" prefHeight="28.0" prefWidth="101.0" text="Maintenance" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="done_button" layoutX="419.0" layoutY="589.0" prefHeight="28.0" prefWidth="101.0" styleClass="starter_small_buttom" text="Done" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="biomaterial_selected" layoutX="58.0" layoutY="30.0" prefHeight="20.0" prefWidth="315.0" text="No biomaterial has been selected">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

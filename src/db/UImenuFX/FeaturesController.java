@@ -11,7 +11,6 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
-import db.pojos.Biomaterial;
 import db.pojos.Maintenance;
 import db.pojos.Utility;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,7 +36,8 @@ public class FeaturesController implements Initializable {
 	//----------------> CLASS ATTRIBUTES <-----------------
 	
 	private static SQLManager manager_object;
-	private static Integer biomaterial_id;
+	private static TreeItem<UtilityListObject> utility_object;
+	private static TreeItem<MaintenanceListObject> maintenance_object;
 	
 	
 	//----------------> FXML ATTRIBUTES <------------------
@@ -49,8 +49,6 @@ public class FeaturesController implements Initializable {
 	private ImageView close_button;
 	@FXML
     private Pane main_bar;
-	@FXML
-    private Label id_label;
     @FXML
     private JFXTreeTableView<UtilityListObject> utility_tree_view;
     @FXML
@@ -82,14 +80,6 @@ public class FeaturesController implements Initializable {
 	public void setMain_bar(Pane main_bar) {
 		this.main_bar = main_bar;
 	}
-
-	public Label getId_label() {
-		return id_label;
-	}
-
-	public void setId_label(Label id_label) {
-		this.id_label = id_label;
-	}
 	
     //--------------------> MAIN FUNCTIONS <-----------------
     
@@ -98,17 +88,11 @@ public class FeaturesController implements Initializable {
     	manager_object = manager;
     }
     
-    public static void setBiomaterialID(Integer id) {
-    	biomaterial_id = id;
-    }
-    
-
-	@SuppressWarnings("unchecked")
-	@Override
+    @Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
-		//Table generators
+		// -----> UTILITY TABLE <-----
+		
 		JFXTreeTableColumn<UtilityListObject, String> heat_cold = new JFXTreeTableColumn<>("Heat/Cold");
 		heat_cold.setPrefWidth(170);
 		heat_cold.setCellValueFactory(
@@ -186,11 +170,9 @@ public class FeaturesController implements Initializable {
 		utility_tree_view.setPlaceholder(new Label("No utilities found"));
 		utility_tree_view.setRoot(root);
 		utility_tree_view.setShowRoot(false);
-
 		
+		// -----> MAINTENANCE TABLE <-----
 		
-		
-		//MAINTENANCE TABLE
 		JFXTreeTableColumn<MaintenanceListObject, String> compatibility = new JFXTreeTableColumn<>("Compatibility");
 		compatibility.setPrefWidth(120);
 		compatibility.setCellValueFactory(
@@ -292,51 +274,35 @@ public class FeaturesController implements Initializable {
 		maintenance_tree_view.setRoot(root_maint);
 		maintenance_tree_view.setShowRoot(false);
 		
-		
-		
 		done_button.setOnAction((ActionEvent) ->{
-			
-			TreeItem<UtilityListObject> utility_object = utility_tree_view.getSelectionModel().getSelectedItem();
-			TreeItem<MaintenanceListObject> maintenance_object = maintenance_tree_view.getSelectionModel().getSelectedItem();
-		
-			Integer utility_id = Integer.parseInt(utility_object.getValue().utility_id.getValue().toString());
-			Integer maintenance_id = Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString());
-			
-			
-			System.out.println(biomaterial_id);
-			
-				Utility utility = manager_object.Search_utility_by_id(utility_id);
-				Maintenance maintenance = manager_object.Search_maintenance_by_id(maintenance_id);
-				Biomaterial biomaterial = manager_object.Search_biomaterial_by_id(biomaterial_id);
-					
-				biomaterial.setUtility(utility);
-				biomaterial.setMaintenance(maintenance);
-					
-				System.out.println(biomaterial);
-					
-				System.out.println(manager_object.Update_biomaterial_features(biomaterial));
-					
-				Stage stage = (Stage) account_window.getScene().getWindow();
-				stage.close();
-					
+			utility_object = utility_tree_view.getSelectionModel().getSelectedItem();
+			maintenance_object = maintenance_tree_view.getSelectionModel().getSelectedItem();	
+			Stage stage = (Stage) account_window.getScene().getWindow();
+			stage.close();	
 		});
-			
-		
 	}
     
-    //-------------------> BUTTON FUNCTIONS <------------------
+    //-----> BUTTON FUNCTIONS <-----
     
     @FXML
-    void close_window(MouseEvent event) {
+    public void close_window(MouseEvent event) {
     	Stage stage = (Stage) this.account_window.getScene().getWindow();
     	stage.close();
     }
 
-   
-
+    // -----> GET METHODS <-----
+    
+    public static TreeItem<UtilityListObject> getUtility_object() {
+    	return utility_object;
+    }
+    
+    public static TreeItem<MaintenanceListObject> getMaintenance_object() {
+    	return maintenance_object;
+    }
 }
 
 class UtilityListObject extends RecursiveTreeObject<UtilityListObject> {
+	
 	StringProperty heat_cold;
 	StringProperty flexibility;
 	StringProperty resistance;
@@ -354,8 +320,8 @@ class UtilityListObject extends RecursiveTreeObject<UtilityListObject> {
     }
 }
 
-
 class MaintenanceListObject extends RecursiveTreeObject<MaintenanceListObject> {
+	
 	StringProperty humidity;
 	StringProperty o2_supply;
 	StringProperty light;
@@ -365,7 +331,6 @@ class MaintenanceListObject extends RecursiveTreeObject<MaintenanceListObject> {
 	StringProperty others;
 	StringProperty maintenance_id;
 
-	
     public MaintenanceListObject(String pressure, String humidity, String o2_supply, String light, String temperature, String compatibility, String others, String maintenance_id) {
     	this.humidity = new SimpleStringProperty(humidity);
     	this.o2_supply = new SimpleStringProperty(o2_supply);
@@ -375,6 +340,5 @@ class MaintenanceListObject extends RecursiveTreeObject<MaintenanceListObject> {
     	this.compatibility = new SimpleStringProperty(compatibility);
     	this.others = new SimpleStringProperty(others);
     	this.maintenance_id = new SimpleStringProperty(maintenance_id);
-
     }
 }

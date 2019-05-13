@@ -33,9 +33,6 @@ public class WorkerMenuController implements Initializable {
 	private static Worker worker_account;
 	private static SQLManager manager_object;
 	private ListAllBiomaterialsController list_all_bimaterials_controller;
-	private ListAllClientsController list_all_clients_controller;
-	private DirectorFinantialStatusController list_all_transactions_controller;
-	private FeaturesController features_controller;
 	private static Integer biomaterial_id;
 
 
@@ -47,8 +44,6 @@ public class WorkerMenuController implements Initializable {
     private Pane menu_main_pane;
     @FXML
     private Pane main_pane;
-    @FXML
-	private Pane pane_backup;
     @FXML
     private Label current_pane_option_label;
     @FXML
@@ -81,9 +76,6 @@ public class WorkerMenuController implements Initializable {
 	private static Stage stage_window;
 	@FXML
 	private static Stage stage_main;
-	
-
-	
 
 	// -----> ESSENTIAL METHODS <-----
 
@@ -95,18 +87,6 @@ public class WorkerMenuController implements Initializable {
 		manager_object = manager;
 		worker_account = worker;
 	}
-	
-	public static void setStage(Stage stage) {
-		stage_main = stage;
-	}
-	
-	public static Worker getValueWorker() {
-		return worker_account;
-	}
-	public static SQLManager getManager() {
-		return manager_object;
-	}
-	
 
 	public void update_worker_account() {
 		worker_account = manager_object.Search_worker_by_id(worker_account.getWorker_id());
@@ -115,7 +95,7 @@ public class WorkerMenuController implements Initializable {
 		setWorkerTelephone(worker_account.getTelephone());
 	}
 
-	// --------------> GET AND SET METHODS <-----------------
+	// -----> GET AND SET METHODS <-----
 
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
@@ -123,19 +103,12 @@ public class WorkerMenuController implements Initializable {
 	
 	public static void setBioID(Integer id) {
 		biomaterial_id = id;
-		
-	}
-	public Pane getMain_pane() {
-		return main_pane;
-	}
-
-	public void setMain_pane(Pane main_pane) {
-		this.main_pane = main_pane;
 	}
 
 	public void setWorkerName(String name) {
 		this.worker_name.setText("Worker's name: " + name);
 	}
+	
 	public void setWorkerEmail(String email) {
 		if (email != null) {
 			this.email.setText("Email: " + email);
@@ -157,13 +130,11 @@ public class WorkerMenuController implements Initializable {
 	
 
 	
-	//----------> ESSENTIAL METHODS <---------------
+	// -----> ESSENTIAL METHODS <-----
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		this.pane_backup = menu_main_pane;
+		
 		listInventory_button.setDisable(true);
-		
-		
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
 				AccountWorkerController.setValues(manager_object, worker_account);
@@ -263,10 +234,6 @@ public class WorkerMenuController implements Initializable {
 		}
 	}
 	
-	
-
-	
-    
 	// -----> BUTTON METHODS <-----
 
 	@FXML
@@ -292,9 +259,7 @@ public class WorkerMenuController implements Initializable {
 	public void open_option_panel(MouseEvent event) throws IOException {
 		setAllButtonsOn();
 		addProduct_button.setDisable(true);
-		if(ProductOptionController.getManager() == null) {
-			ProductOptionController.setValues(manager_object);
-		}
+		ProductOptionController.setValues(manager_object);
 		Pane option_pane = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(option_pane);
@@ -303,7 +268,7 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	private void list_inventory_button(MouseEvent event) throws IOException { 
-		current_pane_option_label.setText("Products");
+		current_pane_option_label.setText("List inventory");
 		setAllButtonsOn();
 		listInventory_button.setDisable(true);
 		ListAllBiomaterialsController.setValues(manager_object);
@@ -342,17 +307,11 @@ public class WorkerMenuController implements Initializable {
 		current_pane_option_label.setText("Update features");
 		setAllButtonsOn();
 		update_button.setDisable(true);
-		FeaturesController.setValue(manager_object);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductFeaturesView.fxml"));
-		Pane update_pane = loader.load();
-		features_controller = (FeaturesController) loader.getController();
-		features_controller.getMain_bar().setVisible(false);
-		features_controller.getAccount_window().setStyle("-fx-background-color: white;");
-		features_controller.getId_label().setText("Biomaterial [ id: " + biomaterial_id + " ]");
+		UpdateFeaturesController.setValue(manager_object, biomaterial_id);
+		Pane update_pane = FXMLLoader.load(getClass().getResource("UpdateFeaturesView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(update_pane);
 	}
-	
 	
 	public void setAllButtonsOn() {
 		this.addProduct_button.setDisable(false);
@@ -373,10 +332,6 @@ public class WorkerMenuController implements Initializable {
 		this.removeProduct_button.setDisable(true);
 		this.update_button.setDisable(true);
 	}
-
-	
-	
-	
 }
 
 

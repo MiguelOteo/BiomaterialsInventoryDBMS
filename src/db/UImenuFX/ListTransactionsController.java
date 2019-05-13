@@ -11,7 +11,6 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
-import db.pojos.Client;
 import db.pojos.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

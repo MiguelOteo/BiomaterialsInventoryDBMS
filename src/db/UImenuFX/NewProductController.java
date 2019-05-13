@@ -15,6 +15,8 @@ import com.jfoenix.controls.JFXTextField;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
+import db.pojos.Maintenance;
+import db.pojos.Utility;
 import javafx.event.EventHandler;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,13 +24,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class NewProductController implements Initializable {
@@ -36,10 +39,17 @@ public class NewProductController implements Initializable {
 	// -----> CLASS ATTRIBUTES <-----
 	
 		private static SQLManager manager_object;
+		@SuppressWarnings("unused")
 		private static WorkerMenuController worker_controller;
+		private TreeItem<UtilityListObject> utility_object;
+		private TreeItem<MaintenanceListObject> maintenance_object;
 		
 	// -----> FXML ATTRIBUTES <-----
 		
+		@FXML
+		private Label maintenance_selected;
+		@FXML
+		private Label utility_selected;
 		@FXML
 	    private Pane new_product_pane;
 	    @FXML
@@ -108,11 +118,17 @@ public class NewProductController implements Initializable {
    					@Override
    					public void handle(WindowEvent event) {
    						//worker_controller.getAnchorPane().setEffect(null);
+   						utility_object = FeaturesController.getUtility_object();
+   						if(utility_object != null) {
+   							utility_selected.setText("Utility has been selected");
+   						}
+   						maintenance_object = FeaturesController.getMaintenance_object();
+   						if(maintenance_object != null) {
+   							maintenance_selected.setText("Maintenance has been selected");
+   						}
    					}
    				});		
    				stage_window.show();
-   				
-   				
    			} catch (IOException features_error) {
    				features_error.printStackTrace();
    				System.exit(0);
@@ -123,27 +139,34 @@ public class NewProductController implements Initializable {
     
 	@FXML
 	public void conclude_creation(MouseEvent event) {
-		
 		String product_name = name_field.getText();
 		LocalDate exp_date = date_picker.getValue();
 		Integer units = units_button.getValue();
 		Float price = Float.parseFloat(price_button.getSelectionModel().getSelectedItem());
-		//String info = information_field.getText();
-    	
-		if (!product_name.equals("")) {
+		
+		name_field.setText("");
+		date_picker.setValue(null);
+		units_button.setValue(null);
+		price_button.setValue(null);
+		utility_selected.setText("No utility selected");
+		maintenance_selected.setText("No maintenance selected");
+		
+		if (!product_name.equals("") || exp_date != null || units != null || price != null) {
 			Biomaterial biomaterial = new Biomaterial();
 			biomaterial.setName_product(product_name);
 			biomaterial.setAvailable_units(units.intValue());
 			biomaterial.setPrice_unit(price.floatValue());
 			biomaterial.setExpiration_date(Date.valueOf(exp_date));
-			//biomaterial.setInformation(info);
-			
-			Integer bio_id = manager_object.Insert_new_biomaterial(biomaterial);
-			System.out.println(bio_id);
-			FeaturesController.setValue(manager_object);
-			FeaturesController.setBiomaterialID(bio_id);
+			if(utility_object != null) {
+				Utility utility = manager_object.Search_utility_by_id(Integer.parseInt(utility_object.getValue().utility_id.getValue()));
+				biomaterial.setUtility(utility);
+			}
+			if(maintenance_object != null) {
+				Maintenance maintenance = manager_object.Search_maintenance_by_id(Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString()));
+				biomaterial.setMaintenance(maintenance);
+			}
+			manager_object.Insert_new_biomaterial(biomaterial);
 		}
-	}
-	
+	}	
 }
 

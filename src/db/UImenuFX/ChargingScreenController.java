@@ -200,7 +200,6 @@ public class ChargingScreenController implements Initializable {
 			main_menu_stage = new Stage();
 			main_menu_stage.initStyle(StageStyle.UNDECORATED);
 			main_menu_stage.setScene(new Scene(root));
-			WorkerMenuController.setStage(main_menu_stage);
 			main_menu_stage.show();
 		} catch (IOException worker_menu_error) {
 			worker_menu_error.printStackTrace();
