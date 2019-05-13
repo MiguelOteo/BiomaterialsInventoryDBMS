@@ -281,24 +281,20 @@ public class WorkerMenuController implements Initializable {
 	
 	@FXML
 	public void list_transactions(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Finantial status");
-		setAllButtonsOn();
-		listTransactions_button.setDisable(true);
-		DirectorFinantialStatusController.setValues(manager_object);
-		Pane option_pane = FXMLLoader.load(getClass().getResource("DirectorFinantialStatusView.fxml"));
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListTransactionsView.fxml"));
+		ListTransactionsController.setValues(manager_object);
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(option_pane);
+		main_pane.getChildren().setAll(menu_panel);
+		
 	}
 	
 	@FXML
 	public void list_clients(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("List all clients");
-		setAllButtonsOn();
-		listClients_button.setDisable(true);
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
 		ListAllClientsController.setValues(manager_object);
-		Pane option_pane = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(option_pane);
+		main_pane.getChildren().setAll(menu_panel);
+		
 	}
 
 	

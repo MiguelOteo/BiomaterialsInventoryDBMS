@@ -42,7 +42,7 @@ public class XMLConsole {
 			
 			manager.Xml2JavaBiomaterial();
 			//Must transform XML to html document - WE MUST VERIFFY IT WHEN ERROR IS SOLVED
-			//manager.Xml2HtmlBiomaterial();
+			manager.Xml2HtmlBiomaterial();
 			
 	}
 		

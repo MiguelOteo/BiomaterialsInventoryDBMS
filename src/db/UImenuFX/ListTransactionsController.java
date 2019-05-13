@@ -5,12 +5,14 @@ import java.net.*;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
+import db.pojos.Client;
 import db.pojos.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -23,7 +25,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class ListTransactionsController implements Initializable{
@@ -35,8 +37,10 @@ public class ListTransactionsController implements Initializable{
 	
 	// -----> FXML ATRIBUTES <-----
 	
-	@FXML
-    private Pane main_pane;
+    @FXML
+    private AnchorPane account_window;
+    @FXML
+    private JFXButton back_button;
     @FXML
     private JFXTreeTableView<TransactionsListObject> transactions_tree_view;
     @FXML
@@ -54,10 +58,9 @@ public class ListTransactionsController implements Initializable{
 	}
     
     @SuppressWarnings("unchecked")
-	@Override
+	@Override 
 	public void initialize(URL location, ResourceBundle resources) {
 			
-
 		// Transaction list columns creation
 
 				JFXTreeTableColumn<TransactionsListObject, String> trans_id = new JFXTreeTableColumn<>("Transaction");
@@ -115,52 +118,61 @@ public class ListTransactionsController implements Initializable{
 						});
 				biomat.setResizable(false);
 				
-				JFXTreeTableColumn<TransactionsListObject, String> client_id = new JFXTreeTableColumn<>("Client ID");
-				client_id.setPrefWidth(40);
-				client_id.setCellValueFactory(
+				JFXTreeTableColumn<TransactionsListObject, String> client = new JFXTreeTableColumn<>("Client");
+				client.setPrefWidth(40);
+				client.setCellValueFactory(
 						new Callback<TreeTableColumn.CellDataFeatures<TransactionsListObject, String>, ObservableValue<String>>() {
 							@Override
 							public ObservableValue<String> call(CellDataFeatures<TransactionsListObject, String> param) {
-								return param.getValue().getValue().client_id;
+								return param.getValue().getValue().client;
 							}
 						});
-				client_id.setResizable(false);
+				client.setResizable(false);
 				
 				List<Transaction> transaction_list = manager_object.List_all_transactions();
+				System.out.println(transaction_list);
 				for(Transaction transaction: transaction_list) {
-					transaction_objects.add(new TransactionsListObject(transaction.getClient().getClient_id().toString(), transaction.getTransaction_id().toString(), transaction.getGain().toString(), transaction.getUnits().toString(), 
-						transaction.getTransaction_date().toString(), transaction.getBiomaterial().getName_product()));
+					transaction_objects.add(new TransactionsListObject(transaction.getTransaction_id().toString(), transaction.getGain(), transaction.getUnits().toString(), 
+						transaction.getTransaction_date().toString(), transaction.getBiomaterial().toString(), transaction.getClient() ));
 				}
 				
 				TreeItem<TransactionsListObject> root = new RecursiveTreeItem<TransactionsListObject>(transaction_objects, RecursiveTreeObject::getChildren);
-				transactions_tree_view.getColumns().setAll(trans_id, gain, units, trans_date, biomat, client_id);
+				transactions_tree_view.getColumns().setAll(trans_id, gain, units, trans_date, biomat, client);
 				transactions_tree_view.setRoot(root);
 				transactions_tree_view.setShowRoot(false);
 
 				
 				//Ables the selection of several transactions of treeTable
+				//next step: associate selection's id to a variable being read by Order product controller
 				transactions_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
+				System.out.println("h");
 	
-    }
 }
+    
 
-//To insert columns into the list of transactions with all the information
+// To insert columns into the list of transactions with all the information
 class TransactionsListObject extends RecursiveTreeObject<TransactionsListObject> {
 	StringProperty transaction_id;
 	StringProperty gain;
 	StringProperty units;
 	StringProperty transaction_date;
 	StringProperty biomaterial;
-	StringProperty client_id;
+	StringProperty client;
 
-	public TransactionsListObject(String client_id, String transaction_id, String gain, String units, String transaction_date, String biomaterial) {
+	public TransactionsListObject(String id, String transaction_id, String gain, String units, String transaction_date, String biomaterial, String client) {
 		this.transaction_id = new SimpleStringProperty(transaction_id);
 		this.gain = new SimpleStringProperty(gain);
 		this.units = new SimpleStringProperty(units);
 		this.transaction_date = new SimpleStringProperty(transaction_date);
 		this.biomaterial = new SimpleStringProperty(biomaterial);
-		this.client_id =new SimpleStringProperty(client_id);
+		this.client = new SimpleStringProperty(client);
 	}
 
+	public TransactionsListObject(String string, Float gain2, String string2, String string3, String string4,
+			Client client2) {
+		// TODO Auto-generated constructor stub
+	}
+}
 
 }
+

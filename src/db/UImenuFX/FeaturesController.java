@@ -39,7 +39,6 @@ public class FeaturesController implements Initializable {
 	private static TreeItem<UtilityListObject> utility_object;
 	private static TreeItem<MaintenanceListObject> maintenance_object;
 	
-	
 	//----------------> FXML ATTRIBUTES <------------------
 	@FXML
 	private AnchorPane account_window;
@@ -88,7 +87,7 @@ public class FeaturesController implements Initializable {
     	manager_object = manager;
     }
     
-    @Override @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		// -----> UTILITY TABLE <-----
