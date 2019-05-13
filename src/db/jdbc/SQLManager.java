@@ -716,6 +716,7 @@ public class SQLManager implements Interface{
 				template.setInt(1, utility_id);
 				Utility utility = new Utility();
 				ResultSet result_set = template.executeQuery();
+				result_set.next();
                 utility.setFlexibility(result_set.getString("flexibility"));
                 utility.setHeat_cold(result_set.getString("heat_cold"));
                 utility.setPressure(result_set.getFloat("pressure"));
@@ -733,11 +734,13 @@ public class SQLManager implements Interface{
 	// Selects the maintenance object with the same maintenance_id from the data base and returns it
 	public Maintenance Search_maintenance_by_id (Integer maintenance_id) {
 			try {
+				System.out.println("THIS ONE " + maintenance_id);
 				String SQL_code = "SELECT * FROM maintenance WHERE maintenance_id LIKE ?";
 				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 				template.setInt(1, maintenance_id);
 				Maintenance maintenance = new Maintenance();
 				ResultSet result_set = template.executeQuery();
+				result_set.next();
                 maintenance.setCompatibility(result_set.getString("compatibility"));
                 maintenance.setHumidity(result_set.getInt("humidity"));
                 maintenance.setLight(result_set.getString("light"));
@@ -767,10 +770,14 @@ public class SQLManager implements Interface{
                 biomaterial.setName_product(result_set.getString("name_product"));
                 biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
                 biomaterial.setBiomaterial_id(biomaterial_id);
-                /*Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
-                biomaterial.setUtility(utility);
-                Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
-                biomaterial.setMaintenance(maintenance);*/
+                if(result_set.getInt("maintenance_id") != 0) {
+    				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
+    				biomaterial.setMaintenance(maintenance);
+    				}
+    				if(result_set.getInt("utility_id") != 0) {
+    				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
+    				biomaterial.setUtility(utility);
+    				}
                 template.close();
 				return biomaterial;
 			} catch (SQLException search_biomaterial_error) {
@@ -944,10 +951,14 @@ public class SQLManager implements Interface{
 				biomaterial.setAvailable_units(result_set.getInt("available_units"));
 				biomaterial.setBiomaterial_id(result_set.getInt("biomaterial_id"));
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
-				/*Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
+				if(result_set.getInt("maintenance_id") != 0) {
+				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
 				biomaterial.setMaintenance(maintenance);
+				}
+				if(result_set.getInt("utility_id") != 0) {
 				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
-				biomaterial.setUtility(utility);*/
+				biomaterial.setUtility(utility);
+				}
 				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
 				
 				biomaterials_list.add(biomaterial);
@@ -959,6 +970,8 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	
 	
 	// List all utilities returning a linkedList with all of them
 		public List<Utility> List_all_utilities() {

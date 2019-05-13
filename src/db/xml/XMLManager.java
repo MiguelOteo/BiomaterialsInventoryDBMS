@@ -96,7 +96,7 @@ public class XMLManager {
 		// Printout
 		marshaller.marshal(list, System.out);
 		
-	}
+	} 
 	
 	
 	public void Xml2HtmlBiomaterial() {
