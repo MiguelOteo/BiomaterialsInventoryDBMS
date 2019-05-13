@@ -39,7 +39,7 @@ public class XMLConsole {
 			
 			manager.Java2XmlBiomaterial(list);
 			//el DTD chacker nos dice que el external-Biomaterial.xml es valido y esta bien formado. entonces ni idea del error siguiente: 
-			//ERROR ENTITY TYPE
+			
 			manager.Xml2JavaBiomaterial();
 			//Must transform XML to html document - WE MUST VERIFFY IT WHEN ERROR IS SOLVED
 			//manager.Xml2HtmlBiomaterial();

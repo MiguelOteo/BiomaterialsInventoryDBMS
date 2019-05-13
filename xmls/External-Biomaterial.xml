@@ -8,23 +8,32 @@ It's a template in DTD language
 <!DOCTYPE BiomaterialList [
 	<!ELEMENT BiomaterialList (Products)>
 	<!ELEMENT Products (Biomaterial+)>
-    <!ELEMENT Biomaterial (product_name, price_unit, available_units)>
+    <!ELEMENT Biomaterial (product_name, price_unit, available_units, information)>
     <!ATTLIST Biomaterial biomaterialId CDATA #REQUIRED>
     <!ELEMENT product_name (#PCDATA)>
     <!ELEMENT price_unit (#PCDATA)>
     <!ELEMENT available_units (#PCDATA)>
+    <!ELEMENT information (#PCDATA)>
 ]>
 <BiomaterialList>
     <Products>
-        <Biomaterial biomaterialId="1">
-            <product_name>qq</product_name>
-            <price_unit>50</price_unit>
-            <available_units>50</available_units>
-        </Biomaterial>
         <Biomaterial biomaterialId="2">
-            <product_name>qq</product_name>
-            <price_unit>50</price_unit>
-            <available_units>50</available_units>
+            <product_name>Collagen</product_name>
+            <price_unit>50.0</price_unit>
+            <available_units>1750</available_units>
+            <information>null</information>
+        </Biomaterial>
+        <Biomaterial biomaterialId="3">
+            <product_name>Plastic</product_name>
+            <price_unit>36.7</price_unit>
+            <available_units>939</available_units>
+            <information>null</information>
+        </Biomaterial>
+        <Biomaterial biomaterialId="4">
+            <product_name>Fibrin</product_name>
+            <price_unit>10.0</price_unit>
+            <available_units>300</available_units>
+            <information>null</information>
         </Biomaterial>
     </Products>
 </BiomaterialList>

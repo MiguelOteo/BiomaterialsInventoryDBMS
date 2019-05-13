@@ -255,7 +255,7 @@ public class WorkerMenuController implements Initializable {
 			list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(list_pane);
-			
+			System.out.println("h");
 		} catch (IOException list_error) {
 			list_error.printStackTrace();
 		}
@@ -309,6 +309,25 @@ public class WorkerMenuController implements Initializable {
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(list_pane);
 	}
+	
+	@FXML
+	public void list_transactions(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListTransactionsView.fxml"));
+		ListTransactionsController.setValues(manager_object);
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(menu_panel);
+		
+	}
+	
+	@FXML
+	public void list_clients(MouseEvent event) throws IOException {
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
+		ListAllClientsController.setValues(manager_object);
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(menu_panel);
+		
+	}
+
 	
 	@FXML
 	private void update_product_button(MouseEvent event) throws IOException {

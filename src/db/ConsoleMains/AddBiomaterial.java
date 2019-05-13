@@ -21,6 +21,7 @@ public class AddBiomaterial {
 		
 		
 		Biomaterial biomaterial = new Biomaterial(null, null, "Metal bar", (float)34, 30, Date.valueOf("2424-06-03"));
+		biomaterial.setInformation("none");
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		

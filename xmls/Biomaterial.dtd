@@ -9,9 +9,10 @@ It's a template in DTD language
 <!DOCTYPE BiomaterialList [
 	<!ELEMENT BiomaterialList(Products)>
 	<!ELEMENT Products (Biomaterial+)>
-    <!ELEMENT Biomaterial (product_name, price_unit, available_units)>
+    <!ELEMENT Biomaterial (product_name, price_unit, available_units, information)>
     <!ATTLIST Biomaterial biomaterial_id CDATA #REQUIRED>
     <!ELEMENT product_name (#PCDATA)>
     <!ELEMENT price_unit (#PCDATA)>
     <!ELEMENT available_units (#PCDATA)>
+    <!ELEMENT information (#PCDATA)>
 ]>
