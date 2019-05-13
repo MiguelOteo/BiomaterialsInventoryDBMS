@@ -1,6 +1,8 @@
 package db.xml;
 
+
 import java.io.File;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +17,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import db.jdbc.SQLManager;
+import db.pojos.Biomaterial;
 import db.pojos.BiomaterialList;
 
 
@@ -55,8 +59,15 @@ public class XMLManager {
 				tx1.begin();
 
 				// Persist
-				em.persist(biomaterial);
+				SQLManager sql_manager = new SQLManager();
+				sql_manager.Stablish_connection();
 				
+	            List<Biomaterial> biomat_for_persist = sql_manager.List_all_biomaterials();
+	            for (Biomaterial biomat: biomat_for_persist) {
+	            	sql_manager.Insert_new_biomaterial(biomat);
+	            }
+	            sql_manager.Close_connection();
+	            
 				// End transaction
 				tx1.commit();
 	}
@@ -93,7 +104,7 @@ public class XMLManager {
 		TransformerFactory tFactory = TransformerFactory.newInstance();
 		try {
 			Transformer transformer = tFactory.newTransformer(new StreamSource(new File("./xmls/Biomaterial-Style.xslt")));
-			transformer.transform(new StreamSource(new File("./xmls/External-Biomaterial.xml")),new StreamResult(new File("./xmls/External-Biomaterial.html")));
+			transformer.transform(new StreamSource(new File("./xmls/External-Biomaterial.xml")),new StreamResult(new File("./xmls/BENGMAT.html")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
