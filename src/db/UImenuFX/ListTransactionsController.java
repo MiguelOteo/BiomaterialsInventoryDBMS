@@ -146,6 +146,7 @@ public class ListTransactionsController implements Initializable{
 				//Ables the selection of several transactions of treeTable
 				//next step: associate selection's id to a variable being read by Order product controller
 				transactions_tree_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
+				System.out.println("h");
 	
 }
     
