@@ -139,7 +139,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="511.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Transaction records" textFill="#00000080">
+            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="511.0" onMouseClicked="#list_transactions" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Transaction records" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -151,7 +151,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listClients_button" alignment="TOP_LEFT" layoutY="562.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List clients" textFill="#00000080">
+            <JFXButton fx:id="listClients_button" alignment="TOP_LEFT" layoutY="562.0" onMouseClicked="#list_clients" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List clients" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

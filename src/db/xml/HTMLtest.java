@@ -1,5 +1,4 @@
 package db.xml;
-import db.xml.XMLManager;;
 
 public class HTMLtest {
 	

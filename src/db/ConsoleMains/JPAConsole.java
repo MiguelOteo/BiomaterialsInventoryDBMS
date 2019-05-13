@@ -1,10 +1,7 @@
 package db.ConsoleMains;
 
-import javax.persistence.Persistence;
-
 import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
-import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.User;
 
