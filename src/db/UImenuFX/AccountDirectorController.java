@@ -120,4 +120,8 @@ public class AccountDirectorController implements Initializable {
 	public JFXButton getDoneButton() {
 		return done_button;
 	}
+	
+	public JFXButton getDeleteButton() {
+		return delete_account_button;
+	}
 }
