@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1240.0" styleClass="white_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientMenuController">
    <children>
-      <Pane fx:id="menu_main_pane" layoutX="300.0" layoutY="1.0" prefHeight="720.0" prefWidth="940.0">
+      <Pane fx:id="menu_main_pane" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
-            <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
+            <Pane prefHeight="180.0" prefWidth="940.0" styleClass="menu_ClientBar_color">
                <children>
                   <ImageView fx:id="exitButton" fitHeight="28.0" fitWidth="40.0" layoutX="887.0" layoutY="14.0" onMouseClicked="#close_app" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -25,31 +26,52 @@
                         <Image url="@src.IconPictures/window-minimize.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="client_name" layoutX="572.0" layoutY="30.0" text="Client's name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                  <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="470.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/user-tie-white.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="client_name" layoutX="574.0" layoutY="21.0" text="Director's name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
+                  <Label fx:id="email" layoutX="574.0" layoutY="51.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="telephone" layoutX="574.0" layoutY="80.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="responsible" layoutX="577.0" layoutY="108.0" text="Responsible: &quot;responsible_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXProgressBar layoutX="629.0" layoutY="159.0" prefHeight="9.0" prefWidth="210.0" progress="0.0" />
+                  <Label layoutX="543.0" layoutY="154.0" text="&quot;Category 1&quot;" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="853.0" layoutY="154.0" text="&quot;Category 2&quot;" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="29.0" text="Main menu">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
-            <ImageView fitHeight="72.0" fitWidth="95.0" layoutX="472.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@src.IconPictures/user-tie-white.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="email" layoutX="576.0" layoutY="60.0" text="Email: &quot;user_email@outlook.com&quot;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="telephone" layoutX="576.0" layoutY="89.0" text="Telephone: &quot;telephone_number&quot; " textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="16.0" />
-               </font>
-            </Label>
-            <Pane fx:id="main_pane" layoutX="2.0" layoutY="81.0" prefHeight="640.0" prefWidth="940.0" styleClass="tree-table" />
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" styleClass="tree-table" />
          </children></Pane>
-      <Pane prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
+      <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
          <children>
             <VBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="blue_color">
                <children>

@@ -26,6 +26,10 @@
 	-fx-background-image: url("src.IconPictures/UpperBarMedium.png");
 }
 
+.menu_ClientBar_color {
+	-fx-background-image: url("src.IconPictures/ClientUpperBarBig.png");
+}
+
 .menu_buttom {
 	-fx-font-weight: bold;
 	-fx-font-size: 14;

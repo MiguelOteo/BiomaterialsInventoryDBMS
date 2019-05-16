@@ -1,7 +1,5 @@
 package db.UImenuFX;
 
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -16,7 +14,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
 import db.pojos.Biomaterial;
-import db.pojos.Worker;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,13 +26,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -213,15 +207,16 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
     ObjectProperty<JFXButton> plus;
     ObjectProperty<JFXButton> minus;
     
-	@SuppressWarnings("unchecked")
 	@FXML
 	private ImageView add;
 	@FXML
 	private ImageView sub;
 	@FXML
 	private Image img;
+	@SuppressWarnings("unused")
 	private Boolean counter=true;
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public BiomaterialListObject(String id, String product_name, String available_units, String price_unit,
 			String expiration_date, Integer total) {
 		this.product_name = new SimpleStringProperty(product_name);

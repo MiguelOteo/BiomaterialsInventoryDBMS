@@ -1,6 +1,5 @@
 package db.UImenuFX;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
 import db.pojos.Client;
-import db.pojos.Director;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -60,6 +59,8 @@ public class ClientMenuController implements Initializable {
 	private Label email;
 	@FXML
 	private Label telephone;
+	@FXML
+	private Label responsible;
 	@FXML
 	private ImageView minButton;
 	@FXML
@@ -113,13 +114,12 @@ public class ClientMenuController implements Initializable {
 					@Override
 					public void handle(WindowEvent arg0) {
 						menu_window.setEffect(new BoxBlur(3,3,3));
-					    setAllButtonsOff();
+						stage_window.initModality(Modality.APPLICATION_MODAL);
 					}
 				});
 				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
 					@Override
 					public void handle(WindowEvent event) {
-						setAllButtonsOn();
 						menu_window.setEffect(null);
 					}
 				});		
@@ -183,15 +183,16 @@ public class ClientMenuController implements Initializable {
 	public AnchorPane getAnchorPane() {
 		return this.menu_window;
 	}
+	
 	public void update_client_account() {
 		client_account = manager_object.Search_client_by_id(client_account.getClient_id());
-    	
     	setClientEmail(client_account.getEmail());
     	setClientName(client_account.getName());
 		setClientTelephone(client_account.getTelephone());
-}
+		setResponsible(client_account.getResponsible());
+	}
 
-public void setClientTelephone(Integer telephone) {
+	public void setClientTelephone(Integer telephone) {
 		if (telephone == null) {
 			this.telephone.setText("Telephone: No telephone associated");
 		} else {
@@ -208,23 +209,52 @@ public void setClientTelephone(Integer telephone) {
 	}
 
 	public void setClientEmail(String email) {
-		System.out.println(email);
 		if (email != null) {
 			this.email.setText("Email: " + email);
 		} else {
 			this.email.setText("Email: No email associated");
 		}
 	}
+	
+	public void setResponsible(String responsible) {
+		if (responsible != null) {
+			this.responsible.setText("Responsible: " + responsible);
+		} else {
+			this.responsible.setText("Responsible: No one associated");
+		}
+	}
+	
 	@FXML
 	private void loadmarketplace(MouseEvent event) throws IOException {
-		setAllButtonsOn();
-		marketplace_button.setDisable(true);
-		MarketplaceController.setValues(manager_object);
-		Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
-		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(marketplace_pane);
-		
-		
+		if(client_account.getBank_account() != null) {
+			setAllButtonsOn();
+			marketplace_button.setDisable(true);
+			MarketplaceController.setValues(manager_object);
+			Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
+			main_pane.getChildren().removeAll();
+			main_pane.getChildren().setAll(marketplace_pane);
+		} else {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NoBankAccountView.fxml"));
+			Parent root = (Parent) loader.load();
+			stage_window = new Stage();
+			stage_window.initStyle(StageStyle.UNDECORATED);
+			stage_window.setScene(new Scene(root));
+			stage_window.setAlwaysOnTop(true);	
+			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+					menu_window.setEffect(new BoxBlur(3,3,3));
+					stage_window.initModality(Modality.APPLICATION_MODAL);
+				}
+			});
+			stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+				@Override
+				public void handle(WindowEvent event) {
+					menu_window.setEffect(null);
+				}
+			});
+			stage_window.show();
+		}
 	}
 	
 	@FXML 
