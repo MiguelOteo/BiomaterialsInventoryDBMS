@@ -15,12 +15,12 @@ public interface Interface {
 	public Director Insert_new_director(User user);
 	public Worker Insert_new_worker(User user);
 	public Client Insert_new_client(User user);
-	public Integer Insert_new_benefits(Benefits benefits);
 	public Integer Insert_new_utility(Utility utility);
 	public Integer Insert_new_maintenance(Maintenance maintenance);
 	public Integer Insert_new_transaction(Transaction transaction);
 	public Integer Insert_new_biomaterial(Biomaterial biomaterial);
 	public Integer Insert_new_category(Category category);
+	public Integer Insert_new_benefit(Benefits benefit);
 	
 	public void Change_password(String password, Integer user_id);
 	public boolean Update_director_info(Director director);

@@ -12,9 +12,19 @@ public class JPAManager implements Interface {
 	private static final String PERSISTENCE_PROVIDER = "project-provider";
 	private static EntityManager em;
 	
+	
+	public JPAManager() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	/*  ---------------   CREATE METHODS JPA   ------------------*/
 	
 	
+	
+
+
+
 	public Integer Insert_new_category(Category category) {
 		try{
 			Category cat = new Category();
@@ -28,7 +38,6 @@ public class JPAManager implements Interface {
 			
 			em.persist(category);
 			em.getTransaction().commit();
-			em.close();
 						
 			return cat.getCategory_id();
 		} catch(EntityNotFoundException new_category_error) {
@@ -51,7 +60,6 @@ public class JPAManager implements Interface {
 			em.getTransaction().commit();
 
 			
-			em.close();
 			return client;
 			
 		} catch (EntityNotFoundException new_client_account_error) {
@@ -61,7 +69,7 @@ public class JPAManager implements Interface {
 	}
 	
 	
-	public Integer Insert_new_benefits(Benefits benefits) {
+	public Integer Insert_new_benefit(Benefits benefits) {
 		try{
 			Benefits benefit = new Benefits();
 			
@@ -72,7 +80,6 @@ public class JPAManager implements Interface {
 			
 			em.persist(benefits);
 			em.getTransaction().commit();
-			em.close();
 						
 			return benefit.getBenefits_id();
 		} catch(EntityNotFoundException new_category_error) {
@@ -125,7 +132,7 @@ public class JPAManager implements Interface {
 				for (Client client : clients) {
 					System.out.println(client);
 				}
-			em.close();
+			
 		return clients;
 		
 		} catch (EntityNotFoundException List_all_clients_error) {
@@ -144,7 +151,7 @@ public class JPAManager implements Interface {
 				for (Category category : categories) {
 					System.out.println(category);
 				}
-			em.close();
+			
 		return categories;
 		
 		} catch (EntityNotFoundException List_all_categories_error) {
@@ -200,7 +207,7 @@ public class JPAManager implements Interface {
 				c.setBank_account(client.getBank_account());
 			
 			em.getTransaction().commit();
-			em.close();
+			
 			return true;
 			
 		} catch (EntityNotFoundException update_client_error) {
@@ -226,7 +233,7 @@ public class JPAManager implements Interface {
 			
 			
 			em.getTransaction().commit();
-			em.close();
+			
 			return true;
 			
 		} catch (EntityNotFoundException update_category_error) {
@@ -260,7 +267,6 @@ public class JPAManager implements Interface {
 			em.remove(client);
 			em.getTransaction().commit();
 			
-			em.close();
 			return true;
 			
 		} catch (EntityNotFoundException delete_client_error) {
@@ -275,7 +281,6 @@ public class JPAManager implements Interface {
 			em.remove(category);
 			em.getTransaction().commit();
 			
-			em.close();
 			return true;
 			
 		} catch (EntityNotFoundException delete_category_error) {
@@ -307,8 +312,6 @@ public class JPAManager implements Interface {
 			
 			Client client = (Client) q_client.getSingleResult();
 			
-			em.close();
-			
 			return client;
 			
 		} catch (EntityNotFoundException search_client_error) {
@@ -323,8 +326,6 @@ public class JPAManager implements Interface {
 			q_category.setParameter(1, category.getCategory_id());
 			
 			Category cat = (Category) q_category.getSingleResult();
-			
-			em.close();
 			
 			return cat;
 			
@@ -341,8 +342,6 @@ public class JPAManager implements Interface {
 			q_client.setParameter(1, client_id);
 			
 			Client client = (Client) q_client.getSingleResult();
-			
-			em.close();
 			
 			return client;
 			

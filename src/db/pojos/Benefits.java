@@ -10,14 +10,14 @@ import javax.persistence.TableGenerator;
 
 
 @Entity
-@Table(name = "benefit")
+@Table(name = "benefits")
 public class Benefits implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator = "benefit")
-	@TableGenerator(name = "benefit", table = "sqlite_sequence",
+	@GeneratedValue(generator = "benefits")
+	@TableGenerator(name = "benefits", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefit")
 	private Integer benefits_id;
 	private Float percentage;
