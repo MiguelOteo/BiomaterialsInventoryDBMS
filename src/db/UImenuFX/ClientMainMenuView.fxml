@@ -10,5 +10,10 @@
          <image>
             <Image url="@src.IconPictures/client_main.png" />
          </image></ImageView>
+      <ImageView fx:id="image_view_hover" fitHeight="640.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src.IconPictures/client_categories.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
