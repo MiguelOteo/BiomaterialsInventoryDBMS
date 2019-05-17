@@ -71,7 +71,7 @@
                   </Label>
                </children>
             </VBox>
-            <JFXButton fx:id="logOut_button" layoutX="23.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
+            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

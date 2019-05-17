@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-
-<Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientMainMenuController">
    <children>
-      <Label alignment="CENTER" layoutX="29.0" layoutY="69.0" prefHeight="21.0" prefWidth="530.0" text="WELCOME DEAR CLIENT!">
-         <font>
-            <Font name="Ebrima Bold" size="16.0" />
-         </font>
-      </Label>
+      <ImageView fx:id="image_view" fitHeight="640.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src.IconPictures/client_main.png" />
+         </image></ImageView>
    </children>
 </Pane>
