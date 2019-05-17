@@ -1,10 +1,6 @@
 package db.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -141,44 +137,5 @@ public class UtilMethods {
 
 	}
 
-	/*
-	 * MAIN DE PRUEBA DE METODOS
-	 * 
-	 * 
-	 * - DA ERROR NULL EN INSERT_NEW_CLIENT() DE SQLManager
-	 */
-
-	public static void main(String args[]) throws NumberFormatException, IOException {
-
-		SQLManager manager = new SQLManager();
-		manager.Stablish_connection();
-
-		if (manager.Check_if_tables_exist() == false) {
-			manager.Create_tables();
-		} else {
-
-			Creation_one_biomaterial(manager);
-
-			// User u = new User();
-			manager.Insert_new_user("ant03", "1234");
-
-			manager.Insert_new_client(manager.Insert_new_user("ant03", "1234"));
-			List<Transaction> lista = new ArrayList<Transaction>();
-			Client c = new Client("Antonio", 0001, "", "");
-			c.setTransactions_list(lista);
-			manager.Update_client_info(c);
-
-			System.out.println(c);
-
-			manager.List_all_biomaterials();
-
-			System.out.println("Elegir id producto: ");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            Client client = manager.Search_client_by_id(Integer.parseInt(br.readLine()));
-			//Transaction t = new Transaction((float) 1000, 10, client);
-			//lista.add(t);
-			manager.Close_connection();
-
-		}
-	}
+	
 }

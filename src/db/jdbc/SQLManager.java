@@ -73,7 +73,7 @@ public class SQLManager implements Interface{
 		    statement_3.close();
 		    
 			Statement statement_4 = this.sqlite_connection.createStatement();
-			String table_4 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY, "
+			String table_4 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " percentage REAL NOT NULL default 0, " /*+ " min_amount INTEGER NOT NULL default 0,"*/
 					+ " extra_units INTEGER NOT NULL default 0)";
 			statement_4.execute(table_4);
@@ -81,9 +81,8 @@ public class SQLManager implements Interface{
 
 			Statement statement_5 = this.sqlite_connection.createStatement();
 			String table_5 = "CREATE TABLE category " + "(category_id INTEGER REFERENCES benefits(benefits_id), "
-					+ " category_name TEXT NOT NULL, " + " penalization INTEGER default NULL, "
-					// Money interval//
-					+ " max INTEGER NOT NULL, " + " min INTEGER NOT NULL)";
+					+ " category_name TEXT NOT NULL, " + " max INTEGER NOT NULL, "
+					+ " min INTEGER NOT NULL, penalization INTEGER default NULL)";
 			statement_5.execute(table_5);
 			statement_5.close();
 
@@ -286,12 +285,12 @@ public class SQLManager implements Interface{
 	// Category(category_name, penalization, maximum, minimum)
 	public Integer Insert_new_category(Category category) {
 		try {
-			String table = "INSERT INTO category(category_name, penalization, max, min) " + "VALUES (?,?,?,?);";
+			String table = "INSERT INTO category(category_name, max, min, penalization) " + "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, category.getCategory_name());
-			template.setFloat(2, category.getMinimum()/4);
 			template.setInt(3, category.getMaximum());
-			template.setInt(4, category.getMinimum());
+			template.setInt(2, category.getMinimum());
+			template.setFloat(4, category.getMinimum()/4);
 			template.executeUpdate();
 			template.close();
 			
@@ -393,9 +392,7 @@ public class SQLManager implements Interface{
 			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date, information) "
 					+ "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-			/*template.setInt(1, biomaterial.getUtility().getUtility_id());
-			template.setInt(2, biomaterial.getMaintenance().getManteinance_id());
-			*/template.setString(1, biomaterial.getName_product());
+			template.setString(1, biomaterial.getName_product());
 			template.setFloat(2, biomaterial.getPrice_unit());
 			template.setInt(3, biomaterial.getAvailable_units());
 			template.setDate(4, biomaterial.getExpiration_date());
@@ -414,6 +411,29 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
+	
+	public Integer Insert_new_benefit(Benefits benefit) {
+		try {
+			String table = "INSERT INTO benefits(percentage, extra_units) "
+					+ "VALUES (?,?,?,?,?);";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setFloat(1, benefit.getPercentage());
+			template.setInt(2, benefit.getExtra_units());
+			template.executeUpdate();
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS biomaterial_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer biomaterial_id = result_set.getInt("biomaterial_id");
+			template.close();
+			return biomaterial_id;
+		} catch (SQLException new_biomaterial_error) {
+			new_biomaterial_error.printStackTrace();
+			return null;
+		}
+	}
+
 	
 	// -----> UPDATE METHODS <-----
 	
