@@ -152,7 +152,6 @@ public class ChargingScreenController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientMenuView.fxml"));
 			Parent root = (Parent) loader.load();
 			this.client_controller = loader.getController();
-			System.out.println(client.getName());
 			this.client_controller.setClientName(client.getName());
 			this.client_controller.setClientEmail(client.getEmail());
 			this.client_controller.setClientTelephone(client.getTelephone());

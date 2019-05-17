@@ -238,6 +238,8 @@ public class DirectorMenuController implements Initializable {
 
 	}
 	
+	// -----> BUTTON METHODS <-----
+	
 	@FXML
 	private void list_all_clients_button(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("List all clients");
@@ -306,13 +308,6 @@ public class DirectorMenuController implements Initializable {
 		Stage stage = (Stage) menu_main_pane.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	
-	public void update_director_account() {
-	    director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
-	   	setDirectorEmail(director_account.getEmail());
-	   	setDirectorName(director_account.getDirector_name());
-    	setDirectorTelephone(director_account.getTelephone());
-	}
 
 	// -----> SET AND GET METHODS <-----
 	
@@ -370,6 +365,15 @@ public class DirectorMenuController implements Initializable {
 	    logOut_button.setDisable(false);
 	    minButton.setDisable(false);
 	    exitButton.setDisable(false);
+	}
+	
+	// -----> UPDATE ACCOUNT METHOD <-----
+		
+	public void update_director_account() {
+	    director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
+	   	setDirectorEmail(director_account.getEmail());
+	   	setDirectorName(director_account.getDirector_name());
+    	setDirectorTelephone(director_account.getTelephone());
 	}
 }
 

@@ -39,10 +39,7 @@ import javafx.util.Callback;
 
 public class MarketplaceController implements Initializable {
 	
-	private static SQLManager manager_object;
-	private static MarketplaceController marketplace_controller;
-	
-	
+	private static SQLManager manager_object;	
 	
 	@FXML
 	private AnchorPane menu_window;
@@ -172,7 +169,6 @@ public class MarketplaceController implements Initializable {
 	
 	public void refreshBiomaterialsListView(Integer total) {
 	biomaterial_objects.clear();
-	System.out.println("hola");
 	List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 	for (Biomaterial biomaterial: biomaterial_list) {
 		biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(),biomaterial.getName_product(),biomaterial.getAvailable_units().toString(), biomaterial.getPrice_unit().toString(),biomaterial.getExpiration_date().toString(), total));
@@ -185,7 +181,6 @@ public class MarketplaceController implements Initializable {
 	@FXML 
 	private void iteminfo (MouseEvent event) throws IOException{
 		TreeItem<BiomaterialListObject> biomaterial_object = biomaterials_tree_view.getSelectionModel().getSelectedItem();
-	    System.out.println(Integer.parseInt(biomaterial_object.getValue().bio_id.getValue().toString()));
 	    if(biomaterial_object!=null) {
 	    	iteminformation.setText(biomaterial_object.getValue().product_name.getValue().toString());
 	    	biomaterial_object.getValue().bio_id.getValue();
@@ -224,7 +219,6 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.price_unit = new SimpleStringProperty(price_unit);
 		this.expiration_date = new SimpleStringProperty(expiration_date);
 		this.bio_id = new SimpleStringProperty(id);
-		System.out.println(total);
 		/*if(this.counter=true) {
 			this.counter=false;
 			this.total= new SimpleIntegerProperty(0);
@@ -251,16 +245,13 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.plus=new SimpleObjectProperty(plus);
 		this.minus=new SimpleObjectProperty(minus);
 		this.plus.get().setOnAction((MouseClickEvent) -> {
-			this.total=new SimpleIntegerProperty(total+1);
-			System.out.println(this.total.intValue());
-			System.out.println(marketplace_controller);
+			this.total=new SimpleIntegerProperty(total + 1);
 			refreshBiomaterialsListView(this.total.intValue());
-			});
+		});
 		this.minus.get().setOnAction((MouseClickEvent) -> {
-			this.total=new SimpleIntegerProperty(total-1);
-			System.out.println(this.total);
+			this.total=new SimpleIntegerProperty(total - 1);
 			refreshBiomaterialsListView(this.total.intValue());
-			});
+		});
 	}
 }}
 

@@ -30,9 +30,7 @@ public class ClientMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
-	@SuppressWarnings("unused")
 	private static Client client_account;
-	@SuppressWarnings("unused")
 	private static SQLManager manager_object;
 
 	// -----> FXML ATRIBUTES <-----
@@ -67,6 +65,7 @@ public class ClientMenuController implements Initializable {
 	private ImageView exitButton;
 	@FXML
 	private static Stage stage_window;
+	
 	// -----> ESSENTIAL METHODS <-----
 
 	public ClientMenuController() {
@@ -78,7 +77,6 @@ public class ClientMenuController implements Initializable {
 		client_account = client;
 	}
 	
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setAllButtonsOn();
@@ -87,9 +85,8 @@ public class ClientMenuController implements Initializable {
 			Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
 		    main_pane.getChildren().removeAll();
 		    main_pane.getChildren().setAll(mainmenu_pane);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException client_view_error) {
+			client_view_error.printStackTrace();
 		}
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
@@ -127,30 +124,9 @@ public class ClientMenuController implements Initializable {
 			} catch (IOException director_account_error) {
 				director_account_error.printStackTrace();
 				System.exit(0);
-			
 			}
 		});}
 	
-
-	protected void setAllButtonsOff() {
-		 myAccount_button.setDisable(true);
-		    marketplace_button.setDisable(true);
-		    club_button.setDisable(true);
-		    mainmenu_button.setDisable(true);
-		    logOut_button.setDisable(true);
-		    minButton.setDisable(true);
-		    exitButton.setDisable(true);
-	}
-	
-	protected void setAllButtonsOn() {
-		 myAccount_button.setDisable(false);
-		    marketplace_button.setDisable(false);
-		    club_button.setDisable(false);
-		    mainmenu_button.setDisable(false);
-		    logOut_button.setDisable(false);
-		    minButton.setDisable(false);
-		    exitButton.setDisable(false);
-	}
 	// -----> BUTTOM METHODS <-----
 
 	@FXML
@@ -178,50 +154,6 @@ public class ClientMenuController implements Initializable {
 		// } catch (IOException marketplace_charge_error) {
       
 		// }
-	}
-	
-	public AnchorPane getAnchorPane() {
-		return this.menu_window;
-	}
-	
-	public void update_client_account() {
-		client_account = manager_object.Search_client_by_id(client_account.getClient_id());
-    	setClientEmail(client_account.getEmail());
-    	setClientName(client_account.getName());
-		setClientTelephone(client_account.getTelephone());
-		setResponsible(client_account.getResponsible());
-	}
-
-	public void setClientTelephone(Integer telephone) {
-		if (telephone == null) {
-			this.telephone.setText("Telephone: No telephone associated");
-		} else {
-			if (telephone != 0) {
-				this.telephone.setText("Telephone: " + telephone);
-			} else {
-				this.telephone.setText("Telephone: No telephone associated");
-			}
-		}
-	}
-
-	public void setClientName(String name) {
-		this.client_name.setText("Client's name: " + name );
-	}
-
-	public void setClientEmail(String email) {
-		if (email != null) {
-			this.email.setText("Email: " + email);
-		} else {
-			this.email.setText("Email: No email associated");
-		}
-	}
-	
-	public void setResponsible(String responsible) {
-		if (responsible != null) {
-			this.responsible.setText("Responsible: " + responsible);
-		} else {
-			this.responsible.setText("Responsible: No one associated");
-		}
 	}
 	
 	@FXML
@@ -273,5 +205,75 @@ public class ClientMenuController implements Initializable {
 		Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(mainmenu_pane);
+	}
+	
+	// -----> SET AND GET METHODS <-----
+	
+	public AnchorPane getAnchorPane() {
+		return this.menu_window;
+	}
+	
+	public void setClientTelephone(Integer telephone) {
+		if (telephone == null) {
+			this.telephone.setText("Telephone: No telephone associated");
+		} else {
+			if (telephone != 0) {
+				this.telephone.setText("Telephone: " + telephone);
+			} else {
+				this.telephone.setText("Telephone: No telephone associated");
+			}
+		}
+	}
+
+	public void setClientName(String name) {
+		this.client_name.setText("Client's name: " + name );
+	}
+
+	public void setClientEmail(String email) {
+		if (email != null) {
+			this.email.setText("Email: " + email);
+		} else {
+			this.email.setText("Email: No email associated");
+		}
+	}
+	
+	public void setResponsible(String responsible) {
+		if (responsible != null) {
+			this.responsible.setText("Responsible: " + responsible);
+		} else {
+			this.responsible.setText("Responsible: No one associated");
+		}
+	}
+	
+	// -----> ANABLE/DISABLE BUTTONS <-----
+	
+	protected void setAllButtonsOff() {
+		 myAccount_button.setDisable(true);
+		    marketplace_button.setDisable(true);
+		    club_button.setDisable(true);
+		    mainmenu_button.setDisable(true);
+		    logOut_button.setDisable(true);
+		    minButton.setDisable(true);
+		    exitButton.setDisable(true);
+	}
+	
+	protected void setAllButtonsOn() {
+		 myAccount_button.setDisable(false);
+		    marketplace_button.setDisable(false);
+		    club_button.setDisable(false);
+		    mainmenu_button.setDisable(false);
+		    logOut_button.setDisable(false);
+		    minButton.setDisable(false);
+		    exitButton.setDisable(false);
+	}
+	
+	// -----> UPDATE ACCOUNT METHOD <-----
+	
+	public void update_client_account() {
+		client_account = manager_object.Search_client_by_id(client_account.getClient_id());
+    	setClientEmail(client_account.getEmail());
+    	setClientName(client_account.getName());
+		setClientTelephone(client_account.getTelephone());
+		setResponsible(client_account.getResponsible());
 	}
 }

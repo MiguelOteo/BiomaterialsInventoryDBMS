@@ -28,7 +28,7 @@
                   </ImageView>
                   <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="470.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@src.IconPictures/user-tie-white.png" />
+                        <Image url="@src.IconPictures/user-white.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="client_name" layoutX="574.0" layoutY="21.0" text="Director's name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">

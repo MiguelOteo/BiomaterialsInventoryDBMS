@@ -39,8 +39,6 @@ public class NewProductController implements Initializable {
 	// -----> CLASS ATTRIBUTES <-----
 	
 		private static SQLManager manager_object;
-		@SuppressWarnings("unused")
-		private static WorkerMenuController worker_controller;
 		private TreeItem<UtilityListObject> utility_object;
 		private TreeItem<MaintenanceListObject> maintenance_object;
 		

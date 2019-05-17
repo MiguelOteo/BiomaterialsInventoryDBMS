@@ -228,7 +228,6 @@ public class WorkerMenuController implements Initializable {
 			list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(list_pane);
-			System.out.println("h");
 		} catch (IOException list_error) {
 			list_error.printStackTrace();
 		}
