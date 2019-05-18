@@ -59,10 +59,10 @@ public class ChargingScreenController implements Initializable {
 			// The following code charges all the database info and tables
 			manager = new SQLManager();
 			manager.Stablish_connection();
-			boolean tables_exist = manager.Check_if_tables_exist();
-			if (tables_exist == false) {
+			//boolean tables_exist = manager.Check_if_tables_exist();
+			//if (tables_exist == false) {
 				manager.Create_tables();
-			}
+			//}
 
 			// Next algorithm checks if the user account already exist when you create a new one or in 
 			// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)

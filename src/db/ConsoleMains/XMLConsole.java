@@ -25,15 +25,10 @@ public class XMLConsole {
 		
 		boolean everything_ok = sql_manager.Stablish_connection();
 
-		boolean tables_exist = sql_manager.Check_if_tables_exist();
-		if(tables_exist == true) {
-		} else {
-			everything_ok = sql_manager.Create_tables();
-		}
+		everything_ok = sql_manager.Create_tables();
+
 		
 		if(everything_ok) {
-		
-			
 			BiomaterialList list = new BiomaterialList();
 			list.setBiomaterials(sql_manager.List_all_biomaterials());
 			

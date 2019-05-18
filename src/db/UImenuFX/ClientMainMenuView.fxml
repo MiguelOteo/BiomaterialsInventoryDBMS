@@ -6,14 +6,14 @@
 
 <Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientMainMenuController">
    <children>
-      <ImageView fx:id="image_view" fitHeight="640.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@src.IconPictures/client_main.png" />
-         </image></ImageView>
       <ImageView fx:id="image_view_hover" fitHeight="640.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@src.IconPictures/client_categories.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="image_view" fitHeight="640.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src.IconPictures/client_main.png" />
+         </image></ImageView>
    </children>
 </Pane>

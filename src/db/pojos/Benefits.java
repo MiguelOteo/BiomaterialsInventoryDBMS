@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -15,8 +16,7 @@ public class Benefits implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(generator = "benefits")
+	@Id @GeneratedValue(strategy = GenerationType.TABLE, generator = "benefits")
 	@TableGenerator(name = "benefits", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefit")
 	private Integer benefits_id;
@@ -36,9 +36,6 @@ public class Benefits implements Serializable {
 		this.extra_units = extraUnits;
 	}
 
-
-	
-	
 	public Integer getBenefits_id() {
 		return benefits_id;
 	}

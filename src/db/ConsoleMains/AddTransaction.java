@@ -16,11 +16,7 @@ public class AddTransaction {
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
 
-		boolean tables_exist = manager.Check_if_tables_exist();
-		if(tables_exist == true) {
-		} else {
-			everything_ok = manager.Create_tables();
-		}
+		everything_ok = manager.Create_tables();
 		
 		Utility utility = new Utility("cold", "yes", "no", (float)34.7, (float)65.85);
 		Integer utility_id = manager.Insert_new_utility(utility);

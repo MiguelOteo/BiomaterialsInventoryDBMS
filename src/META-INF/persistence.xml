@@ -37,6 +37,7 @@
 			<!-- JPA destroys and recreates the schema -->
 			<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" 
 				/> -->
+			<property name="eclipselink.weaving.changetracking" value="false"/>
 		</properties>
 
 	</persistence-unit>

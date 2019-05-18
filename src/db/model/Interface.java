@@ -9,7 +9,7 @@ public interface Interface {
 	public boolean Stablish_connection();
 	
 	public boolean Create_tables();
-	public boolean Check_if_tables_exist();
+	//public boolean Check_if_tables_exist();
 	
 	public User Insert_new_user(String user_name, String password);
 	public Director Insert_new_director(User user);

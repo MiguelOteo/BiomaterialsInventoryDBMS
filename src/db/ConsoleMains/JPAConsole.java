@@ -16,7 +16,7 @@ public class JPAConsole {
 		boolean everything_ok = sql.Stablish_connection();
 		
 		if(everything_ok) {
-			
+	   sql.Create_tables();
 		//user is jdbc type
 		User u = new User("Username", "x");
 		User user = sql.Insert_new_user(u.getUserName(), u.getPassword());
@@ -25,8 +25,6 @@ public class JPAConsole {
 		boolean ok = jpa.Stablish_connection();
 		
 			if (ok == true) {
-				
-			
 				//add a benefit
 				/*ERROR == The sequence table information is not complete.*/
 				Benefits benefit = new Benefits((float)0.03, 60);

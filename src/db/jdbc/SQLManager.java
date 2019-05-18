@@ -128,34 +128,28 @@ public class SQLManager implements Interface{
 			//statement_10.execute(table_10);
 			//statement_10.close();
 			
+			// JPA seed insertion for auto-incremented id
+			
+			Statement statement_11 = this.sqlite_connection.createStatement();
+			String benefits_seed = "INSERT INTO sqlite_sequence (name, seq) VALUES ('benefits', 1)";
+			statement_11.executeUpdate(benefits_seed);
+			statement_11.close();
+			
+			Statement statement_12 = this.sqlite_connection.createStatement();
+			String category_seed = "INSERT INTO sqlite_sequence (name, seq) VALUES ('category', 1)";
+			statement_12.executeUpdate(category_seed);
+			statement_12.close();
+			
+			Statement statement_13 = this.sqlite_connection.createStatement();
+			String client_seed = "INSERT INTO sqlite_sequence (name, seq) VALUES ('client', 1)";
+			statement_13.executeUpdate(client_seed);
+			statement_13.close();
+			
 			return true;
 		} catch (SQLException tables_error) {
 			tables_error.printStackTrace();
 			return false;
 		}
-	}
-	
-	// -----> CHECK ALREADY EXISTING TABLES METHOD <-----
-
-	// Checks if all the tables are already created in biomat.db in order to avoid executing the method Create_tables 
-	public boolean Check_if_tables_exist() {
-			
-		String[] tables_array = new String[]{"user", "director", "client", "worker", "bank_transaction", "utility",
-				"biomaterial", "maintenance", "category", "benefits"};
-			
-		for(int table = 0; table < tables_array.length; table++) {
-			try {
-				DatabaseMetaData meta_data = this.sqlite_connection.getMetaData();
-				ResultSet tables = meta_data.getTables(null, null, tables_array[table], null);
-				if (tables.next() == false) {
-					return false;
-				}
-			} catch (SQLException check_tables_error) {
-				check_tables_error.printStackTrace();
-				return false;
-			}
-		}
-		return true;
 	}
 
 	// -----> INSERT METHODS <-----

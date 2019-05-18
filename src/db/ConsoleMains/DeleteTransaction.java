@@ -17,12 +17,8 @@ public class DeleteTransaction  {
 	boolean everything_ok = manager.Stablish_connection();
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	boolean tables_exist = manager.Check_if_tables_exist();
-	if(tables_exist == true) {
-	} else {
-		everything_ok = manager.Create_tables();
-	}
-	
+	everything_ok = manager.Create_tables();
+
 	if (everything_ok) {
 		
 		System.out.println("\n-----> CLIENT LIST <-----\n");
