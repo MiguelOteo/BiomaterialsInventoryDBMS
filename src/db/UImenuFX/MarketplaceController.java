@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.tree.TreeNode;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -23,8 +25,10 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -32,6 +36,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -60,7 +65,7 @@ public class MarketplaceController implements Initializable {
 	@FXML
 	private final ObservableList<BiomaterialListObject> biomaterial_objects = FXCollections.observableArrayList();
 	private Biomaterial biomat;
-	
+	 private TreeItem<BiomaterialListObject> biomaterial_object;
 	public static void setValues(SQLManager manager) {
 		manager_object=manager;
 	}
@@ -151,7 +156,7 @@ public class MarketplaceController implements Initializable {
 				List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 				for(Biomaterial biomaterial: biomaterial_list) {
 					biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id().toString(), biomaterial.getName_product(), biomaterial.getAvailable_units().toString()
-							, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString(), 1));
+							, biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString(), 0));
 				}
 				
 				TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
@@ -177,17 +182,40 @@ public class MarketplaceController implements Initializable {
 	biomaterials_tree_view.refresh();
 	
 }
-    
+	public void refreshBiomaterialsCell(Integer total,TreeItem<BiomaterialListObject> tree) {
+		tree.getValue().setTotal(new SimpleIntegerProperty(total));
+		//TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
+		biomaterials_tree_view.refresh();
+		
+	}
+	/*
+	@FXML
+	private void buyitem(MouseEvent event) throws IOException {
+
+		
+		JFXTreeTableColumn<BiomaterialListObject, Number> total;// column you want
+
+		List<String> columnData = new ArrayList<>();
+		for (BiomaterialListObject item : biomaterials_tree_view.) {
+		    columnData.add(col.getCellObservableValue(item).getValue());
+		}*/
 	@FXML 
 	private void iteminfo (MouseEvent event) throws IOException{
 		TreeItem<BiomaterialListObject> biomaterial_object = biomaterials_tree_view.getSelectionModel().getSelectedItem();
-	    if(biomaterial_object!=null) {
+		if(biomaterial_object!=null) {
 	    	iteminformation.setText(biomaterial_object.getValue().product_name.getValue().toString());
 	    	biomaterial_object.getValue().bio_id.getValue();
 	    	biomat=manager_object.Search_biomaterial_by_id(Integer.parseInt(biomaterial_object.getValue().bio_id.getValue()));
 	    	iteminformation.setText(biomat.toString());
 	    }
 	    
+	}
+
+	@FXML 
+	private void getitem (MouseEvent event) throws IOException{
+	
+		
+		
 	}
 
 // To insert columns into the list of biomaterials with all the information
@@ -201,6 +229,7 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 	StringProperty bio_id;
     ObjectProperty<JFXButton> plus;
     ObjectProperty<JFXButton> minus;
+    private TreeItem<BiomaterialListObject> tree;
     
 	@FXML
 	private ImageView add;
@@ -209,7 +238,8 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 	@FXML
 	private Image img;
 	@SuppressWarnings("unused")
-	private Boolean counter=true;
+	private Boolean counter;
+	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public BiomaterialListObject(String id, String product_name, String available_units, String price_unit,
@@ -219,6 +249,7 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		this.price_unit = new SimpleStringProperty(price_unit);
 		this.expiration_date = new SimpleStringProperty(expiration_date);
 		this.bio_id = new SimpleStringProperty(id);
+		this.counter=true;
 		/*if(this.counter=true) {
 			this.counter=false;
 			this.total= new SimpleIntegerProperty(0);
@@ -244,14 +275,40 @@ class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
 		minus.setGraphic(sub);
 		this.plus=new SimpleObjectProperty(plus);
 		this.minus=new SimpleObjectProperty(minus);
+		plus.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("mm");
+				biomaterials_tree_view.getSelectionModel();
+				
+			    System.out.println(biomaterials_tree_view.getSelectionModel().getSelectedItem());
+				setTree(biomaterials_tree_view.getSelectionModel().getSelectedItem());
+				
+			}
+		});
 		this.plus.get().setOnAction((MouseClickEvent) -> {
-			this.total=new SimpleIntegerProperty(total + 1);
-			refreshBiomaterialsListView(this.total.intValue());
+			
+				
+		
+			this.total=new SimpleIntegerProperty(this.total.intValue() + 1);
+			refreshBiomaterialsCell(this.total.intValue(), tree);
+			
 		});
 		this.minus.get().setOnAction((MouseClickEvent) -> {
 			this.total=new SimpleIntegerProperty(total - 1);
 			refreshBiomaterialsListView(this.total.intValue());
 		});
 	}
-}}
 
+	
+	public void setTotal(IntegerProperty total) {
+		this.total=total;
+	}
+	
+	public void setTree(TreeItem<BiomaterialListObject> tree) {
+
+		this.tree=tree;
+	}
+	
+}}
