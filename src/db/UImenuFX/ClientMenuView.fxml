@@ -52,13 +52,13 @@
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXProgressBar layoutX="629.0" layoutY="159.0" prefHeight="9.0" prefWidth="210.0" progress="0.0" />
-                  <Label layoutX="543.0" layoutY="154.0" text="&quot;Category 1&quot;" textFill="WHITE">
+                  <JFXProgressBar fx:id="progress_bar" layoutX="629.0" layoutY="159.0" prefHeight="9.0" prefWidth="210.0" progress="0.0" />
+                  <Label fx:id="category1" layoutX="543.0" layoutY="154.0" text="&quot;Category 1&quot;" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="853.0" layoutY="154.0" text="&quot;Category 2&quot;" textFill="WHITE">
+                  <Label fx:id="category2" layoutX="853.0" layoutY="154.0" text="&quot;Category 2&quot;" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

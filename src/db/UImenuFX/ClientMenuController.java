@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -34,7 +35,9 @@ public class ClientMenuController implements Initializable {
 	private static SQLManager manager_object;
 
 	// -----> FXML ATRIBUTES <-----
-
+	
+	@FXML
+	private ProgressBar progress_bar;
 	@FXML
 	private AnchorPane menu_window;
 	@FXML
@@ -59,6 +62,10 @@ public class ClientMenuController implements Initializable {
 	private Label telephone;
 	@FXML
 	private Label responsible;
+	@FXML
+	private Label category1;
+	@FXML
+	private Label category2;
 	@FXML
 	private ImageView minButton;
 	@FXML
@@ -85,6 +92,15 @@ public class ClientMenuController implements Initializable {
 			Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
 		    main_pane.getChildren().removeAll();
 		    main_pane.getChildren().setAll(mainmenu_pane);
+		    
+		    	if(client_account.getCategory()!=null){
+		    			category1.setText(client_account.getCategory().getCategory_name());
+		    			Integer max=client_account.getCategory().getMaximum();
+		    			Integer min=client_account.getCategory().getMinimum();
+		    			Integer total= max-min;
+		    			Integer clientpoints= client_account.getPoints();
+		    			progress_bar.setProgress(clientpoints/total);
+		    }
 		} catch (IOException client_view_error) {
 			client_view_error.printStackTrace();
 		}
