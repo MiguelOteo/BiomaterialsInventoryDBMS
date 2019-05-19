@@ -110,8 +110,8 @@ public class DirectorFinantialStatusController implements Initializable{
 		transaction_date.setResizable(false);
 		List<Transaction> transactions_list = manager_object.List_all_transactions();
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject(transaction.getTransaction_id().toString(),transaction.getClient().getUser().getUserName()
-					, transaction.getUnits().toString(), transaction.getGain().toString(), transaction.getTransaction_date().toString()));
+			transactions_objects.add(new TransactionListObject(transaction.getTransaction_id().toString(),transaction.getClient().getUser().getUserName(), 
+					transaction.getGain().toString(), transaction.getUnits().toString(), transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject> root = new RecursiveTreeItem<TransactionListObject>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.setPlaceholder(new Label("No transactions found"));

@@ -2,17 +2,15 @@ package db.ConsoleMains;
 
 import java.util.List;
 
-import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Category;
 
 public class ListAllCategories {
 	
 	public static void main(String args[]) {
 		
-		SQLManager manager = new SQLManager();
+		JPAManager manager = new JPAManager();
 		boolean everything_ok = manager.Stablish_connection();
-
-		everything_ok = manager.Create_tables();
 		
 		if(everything_ok) {
 				
@@ -22,6 +20,7 @@ public class ListAllCategories {
 				System.out.print(category + "\n\n");
 	        }
 		
+			manager.Close_connection();
 		}
 	}
 }

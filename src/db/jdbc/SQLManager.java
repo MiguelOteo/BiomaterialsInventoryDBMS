@@ -80,7 +80,8 @@ public class SQLManager implements Interface{
 			statement_4.close();
 
 			Statement statement_5 = this.sqlite_connection.createStatement();
-			String table_5 = "CREATE TABLE category " + "(category_id INTEGER REFERENCES benefits(benefits_id), "
+			String table_5 = "CREATE TABLE category " + "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, " 
+					+ "benefits_id INTEGER REFERENCES benefits(benefits_id), "
 					+ " category_name TEXT NOT NULL, " + " max INTEGER NOT NULL, "
 					+ " min INTEGER NOT NULL, penalization INTEGER default NULL)";
 			statement_5.execute(table_5);

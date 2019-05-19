@@ -4,7 +4,6 @@ import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
 import db.pojos.Benefits;
 import db.pojos.Category;
-import db.pojos.Client;
 import db.pojos.User;
 
 public class JPAConsole {
@@ -18,8 +17,10 @@ public class JPAConsole {
 		if(everything_ok) {
 	   sql.Create_tables();
 		//user is jdbc type
-		User u = new User("Username", "x");
-		User user = sql.Insert_new_user(u.getUserName(), u.getPassword());
+		User user = sql.Insert_new_user("Username", "x");
+		if(user == null) {
+			user = sql.Search_stored_user("Username", "x");
+		}
 		System.out.println(user);
 		
 		boolean ok = jpa.Stablish_connection();
@@ -43,14 +44,14 @@ public class JPAConsole {
 				//add a client with his category and all his methods available in JPA
 				jpa.List_all_clients();
 				
-				Client client = new Client("pepe", 123, "bank", "x");
-				jpa.Insert_new_client(user);
-					client.setCategory(category);
-					client.setEmail("x@hotmail.com");
-				jpa.Update_client_info(client);
+				//Client client = new Client("pepe", 123, "bank", "x");
+				//jpa.Insert_new_client(user);
+				//	client.setCategory(category);
+				//	client.setEmail("x@hotmail.com");
+				//jpa.Update_client_info(client);
 				
-				System.out.println("Searched client by its id :  " + jpa.Search_client_by_id(client.getClient_id()));
-				System.out.println("Searched client by its user :  " + jpa.Search_stored_client(user));
+				//System.out.println("Searched client by its id :  " + jpa.Search_client_by_id(client.getClient_id()));
+				//System.out.println("Searched client by its user :  " + jpa.Search_stored_client(user));
 				
 				//we delete the used category to show the functionality
 				jpa.Delete_stored_category(category);

@@ -18,7 +18,7 @@ public class Benefits implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.TABLE, generator = "benefits")
 	@TableGenerator(name = "benefits", table = "sqlite_sequence",
-		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefit")
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefits")
 	private Integer benefits_id;
 	private Float percentage;
 	//private Integer min_amount;

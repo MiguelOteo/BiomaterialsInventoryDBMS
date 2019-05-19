@@ -25,9 +25,9 @@ public class Category extends UtilMethods implements Serializable{
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "category")
 	private Integer category_id;
 	private String category_name;
-	private Integer minimum;
+	private Integer min;
+	private Integer max;
 	private int penalization;
-	private Integer maximum;
 	@OneToOne @JoinColumn(name = "benefits_id")
 	private Benefits benefits;
 	@OneToMany @JoinColumn(name = "client_id")
@@ -41,8 +41,8 @@ public class Category extends UtilMethods implements Serializable{
 	public Category(String category_name, Integer maximum, Integer minimum) {
 		super();
 		this.category_name = category_name;
-		this.maximum = maximum;
-		this.minimum = minimum;
+		this.max = maximum;
+		this.min = minimum;
 		this.penalization = minimum/4;
 	}
 
@@ -87,19 +87,19 @@ public class Category extends UtilMethods implements Serializable{
 		}
 		
 	public Integer getMaximum() {
-		return maximum;
+		return max;
 	}
 
 	public void setMaximum(Integer maximum) {
-		this.maximum = maximum;
+		this.max = maximum;
 	}
 
 	public Integer getMinimum() {
-		return minimum;
+		return min;
 	}
 
 	public void setMinimum(Integer minimum) {
-		this.minimum = minimum;
+		this.min = minimum;
 	}
 
 	// -----> OVERRIDE METHODS <----- 
@@ -107,7 +107,7 @@ public class Category extends UtilMethods implements Serializable{
 	@Override
 	public String toString() {
 		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
-				+ penalization + ", maximum=" + maximum + ", minimum=" + minimum + "]";
+				+ penalization + ", maximum=" + max + ", minimum=" + min + "]";
 	}
 	
 	@Override
