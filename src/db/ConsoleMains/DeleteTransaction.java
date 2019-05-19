@@ -17,10 +17,6 @@ public class DeleteTransaction  {
 	boolean everything_ok = manager.Stablish_connection();
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	everything_ok = manager.Create_tables();
-
-	if (everything_ok) {
-		
 		System.out.println("\n-----> CLIENT LIST <-----\n");
 		List<Client> clients_list = manager.List_all_clients();
 		for (Client client : clients_list) {
@@ -36,7 +32,6 @@ public class DeleteTransaction  {
 			System.out.print(transaction + "\n\n");
         }
 		
-		
 		System.out.println("Delete a transaction. ID: ");
 		Integer transaction_id = Integer.parseInt(br.readLine());
 		Transaction transaction = manager.Search_transaction_by_id(transaction_id);
@@ -45,16 +40,11 @@ public class DeleteTransaction  {
 		if (manager.Delete_transaction_from_client(transaction) == true) {
 			System.out.println("Transaction deleted.");
 		}
-	
-		
-		
+			
 		System.out.println("-----------> TRANSACTION LIST OF CLIENT " + client_id +" <-----------");
 		transactions_list = manager.Search_stored_transactions(client);
 		for (Transaction t : transactions_list) {
 			System.out.print(t + "\n\n");
-        }
-		
-		
+        } 
 	}
-}
 }

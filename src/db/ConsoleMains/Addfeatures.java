@@ -11,8 +11,6 @@ public class Addfeatures {
 		
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
-
-		everything_ok = manager.Create_tables();
 		
 		//utility = new Utility(heat_cold, flexibility, resistance, pressure, strength)
 		//maintenance = new Maintenance(pressure, o2_supply, light, humidity, temperature, compatibility, others)

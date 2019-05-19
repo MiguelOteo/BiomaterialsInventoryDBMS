@@ -25,10 +25,6 @@ public class XMLConsole {
 		
 		boolean everything_ok = sql_manager.Stablish_connection();
 
-		everything_ok = sql_manager.Create_tables();
-
-		
-		if(everything_ok) {
 			BiomaterialList list = new BiomaterialList();
 			list.setBiomaterials(sql_manager.List_all_biomaterials());
 			
@@ -36,8 +32,5 @@ public class XMLConsole {
 			manager.Xml2JavaBiomaterial();
 			manager.Xml2HtmlBiomaterial();
 			
-	}
-		
-	}
-	
+	}	
 }

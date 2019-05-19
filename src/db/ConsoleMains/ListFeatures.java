@@ -14,10 +14,6 @@ public static void main(String args[]) throws IOException {
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
 
-		everything_ok = manager.Create_tables();
-		
-		if(everything_ok) {
-				
 			System.out.println("-----------> FEATURES LIST <-----------");
 			List<Utility> utilities_list = manager.List_all_utilities();
 			for (Utility utility : utilities_list) {
@@ -28,7 +24,5 @@ public static void main(String args[]) throws IOException {
 			for (Maintenance maint : list) {
 				System.out.print(maint + "\n\n");
 	        }
-		}
-}
-	
+	}	
 }

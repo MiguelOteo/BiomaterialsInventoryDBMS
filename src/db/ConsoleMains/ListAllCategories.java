@@ -22,5 +22,5 @@ public class ListAllCategories {
 		
 			manager.Close_connection();
 		}
-	}
+	} 
 }

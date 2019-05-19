@@ -1,11 +1,10 @@
 package db.ConsoleMains;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Client;
 import db.pojos.Director;
 import db.pojos.User;
@@ -15,11 +14,8 @@ public class ListAllUsers {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		SQLManager manager = new SQLManager();
+		JPAManager manager_2 = new JPAManager();
 		boolean everything_ok = manager.Stablish_connection();
-
-		everything_ok = manager.Create_tables();
-		
-		if(everything_ok) {
 			
 			System.out.println("-----> USER LIST <-----\n");
 			List<User> users_list = manager.List_all_users();
@@ -40,14 +36,7 @@ public class ListAllUsers {
 			System.out.println("-----> WORKER LIST<-----\n");
 			List<Worker> worker_list = manager.List_all_workers();
 			for (Worker worker : worker_list) {
-				System.out.print(worker + "\n\n");
-				
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("DELETE A USER BY ID: ");
-			Integer id = Integer.parseInt(br.readLine());
-			manager.Delete_stored_user(id);
-			
-	        }
+				System.out.print(worker + "\n\n");	
+	        } 
 		}
-	}
 }

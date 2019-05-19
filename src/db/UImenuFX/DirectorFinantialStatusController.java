@@ -148,8 +148,14 @@ public class DirectorFinantialStatusController implements Initializable{
     			List<Transaction> transactions_list = manager_object.Search_stored_transactions(client);
     			series = new XYChart.Series();
             	series.getData().clear();
-            	for(int count = 1; count <= 8 && count < transactions_list.size(); count++) {
-           			series.getData().add(new XYChart.Data(String.valueOf(transactions_list.size() - count) , transactions_list.get(transactions_list.size() - count).getGain()));
+            	Integer extra;
+            	if(transactions_list.size() > 8) {
+            		extra = transactions_list.size() - 8;
+            	} else {
+            		extra = 0;
+            	}
+            	for(int count = 0; count < 8 && count < transactions_list.size(); count++) {
+           			series.getData().add(new XYChart.Data(String.valueOf(transactions_list.size() - (count + extra)) , transactions_list.get(transactions_list.size() - (count + 1 + extra)).getGain()));
            		}
            		series.setName("Payment $");
            		line_chart.setTitle(client.getName() + "'s transactions record");

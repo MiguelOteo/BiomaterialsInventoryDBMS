@@ -15,8 +15,6 @@ public class AddTransaction {
 		
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
-
-		everything_ok = manager.Create_tables();
 		
 		Utility utility = new Utility("cold", "yes", "no", (float)34.7, (float)65.85);
 		Integer utility_id = manager.Insert_new_utility(utility);
@@ -31,9 +29,9 @@ public class AddTransaction {
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
 		
 		// Transaction(Float gain, Integer client_id, Integer units, Integer product_id)
-		Client client = manager.Search_client_by_id(1);
+		Client client = manager.Search_client_by_id(3);
 		System.out.println(client);
 		Transaction transaction = new Transaction((float)10, 34243, biomaterial, client);
 		manager.Insert_new_transaction(transaction);
 	}
-}
+} 

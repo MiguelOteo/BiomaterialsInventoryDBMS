@@ -12,8 +12,6 @@ public class AddBiomaterial {
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
 
-		everything_ok = manager.Create_tables();
-
 		Biomaterial biomaterial = new Biomaterial(null, null, "Metal bar", (float)34, 30, Date.valueOf("2424-06-03"));
 		biomaterial.setInformation("none");
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);

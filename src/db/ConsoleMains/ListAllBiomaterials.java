@@ -16,10 +16,6 @@ public class ListAllBiomaterials {
 		SQLManager manager = new SQLManager();
 		boolean everything_ok = manager.Stablish_connection();
 		
-		everything_ok = manager.Create_tables();
-		
-		if(everything_ok) {
-				
 			System.out.println("-----------> BIOMATERIALS LIST <-----------");
 			List<Biomaterial> biomaterials_list = manager.List_all_biomaterials();
 			for (Biomaterial biomaterial : biomaterials_list) {
@@ -32,7 +28,5 @@ public class ListAllBiomaterials {
 			System.out.println(manager.Search_biomaterial_by_id(biomaterial_id));
 			
 			
-		}
-	}
-	
+		}	
 }

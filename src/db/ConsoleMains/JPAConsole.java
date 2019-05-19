@@ -13,7 +13,7 @@ public class JPAConsole {
 		SQLManager sql = new SQLManager();
 		JPAManager jpa = new JPAManager();
 		boolean everything_ok = sql.Stablish_connection();
-		
+		 
 		if(everything_ok) {
 	   sql.Create_tables();
 		//user is jdbc type
