@@ -448,14 +448,15 @@ public class SQLManager implements Interface{
 	// Updates the information of a Client(responsible, name, bank_account, telephone)
 	public boolean Update_client_info(Client client) {
 		try {
-			String SQL_code = "UPDATE client SET responsible = ?, name = ?, email = ?, bank_account=?, telephone = ? WHERE client_id = ?";
+			String SQL_code = "UPDATE client SET responsible = ?, name = ?, email = ?, bank_account=?, telephone = ?, points = ?,  WHERE client_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
 			template.setString(3, client.getEmail());
 			template.setString(4, client.getBank_account());
 			template.setInt(5, client.getTelephone());
-			template.setInt(6, client.getClient_id());
+			template.setInt(6, client.getPoints());
+			template.setInt(7, client.getClient_id());
 			template.executeUpdate();
 			template.close();
 			return true;

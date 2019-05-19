@@ -205,7 +205,25 @@ public class MarketplaceController implements Initializable {
 				for(BiomaterialListObject biomat :datacolumn) {
 					 Biomaterial biom=manager_object.Search_biomaterial_by_id(biomat.getId());
 					 Float gain = (float) (biomat.getTotal()*Float.parseFloat(biomat.getPrice()));
+					 Float percentage =(float) 0.1;
+					 Integer addpoints= (int) (gain*percentage);
 					 Transaction transaction = new Transaction(gain,biomat.getTotal(), biom, client_account);
+					 if(client_account.getPoints()!=null) {	 
+					 Integer currentpoints=client_account.getPoints();
+					 System.out.println(currentpoints);
+					 Integer points= currentpoints+addpoints;
+					 System.out.println(points);
+					 client_account.setPoints(points);
+					 manager_object.Update_client_info(client_account);
+					 }
+					 else {
+						 Integer currentpoints=0;
+						 System.out.println(currentpoints);
+						 Integer points= currentpoints+addpoints;
+						 System.out.println(points);
+						 client_account.setPoints(points);
+						 manager_object.Update_client_info(client_account);
+					 }
 					 manager_object.Insert_new_transaction(transaction);
 				}
 				stage_window.close();
