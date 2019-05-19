@@ -33,6 +33,6 @@
             <JFXTextArea fx:id="iteminformation" layoutX="53.0" layoutY="14.0" prefHeight="234.0" prefWidth="338.0" />
          </children>
       </Pane>
-      <JFXButton fx:id="buy_button" layoutX="99.0" layoutY="555.0" prefHeight="48.0" prefWidth="206.0" text="BUY SELECTED ITEMS" />
+      <JFXButton fx:id="buy_button" layoutX="99.0" layoutY="555.0" onMouseClicked="#buyitem" prefHeight="48.0" prefWidth="206.0" text="BUY SELECTED ITEMS" />
    </children>
 </Pane>
