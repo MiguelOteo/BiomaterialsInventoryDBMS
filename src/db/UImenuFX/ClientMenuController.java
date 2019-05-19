@@ -161,7 +161,7 @@ public class ClientMenuController implements Initializable {
 		if(client_account.getBank_account() != null) {
 			setAllButtonsOn();
 			marketplace_button.setDisable(true);
-			MarketplaceController.setValues(manager_object);
+			MarketplaceController.setValues(manager_object,client_account);
 			Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(marketplace_pane);
@@ -277,3 +277,4 @@ public class ClientMenuController implements Initializable {
 		setResponsible(client_account.getResponsible());
 	}
 }
+
