@@ -2,9 +2,94 @@
 <BiomaterialList>
     <Products>
         <Biomaterial biomaterialId="1">
-            <product_name>X</product_name>
+            <product_name>Plastic</product_name>
             <price_unit>34.0</price_unit>
-            <available_units>450</available_units>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="2">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="3">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="4">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="5">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="6">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="7">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="8">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="9">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="10">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="11">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="12">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="13">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="14">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="15">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="16">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="17">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
+        </Biomaterial>
+        <Biomaterial biomaterialId="18">
+            <product_name>Plastic</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
         </Biomaterial>
     </Products>
 </BiomaterialList>
