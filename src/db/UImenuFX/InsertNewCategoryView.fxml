@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="account_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="810.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.InsertNewCategoryController">
+   <children>
+      <Pane layoutX="5.0" layoutY="5.0" prefHeight="500.0" prefWidth="800.0" styleClass="white_color">
+         <children>
+            <Pane prefHeight="80.0" prefWidth="800.0" styleClass="charging_screen_bg_color">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="800.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/UpperBarMedium2.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="747.0" layoutY="14.0" onMouseClicked="#close_window" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/window-close.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="27.0" text="Insert new category option">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <JFXTreeTableView fx:id="benefits_tree_view" layoutX="276.0" layoutY="126.0" prefHeight="330.0" prefWidth="510.0" styleClass="list-view" />
+            <JFXTextField fx:id="category_name" focusColor="#4f90a5" labelFloat="true" layoutX="43.0" layoutY="107.0" promptText="Category name" unFocusColor="#4d4d4d">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="maximum_points" focusColor="#4f90a5" labelFloat="true" layoutX="40.0" layoutY="183.0" promptText="Maximum points">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="insert_category_button" layoutX="66.0" layoutY="303.0" styleClass="starter_small_buttom" text="Insert category" />
+            <JFXButton fx:id="insert_benefits_button" layoutX="55.0" layoutY="419.0" styleClass="starter_small_buttom" text="Insert new benefits" />
+            <Label layoutX="62.0" layoutY="364.0" text="Insert new benefits for">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="85.0" layoutY="384.0" text="new categories">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="487.0" layoutY="94.0" text="Benefits list">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="minimum_points" layoutX="40.0" layoutY="256.0" text="Minimum points:  " textFill="#4d4d4dae">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

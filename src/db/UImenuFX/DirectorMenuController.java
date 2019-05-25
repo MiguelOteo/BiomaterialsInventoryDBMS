@@ -296,7 +296,7 @@ public class DirectorMenuController implements Initializable {
 			current_pane_option_label.setText("Add category");
 			setAllButtonsOn();
 			addCategory_button.setDisable(true);
-			AddCategoryController.setValues(SQL_manager_object);
+			AddCategoryController.setValues(SQL_manager_object, JPA_manager_object);
 			Pane add_category_pane = FXMLLoader.load(getClass().getResource("AddCategoryView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(add_category_pane);

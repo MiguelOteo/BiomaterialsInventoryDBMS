@@ -1,5 +1,6 @@
 package db.UImenuFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,29 +12,41 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Category;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 public class AddCategoryController implements Initializable{
 
 	// -----> CLASS ATRIBUTES <-----
 	
-	private static SQLManager manager_object;
+	private static JPAManager JPA_manager_object;
+	private static SQLManager SQL_manager_object;
 	
 	// -----> FXML ATRIBUTES <-----
 	
+	@FXML
+	private Stage stage_window;
 	@FXML
 	private Pane main_pane;
 	@FXML
@@ -51,8 +64,9 @@ public class AddCategoryController implements Initializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLManager manager) {
-		manager_object = manager;
+	public static void setValues(SQLManager SQL_manager, JPAManager JPA_manager) {
+		SQL_manager_object = SQL_manager;
+		JPA_manager_object = JPA_manager;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -120,7 +134,7 @@ public class AddCategoryController implements Initializable{
 		});
 		extra_units.setResizable(false);
 		
-		List<Category> categories_list = manager_object.List_all_categories();
+		List<Category> categories_list = SQL_manager_object.List_all_categories();
 		for(Category category: categories_list) {
 			Integer category_id_int = category.getCategory_id() - 2;
 			if(category.getBenefits() == null) {
@@ -149,7 +163,25 @@ public class AddCategoryController implements Initializable{
 	
 	@FXML
 	public void addCategory() {
-		
+		try {
+			InsertNewCategoryController.setValues(JPA_manager_object, SQL_manager_object);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("InsertNewCategoryView.fxml"));
+			Parent root = (Parent) loader.load();
+			InsertNewCategoryController category_controller = new InsertNewCategoryController();
+			stage_window = new Stage();
+			stage_window.initStyle(StageStyle.UNDECORATED);
+			stage_window.setScene(new Scene(root));
+			stage_window.setAlwaysOnTop(true);				
+			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+					stage_window.initModality(Modality.APPLICATION_MODAL);
+				}
+			});		
+			stage_window.show();
+		} catch (IOException charging_error) {
+			charging_error.printStackTrace();
+		}
 	}
 }
 

@@ -110,6 +110,19 @@ public class JPAManager implements Interface {
 		}
 	}
 	
+	// List all benefits
+	public List<Benefits> List_all_benefits() {
+		try {
+			Query query = entity_manager.createNativeQuery("SELECT * FROM benefits", Benefits.class);
+			@SuppressWarnings("unchecked")
+			List<Benefits> benefits = query.getResultList();
+		return benefits;
+		} catch (EntityNotFoundException List_all_benefits_error) {
+			List_all_benefits_error.printStackTrace();
+			return null;
+		}
+	}
+	
 	// -----> UPDATE METHODS JPA <-----
 	
 	public boolean Update_client_info(Client client) {

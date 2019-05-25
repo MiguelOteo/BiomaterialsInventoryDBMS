@@ -105,8 +105,8 @@ public class ListAllClientsController implements Initializable{
 			
 		List<Client> clients_list = manager_object.List_all_clients();
 		for (Client client: clients_list) {
-			clients_objects.add(new ClientListObject2(client.getEmail(), "None (TODO - Repair)" /*client.getCategory().getCategory_name()*/, client.getUser().getUserName()
-					, client.getName(), client.getTelephone().toString()));
+				clients_objects.add(new ClientListObject2(client.getEmail(), client.getCategory().getCategory_name(), client.getUser().getUserName()
+						, client.getName(), client.getTelephone().toString()));
 		}
 		TreeItem<ClientListObject2> root = new RecursiveTreeItem<ClientListObject2>(clients_objects, RecursiveTreeObject::getChildren);
 		client_tree_view.setPlaceholder(new Label("No clients found"));

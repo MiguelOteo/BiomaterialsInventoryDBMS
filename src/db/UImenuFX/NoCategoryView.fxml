@@ -26,7 +26,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="max_point_field" alignment="CENTER" labelFloat="true" layoutX="81.0" layoutY="84.0" promptText="Maximum points">
+            <JFXTextField fx:id="max_point_field" alignment="CENTER" focusColor="#4d4d4d" labelFloat="true" layoutX="81.0" layoutY="84.0" promptText="Maximum points" unFocusColor="#4f90a5">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
