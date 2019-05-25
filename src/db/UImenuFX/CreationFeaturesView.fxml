@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.NewFeaturesController">
+   <children>
+      <JFXButton fx:id="doneUtility_button" layoutX="187.0" layoutY="579.0" onMouseClicked="#doneUtility_button" prefHeight="28.0" prefWidth="101.0" styleClass="starter_small_buttom" text="Done" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="tempcondition" focusColor="#4f90a5" labelFloat="true" layoutX="151.0" layoutY="205.0" prefHeight="25.0" prefWidth="173.0" promptText="Temperature condition" />
+      <JFXComboBox fx:id="flexibility" focusColor="#4f90a5" labelFloat="true" layoutX="151.0" layoutY="277.0" prefHeight="25.0" prefWidth="173.0" promptText="Flexibility" />
+      <JFXComboBox fx:id="resistance" focusColor="#4f90a5" labelFloat="true" layoutX="151.0" layoutY="353.0" prefHeight="25.0" prefWidth="173.0" promptText="Resistance" />
+      <JFXTextField fx:id="pressure" focusColor="#4f90a5" labelFloat="true" layoutX="151.0" layoutY="425.0" prefHeight="25.0" prefWidth="173.0" promptText="Pressure (atm)" />
+      <JFXTextField fx:id="strength" focusColor="#4f90a5" labelFloat="true" layoutX="151.0" layoutY="488.0" prefHeight="25.0" prefWidth="173.0" promptText="Strength (N)" />
+      <ImageView fitHeight="69.0" fitWidth="72.0" layoutX="202.0" layoutY="93.0" opacity="0.5" preserveRatio="true">
+         <image>
+            <Image url="@src.IconPictures/logoNegro.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="72.0" layoutX="663.0" layoutY="93.0" opacity="0.5" preserveRatio="true">
+         <image>
+            <Image url="@src.IconPictures/logoNegro.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="pressureM" focusColor="#4f90a5" labelFloat="true" layoutX="548.0" layoutY="252.0" prefHeight="25.0" prefWidth="131.0" promptText="Pressure (atm)" />
+      <JFXTextField fx:id="humidityM" focusColor="#4f90a5" labelFloat="true" layoutX="724.0" layoutY="252.0" prefHeight="25.0" prefWidth="131.0" promptText="Humidity (%)" />
+      <JFXTextField fx:id="tempM" focusColor="#4f90a5" labelFloat="true" layoutX="548.0" layoutY="308.0" prefHeight="25.0" prefWidth="131.0" promptText="Temperature (ºC)" />
+      <JFXComboBox fx:id="o2supplyM" focusColor="#4f90a5" labelFloat="true" layoutX="548.0" layoutY="413.0" prefHeight="25.0" prefWidth="131.0" promptText="Oxygen supply" />
+      <JFXComboBox fx:id="lightM" focusColor="#4f90a5" labelFloat="true" layoutX="724.0" layoutY="413.0" prefHeight="25.0" prefWidth="131.0" promptText="Light supply" />
+      <JFXTextField fx:id="compatibilityM" focusColor="#4f90a5" labelFloat="true" layoutX="724.0" layoutY="308.0" prefHeight="25.0" prefWidth="131.0" promptText="Compatibility" />
+      <JFXTextArea fx:id="othersM" focusColor="#4f90a5" layoutX="552.0" layoutY="472.0" prefHeight="82.0" prefWidth="296.0" promptText="Other maintenance conditions" />
+      <Label layoutX="658.0" layoutY="197.0" text="Specifications">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="648.0" layoutY="378.0" text="Select properties">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="utility_button" layoutX="172.0" layoutY="39.0" onMouseClicked="#showUtilities" prefHeight="54.0" prefWidth="131.0" styleClass="starter_small_buttom" stylesheets="@stylesheet.css" text="Utility">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="maintenance_button" layoutX="634.0" layoutY="39.0" onMouseClicked="#showMaintenance" prefHeight="54.0" prefWidth="131.0" styleClass="starter_small_buttom" stylesheets="@stylesheet.css" text="Maintenance">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="doneMaintenance_button" layoutX="650.0" layoutY="579.0" onMouseClicked="#doneMaintenance_button" prefHeight="28.0" prefWidth="101.0" styleClass="starter_small_buttom" text="Done" textFill="#4f90a5">
+         <font>
+            <Font name="Ebrima Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="instructions_label" layoutX="58.0" layoutY="2.0" prefHeight="23.0" prefWidth="404.0" visible="false">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

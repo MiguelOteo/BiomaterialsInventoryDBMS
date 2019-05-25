@@ -73,6 +73,8 @@ public class WorkerMenuController implements Initializable {
     @FXML
     private JFXButton update_button;
     @FXML
+    private JFXButton createFeatures_button;
+    @FXML
 	private static Stage stage_window;
 	@FXML
 	private static Stage stage_main;
@@ -311,6 +313,18 @@ public class WorkerMenuController implements Initializable {
 		main_pane.getChildren().setAll(update_pane);
 	}
 	
+	@FXML
+	private void create_features_button(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Features creation");
+		setAllButtonsOn();
+		createFeatures_button.setDisable(true);
+		NewFeaturesController.setValue(manager_object);
+		Pane creation_Pane = FXMLLoader.load(getClass().getResource("CreationFeaturesView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(creation_Pane);
+	}
+	
+	
 	public void setAllButtonsOn() {
 		this.addProduct_button.setDisable(false);
 		this.listClients_button.setDisable(false);
@@ -319,6 +333,7 @@ public class WorkerMenuController implements Initializable {
 		this.myAccount_button.setDisable(false);
 		this.removeProduct_button.setDisable(false);
 		this.update_button.setDisable(false);
+		this.createFeatures_button.setDisable(false);
 	}
 	
 	public void setAllButtonsOff() {
@@ -329,6 +344,7 @@ public class WorkerMenuController implements Initializable {
 		this.myAccount_button.setDisable(true);
 		this.removeProduct_button.setDisable(true);
 		this.update_button.setDisable(true);
+		this.createFeatures_button.setDisable(true);
 	}
 }
 
