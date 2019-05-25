@@ -38,6 +38,8 @@ public interface Interface {
 	public Client Search_client_by_id (Integer client_id);
 	public Worker Search_worker_by_id (Integer worker_id);
 	public Director Search_director_by_id(Integer director_id);
+	public Category Search_category_by_id (Integer category_id);
+	public Benefits Search_benefits_by_id(Integer benefits_id); 
 	public List<Transaction> Search_stored_transactions(Client client);
 	public Transaction Search_transaction_by_id(Integer transaction_id);
 	public Biomaterial Search_biomaterial_by_id (Integer biomaterial_id);

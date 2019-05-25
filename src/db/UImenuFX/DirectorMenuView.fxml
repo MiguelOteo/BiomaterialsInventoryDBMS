@@ -163,7 +163,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="addPromotion_button" alignment="TOP_LEFT" defaultButton="true" layoutY="523.0" onMouseClicked="#add_promotion_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add promotion" textFill="#00000080">
+            <JFXButton fx:id="addCategory_button" alignment="TOP_LEFT" defaultButton="true" layoutY="523.0" onMouseClicked="#add_category_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add category" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

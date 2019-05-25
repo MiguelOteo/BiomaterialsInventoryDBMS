@@ -25,7 +25,7 @@ public class JPAConsole {
 				jpa.Insert_new_category(category);
 					category.setCategory_name("updated Category");
 				jpa.Update_category_info(category);
-				System.out.println(jpa.Search_category_info(category));
+				System.out.println(jpa.Search_category_by_id(category.getCategory_id()));
 				
 				//we delete the used category to show the functionality
 				jpa.Delete_stored_category(category);

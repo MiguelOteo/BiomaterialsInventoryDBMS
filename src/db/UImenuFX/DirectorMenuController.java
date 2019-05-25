@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import db.jdbc.SQLManager;
-
+import db.jpa.JPAManager;
 import db.pojos.Director;
 
 import javafx.event.Event;
@@ -37,7 +37,8 @@ public class DirectorMenuController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 
 	private static Director director_account;
-	private static SQLManager manager_object;
+	private static SQLManager SQL_manager_object;
+	private static JPAManager JPA_manager_object;
 	private ListAllClientsController list_all_clients_controller;
 	private ListAllWorkersController list_all_workers_controller;
 	private DirectorFinantialStatusController finantial_status_controller;
@@ -63,7 +64,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private JFXButton removeWorker_button;
 	@FXML
-	private JFXButton addPromotion_button;
+	private JFXButton addCategory_button;
 	@FXML
 	private JFXButton finantialStatus_button;
 	@FXML
@@ -89,8 +90,9 @@ public class DirectorMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLManager manager, Director director) {
-		manager_object = manager;
+	public static void setValues(SQLManager SQL_manager, JPAManager JPA_manager, Director director) {
+		SQL_manager_object = SQL_manager;
+		JPA_manager_object = JPA_manager;
 		director_account = director;
 	}
 
@@ -99,7 +101,7 @@ public class DirectorMenuController implements Initializable {
 		finantialStatus_button.setDisable(true);
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
-				AccountDirectorController.setValues(manager_object, director_account);
+				AccountDirectorController.setValues(SQL_manager_object, director_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
 				Parent root = (Parent) loader.load();
 				AccountDirectorController account_controller = new AccountDirectorController();
@@ -139,7 +141,7 @@ public class DirectorMenuController implements Initializable {
 		
 		removeClient_button.setOnAction((ActionEvent) -> {
 			try {
-				RemoveClientController.setValues(manager_object);
+				RemoveClientController.setValues(SQL_manager_object);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveClientView.fxml"));
 				Parent root = (Parent) loader.load();
 				RemoveClientController client_controller = new RemoveClientController();
@@ -183,7 +185,7 @@ public class DirectorMenuController implements Initializable {
 		
 		removeWorker_button.setOnAction((ActionEvent) -> {
 			try {
-				RemoveWorkerController.setValues(manager_object);
+				RemoveWorkerController.setValues(SQL_manager_object);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveWorkerView.fxml"));
 				Parent root = (Parent) loader.load();
 				RemoveWorkerController worker_controller = new RemoveWorkerController();
@@ -225,7 +227,7 @@ public class DirectorMenuController implements Initializable {
 		try {
 			setAllButtonsOn();
 			finantialStatus_button.setDisable(true);
-			DirectorFinantialStatusController.setValues(manager_object);    
+			DirectorFinantialStatusController.setValues(SQL_manager_object);    
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorFinantialStatusView.fxml"));
 			Pane finantial_status_pane;
 			finantial_status_pane = loader.load();
@@ -245,7 +247,7 @@ public class DirectorMenuController implements Initializable {
 		current_pane_option_label.setText("List all clients");
 		setAllButtonsOn();
 		listAllClients_button.setDisable(true);
-		ListAllClientsController.setValues(manager_object);
+		ListAllClientsController.setValues(SQL_manager_object);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllClientsView.fxml"));
 		Pane list_all_clients_pane = loader.load();
 		list_all_clients_controller = (ListAllClientsController)loader.getController();
@@ -258,7 +260,7 @@ public class DirectorMenuController implements Initializable {
 		current_pane_option_label.setText("List all workers");
 		setAllButtonsOn();
 		listAllWorkers_button.setDisable(true);
-		ListAllWorkersController.setValues(manager_object);
+		ListAllWorkersController.setValues(SQL_manager_object);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllWorkersView.fxml"));
 		Pane list_all_workers_pane = loader.load();
 		list_all_workers_controller = (ListAllWorkersController)loader.getController();
@@ -267,14 +269,38 @@ public class DirectorMenuController implements Initializable {
 	}
 	
 	@FXML
-	private void add_promotion_button(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Add promotion");
-		setAllButtonsOn();
-		addPromotion_button.setDisable(true);
-		AddPromotionController.setValues(manager_object);
-		Pane add_promotion_pane = FXMLLoader.load(getClass().getResource("AddPromotionView.fxml"));
-		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(add_promotion_pane);
+	private void add_category_button(MouseEvent event) throws IOException {
+		if(SQL_manager_object.List_all_categories().size() == 0) {
+			NoCategoryController.setValues(JPA_manager_object);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NoCategoryView.fxml"));
+			Parent root = (Parent) loader.load();
+			stage_window = new Stage();
+			stage_window.initStyle(StageStyle.UNDECORATED);
+			stage_window.setScene(new Scene(root));
+			stage_window.setAlwaysOnTop(true);	
+			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+					menu_window.setEffect(new BoxBlur(3,3,3));
+					stage_window.initModality(Modality.APPLICATION_MODAL);
+				}
+			});
+			stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
+				@Override
+				public void handle(WindowEvent event) {
+					menu_window.setEffect(null);
+				}
+			});
+			stage_window.show();
+		} else {
+			current_pane_option_label.setText("Add category");
+			setAllButtonsOn();
+			addCategory_button.setDisable(true);
+			AddCategoryController.setValues(SQL_manager_object);
+			Pane add_category_pane = FXMLLoader.load(getClass().getResource("AddCategoryView.fxml"));
+			main_pane.getChildren().removeAll();
+			main_pane.getChildren().setAll(add_category_pane);
+		}
 	}
 	
 	@FXML
@@ -282,7 +308,7 @@ public class DirectorMenuController implements Initializable {
 		current_pane_option_label.setText("Finantial Status");
 		setAllButtonsOn();
 		finantialStatus_button.setDisable(true);
-		DirectorFinantialStatusController.setValues(manager_object);    
+		DirectorFinantialStatusController.setValues(SQL_manager_object);    
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorFinantialStatusView.fxml"));
 		Pane finantial_status_pane = loader.load();
 		finantial_status_controller = (DirectorFinantialStatusController) loader.getController();
@@ -297,7 +323,7 @@ public class DirectorMenuController implements Initializable {
 
 	@FXML
 	private void log_out(MouseEvent event) {
-		manager_object.Close_connection();
+		SQL_manager_object.Close_connection();
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
@@ -344,7 +370,7 @@ public class DirectorMenuController implements Initializable {
 	public void setAllButtonsOff() {
 	    myAccount_button.setDisable(true);
 	    listAllClients_button.setDisable(true);
-	    addPromotion_button.setDisable(true);
+	    addCategory_button.setDisable(true);
 	    listAllWorkers_button.setDisable(true);
 	    removeClient_button.setDisable(true);
 	    removeWorker_button.setDisable(true);
@@ -357,7 +383,7 @@ public class DirectorMenuController implements Initializable {
 	public void setAllButtonsOn() {
 		myAccount_button.setDisable(false);
 	    listAllClients_button.setDisable(false);
-	    addPromotion_button.setDisable(false);
+	    addCategory_button.setDisable(false);
 	    listAllWorkers_button.setDisable(false);
 	    removeClient_button.setDisable(false);
 	    removeWorker_button.setDisable(false);
@@ -370,7 +396,7 @@ public class DirectorMenuController implements Initializable {
 	// -----> UPDATE ACCOUNT METHOD <-----
 		
 	public void update_director_account() {
-	    director_account = manager_object.Search_director_by_id(director_account.getDirector_id());
+	    director_account = SQL_manager_object.Search_director_by_id(director_account.getDirector_id());
 	   	setDirectorEmail(director_account.getEmail());
 	   	setDirectorName(director_account.getDirector_name());
     	setDirectorTelephone(director_account.getTelephone());

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.AddCategoryController">
+   <children>
+      <JFXTreeTableView fx:id="categories_tree_view" layoutX="110.0" layoutY="85.0" prefHeight="470.0" prefWidth="720.0" styleClass="list-view" />
+      <JFXButton fx:id="deleteCategories_button" layoutX="577.0" layoutY="580.0" onMouseClicked="#removeAllCategories" styleClass="starter_small_buttom" text="Reset all categories" />
+      <JFXButton layoutX="196.0" layoutY="580.0" onMouseClicked="#addCategory" styleClass="starter_small_buttom" text="Insert new category" />
+      <Label layoutX="141.0" layoutY="31.0" text="Categories list ">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

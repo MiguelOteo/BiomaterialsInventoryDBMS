@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Client;
 import db.pojos.Director;
 import db.pojos.User;
@@ -26,7 +27,8 @@ public class ChargingScreenController implements Initializable {
 	private String user_name;
 	private String password;
 	private String user_type;
-	private SQLManager manager;
+	private SQLManager SQL_manager;
+	private JPAManager JPA_manager;
 	
 	private DirectorMenuController director_controller;
 	private ClientMenuController client_controller;
@@ -57,29 +59,28 @@ public class ChargingScreenController implements Initializable {
 			this.user_type = user_type;
 			
 			// The following code charges all the database info and tables
-			manager = new SQLManager();
-			manager.Stablish_connection();
-			//boolean tables_exist = manager.Check_if_tables_exist();
-			//if (tables_exist == false) {
-				manager.Create_tables();
-			//}
-
+			SQL_manager = new SQLManager();
+			JPA_manager = new JPAManager();
+			
+			SQL_manager.Stablish_connection();
+			JPA_manager.Stablish_connection();
+	
 			// Next algorithm checks if the user account already exist when you create a new one or in 
 			// case you access, if the account exist to charge it in all the user's tables (Client, Director, Worker)
-			User user = manager.Search_stored_user(this.user_name, this.password);
+			User user = SQL_manager.Search_stored_user(this.user_name, this.password);
 			if(user != null) {
 				if(this.user_type == null) {
-					Client client_account = manager.Search_stored_client(user);
+					Client client_account = SQL_manager.Search_stored_client(user);
 					if(client_account != null) {
 						charge_client_main_menu(client_account);
 						LaunchApplication.getStage().hide();
 					} else {
-					    Director director_account = manager.Search_stored_director(user);
+					    Director director_account = SQL_manager.Search_stored_director(user);
 					    if(director_account != null) {
 					    	charge_director_main_menu(director_account);
 							LaunchApplication.getStage().hide();
 					    } else {
-					    	Worker worker_account = manager.Search_stored_worker(user);
+					    	Worker worker_account = SQL_manager.Search_stored_worker(user);
 					    	if(worker_account != null) {
 					    		charge_worker_main_menu(worker_account);
 					    		LaunchApplication.getStage().hide();
@@ -89,31 +90,31 @@ public class ChargingScreenController implements Initializable {
 					    }
 					}
 				} else {
-					manager.Close_connection();
+					SQL_manager.Close_connection();
 				}
 			} else {
 				if (this.user_type == null) {
-					manager.Close_connection();
+					SQL_manager.Close_connection();
 				} else {
 					if (this.user_type.equals("Client")) {
-						User new_user = manager.Insert_new_user(user_name, password);
-                        Client client = manager.Insert_new_client(new_user);
+						User new_user = SQL_manager.Insert_new_user(user_name, password);
+                        Client client = SQL_manager.Insert_new_client(new_user);
                         charge_client_main_menu(client);
 						LaunchApplication.getStage().hide();
 					} else {
 						if (this.user_type.equals("Director")) {
-							User new_user = manager.Insert_new_user(user_name, password);
-							Director director = manager.Insert_new_director(new_user);
+							User new_user = SQL_manager.Insert_new_user(user_name, password);
+							Director director = SQL_manager.Insert_new_director(new_user);
 							charge_director_main_menu(director);
 							LaunchApplication.getStage().hide();
 						} else { 
 							if (this.user_type.equals("Worker")) {
-								User new_user = manager.Insert_new_user(user_name, password);
-								Worker worker = manager.Insert_new_worker(new_user);
+								User new_user = SQL_manager.Insert_new_user(user_name, password);
+								Worker worker = SQL_manager.Insert_new_worker(new_user);
 								charge_worker_main_menu(worker);
 								LaunchApplication.getStage().hide();
 							} else {
-								manager.Close_connection();
+								SQL_manager.Close_connection();
 								System.exit(0);
 							}
 						}
@@ -122,7 +123,7 @@ public class ChargingScreenController implements Initializable {
 			}
 		} catch (Exception error_occur) {
 			error_occur.printStackTrace();
-			manager.Close_connection();
+			SQL_manager.Close_connection();
 		}
 	}
 	
@@ -148,7 +149,7 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_client_main_menu(Client client) {
 		try {
-			ClientMenuController.setValues(this.manager, client);
+			ClientMenuController.setValues(this.SQL_manager, client);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientMenuView.fxml"));
 			Parent root = (Parent) loader.load();
 			this.client_controller = loader.getController();
@@ -169,7 +170,7 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_director_main_menu(Director director) {
 		try {
-			DirectorMenuController.setValues(this.manager, director);
+			DirectorMenuController.setValues(this.SQL_manager, this.JPA_manager, director);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorMenuView.fxml"));
 			Parent root = (Parent) loader.load();
 			this.director_controller = loader.getController();
@@ -189,7 +190,7 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_worker_main_menu(Worker worker) {
 		try {
-			WorkerMenuController.setValues(this.manager, worker);
+			WorkerMenuController.setValues(this.SQL_manager, worker);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerMenuView.fxml"));
 			Parent root = (Parent) loader.load();
 			this.worker_controller = loader.getController();

@@ -89,10 +89,7 @@ public class JPAManager implements Interface {
 		try {
 			Query q1 = entity_manager.createNativeQuery("SELECT * FROM client", Client.class);
 			@SuppressWarnings("unchecked")
-			List<Client> clients = q1.getResultList();
-				for (Client client : clients) {
-					System.out.println(client);
-				}	
+			List<Client> clients = q1.getResultList();	
 		return clients;
 		} catch (EntityNotFoundException List_all_clients_error) {
 			List_all_clients_error.printStackTrace();
@@ -106,9 +103,6 @@ public class JPAManager implements Interface {
 			Query query = entity_manager.createNativeQuery("SELECT * FROM category", Category.class);
 			@SuppressWarnings("unchecked")
 			List<Category> categories = query.getResultList();
-			for (Category category : categories) {
-					System.out.println(category);
-			}	
 		return categories;
 		} catch (EntityNotFoundException List_all_categories_error) {
 			List_all_categories_error.printStackTrace();
@@ -194,12 +188,12 @@ public class JPAManager implements Interface {
 		}
 	}
 	
-	public Category Search_category_info(Category category) {
+	public Category Search_category_by_id (Integer category_id) {
 		try {
 			Query query_category = entity_manager.createNativeQuery("SELECT * FROM category WHERE category_id LIKE ?" , Category.class);
-			query_category.setParameter(1, category.getCategory_id());
-			Category cat = (Category) query_category.getSingleResult();
-			return cat;
+			query_category.setParameter(1, category_id);
+			Category category = (Category) query_category.getSingleResult();
+			return category;
 		} catch (EntityNotFoundException search_category_error) {
 			search_category_error.printStackTrace();
 			return null;
@@ -273,6 +267,7 @@ public class JPAManager implements Interface {
 	public User Search_user_by_id(Integer user_id) {return null;}
 	public Director Search_director_by_id(Integer director_id) {return null;}
 	public Worker Search_worker_by_id (Integer worker_id) {return null;}
+	public Benefits Search_benefits_by_id(Integer benefits_id) {return null;}
 	public List<Transaction> Search_stored_transactions(Client client) {return null;}
 	public Transaction Search_transaction_by_id(Integer transaction_id) {return null;}
 	public Biomaterial Search_biomaterial_by_id (Integer biomaterial_id) {return null;}

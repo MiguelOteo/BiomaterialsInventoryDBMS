@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import db.jpa.JPAManager;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -32,6 +33,7 @@ public class RegistrationController implements Initializable {
 	
 	private ChargingScreenController charging_controller;
 	private MasterKeyRegistrationController masterkey_controller;
+	private JPAManager JPA_manager;
 	
 	// -----> FXML ATRIBUTES <-----
 
@@ -64,7 +66,17 @@ public class RegistrationController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
-		user_type.getItems().addAll("Client", "Director", "Worker");
+		
+		JPA_manager = new JPAManager();
+		JPA_manager.Stablish_connection();
+		if(JPA_manager.List_all_categories().size() == 0) {
+			user_type.getItems().addAll("Director", "Worker");
+		} else {
+			user_type.getItems().addAll("Client", "Director", "Worker");
+		}
+		JPA_manager.Close_connection();
+		JPA_manager = null;
+		
 		user_type.getSelectionModel().selectFirst();
 		
 		createAccountButton.setOnAction((ActionEvent event) -> {
@@ -121,6 +133,7 @@ public class RegistrationController implements Initializable {
 					Stage stage = new Stage();
 					stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, user_type_string));
 					stage.initStyle(StageStyle.UNDECORATED);
+					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setAlwaysOnTop(true);
 					stage.setScene(new Scene(root));
 					stage.show();

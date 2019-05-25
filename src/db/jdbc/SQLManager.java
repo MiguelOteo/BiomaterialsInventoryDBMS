@@ -44,7 +44,6 @@ public class SQLManager implements Interface{
 	// Creates the tables in biomat.db file
 	public boolean Create_tables() {
 		try {
-			
 			Statement statement_0 = this.sqlite_connection.createStatement();
 			String table_0 = " CREATE TABLE user " + "(user_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 			        + " user_name TEXT NOT NULL UNIQUE, " + " password TEXT NOT NULL)";
@@ -56,37 +55,38 @@ public class SQLManager implements Interface{
 			        + "telephone INTEGER default 0, " + "email TEXT, " + " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";
 			statement_1.execute(table_1);
 		    statement_1.close();
-			
-			Statement statement_2 = this.sqlite_connection.createStatement();
-			String table_2 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " responsible TEXT, " + " name TEXT, " + "email TEXT, " + " bank_account TEXT UNIQUE, "
-					+ " telephone INTEGER default 0, " + " points INTEGER NOT NULL default 0, " 
-					+ " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";
-			statement_2.execute(table_2);
-			statement_2.close();
-			
+		    
 		    Statement statement_3 = this.sqlite_connection.createStatement();
 		    String table_3 = "CREATE TABLE worker " + "(worker_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT, " 
 		            + " telephone INTEGER default 0, " + "email TEXT, "
 		            + " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";
 		    statement_3.execute(table_3);
 		    statement_3.close();
-		    
+			
 			Statement statement_4 = this.sqlite_connection.createStatement();
 			String table_4 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " percentage REAL NOT NULL default 0, " /*+ " min_amount INTEGER NOT NULL default 0,"*/
 					+ " extra_units INTEGER NOT NULL default 0)";
 			statement_4.execute(table_4);
 			statement_4.close();
-
+		    
 			Statement statement_5 = this.sqlite_connection.createStatement();
 			String table_5 = "CREATE TABLE category " + "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, " 
-					+ "benefits_id INTEGER REFERENCES benefits(benefits_id), "
+					+ " benefits_id FOREING KEY INTEGER REFERENCES benefits(benefits_id), "
 					+ " category_name TEXT NOT NULL, " + " max INTEGER NOT NULL, "
 					+ " min INTEGER NOT NULL, penalization INTEGER default NULL)";
 			statement_5.execute(table_5);
 			statement_5.close();
-
+		    
+			Statement statement_2 = this.sqlite_connection.createStatement();
+			String table_2 = "CREATE TABLE client " + "(client_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ " responsible TEXT, " + " name TEXT, " + "email TEXT, " + " bank_account TEXT UNIQUE, "
+					+ " telephone INTEGER default 0, " + " points INTEGER NOT NULL default 0, " 
+					+ " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE, "
+					+ " category_id REFERENCES category(category_id))";
+			statement_2.execute(table_2);
+			statement_2.close();
+			
 			Statement statement_6 = this.sqlite_connection.createStatement();
 			String table_6 = "CREATE TABLE utility " + "(utility_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " heat_cold INTEGER default NULL, " + " flexibility TEXT default 'no', "
@@ -181,10 +181,11 @@ public class SQLManager implements Interface{
 	// New_Client(name, password)
     public Client Insert_new_client(User user) {
 		try {
-			String table = "INSERT INTO client (user_id, name) " + "VALUES (?,?);";
+			String table = "INSERT INTO client (user_id, name, category_id) " + "VALUES (?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
+			template.setInt(3, 2);
 			template.executeUpdate();
 			
 			String SQL_code = "SELECT * FROM client WHERE user_id = ?";
@@ -197,9 +198,11 @@ public class SQLManager implements Interface{
 			client.setUser(user);
 			client.setTelephone(0);
 			client.setPoints(0);
-			client.setCategory(new Category("None", 79, 0));
+			Category category = Search_category_by_id(result_set.getInt("category_id"));
+			client.setCategory(category);
 			return client;
 		} catch (SQLException new_client_account_error) {
+			new_client_account_error.printStackTrace();
 			return null;
 		}
     }
@@ -410,7 +413,7 @@ public class SQLManager implements Interface{
 	public Integer Insert_new_benefit(Benefits benefit) {
 		try {
 			String table = "INSERT INTO benefits(percentage, extra_units) "
-					+ "VALUES (?,?,?,?,?);";
+					+ "VALUES (?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setFloat(1, benefit.getPercentage());
 			template.setInt(2, benefit.getExtra_units());
@@ -590,9 +593,14 @@ public class SQLManager implements Interface{
 			client.setName(result_set.getString("name"));
 			client.setResponsible(result_set.getString("responsible"));
 			client.setBank_account(result_set.getString("bank_account"));
+		    client.setPoints(result_set.getInt("points"));
 	        client.setEmail(result_set.getString("email"));
 			client.setTelephone(result_set.getInt("telephone"));
+			Category category = Search_category_by_id(result_set.getInt("category_id"));
+			client.setCategory(category);
 			client.setUser(user);
+			List<Transaction> transactions_list = Search_stored_transactions(client);
+			client.setTransactions_list(transactions_list);
 			template.close();
 			return client;
 		} catch (SQLException search_client_error) {
@@ -639,8 +647,6 @@ public class SQLManager implements Interface{
 			return null;
 		}
 	}
-	
-	
 	
 	// -----> SEARCH BY ID METHODS <-----
 	
@@ -714,9 +720,9 @@ public class SQLManager implements Interface{
 				template.setInt(1, client_id);
 				Client client = new Client();
 				ResultSet result_set = template.executeQuery();
+                client.setClient_id(client_id);
                 client.setBank_account(result_set.getString("bank_account"));
                 client.setEmail(result_set.getString("email"));
-                client.setClient_id(client_id);
                 client.setName(result_set.getString("name"));
                 client.setPoints(result_set.getInt("points"));
                 client.setResponsible(result_set.getString("responsible"));
@@ -724,6 +730,8 @@ public class SQLManager implements Interface{
                 List<Transaction> transaction_list = Search_stored_transactions(client);
 				User user = Search_user_by_id(result_set.getInt("user_id"));
 				client.setUser(user);
+				Category category = Search_category_by_id(result_set.getInt("category_id"));
+				client.setCategory(category);
 				template.close(); 
 				return client;
 			} catch (SQLException search_client_error) {
@@ -731,6 +739,44 @@ public class SQLManager implements Interface{
 				return null;
 		}
     }
+	
+	public Category Search_category_by_id (Integer category_id) {
+		try {
+			String SQL_code = "SELECT * FROM category WHERE category_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, category_id);
+			Category category = new Category();
+			ResultSet result_set = template.executeQuery();
+			category.setCategory_id(category_id);
+			category.setCategory_name(result_set.getString("category_name"));
+			category.setMaximum(result_set.getInt("max"));
+			category.setMinimum(result_set.getInt("min"));
+			category.setPenalization(result_set.getInt("penalization"));
+			Benefits benefits = Search_benefits_by_id(result_set.getInt("benefits_id"));
+			category.setBenefits(benefits);
+			return category;
+		} catch (SQLException search_category_error) {
+			search_category_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Benefits Search_benefits_by_id(Integer benefits_id) {
+		try {
+			String SQL_code = "SELECT * FROM benefits WHERE benefits_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, benefits_id);
+			Benefits benefits = new Benefits();
+			ResultSet result_set = template.executeQuery();
+			benefits.setBenefits_id(benefits_id);
+			benefits.setPercentage(result_set.getFloat("percentage"));
+			benefits.setExtra_units(result_set.getInt("extra_units"));
+			return benefits;
+		} catch (SQLException search_benefits_error) {
+			search_benefits_error.printStackTrace();
+			return null;
+		}
+	}
 		
 	// Selects the utility object with the same utility_id from the data base and returns it
 	public Utility Search_utility_by_id (Integer utility_id) {
@@ -899,8 +945,12 @@ public class SQLManager implements Interface{
 				client.setEmail(result_set.getString("email"));
 				client.setBank_account(result_set.getString("bank_account"));
 				client.setTelephone(result_set.getInt("telephone"));
+				client.setPoints(result_set.getInt("points"));
 				User user = Search_user_by_id(result_set.getInt("user_id"));
 				client.setUser(user);
+				System.out.println(result_set.getInt("category_id"));
+				Category category = Search_category_by_id(result_set.getInt("category_id"));
+				client.setCategory(category);
 				clients_list.add(client);
 			}
 			statement.close();
@@ -1174,7 +1224,4 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
-
-
-
 }

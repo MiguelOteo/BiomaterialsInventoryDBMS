@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 
 import db.jdbc.SQLManager;
 import db.pojos.Client;
@@ -16,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +37,7 @@ public class ClientMenuController implements Initializable {
 	// -----> FXML ATRIBUTES <-----
 	
 	@FXML
-	private ProgressBar progress_bar;
+	private JFXProgressBar progress_bar;
 	@FXML
 	private AnchorPane menu_window;
 	@FXML
@@ -87,6 +87,7 @@ public class ClientMenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setAllButtonsOn();
+		setProgressBar();
 	    mainmenu_button.setDisable(true);
 		try{
 			Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
@@ -97,9 +98,7 @@ public class ClientMenuController implements Initializable {
 		    			category1.setText(client_account.getCategory().getCategory_name());
 		    			Integer max=client_account.getCategory().getMaximum();
 		    			Integer min=client_account.getCategory().getMinimum();
-		    			Integer total= max-min;
-		    			Integer clientpoints= client_account.getPoints();
-		    			progress_bar.setProgress(clientpoints/total);
+		    			setProgressBar();
 		    }
 		} catch (IOException client_view_error) {
 			client_view_error.printStackTrace();
@@ -258,6 +257,18 @@ public class ClientMenuController implements Initializable {
 			this.responsible.setText("Responsible: " + responsible);
 		} else {
 			this.responsible.setText("Responsible: No one associated");
+		}
+	}
+	
+	public void setProgressBar() {
+		try {
+			Double category_points =  (double) client_account.getPoints() - client_account.getCategory().getMinimum();			
+			Double category_range = (double) client_account.getCategory().getMaximum() - client_account.getCategory().getMinimum();
+			progress_bar.setProgress(category_points/category_range);
+		} catch (Exception no_category_found) {
+			progress_bar.setProgress(0.0);
+			category1.setText("Category error");
+			category2.setText("--------");
 		}
 	}
 	

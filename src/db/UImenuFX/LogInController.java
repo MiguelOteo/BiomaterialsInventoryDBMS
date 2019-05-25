@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -65,6 +66,7 @@ public class LogInController implements Initializable {
 					stage.setOnShowing((event_handler) -> this.charging_controller.searching_create_account(user_name, password, null));
 					stage.setAlwaysOnTop(true);
 					stage.initStyle(StageStyle.UNDECORATED);
+					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setScene(new Scene(root));
 					stage.show();
 					

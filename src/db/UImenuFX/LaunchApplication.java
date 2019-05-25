@@ -2,6 +2,7 @@ package db.UImenuFX;
 
 import java.io.IOException;
 
+import db.jdbc.SQLManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,13 @@ public class LaunchApplication extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		SQLManager manager = new SQLManager();
+		manager.Stablish_connection();
+        manager.Create_tables();
+        manager.Close_connection();
+        manager = null;
+		
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
 			primaryStage.setTitle("Log in page");
