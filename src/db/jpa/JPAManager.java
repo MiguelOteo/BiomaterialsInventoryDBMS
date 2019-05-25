@@ -270,6 +270,7 @@ public class JPAManager implements Interface {
 	public boolean Delete_stored_user(Integer user_id) {return false;}
 	public boolean Delete_transaction_from_client(Transaction transaction) {return false;}
 	public boolean Delete_biomaterial_by_id(Integer biomat_id) {return false;}
+	public boolean Delete_biomaterial_list(BiomaterialList list) {return false;}
 	
 	// -----> UNUSED SEARCH METHODS <-----
 	
@@ -291,5 +292,7 @@ public class JPAManager implements Interface {
 	public boolean Create_tables() {return false;}
 	public boolean Check_if_tables_exist() {return false;}
 	public void Change_password(String password, Integer user_id) {}
+
+	
 }
 
