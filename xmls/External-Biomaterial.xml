@@ -17,14 +17,9 @@ It's a template in DTD language d
 <BiomaterialList>
     <Products>
         <Biomaterial biomaterialId="1">
-            <product_name>Collagen</product_name>
-            <price_unit>80.0</price_unit>
-            <available_units>250</available_units>
-        </Biomaterial>
-        <Biomaterial biomaterialId="2">
-            <product_name>product 2</product_name>
-            <price_unit>10.0</price_unit>
-            <available_units>250</available_units>
+            <product_name>Metal bar</product_name>
+            <price_unit>34.0</price_unit>
+            <available_units>30</available_units>
         </Biomaterial>
     </Products>
 </BiomaterialList>

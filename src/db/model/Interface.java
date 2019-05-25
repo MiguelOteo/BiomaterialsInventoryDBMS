@@ -60,6 +60,7 @@ public interface Interface {
 	public boolean Delete_stored_category(Category category);
 	public boolean Delete_transaction_from_client(Transaction transaction);
 	public boolean Delete_biomaterial_by_id(Integer biomat_id);
+	public boolean Delete_biomaterial_list(BiomaterialList list);
 	public boolean Close_connection();
 	 
 }

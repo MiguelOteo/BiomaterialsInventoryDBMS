@@ -23,14 +23,18 @@ public class XMLConsole {
 		manager = new XMLManager();
 		sql_manager = new SQLManager();
 		
-		boolean everything_ok = sql_manager.Stablish_connection();
-
-			BiomaterialList list = new BiomaterialList();
-			list.setBiomaterials(sql_manager.List_all_biomaterials());
+		sql_manager.Stablish_connection();
+		
+		
+		BiomaterialList list = new BiomaterialList();
+		
+		//sql_manager.Delete_biomaterial_list(list);
+		
+			//list.setBiomaterials(sql_manager.List_all_biomaterials());
 			
 			manager.Java2XmlBiomaterial(list);
 			manager.Xml2JavaBiomaterial();
 			manager.Xml2HtmlBiomaterial();
-			
+		
 	}	
 }

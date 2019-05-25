@@ -8,6 +8,7 @@ import java.util.List;
 import db.model.Interface;
 import db.pojos.Benefits;
 import db.pojos.Biomaterial;
+import db.pojos.BiomaterialList;
 import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Director;
@@ -1208,6 +1209,19 @@ public class SQLManager implements Interface{
 			
 		} catch (SQLException delete_biomaterial_error) {
 			delete_biomaterial_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Delete_biomaterial_list(BiomaterialList list) {
+		try {
+			String SQL_code = "DELETE FROM biomaterial";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.executeUpdate();
+			template.close();
+			return true;
+		} catch (SQLException delete_list_error) {
+			delete_list_error.printStackTrace();
 			return false;
 		}
 	}
