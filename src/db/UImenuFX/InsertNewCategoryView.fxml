@@ -43,8 +43,8 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="insert_category_button" layoutX="66.0" layoutY="303.0" styleClass="starter_small_buttom" text="Insert category" />
-            <JFXButton fx:id="insert_benefits_button" layoutX="55.0" layoutY="419.0" styleClass="starter_small_buttom" text="Insert new benefits" />
+            <JFXButton fx:id="insert_category_button" layoutX="66.0" layoutY="303.0" onMouseClicked="#Insert_category" styleClass="starter_small_buttom" text="Insert category" />
+            <JFXButton fx:id="insert_benefits_button" layoutX="55.0" layoutY="419.0" onMouseClicked="#Insert_benefit" styleClass="starter_small_buttom" text="Insert new benefits" />
             <Label layoutX="62.0" layoutY="364.0" text="Insert new benefits for">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -60,7 +60,12 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="minimum_points" layoutX="40.0" layoutY="256.0" text="Minimum points:  " textFill="#4d4d4dae">
+            <Label layoutX="40.0" layoutY="256.0" text="Minimum points:  " textFill="#4d4d4dae">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="minimum_points" layoutX="178.0" layoutY="256.0" text="&quot;Points&quot;" textFill="#4d4d4dae">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

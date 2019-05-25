@@ -1002,12 +1002,34 @@ public class SQLManager implements Interface{
                 category.setMinimum(result_set.getInt("min"));
                 category.setPenalization(result_set.getInt("penalization"));
                 category.setCategory_id(result_set.getInt("category_id"));
+                Benefits benefits = Search_benefits_by_id(result_set.getInt("benefits_id"));
+                category.setBenefits(benefits);
 				categories_list.add(category);
 			}
 			statement.close();
 			return categories_list;
 		} catch (SQLException list_categories_error) {
 			list_categories_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Benefits> List_all_benefits() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM benefits";
+			List<Benefits> benefits_list = new LinkedList<Benefits>();
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			while (result_set.next()) {
+				Benefits benefits = new Benefits();
+				benefits.setBenefits_id(result_set.getInt("benefits_id"));
+				benefits.setExtra_units(result_set.getInt("extra_units"));
+				benefits.setPercentage(result_set.getFloat("percentage"));
+			}
+			statement.close();
+			return benefits_list;
+		} catch (SQLException search_benefits_error) {
+			search_benefits_error.printStackTrace();
 			return null;
 		}
 	}

@@ -55,6 +55,7 @@ public interface Interface {
 	public List<Worker> List_all_workers();
 	public List<Utility> List_all_utilities();
 	public List<Maintenance> List_all_maintenances();
+	public List<Benefits> List_all_benefits();
 	
 	public boolean Delete_stored_user(Integer user_id);
 	public boolean Delete_stored_category(Category category);
