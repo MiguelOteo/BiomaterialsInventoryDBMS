@@ -25,6 +25,20 @@ public class UtilityInformationController {
 	@FXML
 	private Label str_label;
 	@FXML
+	private Label enpres_label;
+	@FXML
+	private Label o2_label;
+	@FXML
+	private Label light_label;
+	@FXML
+	private Label hum_label;
+	@FXML
+	private Label temp_label;
+	@FXML
+	private Label comp_label;
+	@FXML
+	private Label oth_label;
+	@FXML
 	private AnchorPane confirmation_window;
 
 	// -----> ESSENTIAL METHODS <-----
@@ -92,6 +106,61 @@ public class UtilityInformationController {
 
 	public JFXButton getNoButton() {
 		return this.done_button;
+	}
+	public Label getEnpres_label() {
+		return enpres_label;
+	}
+
+	public void setEnpres_label(String enpres_label) {
+		this.enpres_label.setText(enpres_label);
+	}
+
+	public Label getO2_label() {
+		return o2_label;
+	}
+
+	public void setO2_label(String o2_label) {
+		this.o2_label.setText(o2_label);
+	}
+
+	public Label getLight_label() {
+		return light_label;
+	}
+
+	public void setLight_label(String light_label) {
+		this.light_label.setText(light_label);
+	}
+
+	public Label getHum_label() {
+		return hum_label;
+	}
+
+	public void setHum_label(String hum_label) {
+		this.hum_label.setText(hum_label);
+	}
+
+	public Label getTemp_label() {
+		return temp_label;
+	}
+
+	public void setTemp_label(String temp_label) {
+		this.temp_label.setText(temp_label);
+	}
+
+	public Label getComp_label() {
+		return comp_label;
+	}
+
+	public void setComp_label(String comp_label) {
+		this.comp_label.setText(comp_label);
+	}
+
+	public Label getOth_label() {
+		return oth_label;
+	}
+
+	public void setOth_label(String oth_label) {
+		this.oth_label.setText(oth_label);
 	}
 
 	

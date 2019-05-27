@@ -383,13 +383,21 @@ public class MarketplaceController implements Initializable {
 					root = (Parent) loader.load();
 			
 				information_controller=loader.getController();
-				Biomaterial biom=manager_object.Search_biomaterial_by_id(getId());
-				if(!(biom.getUtility()==null)) {
+				Biomaterial biom=manager_object.Search_biomaterial_by_id(this.bio_id.intValue());
+				System.out.println(biom);
+				if(!(biom.getUtility()==null)|| !(biom.getMaintenance()==null)) {
 					information_controller.setHeatcold_label(biom.getUtility().getHeat_cold());
-					information_controller.setHeatcold_label(biom.getUtility().getFlexibility());
-					information_controller.setHeatcold_label(biom.getUtility().getResistance());
-					information_controller.setHeatcold_label(String.valueOf(biom.getUtility().getPressure()));
-					information_controller.setHeatcold_label(String.valueOf(biom.getUtility().getStrength()));
+					information_controller.setFlex_label(biom.getUtility().getFlexibility());
+					information_controller.setPres_label(biom.getUtility().getResistance());
+					information_controller.setRes_label(String.valueOf(biom.getUtility().getPressure()));
+					information_controller.setStr_label(String.valueOf(biom.getUtility().getStrength()));
+					information_controller.setEnpres_label(String.valueOf(biom.getMaintenance().getPressure()));
+					information_controller.setO2_label(biom.getMaintenance().getO2_supply());
+					information_controller.setLight_label(biom.getMaintenance().getLight());
+					information_controller.setHum_label(String.valueOf(biom.getMaintenance().getHumidity()));
+					information_controller.setTemp_label(String.valueOf(biom.getMaintenance().getTemperature()));
+					information_controller.setComp_label(biom.getMaintenance().getCompatibility());
+					information_controller.setOth_label(biom.getMaintenance().getOthers());
 				}
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
