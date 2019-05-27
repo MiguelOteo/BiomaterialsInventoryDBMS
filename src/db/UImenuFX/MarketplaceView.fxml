@@ -5,9 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+
 
 <Pane fx:id="menu_main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.MarketplaceController">
    <children>
@@ -26,14 +25,6 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <JFXButton fx:id="buy_button" layoutX="99.0" layoutY="555.0" onMouseClicked="#buyitem" prefHeight="48.0" prefWidth="206.0" text="BUY SELECTED ITEMS">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill></JFXButton>
+      <JFXButton fx:id="buy_button" layoutX="99.0" layoutY="555.0" onMouseClicked="#buyitem" prefHeight="48.0" prefWidth="206.0" text="BUY SELECTED ITEMS" textFill="#050505" />
    </children>
 </Pane>
