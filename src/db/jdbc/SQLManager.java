@@ -284,12 +284,13 @@ public class SQLManager implements Interface{
 	// Category(category_name, penalization, maximum, minimum)
 	public Integer Insert_new_category(Category category) {
 		try {
-			String table = "INSERT INTO category(category_name, max, min, penalization) " + "VALUES (?,?,?,?);";
+			String table = "INSERT INTO category(category_name, max, min, penalization, benefits_id) " + "VALUES (?,?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setString(1, category.getCategory_name());
 			template.setInt(3, category.getMaximum());
 			template.setInt(2, category.getMinimum());
 			template.setFloat(4, category.getMinimum()/4);
+			template.setInt(5, category.getBenefits().getBenefits_id());
 			template.executeUpdate();
 			template.close();
 			
@@ -524,7 +525,6 @@ public class SQLManager implements Interface{
 	
 	public void Update_biomaterial_features(Biomaterial biomaterial) {
 		try {
-			
 			if(biomaterial.getMaintenance() != null) {
 				String SQL_code = "UPDATE biomaterial SET maintenance_id = ? WHERE biomaterial_id = ?";
 				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
@@ -765,15 +765,19 @@ public class SQLManager implements Interface{
 	
 	public Benefits Search_benefits_by_id(Integer benefits_id) {
 		try {
-			String SQL_code = "SELECT * FROM benefits WHERE benefits_id LIKE ?";
-			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setInt(1, benefits_id);
-			Benefits benefits = new Benefits();
-			ResultSet result_set = template.executeQuery();
-			benefits.setBenefits_id(benefits_id);
-			benefits.setPercentage(result_set.getFloat("percentage"));
-			benefits.setExtra_units(result_set.getInt("extra_units"));
-			return benefits;
+			if(benefits_id != 0) {
+				String SQL_code = "SELECT * FROM benefits WHERE benefits_id LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setInt(1, benefits_id);
+				Benefits benefits = new Benefits();
+				ResultSet result_set = template.executeQuery();
+				benefits.setBenefits_id(benefits_id);
+				benefits.setPercentage(result_set.getFloat("percentage"));
+				benefits.setExtra_units(result_set.getInt("extra_units"));
+				return benefits;
+			} else {
+				return null;
+			}
 		} catch (SQLException search_benefits_error) {
 			search_benefits_error.printStackTrace();
 			return null;
@@ -806,7 +810,6 @@ public class SQLManager implements Interface{
 	// Selects the maintenance object with the same maintenance_id from the data base and returns it
 	public Maintenance Search_maintenance_by_id (Integer maintenance_id) {
 			try {
-				System.out.println("THIS ONE " + maintenance_id);
 				String SQL_code = "SELECT * FROM maintenance WHERE maintenance_id LIKE ?";
 				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 				template.setInt(1, maintenance_id);
@@ -845,11 +848,11 @@ public class SQLManager implements Interface{
                 if(result_set.getInt("maintenance_id") != 0) {
     				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
     				biomaterial.setMaintenance(maintenance);
-    				}
-    				if(result_set.getInt("utility_id") != 0) {
+    			}
+    			if(result_set.getInt("utility_id") != 0) {
     				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
     				biomaterial.setUtility(utility);
-    				}
+    			}
                 template.close();
 				return biomaterial;
 			} catch (SQLException search_biomaterial_error) {
@@ -950,7 +953,6 @@ public class SQLManager implements Interface{
 				client.setPoints(result_set.getInt("points"));
 				User user = Search_user_by_id(result_set.getInt("user_id"));
 				client.setUser(user);
-				System.out.println(result_set.getInt("category_id"));
 				Category category = Search_category_by_id(result_set.getInt("category_id"));
 				client.setCategory(category);
 				clients_list.add(client);

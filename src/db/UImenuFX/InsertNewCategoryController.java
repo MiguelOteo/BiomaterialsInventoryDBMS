@@ -61,6 +61,8 @@ public class InsertNewCategoryController implements Initializable{
 	@FXML
 	private JFXButton insert_benefits_button;
 	@FXML
+	private JFXButton delete_benfits_button;
+	@FXML
 	private JFXTextField category_name;
 	@FXML
 	private JFXTextField maximum_points;
@@ -157,7 +159,6 @@ public class InsertNewCategoryController implements Initializable{
 					category.setMinimum(minimum);
 					category.setMaximum(maximum);
 					category.setPenalization(minimum/4);
-					System.out.println(Integer.parseInt(benefit_object.getValue().benefit_id.getValue()));
 					category.setBenefits(JPA_manager_object.Search_benefits_by_id(Integer.parseInt(benefit_object.getValue().benefit_id.getValue())));
 					JPA_manager_object.Insert_new_category(category);
 					minimum = maximum + 1;
@@ -208,6 +209,23 @@ public class InsertNewCategoryController implements Initializable{
 			stage_window.show();
 		} catch (IOException charging_error) {
 			
+		}
+	}
+	
+	@FXML
+	public void delete_benefit() {
+		TreeItem<BenefitsListObject> benefit_object = benefits_tree_view.getSelectionModel().getSelectedItem();
+		if(benefit_object != null) {
+			Benefits benefits = JPA_manager_object.Search_benefits_by_id(Integer.parseInt(benefit_object.getValue().benefit_id.getValue()));
+			JPA_manager_object.Delete_stored_benefits(benefits);
+			benefits_objects.clear();
+			List<Benefits> benefits_list = JPA_manager_object.List_all_benefits();
+			for (Benefits benefit: benefits_list) {
+				benefits_objects.add(new BenefitsListObject(benefit.getBenefits_id().toString(), benefit.getPercentage().toString()
+						, benefit.getExtra_units().toString()));
+			}
+			TreeItem<BenefitsListObject> root = new RecursiveTreeItem<BenefitsListObject>(benefits_objects, RecursiveTreeObject::getChildren);
+			benefits_tree_view.refresh();
 		}
 	}
 }

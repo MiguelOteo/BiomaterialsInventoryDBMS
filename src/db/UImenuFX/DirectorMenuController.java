@@ -116,8 +116,7 @@ public class DirectorMenuController implements Initializable {
 				});	
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
+				stage_window.setScene(new Scene(root));				
 				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
@@ -155,8 +154,7 @@ public class DirectorMenuController implements Initializable {
 				});	
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
+				stage_window.setScene(new Scene(root));		
 				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
@@ -200,7 +198,6 @@ public class DirectorMenuController implements Initializable {
 				stage_window = new Stage();
 				stage_window.initStyle(StageStyle.UNDECORATED);
 				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);		
 				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 					@Override
 					public void handle(WindowEvent arg0) {
@@ -277,7 +274,6 @@ public class DirectorMenuController implements Initializable {
 			stage_window = new Stage();
 			stage_window.initStyle(StageStyle.UNDECORATED);
 			stage_window.setScene(new Scene(root));
-			stage_window.setAlwaysOnTop(true);	
 			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent arg0) {

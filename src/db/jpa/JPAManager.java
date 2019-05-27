@@ -42,6 +42,7 @@ public class JPAManager implements Interface {
 			category.setMaximum(category.getMaximum());
 			category.setMinimum(category.getMinimum());
 			category.setPenalization(category.getMinimum()/4);
+			category.setBenefits(category.getBenefits());
 			entity_manager.persist(category);
 			entity_manager.getTransaction().commit();	
 			return category.getCategory_id();
@@ -161,6 +162,22 @@ public class JPAManager implements Interface {
 		}
 	}
 		
+	public boolean Update_benefits_info(Benefits benefits) {
+		try {
+			Query q = entity_manager.createNativeQuery("SELECT * FROM benefits WHERE benefits_id = ?", Benefits.class);
+			q.setParameter(1, benefits.getBenefits_id());
+			Benefits c = (Benefits) q.getSingleResult();
+			entity_manager.getTransaction().begin();
+			c.setExtra_units(benefits.getBenefits_id());
+			c.setPercentage(benefits.getPercentage());
+			entity_manager.getTransaction().commit();
+			return true;
+		} catch (EntityNotFoundException update_benefits_error) {
+			update_benefits_error.printStackTrace();
+			return false;
+		}
+	}
+		
 	// -----> DELETE METHODS JPA <-----
 	
 	public boolean Delete_stored_client(Client client) {
@@ -183,6 +200,18 @@ public class JPAManager implements Interface {
 			return true;
 		} catch (EntityNotFoundException delete_category_error) {
 			delete_category_error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean Delete_stored_benefits(Benefits benefits) {
+		try {
+			entity_manager.getTransaction().begin();
+			entity_manager.remove(benefits);
+			entity_manager.getTransaction().commit();
+			return true;
+		} catch(EntityNotFoundException delete_benefits_error) {
+			delete_benefits_error.printStackTrace();
 			return false;
 		}
 	}
@@ -220,6 +249,18 @@ public class JPAManager implements Interface {
 			query_client.setParameter(1, client_id);
 			Client client = (Client) query_client.getSingleResult();
 			return client;
+		} catch (EntityNotFoundException search_client_error) {
+			search_client_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Benefits Search_benefits_by_id(Integer benefits_id) {
+		try {
+			Query query_client = entity_manager.createNativeQuery("SELECT * FROM benefits WHERE benefits_id LIKE ?", Benefits.class);
+			query_client.setParameter(1, benefits_id);
+			Benefits benefits = (Benefits) query_client.getSingleResult();
+			return benefits;
 		} catch (EntityNotFoundException search_client_error) {
 			search_client_error.printStackTrace();
 			return null;
@@ -281,7 +322,7 @@ public class JPAManager implements Interface {
 	public User Search_user_by_id(Integer user_id) {return null;}
 	public Director Search_director_by_id(Integer director_id) {return null;}
 	public Worker Search_worker_by_id (Integer worker_id) {return null;}
-	public Benefits Search_benefits_by_id(Integer benefits_id) {return null;}
+	
 	public List<Transaction> Search_stored_transactions(Client client) {return null;}
 	public Transaction Search_transaction_by_id(Integer transaction_id) {return null;}
 	public Biomaterial Search_biomaterial_by_id (Integer biomaterial_id) {return null;}

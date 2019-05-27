@@ -106,8 +106,9 @@ public class Category extends UtilMethods implements Serializable{
 	 
 	@Override
 	public String toString() {
-		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", penalization="
-				+ penalization + ", maximum=" + max + ", minimum=" + min + "]";
+		return "Category [category_id=" + category_id + ", category_name=" + category_name + ", min=" + min + ", max="
+				+ max + ", penalization=" + penalization + ", benefits=" + benefits + ", clients_list=" + clients_list
+				+ "]";
 	}
 	
 	@Override

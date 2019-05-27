@@ -157,8 +157,49 @@ public class AddCategoryController implements Initializable{
 	
 	@FXML
 	public void removeAllCategories() {
-		categories_objects.clear();
-		categories_tree_view.refresh();
+		try {
+			List<Category> categories_list = JPA_manager_object.List_all_categories();
+			for(Category category: categories_list) {
+				JPA_manager_object.Delete_stored_category(category);
+			}
+			
+			NoCategoryController.setValues(JPA_manager_object);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NoCategoryView.fxml"));
+			Parent root = (Parent) loader.load();
+			stage_window = new Stage();
+			stage_window.initStyle(StageStyle.UNDECORATED);
+			stage_window.setScene(new Scene(root));
+			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+					stage_window.initModality(Modality.APPLICATION_MODAL);
+				}
+			});
+			stage_window.setOnHiding(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+					categories_objects.clear();
+					List<Category> categories_list = JPA_manager_object.List_all_categories();
+					for (Category category: categories_list) {
+						Integer category_id_int = category.getCategory_id() - 2;
+						if(category.getBenefits() == null) {
+							categories_objects.add(new CategoryListObject(category_id_int.toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
+									, "No discount", "No extra units"));
+						} else {
+							categories_objects.add(new CategoryListObject(category_id_int.toString().toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
+									, category.getBenefits().getPercentage().toString(), category.getBenefits().getExtra_units().toString()));
+						}	
+					}
+					TreeItem<CategoryListObject> root = new RecursiveTreeItem<CategoryListObject>(categories_objects, RecursiveTreeObject::getChildren);
+					categories_tree_view.refresh();
+				}
+			});
+			stage_window.show();
+			categories_objects.clear();
+			categories_tree_view.refresh();
+		} catch (Exception charging_error) {
+			charging_error.printStackTrace();
+		}
 	}
 	
 	@FXML

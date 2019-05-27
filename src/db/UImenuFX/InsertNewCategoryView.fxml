@@ -32,7 +32,7 @@
                   </Label>
                </children>
             </Pane>
-            <JFXTreeTableView fx:id="benefits_tree_view" layoutX="276.0" layoutY="126.0" prefHeight="330.0" prefWidth="510.0" styleClass="list-view" />
+            <JFXTreeTableView fx:id="benefits_tree_view" layoutX="276.0" layoutY="126.0" prefHeight="320.0" prefWidth="510.0" styleClass="list-view" />
             <JFXTextField fx:id="category_name" focusColor="#4f90a5" labelFloat="true" layoutX="43.0" layoutY="107.0" promptText="Category name" unFocusColor="#4d4d4d">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -70,6 +70,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
+            <JFXButton fx:id="delete_benefits_button" layoutX="433.0" layoutY="456.0" onMouseClicked="#delete_benefit" styleClass="starter_small_buttom" text="Delete selected benefit" />
          </children>
       </Pane>
    </children>

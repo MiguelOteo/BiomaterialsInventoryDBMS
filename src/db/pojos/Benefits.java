@@ -79,10 +79,9 @@ public class Benefits implements Serializable {
 		return true;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Benefits [percentage=" + percentage /*+ ", minAmount=" + min_amount*/
-				+ ", extraUnits=" + extra_units + "]";
+		return "Benefits [benefits_id=" + benefits_id + ", percentage=" + percentage + ", extra_units=" + extra_units
+				+ "]";
 	}
 }
