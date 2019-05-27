@@ -23,7 +23,7 @@ public class Client implements Serializable {
 	private Integer points;
 	private String email;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 

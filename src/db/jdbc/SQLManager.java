@@ -66,7 +66,7 @@ public class SQLManager implements Interface{
 			
 			Statement statement_4 = this.sqlite_connection.createStatement();
 			String table_4 = " CREATE TABLE benefits " + "(benefits_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ " percentage REAL NOT NULL default 0, " /*+ " min_amount INTEGER NOT NULL default 0,"*/
+					+ " percentage REAL NOT NULL default 0, "
 					+ " extra_units INTEGER NOT NULL default 0)";
 			statement_4.execute(table_4);
 			statement_4.close();
@@ -84,7 +84,7 @@ public class SQLManager implements Interface{
 					+ " responsible TEXT, " + " name TEXT, " + "email TEXT, " + " bank_account TEXT UNIQUE, "
 					+ " telephone INTEGER default 0, " + " points INTEGER NOT NULL default 0, " 
 					+ " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE, "
-					+ " category_id REFERENCES category(category_id))";
+					+ " category_id FOREING KEY REFERENCES category(category_id))";
 			statement_2.execute(table_2);
 			statement_2.close();
 			
@@ -452,7 +452,7 @@ public class SQLManager implements Interface{
 	// Updates the information of a Client(responsible, name, bank_account, telephone)
 	public boolean Update_client_info(Client client) {
 		try {
-			String SQL_code = "UPDATE client SET responsible = ?, name = ?, email = ?, bank_account=?, telephone = ?, points = ?,  WHERE client_id = ?";
+			String SQL_code = "UPDATE client SET responsible = ?, name = ?, email = ?, bank_account=?, telephone = ?, points = ?, category_id = ? WHERE client_id = ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, client.getResponsible());
 			template.setString(2, client.getName());
@@ -460,7 +460,8 @@ public class SQLManager implements Interface{
 			template.setString(4, client.getBank_account());
 			template.setInt(5, client.getTelephone());
 			template.setInt(6, client.getPoints());
-			template.setInt(7, client.getClient_id());
+			template.setInt(7, client.getCategory().getCategory_id());
+			template.setInt(8, client.getClient_id());
 			template.executeUpdate();
 			template.close();
 			return true;

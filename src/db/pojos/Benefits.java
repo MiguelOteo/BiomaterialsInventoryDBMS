@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 @Entity
 @Table(name = "benefits")
 public class Benefits implements Serializable {
@@ -21,7 +20,6 @@ public class Benefits implements Serializable {
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "benefits")
 	private Integer benefits_id;
 	private Float percentage;
-	//private Integer min_amount;
 	private Integer extra_units;
 
 	public Benefits() {
@@ -32,7 +30,6 @@ public class Benefits implements Serializable {
 	public Benefits(Float percentage/*, Integer minAmount*/, Integer extraUnits) {
 		super();
 		this.percentage = percentage;
-		//this.min_amount = minAmount;
 		this.extra_units = extraUnits;
 	}
 
@@ -51,15 +48,7 @@ public class Benefits implements Serializable {
 	public void setPercentage(Float percentage) {
 		this.percentage = percentage;
 	}
-/*
-	public Integer getMin_amount() {
-		return min_amount;
-	}
-
-	public void setMin_amount(Integer minAmount) {
-		this.min_amount = minAmount;
-	}
-*/
+	
 	public Integer getExtra_units() {
 		return extra_units;
 	}
