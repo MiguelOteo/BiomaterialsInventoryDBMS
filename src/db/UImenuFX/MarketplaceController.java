@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.tree.TreeNode;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -32,13 +33,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -155,6 +160,7 @@ public class MarketplaceController implements Initializable {
 					}
 				});
 		total.setResizable(false);
+		total.setEditable(true);
 				
 		List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 		for(Biomaterial biomaterial: biomaterial_list) {
@@ -245,20 +251,36 @@ public class MarketplaceController implements Initializable {
 	@FXML 
 	private void iteminfo (MouseEvent event) throws IOException{
 		TreeItem<BiomaterialListObject> biomaterial_object = biomaterials_tree_view.getSelectionModel().getSelectedItem();
+		System.out.println(biomaterial_object);
 		if(biomaterial_object!=null) {
-	    	iteminformation.setText(biomaterial_object.getValue().product_name.getValue().toString());
-	    	biomaterial_object.getValue().bio_id.getValue();
-	    	biomat=manager_object.Search_biomaterial_by_id(biomaterial_object.getValue().bio_id.getValue());
-	    	iteminformation.setText(biomat.toString());
+	    	//iteminformation.setText(biomaterial_object.getValue().product_name.getValue().toString());
+	    	//biomaterial_object.getValue().bio_id.getValue();
+	    	//biomat=manager_object.Search_biomaterial_by_id(biomaterial_object.getValue().bio_id.getValue());
+	    	//iteminformation.setText(biomat.toString());
+	    	for(BiomaterialListObject biomat :biomaterial_objects) {
+	    		biomat.setEnable(false);
+	    		System.out.println("done");
+	    	}
+	    	biomaterial_object.getValue().setEnable(true);
+	    	System.out.println("donetrue");
 	    }
 		biomaterial_object.getValue().setTree(biomaterial_object);
+		System.out.println("set");
+		biomaterials_tree_view.refresh();
 	}
-
+/*
 	@FXML 
-	private void getitem (MouseEvent event) throws IOException{
-	
+		private void getItem(MouseEvent event) {
+			 Node node = event.getPickResult().getIntersectedNode();
+			 node.getId();
+			 System.out.println( node.getId());
+			 TreeItem<BiomaterialListObject> tree =biomaterials_tree_view.getSelectionModel().getSelectedItem();
+			System.out.println(tree);
+			tree.getValue().setTree(tree);
+			}*/
 		
-	}
+		
+	
 
 	// To insert columns into the list of biomaterials with all the information
 	public class BiomaterialListObject extends RecursiveTreeObject<BiomaterialListObject> {
@@ -282,6 +304,7 @@ public class MarketplaceController implements Initializable {
 		private Image img;
 		@SuppressWarnings("unused")
 		private Boolean counter;
+		private Boolean enable;
 		
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public BiomaterialListObject(Integer id, String product_name, Integer available_units, String price_unit,
@@ -297,7 +320,7 @@ public class MarketplaceController implements Initializable {
 			} else {
 				this.total= new SimpleIntegerProperty(0);
 			}
-	    
+	        this.enable=false;
 			Button plus = new JFXButton("");
 			Button minus = new JFXButton("");
 			Image pls = new Image(getClass().getResourceAsStream("src.IconPictures/plus-black-symbol.png"));
@@ -310,21 +333,23 @@ public class MarketplaceController implements Initializable {
 			sub.setFitHeight(15);
 			sub.setFitWidth(15);
 			minus.setGraphic(sub);
+			plus.setDisable(enable);
+			minus.setDisable(enable);
 			this.plus=new SimpleObjectProperty(plus);
 			this.minus=new SimpleObjectProperty(minus);
-			plus.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			plus.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				
 			@Override
 			public void handle(MouseEvent event) {
-					/*System.out.println("mm");
-					biomaterials_tree_view.getSelectionModel();
-					biomaterials_tree_view.getCursor().getClass();
-			    	System.out.println(biomaterials_tree_view.getSelectionModel().getSelectedItem());
-					setTree(biomaterials_tree_view.getSelectionModel().getSelectedItem());
-					 */
+				 Node node = event.getPickResult().getIntersectedNode();
+				 TreeItem<BiomaterialListObject> tre =biomaterials_tree_view.getSelectionModel().getSelectedItem();
+				System.out.println(tre);
+				setTree(tre);
 				}
 			});
 		
 			this.plus.get().setOnAction((MouseClickEvent) -> {
+			
 				this.total=new SimpleIntegerProperty(this.total.intValue() + 1);
 				refreshBiomaterialsCell(this.total.intValue(), tree);	
 			});
@@ -353,6 +378,12 @@ public class MarketplaceController implements Initializable {
 		}
 		public void setTree(TreeItem<BiomaterialListObject> tree) {
 			this.tree=tree;
+		}
+		public Boolean getEnable() {
+			return this.enable;
+		}
+		public void setEnable(Boolean enable) {
+			this.enable=enable;
 		}
 	}
 }
