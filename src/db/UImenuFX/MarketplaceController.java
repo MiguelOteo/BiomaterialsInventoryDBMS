@@ -62,6 +62,7 @@ public class MarketplaceController implements Initializable {
 	private static SQLManager manager_object;	
 	private static Client client_account;
 	private PurchaseConfirmationController purchase_controller;
+	private UtilityInformationController information_controller;
 	
 	@FXML
 	private Pane menu_main_pane;
@@ -165,7 +166,7 @@ public class MarketplaceController implements Initializable {
 		total.setResizable(false);
 		*/
 		
-		JFXTreeTableColumn<BiomaterialListObject, JFXTextField> tot = new JFXTreeTableColumn<>("tot");
+		JFXTreeTableColumn<BiomaterialListObject, JFXTextField> tot = new JFXTreeTableColumn<>("TOTAL");
 		tot.setPrefWidth(100);
 		tot.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXTextField>, ObservableValue<JFXTextField>>() {
@@ -175,13 +176,24 @@ public class MarketplaceController implements Initializable {
 					}
 				});
 		tot.setResizable(false);
+		JFXTreeTableColumn<BiomaterialListObject, JFXButton> info = new JFXTreeTableColumn<>("More Info");
+		info.setPrefWidth(100);
+		info.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXButton>, ObservableValue<JFXButton>>() {
+					@Override
+					public ObservableValue<JFXButton> call(CellDataFeatures<BiomaterialListObject, JFXButton> param) {
+						return param.getValue().getValue().info;
+					}
+				});
+		info.setResizable(false);
+		
 		List<Biomaterial> biomaterial_list = manager_object.List_all_biomaterials();
 		for(Biomaterial biomaterial: biomaterial_list) {
 			biomaterial_objects.add(new BiomaterialListObject(biomaterial.getBiomaterial_id(), biomaterial.getName_product(), biomaterial.getAvailable_units(), 
 					biomaterial.getPrice_unit().toString(), biomaterial.getExpiration_date().toString(), 0));
 		}		
 		TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects, RecursiveTreeObject::getChildren);
-		biomaterials_tree_view.getColumns().setAll(id, product_name, price, tot);
+		biomaterials_tree_view.getColumns().setAll(id, product_name, price, tot, info);
 		biomaterials_tree_view.setRoot(root);
 		biomaterials_tree_view.setShowRoot(false);
                 
@@ -308,6 +320,7 @@ public class MarketplaceController implements Initializable {
 		StringProperty price_unit;
 		StringProperty expiration_date;
 		IntegerProperty bio_id;
+		ObjectProperty<JFXButton> info;
 		//ObjectProperty<JFXButton> plus;
     	//ObjectProperty<JFXButton> minus;
     	private TreeItem<BiomaterialListObject> tree;
@@ -338,7 +351,12 @@ public class MarketplaceController implements Initializable {
 			}
 	        this.enable=false;
 	        TextField tot = new JFXTextField();
-
+	        Button info = new JFXButton("");
+	        Image inf = new Image(getClass().getResourceAsStream("src.IconPictures/plus-black-symbol.png"));
+	        ImageView add=new ImageView(inf);
+			add.setFitHeight(15);
+			add.setFitWidth(15);
+			info.setGraphic(add);
 			/*Button plus = new JFXButton("");
 			Button minus = new JFXButton("");
 			Image pls = new Image(getClass().getResourceAsStream("src.IconPictures/plus-black-symbol.png"));
@@ -354,8 +372,41 @@ public class MarketplaceController implements Initializable {
 			plus.setDisable(enable);
 			minus.setDisable(enable);*/
 			this.tot=new SimpleObjectProperty(tot);
+			this.info=new SimpleObjectProperty(info);
 			//this.plus=new SimpleObjectProperty(plus);
 			//this.minus=new SimpleObjectProperty(minus);
+			this.info.get().setOnAction((MouseClickEvent) -> {
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("UtilityInformationView.fxml"));
+				Parent root;
+				try {
+					root = (Parent) loader.load();
+			
+				information_controller=loader.getController();
+				Biomaterial biom=manager_object.Search_biomaterial_by_id(getId());
+				if(!(biom.getUtility()==null)) {
+					information_controller.setHeatcold_label(biom.getUtility().getHeat_cold());
+					information_controller.setHeatcold_label(biom.getUtility().getFlexibility());
+					information_controller.setHeatcold_label(biom.getUtility().getResistance());
+					information_controller.setHeatcold_label(String.valueOf(biom.getUtility().getPressure()));
+					information_controller.setHeatcold_label(String.valueOf(biom.getUtility().getStrength()));
+				}
+				stage_window = new Stage();
+				stage_window.initStyle(StageStyle.UNDECORATED);
+				stage_window.setScene(new Scene(root));
+				stage_window.setAlwaysOnTop(true);	
+				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent arg0) {
+						stage_window.initModality(Modality.APPLICATION_MODAL);
+					}
+				});
+				stage_window.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 			/*plus.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				
 			@Override
