@@ -163,6 +163,7 @@ public class NewProductController implements Initializable {
 				Maintenance maintenance = manager_object.Search_maintenance_by_id(Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString()));
 				biomaterial.setMaintenance(maintenance);
 			}
+			System.out.println(biomaterial);
 			manager_object.Insert_new_biomaterial(biomaterial);
 		}
 	}	

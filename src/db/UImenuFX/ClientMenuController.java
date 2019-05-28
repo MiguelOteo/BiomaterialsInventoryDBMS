@@ -55,6 +55,8 @@ public class ClientMenuController implements Initializable {
 	@FXML
 	private JFXButton mainmenu_button;
 	@FXML
+	private JFXButton transaction_button;
+	@FXML
 	private Label client_name;
 	@FXML
 	private Label email;
@@ -203,7 +205,14 @@ public class ClientMenuController implements Initializable {
 			stage_window.show();
 		}
 	}
-	
+	@FXML 
+	private void openTransaction (MouseEvent event) throws IOException{
+		setAllButtonsOn();
+	    transaction_button.setDisable(true);
+		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("ClientTransactionView.fxml"));
+		main_pane.getChildren().removeAll();
+		main_pane.getChildren().setAll(bengclub_pane);
+	}
 	@FXML 
 	private void openClub (MouseEvent event) throws IOException{
 		setAllButtonsOn();

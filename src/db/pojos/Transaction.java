@@ -2,6 +2,7 @@ package db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class Transaction implements Serializable{
 
@@ -10,20 +11,19 @@ public class Transaction implements Serializable{
     private Float gain;
     private Integer units;
     private Date transaction_date;
-    private Biomaterial biomaterial;
     private Client client;
-    
+    private List<Biomaterial> biomaterial_list;
 
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Transaction(Float gain, Integer units, Biomaterial biomaterial, Client client) {
+	public Transaction(Float gain, Integer units,  List<Biomaterial> biomaterial_list, Client client) {
 		super();
 		this.gain = gain;
 		this.units = units;
-		this.biomaterial = biomaterial;
+		this.biomaterial_list=biomaterial_list;
         this.client = client;
 	}
 	
@@ -59,12 +59,12 @@ public class Transaction implements Serializable{
 		this.units = units;
 	}
 	
-	public Biomaterial getBiomaterial() {
-		return biomaterial;
+	public List<Biomaterial> getBiomaterial_list() {
+		return biomaterial_list;
 	}
-	
-	public void setBiomaterial(Biomaterial biomaterial) {
-		this.biomaterial = biomaterial;
+
+	public void setBiomaterial_list(List<Biomaterial> biomaterial_list) {
+		this.biomaterial_list = biomaterial_list;
 	}
 	
 	public Date getTransaction_date() {
@@ -103,7 +103,7 @@ public class Transaction implements Serializable{
 	@Override
 	public String toString() {
 		return "Transaction [transaction_id=" + transaction_id + ", gain=" + gain + ", client=" + client
-				+ ", units=" + units + ", product=" + biomaterial + ", transaction_date=" + transaction_date + "]";
+				+ ", units=" + units + ", product=" + ", transaction_date=" + transaction_date + "]";
 	}
 	
 	
