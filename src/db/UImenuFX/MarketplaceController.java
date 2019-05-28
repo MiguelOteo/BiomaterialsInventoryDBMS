@@ -388,6 +388,7 @@ public class MarketplaceController implements Initializable {
 						information_controller.setComp_label(biom.getMaintenance().getCompatibility());
 						information_controller.setOth_label(biom.getMaintenance().getOthers());
 					}
+					
 					stage_window = new Stage();
 					stage_window.initStyle(StageStyle.UNDECORATED);
 					stage_window.setScene(new Scene(root));
