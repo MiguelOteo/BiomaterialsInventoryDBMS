@@ -27,7 +27,7 @@ public class Category extends UtilMethods implements Serializable{
 	private String category_name;
 	private Integer min;
 	private Integer max;
-	private int penalization;
+	private Integer penalization;
 	@OneToOne @JoinColumn(name = "benefits_id")
 	private Benefits benefits;
 	@OneToMany @JoinColumn(name = "client_id")
@@ -62,7 +62,7 @@ public class Category extends UtilMethods implements Serializable{
 		this.category_name = category_name;
 	}
 
-	public int getPenalization() {
+	public Integer getPenalization() {
 		return penalization;
 	}
 
