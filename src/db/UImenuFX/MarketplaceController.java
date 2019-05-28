@@ -84,6 +84,10 @@ public class MarketplaceController implements Initializable {
 	private Biomaterial biomat;
 	@FXML
 	private static Stage stage_window;
+	private Transaction transaction;
+	private float gain=0;
+	private Integer total=0;
+	private List<Biomaterial> biomaterial_list;
 	 
 	public static void setValues(SQLManager manager,Client client) {
 		manager_object=manager;
@@ -239,26 +243,36 @@ public class MarketplaceController implements Initializable {
 				} 
 				for(BiomaterialListObject biomat :datacolumn) {
 					 Biomaterial biom=manager_object.Search_biomaterial_by_id(biomat.getId());
-					 Float gain = (float) (biomat.getTot()*Float.parseFloat(biomat.getPrice()));
-					 Float percentage =(float) 0.1;
-					 Integer addpoints= (int) (gain*percentage);
-					 Transaction transaction = new Transaction(gain,biomat.getTot(), biom, client_account);
-					 if(client_account.getPoints()!=null) {	 
-					 Integer currentpoints=client_account.getPoints();
+					 biomaterial_list.add(biom);
+					 Float gains = (float) (biomat.getTot()*Float.parseFloat(biomat.getPrice()));
+					 Integer totals =biomat.getTot();
+					 if(!(client_account.getCategory()==null)) {
+						gains= gains - (gains * client_account.getCategory().getBenefits().getPercentage());
+						totals= totals + client_account.getCategory().getBenefits().getExtra_units();
+					 }
+					 gain=gain+gains;
+					 total=total+totals;
+				}
+				
+				 Float percentage =(float) 0.1;
+				 Integer addpoints= (int) (gain*percentage);
+				
+				 
+				 if(client_account.getPoints()!=null) {	 
+				 Integer currentpoints=client_account.getPoints();
+				 Integer points= currentpoints+addpoints;
+				 client_account.setPoints(points);
+				 manager_object.Update_client_info(client_account);
+				 }
+				 else {
+					 Integer currentpoints=0;
 					 Integer points= currentpoints+addpoints;
 					 client_account.setPoints(points);
 					 manager_object.Update_client_info(client_account);
-					 }
-					 else {
-						 Integer currentpoints=0;
-						 System.out.println(currentpoints);
-						 Integer points= currentpoints+addpoints;
-						 System.out.println(points);
-						 client_account.setPoints(points);
-						 manager_object.Update_client_info(client_account);
-					 }
+				 }
+				     transaction = new Transaction(gain,total, biomaterial_list, client_account);
 					 manager_object.Insert_new_transaction(transaction);
-				}
+				
 				stage_window.close();
 			}
 		});
