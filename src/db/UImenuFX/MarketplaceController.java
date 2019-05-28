@@ -267,22 +267,33 @@ public class MarketplaceController implements Initializable {
 				 if(client_account.getPoints()!=null) {	 
 				 Integer currentpoints=client_account.getPoints();
 				 Integer points= currentpoints+addpoints;
-				 Integer cont=0;
+				 Boolean cont=true;
+				 Integer max=0;
 				 for(Category category:category_list) {
-					 if(category.getMaximum()>cont) {
-						 
+					 if(cont==true) {
+						 max=category.getMaximum();
+						 cont=false;
 					 }
-					 if(category.getMaximum()<category.getMaximum())
-					 client_account.setCategory(category);
-					 break;
+					 if(category.getMaximum()>max) {
+						 max=category.getMaximum();
+					 }
 				 }
+				 if(client_account.getPoints()<=max) {
 				 client_account.setPoints(points);
+				 }
+				 else {
+					 client_account.setPoints(max);
+				 }
+				 
+				 
 				 manager_object.Update_client_info(client_account);
 				 }
 				 else {
 					 Integer currentpoints=0;
 					 Integer points= currentpoints+addpoints;
 					 client_account.setPoints(points);
+					 }
+				 
 					 category_list=jpamanager_object.List_all_categories();
 					 for(Category category:category_list) {
 						 if(client_account.getPoints()>category.getMinimum() && client_account.getPoints()<category.getMaximum())
@@ -290,7 +301,6 @@ public class MarketplaceController implements Initializable {
 						 break;
 					 }
 					 manager_object.Update_client_info(client_account);
-				 }
 				     transaction = new Transaction(gain,total, biomaterial_list, client_account);
 					 manager_object.Insert_new_transaction(transaction);
 				
