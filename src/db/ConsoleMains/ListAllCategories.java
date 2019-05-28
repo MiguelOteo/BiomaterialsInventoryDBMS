@@ -23,7 +23,6 @@ public class ListAllCategories {
 			manager.Delete_stored_category(category);
 		}*/
 		
-		manager.Insert_new_benefit(new Benefits((float)30.0, 5));
 		
 		List<Benefits> benefits_list = manager.List_all_benefits();
 		for(Benefits b: benefits_list) {

@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
 
 import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Client;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,7 +33,8 @@ public class ClientMenuController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 
 	private static Client client_account;
-	private static SQLManager manager_object;
+	private static SQLManager SQL_manager_object;
+	private static JPAManager JPA_manager_object;
 
 	// -----> FXML ATRIBUTES <-----
 	
@@ -81,8 +83,9 @@ public class ClientMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void setValues(SQLManager manager, Client client) {
-		manager_object = manager;
+	public static void setValues(SQLManager SQL_manager, JPAManager JPA_manager, Client client) {
+		SQL_manager_object = SQL_manager;
+		JPA_manager_object = JPA_manager;
 		client_account = client;
 	}
 	
@@ -107,7 +110,7 @@ public class ClientMenuController implements Initializable {
 		}
 		myAccount_button.setOnAction((ActionEvent) -> {
 			try {
-				AccountClientController.setValues(manager_object, client_account);
+				AccountClientController.setValues(SQL_manager_object, client_account);
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountClientView.fxml"));
 				Parent root = (Parent) loader.load();
 				AccountClientController account_controller = new AccountClientController();
@@ -153,7 +156,8 @@ public class ClientMenuController implements Initializable {
 
 	@FXML
 	private void log_out(MouseEvent event) {
-		    manager_object.Close_connection();
+		    SQL_manager_object.Close_connection();
+		    JPA_manager_object.Close_connection();
 			LaunchApplication.getStage().show();
 			Stage stage = (Stage) logOut_button.getScene().getWindow();
 			stage.close();
@@ -178,7 +182,7 @@ public class ClientMenuController implements Initializable {
 		if(client_account.getBank_account() != null) {
 			setAllButtonsOn();
 			marketplace_button.setDisable(true);
-			MarketplaceController.setValues(manager_object,client_account);
+			MarketplaceController.setValues(SQL_manager_object,client_account);
 			Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(marketplace_pane);
@@ -206,7 +210,7 @@ public class ClientMenuController implements Initializable {
 		}
 	}
 	@FXML 
-	private void openTransaction (MouseEvent event) throws IOException{
+	private void openTransaction (MouseEvent event) throws IOException {
 		setAllButtonsOn();
 	    transaction_button.setDisable(true);
 		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("ClientTransactionView.fxml"));
@@ -214,7 +218,8 @@ public class ClientMenuController implements Initializable {
 		main_pane.getChildren().setAll(bengclub_pane);
 	}
 	@FXML 
-	private void openClub (MouseEvent event) throws IOException{
+	private void openClub (MouseEvent event) throws IOException {
+		BengClubController.setValues(SQL_manager_object, JPA_manager_object);
 		setAllButtonsOn();
 	    club_button.setDisable(true);
 		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("BengClubView.fxml"));
@@ -306,7 +311,7 @@ public class ClientMenuController implements Initializable {
 	// -----> UPDATE ACCOUNT METHOD <-----
 	
 	public void update_client_account() {
-		client_account = manager_object.Search_client_by_id(client_account.getClient_id());
+		client_account = SQL_manager_object.Search_client_by_id(client_account.getClient_id());
     	setClientEmail(client_account.getEmail());
     	setClientName(client_account.getName());
 		setClientTelephone(client_account.getTelephone());

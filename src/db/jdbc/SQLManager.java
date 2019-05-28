@@ -118,7 +118,7 @@ public class SQLManager implements Interface{
 			Statement statement_9 = this.sqlite_connection.createStatement();
 			String table_9 = "CREATE TABLE bank_transaction " + "(transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " client_id INTEGER NOT NULL, " + " gain REAL NOT NULL, " + " units INTEGER NOT NULL default 1, "
-					+ " transaction_date DATETIME NOT NULL, " + " biomaterial_id INTEGER NOT NULL REFERENCES biomaterial(biomaterial_id), "
+					+ " transaction_date DATETIME NOT NULL, "
 					+ " FOREIGN KEY (client_id) REFERENCES client (client_id) ON UPDATE RESTRICT ON DELETE CASCADE)";
 			statement_9.execute(table_9);
 			statement_9.close();
@@ -126,7 +126,7 @@ public class SQLManager implements Interface{
 			// ManyToMany relation tables
 			
 			Statement statement_10 = this.sqlite_connection.createStatement();
-			String table_10 = "CREATE TABLE transaction_biomaterial " + " (transaction_id INTEGER REFERENCES transaction(transaction_id), " 
+			String table_10 = "CREATE TABLE transaction_biomaterial " + " (transaction_id INTEGER REFERENCES bank_transaction(transaction_id), " 
 					+ "biomaterial_id INTEGER REFERENCES biomaterial(biomaterial_id), "
 					+ "PRIMARY KEY (biomaterial_id, transaction_id))";
 			statement_10.execute(table_10);
@@ -384,14 +384,13 @@ public class SQLManager implements Interface{
 	// Bank_transaction(client_id, gain, units, transaction_date, product_id)
 	public Integer Insert_new_transaction(Transaction transaction) {
 		try {
-			String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date, biomaterial_id) "
-					+ "VALUES (?,?,?,?,?);";
+			String table = "INSERT INTO bank_transaction(client_id, gain, units, transaction_date) "
+					+ "VALUES (?,?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, transaction.getClient().getClient_id());
 			template.setFloat(2, transaction.getGain());
 			template.setInt(3, transaction.getUnits());
 			template.setDate(4, Date.valueOf(LocalDate.now()));
-			template.setInt(5, transaction.getBiomaterial().getBiomaterial_id());
 			template.executeUpdate();
 			template.close();
 		
@@ -400,6 +399,17 @@ public class SQLManager implements Interface{
 			ResultSet result_set = template.executeQuery();
 			Integer transaction_id = result_set.getInt("transaction_id");
 			template.close();
+			
+			List<Biomaterial> biomaterial_list = Search_all_biomaterials_from_transaction(transaction_id);
+			for(Biomaterial biomaterial: biomaterial_list) {
+				table = "INSERT INTO transaction_biomaterial (transaction_id, biomaterial_id) " 
+						+ "VALUES (?,?);";
+				template = this.sqlite_connection.prepareStatement(table);
+				template.setInt(1, transaction_id);
+				template.setInt(2, biomaterial.getBiomaterial_id());
+				template.executeUpdate();
+				template.close();
+			}
 			return transaction_id;
 		} catch (SQLException new_transaction_error) {
 			new_transaction_error.printStackTrace();
@@ -890,8 +900,8 @@ public class SQLManager implements Interface{
 			Transaction transaction = new Transaction();
 			ResultSet result_set = template.executeQuery();
 			transaction.setTransaction_id(result_set.getInt("transaction_id"));
-			Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
-			transaction.setBiomaterial(biomaterial);
+			List<Biomaterial> biomaterial_list = Search_all_biomaterials_from_transaction(transaction_id);
+			transaction.setBiomaterial_list(biomaterial_list);
 			transaction.setTransaction_date(result_set.getDate("transaction_date"));
 			transaction.setGain(result_set.getFloat("gain"));
 			transaction.setUnits(result_set.getInt("units"));
@@ -907,6 +917,25 @@ public class SQLManager implements Interface{
 	
 	// -----> LIST METHODS <-----
 	
+	public List<Biomaterial> Search_all_biomaterials_from_transaction(Integer transaction_id) {
+		try {
+			String SQL_code = "SELECT biomaterial_id FROM transaction_biomaterial WHERE transaction_id LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setInt(1, transaction_id);
+			ResultSet result_set = template.executeQuery();
+			List<Biomaterial> biomaterial_list = new LinkedList<Biomaterial>();
+			while (result_set.next()) {
+				Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
+				biomaterial_list.add(biomaterial);
+			}
+			return biomaterial_list;
+		} catch (SQLException list_biomaterial_transaction_error) {
+			list_biomaterial_transaction_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	// Selects all clients objects with the same client_id from the data base and returns them
 	public List<Transaction> Search_stored_transactions(Client client) {
 		try {
@@ -919,8 +948,8 @@ public class SQLManager implements Interface{
 				Transaction transaction = new Transaction();
 				transaction.setClient(client);
 				transaction.setGain(result_set.getFloat("gain"));
-				Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
-				transaction.setBiomaterial(biomaterial);
+				List<Biomaterial> biomaterial_list = Search_all_biomaterials_from_transaction(result_set.getInt("transaction_id"));
+				transaction.setBiomaterial_list(biomaterial_list);
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
@@ -998,8 +1027,8 @@ public class SQLManager implements Interface{
 				Client client = Search_client_by_id(result_set.getInt("client_id"));
 				transaction.setClient(client);
 				transaction.setGain(result_set.getFloat("gain"));
-				Biomaterial biomaterial = Search_biomaterial_by_id(result_set.getInt("biomaterial_id"));
-				transaction.setBiomaterial(biomaterial);
+				List<Biomaterial> biomaterial_list =Search_all_biomaterials_from_transaction(result_set.getInt("transaction_id")); 
+				transaction.setBiomaterial_list(biomaterial_list);
 				transaction.setTransaction_date(result_set.getDate("transaction_date"));
 				transaction.setTransaction_id(result_set.getInt("transaction_id"));
 				transaction.setUnits(result_set.getInt("units"));
@@ -1074,11 +1103,11 @@ public class SQLManager implements Interface{
 				biomaterial.setExpiration_date(result_set.getDate("expiration_date"));
 				if(result_set.getInt("maintenance_id") != 0) {
 				Maintenance maintenance = Search_maintenance_by_id(result_set.getInt("maintenance_id"));
-				biomaterial.setMaintenance(maintenance);
+					biomaterial.setMaintenance(maintenance);
 				}
 				if(result_set.getInt("utility_id") != 0) {
 				Utility utility = Search_utility_by_id(result_set.getInt("utility_id"));
-				biomaterial.setUtility(utility);
+					biomaterial.setUtility(utility);
 				}
 				biomaterial.setPrice_unit(result_set.getFloat("price_unit"));
 				

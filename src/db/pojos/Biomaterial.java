@@ -129,8 +129,5 @@ public class Biomaterial implements Serializable{
 				+ ", product_name=" + product_name + ", price_unit=" + price_unit + ", available_units="
 				+ available_units + ", expiration_date=" + expiration_date + ", information: " + information + "]";
 	}
-	
-	
-	
 }
 

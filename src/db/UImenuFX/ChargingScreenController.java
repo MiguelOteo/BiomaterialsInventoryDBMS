@@ -155,7 +155,7 @@ public class ChargingScreenController implements Initializable {
 
 	public void charge_client_main_menu(Client client) {
 		try {
-			ClientMenuController.setValues(SQL_manager_object, client);
+			ClientMenuController.setValues(SQL_manager_object, JPA_manager_object, client);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientMenuView.fxml"));
 			Parent root = (Parent) loader.load();
 			this.client_controller = loader.getController();
