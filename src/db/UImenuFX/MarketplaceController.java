@@ -107,6 +107,17 @@ public class MarketplaceController implements Initializable {
 					}
 				});
 		product_name.setResizable(false);
+		
+		JFXTreeTableColumn<BiomaterialListObject, Number> available_units = new JFXTreeTableColumn<>("Available units");
+		available_units.setPrefWidth(100);
+		available_units.setCellValueFactory(
+				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, Number>, ObservableValue<Number>>() {
+					@Override
+					public ObservableValue<Number> call(CellDataFeatures<BiomaterialListObject, Number> param) {
+						return param.getValue().getValue().available_units;
+					}
+				});
+		available_units.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
 		price.setPrefWidth(140);
@@ -160,7 +171,7 @@ public class MarketplaceController implements Initializable {
 		}
 		TreeItem<BiomaterialListObject> root = new RecursiveTreeItem<BiomaterialListObject>(biomaterial_objects,
 				RecursiveTreeObject::getChildren);
-		biomaterials_tree_view.getColumns().setAll(id, product_name, price, tot, info);
+		biomaterials_tree_view.getColumns().setAll(id, product_name, available_units, price, tot, info);
 		biomaterials_tree_view.setRoot(root);
 		biomaterials_tree_view.setShowRoot(false);
 	}
