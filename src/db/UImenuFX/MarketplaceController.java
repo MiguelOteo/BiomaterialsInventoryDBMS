@@ -267,6 +267,15 @@ public class MarketplaceController implements Initializable {
 				 if(client_account.getPoints()!=null) {	 
 				 Integer currentpoints=client_account.getPoints();
 				 Integer points= currentpoints+addpoints;
+				 Integer cont=0;
+				 for(Category category:category_list) {
+					 if(category.getMaximum()>cont) {
+						 
+					 }
+					 if(category.getMaximum()<category.getMaximum())
+					 client_account.setCategory(category);
+					 break;
+				 }
 				 client_account.setPoints(points);
 				 manager_object.Update_client_info(client_account);
 				 }
