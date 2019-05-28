@@ -2,6 +2,8 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -9,6 +11,7 @@ import com.jfoenix.controls.JFXProgressBar;
 
 import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
+import db.pojos.Category;
 import db.pojos.Client;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -77,6 +80,8 @@ public class ClientMenuController implements Initializable {
 	@FXML
 	private static Stage stage_window;
 	
+	private List<Category> category_list=new ArrayList<Category>();
+	
 	// -----> ESSENTIAL METHODS <-----
 
 	public ClientMenuController() {
@@ -98,7 +103,16 @@ public class ClientMenuController implements Initializable {
 			Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
 		    main_pane.getChildren().removeAll();
 		    main_pane.getChildren().setAll(mainmenu_pane);
-		    
+			 category_list=JPA_manager_object.List_all_categories();
+			 
+			if(client_account.getCategory()==null) {
+			 for(Category category:category_list) {
+				 if(client_account.getPoints()>category.getMinimum() && client_account.getPoints()<category.getMaximum())
+				 client_account.setCategory(category);
+				 break;
+			 	}
+			 }
+			 SQL_manager_object.Update_client_info(client_account);
 		    	if(client_account.getCategory()!=null){
 		    			category1.setText(client_account.getCategory().getCategory_name());
 		    			Integer max=client_account.getCategory().getMaximum();
@@ -182,7 +196,7 @@ public class ClientMenuController implements Initializable {
 		if(client_account.getBank_account() != null) {
 			setAllButtonsOn();
 			marketplace_button.setDisable(true);
-			MarketplaceController.setValues(SQL_manager_object,client_account);
+			MarketplaceController.setValues(SQL_manager_object,client_account, JPA_manager_object);
 			Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(marketplace_pane);

@@ -19,7 +19,9 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 
 import db.jdbc.SQLManager;
+import db.jpa.JPAManager;
 import db.pojos.Biomaterial;
+import db.pojos.Category;
 import db.pojos.Client;
 import db.pojos.Transaction;
 import javafx.beans.property.IntegerProperty;
@@ -61,6 +63,7 @@ import javafx.util.Callback;
 public class MarketplaceController implements Initializable {
 	
 	private static SQLManager manager_object;	
+	private static JPAManager jpamanager_object;	
 	private static Client client_account;
 	private PurchaseConfirmationController purchase_controller;
 	private UtilityInformationController information_controller;
@@ -89,10 +92,12 @@ public class MarketplaceController implements Initializable {
 	private float gain=0;
 	private Integer total=0;
 	private List<Biomaterial> biomaterial_list=new ArrayList<Biomaterial>();
+	private List<Category> category_list=new ArrayList<Category>();
 	 
-	public static void setValues(SQLManager manager,Client client) {
+	public static void setValues(SQLManager manager,Client client, JPAManager jpamanager) {
 		manager_object=manager;
 		client_account=client;
+		jpamanager_object=jpamanager;
 	}
 	
 	@Override @SuppressWarnings("unchecked")
@@ -238,9 +243,8 @@ public class MarketplaceController implements Initializable {
 				ObservableList<BiomaterialListObject> datacolumn = FXCollections.observableArrayList();
 				for(BiomaterialListObject biomat :biomaterial_objects) {
 					if(!biomat.tot.get().getText().isEmpty()) {
-						if(biomat.tot.get().getText().matches("[0-9]"))
+					
 					datacolumn.add(biomat);
-						System.out.println(datacolumn);
 					}		
 				} 
 				for(BiomaterialListObject biomat :datacolumn) {
@@ -270,6 +274,12 @@ public class MarketplaceController implements Initializable {
 					 Integer currentpoints=0;
 					 Integer points= currentpoints+addpoints;
 					 client_account.setPoints(points);
+					 category_list=jpamanager_object.List_all_categories();
+					 for(Category category:category_list) {
+						 if(client_account.getPoints()>category.getMinimum() && client_account.getPoints()<category.getMaximum())
+						 client_account.setCategory(category);
+						 break;
+					 }
 					 manager_object.Update_client_info(client_account);
 				 }
 				     transaction = new Transaction(gain,total, biomaterial_list, client_account);
