@@ -2,6 +2,7 @@ package db.pojos;
 
 import db.model.UtilMethods;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Category extends UtilMethods implements Serializable{
 	@OneToOne @JoinColumn(name = "benefits_id")
 	private Benefits benefits;
 	@OneToMany @JoinColumn(name = "client_id")
-	private List<Client> clients_list; 
+	private List<Client> clients_list = new LinkedList<Client>(); 
 	
 	public Category() {
 		super();

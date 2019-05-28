@@ -400,7 +400,7 @@ public class SQLManager implements Interface{
 			Integer transaction_id = result_set.getInt("transaction_id");
 			template.close();
 			
-			List<Biomaterial> biomaterial_list = Search_all_biomaterials_from_transaction(transaction_id);
+			List<Biomaterial> biomaterial_list = transaction.getBiomaterial_list();
 			for(Biomaterial biomaterial: biomaterial_list) {
 				table = "INSERT INTO transaction_biomaterial (transaction_id, biomaterial_id) " 
 						+ "VALUES (?,?);";

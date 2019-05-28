@@ -1,6 +1,7 @@
 package db.pojos;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Client implements Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	private List<Transaction> transactions_list;
+	private List<Transaction> transactions_list = new LinkedList<Transaction>();
 
 	public Client() {
 		super();

@@ -31,7 +31,11 @@ public class AddTransaction {
 		Biomaterial biomaterial2 = new Biomaterial(utility, maintenance, "Metal", (float)4, 10, Date.valueOf("3424-06-03"));
 		Biomaterial biomaterial3 = new Biomaterial(utility, maintenance, "KK", (float)344, 30, Date.valueOf("3424-06-03"));
 		Integer biomaterial_id = manager.Insert_new_biomaterial(biomaterial);
+		Integer biomaterial_id2 = manager.Insert_new_biomaterial(biomaterial2);
+		Integer biomaterial_id3 = manager.Insert_new_biomaterial(biomaterial3);
 		biomaterial = manager.Search_biomaterial_by_id(biomaterial_id);
+		biomaterial2 = manager.Search_biomaterial_by_id(biomaterial_id2);
+		biomaterial3 = manager.Search_biomaterial_by_id(biomaterial_id3);
 		biomaterial_list.add(biomaterial);
 		biomaterial_list.add(biomaterial2);
 		biomaterial_list.add(biomaterial3);
@@ -39,11 +43,18 @@ public class AddTransaction {
 		//Transaction(Float gain, Integer client_id, Integer units, Integer product_id);
 		Client client = manager.Search_client_by_id(2);
 		Transaction transaction = new Transaction((float)10, 34243, biomaterial_list, client);
+		System.out.println(transaction);
+		System.out.println(transaction.getBiomaterial_list());
 		manager.Insert_new_transaction(transaction);
+		
+		System.out.println("\n\n");
 		
 		List<Transaction> transaction_list = manager.List_all_transactions();
 		for(Transaction transaction2: transaction_list) {
 			System.out.println(transaction2);
+			for(Biomaterial biomaterial4: transaction2.getBiomaterial_list()) {
+				System.out.println(biomaterial4);
+			}
 		}
 	}
 } 

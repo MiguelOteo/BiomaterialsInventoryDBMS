@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -38,7 +39,7 @@ public class Biomaterial implements Serializable{
 	private Date expiration_date;
 	@XmlElement
 	private String information;
-	private List<Transaction> transaction_list;
+	private List<Transaction> transaction_list = new LinkedList<Transaction>();
 	
 	
 	public Biomaterial() {
