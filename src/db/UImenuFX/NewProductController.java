@@ -167,8 +167,6 @@ public class NewProductController implements Initializable {
 				
 			} else manager_object.Insert_new_biomaterial(biomaterial);
 				
-			
-			
 		}
 	}
 
