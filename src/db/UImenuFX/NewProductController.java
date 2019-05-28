@@ -141,11 +141,13 @@ public class NewProductController implements Initializable {
 		LocalDate exp_date = date_picker.getValue();
 		Integer units = units_button.getValue();
 		Float price = Float.parseFloat(price_button.getSelectionModel().getSelectedItem());
+		String information = information_field.getText();
 		
 		name_field.setText("");
 		date_picker.setValue(null);
 		units_button.setValue(null);
 		price_button.setValue(null);
+		information_field.setText("");
 		utility_selected.setText("No utility selected");
 		maintenance_selected.setText("No maintenance selected");
 		
@@ -155,6 +157,7 @@ public class NewProductController implements Initializable {
 			biomaterial.setAvailable_units(units.intValue());
 			biomaterial.setPrice_unit(price.floatValue());
 			biomaterial.setExpiration_date(Date.valueOf(exp_date));
+			biomaterial.setInformation(information);
 			
 			
 			if(utility_object != null || maintenance_object != null) {

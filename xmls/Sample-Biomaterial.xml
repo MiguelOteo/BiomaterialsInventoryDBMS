@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <BiomaterialList>
-    <Products>
-        <Biomaterial biomaterialId="1">
-            <product_name>Metal bar</product_name>
-            <price_unit>34.0</price_unit>
-            <available_units>30</available_units>
-        </Biomaterial>
-    </Products>
-</BiomaterialList>z
+    <Products/>
+</BiomaterialList>

@@ -39,6 +39,7 @@ public class Biomaterial implements Serializable{
 	private Date expiration_date;
 	@XmlElement
 	private String information;
+	@XmlTransient
 	private List<Transaction> transaction_list = new LinkedList<Transaction>();
 	
 	
