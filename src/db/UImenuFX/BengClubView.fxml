@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTreeView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -12,5 +12,6 @@
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
+      <JFXTreeView fx:id="clubtreeview" layoutX="4.0" layoutY="147.0" prefHeight="400.0" prefWidth="925.0" />
    </children>
 </Pane>
