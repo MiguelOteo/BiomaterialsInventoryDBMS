@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="640.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.BengClubController">
+<Pane prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.BengClubController">
    <children>
-      <Label alignment="CENTER" layoutX="67.0" layoutY="49.0" prefHeight="50.0" prefWidth="386.0" text="WELCOME TO BENCLUB!" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="100.0" layoutY="57.0" prefHeight="38.0" prefWidth="234.0" text="All categories available" textAlignment="CENTER">
          <font>
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTreeTableView fx:id="club_tree_view" layoutX="60.0" layoutY="106.0" prefHeight="508.0" prefWidth="820.0" />
+      <JFXTreeTableView fx:id="club_tree_view" layoutX="60.0" layoutY="106.0" prefHeight="508.0" prefWidth="820.0" styleClass="list-view" />
    </children>
 </Pane>

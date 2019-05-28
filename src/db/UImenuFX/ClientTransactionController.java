@@ -59,7 +59,7 @@ public class ClientTransactionController implements Initializable{
 		
 		// Transaction list columns creation
 		JFXTreeTableColumn<TransactionListObject2, String> biomat_name = new JFXTreeTableColumn<>("Biomat names");
-		biomat_name.setPrefWidth(120);
+		biomat_name.setPrefWidth(450);
 		biomat_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject2, String> param) {
@@ -68,7 +68,7 @@ public class ClientTransactionController implements Initializable{
 		});
 		biomat_name.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject2, String> amount = new JFXTreeTableColumn<>("Payment");
-		amount.setPrefWidth(95);
+		amount.setPrefWidth(150);
 		amount.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject2, String> param) {
@@ -77,7 +77,7 @@ public class ClientTransactionController implements Initializable{
 		});
 		amount.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject2, String> units = new JFXTreeTableColumn<>("Units");
-		units.setPrefWidth(70);
+		units.setPrefWidth(150);
 		units.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject2, String> param) {
@@ -86,7 +86,7 @@ public class ClientTransactionController implements Initializable{
 		});
 		units.setResizable(false);
 		JFXTreeTableColumn<TransactionListObject2, String> transaction_date = new JFXTreeTableColumn<>("Transaction date");
-		transaction_date.setPrefWidth(170);
+		transaction_date.setPrefWidth(150);
 		transaction_date.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TransactionListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<TransactionListObject2, String> param) {

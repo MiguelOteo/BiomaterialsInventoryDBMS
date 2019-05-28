@@ -8,17 +8,12 @@
 
 <Pane fx:id="menu_main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientTransactionController">
    <children>
-      <Label alignment="CENTER" layoutX="27.0" layoutY="75.0" prefHeight="21.0" prefWidth="345.0" text="TRANSACTION RECORD">
+      <Label layoutX="49.0" layoutY="83.0" text="Check out your daily transactions!">
          <font>
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="72.0" layoutY="96.0" text="Check out your daily transactions!">
-         <font>
-            <Font name="Ebrima Bold" size="16.0" />
-         </font>
-      </Label>
-      <JFXTreeTableView fx:id="transactions_tree_view" editable="true" layoutX="20.0" layoutY="146.0" prefHeight="480.0" prefWidth="900.0" styleClass="list-view">
+      <JFXTreeTableView fx:id="transactions_tree_view" editable="true" layoutX="20.0" layoutY="136.0" prefHeight="490.0" prefWidth="900.0" styleClass="list-view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>

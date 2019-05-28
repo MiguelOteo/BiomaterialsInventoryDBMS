@@ -74,6 +74,8 @@ public class ClientMenuController implements Initializable {
 	@FXML
 	private Label category2;
 	@FXML
+	private Label current_pane_option_label;
+	@FXML
 	private ImageView minButton;
 	@FXML
 	private ImageView exitButton;
@@ -194,6 +196,7 @@ public class ClientMenuController implements Initializable {
 	@FXML
 	private void loadmarketplace(MouseEvent event) throws IOException {
 		if(client_account.getBank_account() != null) {
+			current_pane_option_label.setText("Market place option");
 			setAllButtonsOn();
 			marketplace_button.setDisable(true);
 			MarketplaceController.setValues(SQL_manager_object,client_account, JPA_manager_object);
@@ -225,6 +228,7 @@ public class ClientMenuController implements Initializable {
 	}
 	@FXML 
 	private void openTransaction (MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Transactions record option");
 		ClientTransactionController.setValues(SQL_manager_object, client_account);
 		setAllButtonsOn();
 	    transaction_button.setDisable(true);
@@ -234,6 +238,7 @@ public class ClientMenuController implements Initializable {
 	}
 	@FXML 
 	private void openClub (MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Member club option");
 		BengClubController.setValues(SQL_manager_object, JPA_manager_object);
 		setAllButtonsOn();
 	    club_button.setDisable(true);
@@ -244,6 +249,7 @@ public class ClientMenuController implements Initializable {
 	
 	@FXML 
 	private void openmainmenu (MouseEvent event) throws IOException{
+		current_pane_option_label.setText("Main menu");
 		setAllButtonsOn();
 	    mainmenu_button.setDisable(true);
 		Pane mainmenu_pane = FXMLLoader.load(getClass().getResource("ClientMainMenuView.fxml"));
@@ -291,10 +297,20 @@ public class ClientMenuController implements Initializable {
 	
 	public void setProgressBar() {
 		try {
+			category1.setText(client_account.getCategory().getCategory_name());
 			Double category_points =  (double) client_account.getPoints() - client_account.getCategory().getMinimum();			
 			Double category_range = (double) client_account.getCategory().getMaximum() - client_account.getCategory().getMinimum();
 			progress_bar.setProgress(category_points/category_range);
+			List<Category> categories_list = JPA_manager_object.List_all_categories();
+			Category category = null;
+			if(client_account.getCategory().getCategory_name().equals(categories_list.get(categories_list.size()-1).getCategory_name())) {
+				category2.setText("Maximum");
+			} else {
+				category = JPA_manager_object.Search_category_by_id(client_account.getCategory().getCategory_id() + 50);
+			    category2.setText(category.getCategory_name());
+			}
 		} catch (Exception no_category_found) {
+			no_category_found.printStackTrace();
 			progress_bar.setProgress(0.0);
 			category1.setText("Category error");
 			category2.setText("--------");
