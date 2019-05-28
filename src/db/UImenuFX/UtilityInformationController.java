@@ -69,7 +69,7 @@ public class UtilityInformationController {
 	}
 
 	public void setHeatcold_label(String heatcold_label) {
-		this.res_label.setText(heatcold_label);
+		this.heatcold_label.setText(heatcold_label);
 	}
 
 	public Label getFlex_label() {
@@ -77,7 +77,7 @@ public class UtilityInformationController {
 	}
 
 	public void setFlex_label(String flex_label) {
-		this.res_label.setText(flex_label);
+		this.flex_label.setText(flex_label);
 	}
 
 	public Label getRes_label() {

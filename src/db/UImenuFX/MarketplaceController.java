@@ -82,6 +82,7 @@ public class MarketplaceController implements Initializable {
 	private Transaction transaction;
 	private float gain = 0;
 	private Integer total = 0;
+	private Integer max=0;;
 	private List<Biomaterial> biomaterial_list = new ArrayList<Biomaterial>();
 	private List<Category> category_list = new ArrayList<Category>();
 
@@ -218,8 +219,24 @@ public class MarketplaceController implements Initializable {
 					Integer currentpoints = client_account.getPoints();
 					Integer points = currentpoints + addpoints;
 					Boolean cont = true;
-					Integer max = 0;
+					category_list = JPA_manager_object.List_all_categories();
+					for (Category category : category_list) {
+						if (cont=true) {
+                          max=category.getMaximum();
+                          cont=false;
+						}
+						else {
+							if(category.getMaximum()>max) {
+								max=category.getMaximum();
+							}
+						}
+					}
+					if(points>max) {
+						client_account.setPoints(max);
+					}
+					else {
                     client_account.setPoints(points);
+					}
 					SQL_manager_object.Update_client_info(client_account);
 				} else {
 					Integer currentpoints = 0;
@@ -228,13 +245,8 @@ public class MarketplaceController implements Initializable {
 				}
 
 				category_list = JPA_manager_object.List_all_categories();
-				System.out.println(category_list);
 				for (Category category : category_list) {
-					System.out.println(client_account.getPoints());
-					System.out.println(category.getMinimum());
-					System.out.println(category.getMaximum());
 					if (client_account.getPoints() > category.getMinimum()) {
-						System.out.println(category);
 						client_account.setCategory(category);
 					} else {
 						break;
