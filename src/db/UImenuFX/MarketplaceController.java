@@ -58,6 +58,7 @@ public class MarketplaceController implements Initializable {
 	private static Client client_account;
 	private PurchaseConfirmationController purchase_controller;
 	private UtilityInformationController information_controller;
+	private static ClientMenuController client_controller;
 
 	@FXML
 	private Pane menu_main_pane;
@@ -90,6 +91,10 @@ public class MarketplaceController implements Initializable {
 		SQL_manager_object = manager;
 		client_account = client;
 		JPA_manager_object = jpamanager;
+	}
+	
+	public static void setController(ClientMenuController controller) {
+		client_controller = controller;
 	}
 
 	@Override
@@ -293,6 +298,12 @@ public class MarketplaceController implements Initializable {
 			@Override
 			public void handle(WindowEvent arg0) {
 				stage_window.initModality(Modality.APPLICATION_MODAL);
+			}
+		});
+		stage_window.setOnHiding(new EventHandler<WindowEvent>() {  
+			@Override
+			public void handle(WindowEvent arg0) {
+				client_controller.setProgressBar();
 			}
 		});
 		stage_window.show();

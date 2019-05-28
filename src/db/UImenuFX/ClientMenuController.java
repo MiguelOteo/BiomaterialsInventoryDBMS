@@ -35,6 +35,7 @@ public class ClientMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
+	private static ClientMenuController client_controller;
 	private static Client client_account;
 	private static SQLManager SQL_manager_object;
 	private static JPAManager JPA_manager_object;
@@ -94,6 +95,10 @@ public class ClientMenuController implements Initializable {
 		SQL_manager_object = SQL_manager;
 		JPA_manager_object = JPA_manager;
 		client_account = client;
+	}
+	
+	public static void setController(ClientMenuController controller) {
+		client_controller = controller;
 	}
 	
 	@Override
@@ -200,6 +205,7 @@ public class ClientMenuController implements Initializable {
 			setAllButtonsOn();
 			marketplace_button.setDisable(true);
 			MarketplaceController.setValues(SQL_manager_object,client_account, JPA_manager_object);
+			MarketplaceController.setController(client_controller);
 			Pane marketplace_pane = FXMLLoader.load(getClass().getResource("MarketplaceView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(marketplace_pane);
