@@ -66,7 +66,7 @@ public class BengClubController implements Initializable{
 		
 		// Transaction list columns creation
 		JFXTreeTableColumn<CategoryListObject2, String> category_id = new JFXTreeTableColumn<>("ID");
-		category_id.setPrefWidth(120);
+		category_id.setPrefWidth(70);
 		category_id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {
@@ -84,7 +84,7 @@ public class BengClubController implements Initializable{
 		});
 		category_name.setResizable(false);
 		JFXTreeTableColumn<CategoryListObject2, String> min = new JFXTreeTableColumn<>("Minimum Points");
-		min.setPrefWidth(70);
+		min.setPrefWidth(150);
 		min.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {
@@ -93,7 +93,7 @@ public class BengClubController implements Initializable{
 		});
 		min.setResizable(false);
 		JFXTreeTableColumn<CategoryListObject2, String> max = new JFXTreeTableColumn<>("Maximum Points");
-		max.setPrefWidth(170);
+		max.setPrefWidth(150);
 		max.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {

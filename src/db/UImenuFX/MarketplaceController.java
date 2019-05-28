@@ -109,7 +109,7 @@ public class MarketplaceController implements Initializable {
 		product_name.setResizable(false);
 
 		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
-		price.setPrefWidth(90);
+		price.setPrefWidth(140);
 		price.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -203,7 +203,18 @@ public class MarketplaceController implements Initializable {
 				for (BiomaterialListObject biomat : datacolumn) {
 					Biomaterial biom = SQL_manager_object.Search_biomaterial_by_id(biomat.getId());
 					biomaterial_list.add(biom);
-					Float gains = (float) (biomat.getTot() * Float.parseFloat(biomat.getPrice()));
+					Integer maxunits = biom.getAvailable_units();
+					Integer purchaseunits;
+					if(biomat.getTot()>maxunits) {
+						purchaseunits=maxunits;
+						System.out.println("te has pasado");
+					}
+					else {
+						purchaseunits=biomat.getTot();
+					}
+					Integer lefunits=biom.getAvailable_units()-purchaseunits;
+					biom.setAvailable_units(lefunits);
+					Float gains = (float) (purchaseunits * Float.parseFloat(biomat.getPrice()));
 					Integer totals = biomat.getTot();
 					if (!(client_account.getCategory() == null)) {
 						gains = gains - (gains * ((client_account.getCategory().getBenefits().getPercentage()) / 100));
@@ -252,6 +263,7 @@ public class MarketplaceController implements Initializable {
 						break;
 					}
 				}
+				
 				SQL_manager_object.Update_client_info(client_account);
 				System.out.println(client_account);
 				transaction = new Transaction(gain, total, biomaterial_list, client_account);
