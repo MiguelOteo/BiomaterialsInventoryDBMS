@@ -70,21 +70,21 @@ public class Category extends UtilMethods implements Serializable{
 		this.penalization = penalization;
 	}
 	
-		public Benefits getBenefits() {
-			return benefits;
-		}
+	public Benefits getBenefits() {
+		return benefits;
+	}
 	
-		public void setBenefits(Benefits benefits) {
-			this.benefits = benefits;
-		}
+	public void setBenefits(Benefits benefits) {
+		this.benefits = benefits;
+	}
 	
-		public List<Client> getClients_list() {
-			return clients_list;
-		}
+	public List<Client> getClients_list() {
+		return clients_list;
+	}
 	
-		public void setClients_list(List<Client> clients_list) {
-			this.clients_list = clients_list;
-		}
+	public void setClients_list(List<Client> clients_list) {
+		this.clients_list = clients_list;
+	}
 		
 	public Integer getMaximum() {
 		return max;

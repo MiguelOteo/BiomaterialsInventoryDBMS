@@ -42,7 +42,6 @@ public class InsertNewCategoryController implements Initializable{
 
 	// -----> CLASS ATRIBUTES <-----
 	
-	@SuppressWarnings("unused")
 	private static SQLManager SQL_manager_object;
 	private static JPAManager JPA_manager_object;
 	

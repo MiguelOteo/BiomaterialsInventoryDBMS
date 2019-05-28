@@ -18,7 +18,7 @@ public class AddCategory {
 		manager2.Stablish_connection();
 		manager2.Create_tables();
 		
-		Category cat = new Category("None", 500, 200);
+		Category cat = new Category("None", 250, 0);
 		Benefits ben = new Benefits((float) 0.0, 0);
 		cat.setBenefits(ben);
 		

@@ -28,6 +28,5 @@ public class ListAllCategories {
 		for(Benefits b: benefits_list) {
 			System.out.println(b);
 		}
-		
 	} 
 }
