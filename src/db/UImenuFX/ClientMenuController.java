@@ -211,6 +211,7 @@ public class ClientMenuController implements Initializable {
 	}
 	@FXML 
 	private void openTransaction (MouseEvent event) throws IOException {
+		ClientTransactionController.setValues(SQL_manager_object);
 		setAllButtonsOn();
 	    transaction_button.setDisable(true);
 		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("ClientTransactionView.fxml"));
@@ -296,6 +297,8 @@ public class ClientMenuController implements Initializable {
 		    logOut_button.setDisable(true);
 		    minButton.setDisable(true);
 		    exitButton.setDisable(true);
+		    transaction_button.setDisable(true);
+
 	}
 	
 	protected void setAllButtonsOn() {
@@ -306,6 +309,7 @@ public class ClientMenuController implements Initializable {
 		    logOut_button.setDisable(false);
 		    minButton.setDisable(false);
 		    exitButton.setDisable(false);
+		    transaction_button.setDisable(false);
 	}
 	
 	// -----> UPDATE ACCOUNT METHOD <-----

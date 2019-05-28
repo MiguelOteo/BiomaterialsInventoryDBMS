@@ -2,6 +2,7 @@ package db.UImenuFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -87,7 +88,7 @@ public class MarketplaceController implements Initializable {
 	private Transaction transaction;
 	private float gain=0;
 	private Integer total=0;
-	private List<Biomaterial> biomaterial_list;
+	private List<Biomaterial> biomaterial_list=new ArrayList<Biomaterial>();
 	 
 	public static void setValues(SQLManager manager,Client client) {
 		manager_object=manager;
@@ -239,6 +240,7 @@ public class MarketplaceController implements Initializable {
 					if(!biomat.tot.get().getText().isEmpty()) {
 						if(biomat.tot.get().getText().matches("[0-9]"))
 					datacolumn.add(biomat);
+						System.out.println(datacolumn);
 					}		
 				} 
 				for(BiomaterialListObject biomat :datacolumn) {
@@ -247,7 +249,7 @@ public class MarketplaceController implements Initializable {
 					 Float gains = (float) (biomat.getTot()*Float.parseFloat(biomat.getPrice()));
 					 Integer totals =biomat.getTot();
 					 if(!(client_account.getCategory()==null)) {
-						gains= gains - (gains * client_account.getCategory().getBenefits().getPercentage());
+						gains= gains - (gains * ((client_account.getCategory().getBenefits().getPercentage())/100));
 						totals= totals + client_account.getCategory().getBenefits().getExtra_units();
 					 }
 					 gain=gain+gains;
@@ -300,13 +302,13 @@ public class MarketplaceController implements Initializable {
 	    	//iteminformation.setText(biomat.toString());
 	    	for(BiomaterialListObject biomat :biomaterial_objects) {
 	    		biomat.setEnable(false);
-	    		System.out.println("done");
+	    		
 	    	}
 	    	biomaterial_object.getValue().setEnable(true);
-	    	System.out.println("donetrue");
+	    	
 	    }
 		biomaterial_object.getValue().setTree(biomaterial_object);
-		System.out.println("set");
+		
 		biomaterials_tree_view.refresh();
 	}
 /*
