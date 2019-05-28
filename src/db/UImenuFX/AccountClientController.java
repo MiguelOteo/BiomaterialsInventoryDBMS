@@ -68,6 +68,11 @@ public class AccountClientController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if(!client_account.getBank_account().equals("")) {
+			account_label.setText(client_account.getBank_account());
+		} else {
+			account_label.setText("Not asociated");
+		}
 		delete_account_button.setOnAction((ActionEvent event) -> {
 			manager_object.Delete_stored_user(client_account.getUser().getUserId());
 			manager_object.Close_connection();

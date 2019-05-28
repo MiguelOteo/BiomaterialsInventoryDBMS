@@ -1,8 +1,6 @@
 package db.ConsoleMains;
 
 import db.jpa.JPAManager;
-import db.pojos.Benefits;
-import db.pojos.Category;
 
 public class JPAConsole {
 

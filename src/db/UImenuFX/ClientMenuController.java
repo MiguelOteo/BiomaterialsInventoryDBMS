@@ -306,7 +306,7 @@ public class ClientMenuController implements Initializable {
 			if(client_account.getCategory().getCategory_name().equals(categories_list.get(categories_list.size()-1).getCategory_name())) {
 				category2.setText("Maximum");
 			} else {
-				category = JPA_manager_object.Search_category_by_id(client_account.getCategory().getCategory_id() + 50);
+				category = JPA_manager_object.Search_category_by_id(client_account.getCategory().getCategory_id() + 1);
 			    category2.setText(category.getCategory_name());
 			}
 		} catch (Exception no_category_found) {

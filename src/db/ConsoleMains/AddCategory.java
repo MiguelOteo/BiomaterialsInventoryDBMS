@@ -1,12 +1,11 @@
 package db.ConsoleMains;
 
-import java.util.List;
+
 
 import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
 import db.pojos.Benefits;
 import db.pojos.Category;
-import db.pojos.Client;
 
 public class AddCategory {
 
