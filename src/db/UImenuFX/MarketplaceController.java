@@ -203,22 +203,24 @@ public class MarketplaceController implements Initializable {
 				for (BiomaterialListObject biomat : datacolumn) {
 					Biomaterial biom = SQL_manager_object.Search_biomaterial_by_id(biomat.getId());
 					biomaterial_list.add(biom);
+					Integer totals = biomat.getTot();
 					Integer maxunits = biom.getAvailable_units();
-					Integer purchaseunits;
 					if(biomat.getTot()>maxunits) {
-						purchaseunits=maxunits;
-						System.out.println("te has pasado");
+						totals=maxunits;
 					}
 					else {
-						purchaseunits=biomat.getTot();
+						totals=biomat.getTot();
 					}
-					Integer lefunits=biom.getAvailable_units()-purchaseunits;
+					Integer lefunits=biom.getAvailable_units()-totals;
 					biom.setAvailable_units(lefunits);
-					Float gains = (float) (purchaseunits * Float.parseFloat(biomat.getPrice()));
-					Integer totals = biomat.getTot();
+					SQL_manager_object.Update_biomaterial_units(biom);
+					Float gains = (float) (totals * Float.parseFloat(biomat.getPrice()));
 					if (!(client_account.getCategory() == null)) {
 						gains = gains - (gains * ((client_account.getCategory().getBenefits().getPercentage()) / 100));
 						totals = totals + client_account.getCategory().getBenefits().getExtra_units();
+					}
+					if(totals>maxunits) {
+						totals=maxunits;
 					}
 					gain = gain + gains;
 					total = total + totals;
