@@ -102,7 +102,7 @@ public class BengClubController implements Initializable{
 		});
 		max.setResizable(false);
 		JFXTreeTableColumn<CategoryListObject2, String> penalization = new JFXTreeTableColumn<>("Penalization");
-		penalization.setPrefWidth(170);
+		penalization.setPrefWidth(100);
 		penalization.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {
@@ -111,7 +111,7 @@ public class BengClubController implements Initializable{
 		});
 		penalization.setResizable(false);
 		JFXTreeTableColumn<CategoryListObject2, String> percentage = new JFXTreeTableColumn<>("Percentage Gain");
-		percentage.setPrefWidth(170);
+		percentage.setPrefWidth(100);
 		percentage.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {
@@ -120,7 +120,7 @@ public class BengClubController implements Initializable{
 		});
 		percentage.setResizable(false);
 		JFXTreeTableColumn<CategoryListObject2, String> extra = new JFXTreeTableColumn<>("Extra Units");
-		extra.setPrefWidth(170);
+		extra.setPrefWidth(100);
 		extra.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<CategoryListObject2,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CategoryListObject2, String> param) {
