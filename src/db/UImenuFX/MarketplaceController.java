@@ -245,6 +245,7 @@ public class MarketplaceController implements Initializable {
 				transaction = new Transaction(gain, total, biomaterial_list, client_account);
 				SQL_manager_object.Insert_new_transaction(transaction);
 				stage_window.close();
+				refreshBiomaterialsListView(0);
 			}
 		});
 		stage_window = new Stage();
