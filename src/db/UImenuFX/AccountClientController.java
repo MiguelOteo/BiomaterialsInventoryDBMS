@@ -12,6 +12,7 @@ import db.pojos.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,6 +36,8 @@ public class AccountClientController implements Initializable {
 	private JFXButton change_button;
 	@FXML
 	private JFXButton delete_account_button;
+	@FXML
+	private Label account_label;
 	@FXML
 	private JFXTextField name_field;
 	@FXML

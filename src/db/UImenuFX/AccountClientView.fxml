@@ -103,12 +103,12 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="323.0" layoutY="210.0" text="Bank account" textFill="#00000080">
+            <Label layoutX="321.0" layoutY="188.0" text="Bank account" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="323.0" layoutY="232.0" text="Needed to purchase prodructs" textFill="#00000080">
+            <Label layoutX="321.0" layoutY="210.0" text="Needed to purchase prodructs" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -118,6 +118,16 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
+            <Label layoutX="323.0" layoutY="243.0" text="Current account:" textFill="#0000007f">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="account_label" layoutX="435.0" layoutY="243.0" text="&quot;bank account&quot;" textFill="#000000b2">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

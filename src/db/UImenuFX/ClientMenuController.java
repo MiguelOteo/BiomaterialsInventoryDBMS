@@ -328,7 +328,6 @@ public class ClientMenuController implements Initializable {
 		    minButton.setDisable(true);
 		    exitButton.setDisable(true);
 		    transaction_button.setDisable(true);
-
 	}
 	
 	protected void setAllButtonsOn() {
