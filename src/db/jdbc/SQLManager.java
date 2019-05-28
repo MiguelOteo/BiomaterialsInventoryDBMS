@@ -74,7 +74,7 @@ public class SQLManager implements Interface{
 			Statement statement_5 = this.sqlite_connection.createStatement();
 			String table_5 = "CREATE TABLE category " + "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, " 
 					+ " benefits_id FOREING KEY INTEGER REFERENCES benefits(benefits_id), "
-					+ " category_name TEXT NOT NULL, " + " max INTEGER NOT NULL, "
+					+ " category_name TEXT NOT NULL UNIQUE, " + " max INTEGER NOT NULL, "
 					+ " min INTEGER NOT NULL, penalization INTEGER default NULL)";
 			statement_5.execute(table_5);
 			statement_5.close();
@@ -84,7 +84,7 @@ public class SQLManager implements Interface{
 					+ " responsible TEXT, " + " name TEXT, " + "email TEXT, " + " bank_account TEXT UNIQUE, "
 					+ " telephone INTEGER default 0, " + " points INTEGER NOT NULL default 0, " 
 					+ " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE, "
-					+ " category_id FOREING KEY REFERENCES category(category_id))";
+					+ " category_id REFERENCES category(category_id))";
 			statement_2.execute(table_2);
 			statement_2.close();
 			
@@ -125,10 +125,12 @@ public class SQLManager implements Interface{
 			
 			// ManyToMany relation tables
 			
-			//Statement statement_10 = this.sqlite_connection.createStatement();
-			//String table_10 = "CREATE TABLE transaction_biomaterial " + "(transaction_id INTEGER ";
-			//statement_10.execute(table_10);
-			//statement_10.close();
+			Statement statement_10 = this.sqlite_connection.createStatement();
+			String table_10 = "CREATE TABLE transaction_biomaterial " + " (transaction_id INTEGER REFERENCES transaction(transaction_id), " 
+					+ "biomaterial_id INTEGER REFERENCES biomaterial(biomaterial_id), "
+					+ "PRIMARY KEY (biomaterial_id, transaction_id))";
+			statement_10.execute(table_10);
+			statement_10.close();
 			
 			// JPA seed insertion for auto-incremented id
 			
@@ -153,7 +155,27 @@ public class SQLManager implements Interface{
 			return false;
 		}
 	}
-
+	
+	public Category Search_none_category() {
+		try {
+			Statement statement = this.sqlite_connection.createStatement();
+			String SQL_code = "SELECT * FROM category WHERE category_name LIKE None";
+			ResultSet result_set = statement.executeQuery(SQL_code);
+			Category category = new Category();
+			category.setCategory_id(result_set.getInt("category_id"));
+			category.setCategory_name("None");
+			category.setMaximum(result_set.getInt("max"));
+			category.setMinimum(result_set.getInt("min"));
+			category.setPenalization(result_set.getInt("penalization"));
+			Benefits benefits = Search_benefits_by_id(result_set.getInt("benefits_id"));
+			category.setBenefits(benefits);
+			return category;
+		} catch (SQLException search_category_error) {
+			search_category_error.printStackTrace();
+			return null;
+		}
+	}
+	
 	// -----> INSERT METHODS <-----
 	
 	// New_User(user_name, password)
@@ -180,13 +202,13 @@ public class SQLManager implements Interface{
 	}
 	
 	// New_Client(name, password)
-    public Client Insert_new_client(User user) {
+    public Client Insert_new_client(User user, Category category) {
 		try {
 			String table = "INSERT INTO client (user_id, name, category_id) " + "VALUES (?,?,?);";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
 			template.setInt(1, user.getUserId());
 			template.setString(2, user.getUserName());
-			template.setInt(3, 2);
+			template.setInt(3, category.getCategory_id());
 			template.executeUpdate();
 			
 			String SQL_code = "SELECT * FROM client WHERE user_id = ?";
@@ -199,7 +221,6 @@ public class SQLManager implements Interface{
 			client.setUser(user);
 			client.setTelephone(0);
 			client.setPoints(0);
-			Category category = Search_category_by_id(result_set.getInt("category_id"));
 			client.setCategory(category);
 			return client;
 		} catch (SQLException new_client_account_error) {
@@ -1099,31 +1120,31 @@ public class SQLManager implements Interface{
 		}
 		
 		// List all maintenances returning a linkedList with all of them
-				public List<Maintenance> List_all_maintenances() {
-					try {
-						Statement statement = this.sqlite_connection.createStatement();
-						String SQL_code = "SELECT * FROM maintenance";
-						List<Maintenance> maintenance_list = new LinkedList<Maintenance>();
-						ResultSet result_set = statement.executeQuery(SQL_code);
-						while (result_set.next()) {
-							Maintenance maintenance = new Maintenance();
-							maintenance.setCompatibility(result_set.getString("compatibility"));
-			                maintenance.setHumidity(result_set.getInt("humidity"));
-			                maintenance.setLight(result_set.getString("light"));
-			                maintenance.setO2_supply(result_set.getString("o2_supply"));
-			                maintenance.setOthers(result_set.getString("others"));
-			                maintenance.setPressure(result_set.getFloat("pressure"));
-			                maintenance.setTemperature(result_set.getFloat("temperature"));
-			                maintenance.setManteinance_id(result_set.getInt("maintenance_id"));
-			                maintenance_list.add(maintenance);
-						}
-						statement.close();
-						return maintenance_list;
-					} catch (SQLException list_maintenances_error) {
-						list_maintenances_error.printStackTrace();
-						return null;
-					}
+		public List<Maintenance> List_all_maintenances() {
+			try {
+				Statement statement = this.sqlite_connection.createStatement();
+				String SQL_code = "SELECT * FROM maintenance";
+				List<Maintenance> maintenance_list = new LinkedList<Maintenance>();
+				ResultSet result_set = statement.executeQuery(SQL_code);
+				while (result_set.next()) {
+					Maintenance maintenance = new Maintenance();
+					maintenance.setCompatibility(result_set.getString("compatibility"));
+	                maintenance.setHumidity(result_set.getInt("humidity"));
+			        maintenance.setLight(result_set.getString("light"));
+			        maintenance.setO2_supply(result_set.getString("o2_supply"));
+			        maintenance.setOthers(result_set.getString("others"));
+			        maintenance.setPressure(result_set.getFloat("pressure"));
+			        maintenance.setTemperature(result_set.getFloat("temperature"));
+			        maintenance.setManteinance_id(result_set.getInt("maintenance_id"));
+			        maintenance_list.add(maintenance);
 				}
+				statement.close();
+				return maintenance_list;
+			} catch (SQLException list_maintenances_error) {
+				list_maintenances_error.printStackTrace();
+				return null;
+			}
+	}
 	
 	// List all directors returning a linkedList with all of them
 	public List<Director> List_all_directors() {

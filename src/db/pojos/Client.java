@@ -23,7 +23,7 @@ public class Client implements Serializable {
 	private Integer points;
 	private String email;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "category_id")
 	private Category category;
 

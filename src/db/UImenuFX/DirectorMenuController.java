@@ -234,7 +234,6 @@ public class DirectorMenuController implements Initializable {
 		} catch (IOException finantial_status_error) {
 			finantial_status_error.printStackTrace();
 		}
-
 	}
 	
 	// -----> BUTTON METHODS <-----
@@ -320,6 +319,7 @@ public class DirectorMenuController implements Initializable {
 	@FXML
 	private void log_out(MouseEvent event) {
 		SQL_manager_object.Close_connection();
+		JPA_manager_object.Close_connection();
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();

@@ -3,6 +3,7 @@ package db.ConsoleMains;
 import java.util.List;
 
 import db.jpa.JPAManager;
+import db.pojos.Benefits;
 import db.pojos.Category;
 
 public class ListAllCategories {
@@ -18,13 +19,16 @@ public class ListAllCategories {
 			System.out.print(category + "\n\n");
 	    }
 		
-		for(Category category: categories_list) {
+		/*for(Category category: categories_list) {
 			manager.Delete_stored_category(category);
-		}
+		}*/
 		
-		/*List<Benefits> benefits_list = manager.List_all_benefits();
+		manager.Insert_new_benefit(new Benefits((float)30.0, 5));
+		
+		List<Benefits> benefits_list = manager.List_all_benefits();
 		for(Benefits b: benefits_list) {
 			System.out.println(b);
-		}*/
+		}
+		
 	} 
 }

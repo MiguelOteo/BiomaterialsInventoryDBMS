@@ -53,7 +53,7 @@ public class JPAManager implements Interface {
 	}
 	
 	// Insert client into the DB
-	public Client Insert_new_client(User user) {
+	public Client Insert_new_client(User user, Category category) {
 		try {
 			Client client = new Client();
 			entity_manager.getTransaction().begin();
@@ -77,8 +77,8 @@ public class JPAManager implements Interface {
 			entity_manager.persist(benefits);
 			entity_manager.getTransaction().commit();	
 			return benefit.getBenefits_id();
-		} catch(EntityNotFoundException new_category_error) {
-			new_category_error.printStackTrace();
+		} catch(EntityNotFoundException new_benefits_error) {
+			new_benefits_error.printStackTrace();
 			return null;
 		}
 	}
@@ -88,10 +88,10 @@ public class JPAManager implements Interface {
 	// List all clients
 	public List<Client> List_all_clients() {
 		try {
-			Query q1 = entity_manager.createNativeQuery("SELECT * FROM client", Client.class);
+			Query query = entity_manager.createNativeQuery("SELECT * FROM client", Client.class);
 			@SuppressWarnings("unchecked")
-			List<Client> clients = q1.getResultList();	
-		return clients;
+			List<Client> clients = query.getResultList();	
+			return clients;
 		} catch (EntityNotFoundException List_all_clients_error) {
 			List_all_clients_error.printStackTrace();
 			return null;
@@ -104,7 +104,7 @@ public class JPAManager implements Interface {
 			Query query = entity_manager.createNativeQuery("SELECT * FROM category", Category.class);
 			@SuppressWarnings("unchecked")
 			List<Category> categories = query.getResultList();
-		return categories;
+			return categories;
 		} catch (EntityNotFoundException List_all_categories_error) {
 			List_all_categories_error.printStackTrace();
 			return null;
@@ -117,7 +117,7 @@ public class JPAManager implements Interface {
 			Query query = entity_manager.createNativeQuery("SELECT * FROM benefits", Benefits.class);
 			@SuppressWarnings("unchecked")
 			List<Benefits> benefits = query.getResultList();
-		return benefits;
+			return benefits;
 		} catch (EntityNotFoundException List_all_benefits_error) {
 			List_all_benefits_error.printStackTrace();
 			return null;
@@ -261,6 +261,17 @@ public class JPAManager implements Interface {
 			query_client.setParameter(1, benefits_id);
 			Benefits benefits = (Benefits) query_client.getSingleResult();
 			return benefits;
+		} catch (EntityNotFoundException search_client_error) {
+			search_client_error.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Category Search_none_category() {
+		try {
+			Query query_category = entity_manager.createNativeQuery("SELECT * FROM category WHERE category_name = 'None';", Category.class);
+			Category category = (Category) query_category.getSingleResult();
+			return category;
 		} catch (EntityNotFoundException search_client_error) {
 			search_client_error.printStackTrace();
 			return null;

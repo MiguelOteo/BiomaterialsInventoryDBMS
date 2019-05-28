@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXTextField;
 
+import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
 import db.pojos.Benefits;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ public class InsertNewBenefitController implements Initializable{
 	
 	// -----> CLASS ATRIBUTES <-----
 	
+	@SuppressWarnings("unused")
+	private static SQLManager SQL_manager_object;
 	private static JPAManager JPA_manager_object;
 	
 	// -----> FXML ATRIBUTES <-----
@@ -33,7 +36,8 @@ public class InsertNewBenefitController implements Initializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(JPAManager JPA_manager) {
+	public static void setValues(SQLManager SQL_manager, JPAManager JPA_manager) {
+		SQL_manager_object = SQL_manager;
 		JPA_manager_object = JPA_manager;
 	}
 	

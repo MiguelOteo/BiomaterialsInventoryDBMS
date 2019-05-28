@@ -179,7 +179,7 @@ public class InsertNewCategoryController implements Initializable{
 	@FXML
 	public void Insert_benefit() {
 		try {
-			InsertNewBenefitController.setValues(JPA_manager_object);
+			InsertNewBenefitController.setValues(SQL_manager_object, JPA_manager_object);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("InsertNewBenefitView.fxml"));
 			Parent root = (Parent) loader.load();
 			InsertNewBenefitController benefit_controller = new InsertNewBenefitController();

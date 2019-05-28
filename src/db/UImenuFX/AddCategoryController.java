@@ -14,6 +14,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import db.jdbc.SQLManager;
 import db.jpa.JPAManager;
 import db.pojos.Category;
+import db.pojos.Client;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -136,7 +137,7 @@ public class AddCategoryController implements Initializable{
 		
 		List<Category> categories_list = JPA_manager_object.List_all_categories();
 		for(Category category: categories_list) {
-			Integer category_id_int = category.getCategory_id() - 2;
+			Integer category_id_int = category.getCategory_id();
 			if(category.getBenefits() == null) {
 				categories_objects.add(new CategoryListObject(category_id_int.toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
 						, "No discount", "No extra units"));
@@ -179,19 +180,18 @@ public class AddCategoryController implements Initializable{
 				@Override
 				public void handle(WindowEvent arg0) {
 					categories_objects.clear();
-					List<Category> categories_list = JPA_manager_object.List_all_categories();
-					for (Category category: categories_list) {
-						Integer category_id_int = category.getCategory_id() - 2;
-						if(category.getBenefits() == null) {
-							categories_objects.add(new CategoryListObject(category_id_int.toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
-									, "No discount", "No extra units"));
-						} else {
-							categories_objects.add(new CategoryListObject(category_id_int.toString().toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
-									, category.getBenefits().getPercentage().toString(), category.getBenefits().getExtra_units().toString()));
-						}	
-					}
+					Category category = JPA_manager_object.Search_none_category();
+					categories_objects.add(new CategoryListObject(category.getCategory_id().toString(), category.getCategory_name(), category.getMinimum().toString(), category.getMaximum().toString()
+							, "No discount", "No extra units"));
 					TreeItem<CategoryListObject> root = new RecursiveTreeItem<CategoryListObject>(categories_objects, RecursiveTreeObject::getChildren);
 					categories_tree_view.refresh();
+					
+					// Set none category to clients
+					List<Client> clients_list = JPA_manager_object.List_all_clients();
+					for(Client client: clients_list) {
+						client.setCategory(category);
+						SQL_manager_object.Update_client_info(client);
+					}
 				}
 			});
 			stage_window.show();
@@ -219,7 +219,7 @@ public class AddCategoryController implements Initializable{
 					stage_window.initModality(Modality.APPLICATION_MODAL);
 				}
 			});		
-			stage_window.setOnHiding(new EventHandler<WindowEvent>() {
+			stage_window.setOnHidden(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent arg0) {
 					categories_objects.clear();

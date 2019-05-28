@@ -11,10 +11,11 @@ public interface Interface {
 	public boolean Create_tables();
 	//public boolean Check_if_tables_exist();
 	
+	//public void Insert_none_category(Integer none_max);
 	public User Insert_new_user(String user_name, String password);
 	public Director Insert_new_director(User user);
 	public Worker Insert_new_worker(User user);
-	public Client Insert_new_client(User user);
+	public Client Insert_new_client(User user, Category category);
 	public Integer Insert_new_utility(Utility utility);
 	public Integer Insert_new_maintenance(Maintenance maintenance);
 	public Integer Insert_new_transaction(Transaction transaction);
@@ -30,6 +31,7 @@ public interface Interface {
 	public void Update_biomaterial_features(Biomaterial biomaterial);
 	public boolean Update_biomaterial_units(Biomaterial biomaterial);
 	
+	public Category Search_none_category(); 
 	public User Search_stored_user(String name, String password);
 	public Director Search_stored_director(User user);
 	public Worker Search_stored_worker(User user);
