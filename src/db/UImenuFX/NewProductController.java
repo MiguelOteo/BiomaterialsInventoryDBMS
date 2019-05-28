@@ -155,17 +155,22 @@ public class NewProductController implements Initializable {
 			biomaterial.setAvailable_units(units.intValue());
 			biomaterial.setPrice_unit(price.floatValue());
 			biomaterial.setExpiration_date(Date.valueOf(exp_date));
-			if(utility_object != null) {
+			
+			
+			if(utility_object != null || maintenance_object != null) {
 				Utility utility = manager_object.Search_utility_by_id(Integer.parseInt(utility_object.getValue().utility_id.getValue()));
 				biomaterial.setUtility(utility);
-			}
-			if(maintenance_object != null) {
 				Maintenance maintenance = manager_object.Search_maintenance_by_id(Integer.parseInt(maintenance_object.getValue().maintenance_id.getValue().toString()));
 				biomaterial.setMaintenance(maintenance);
-			}
-			System.out.println(biomaterial);
-			manager_object.Insert_new_biomaterial(biomaterial);
+				manager_object.Insert_new_biomaterial_with_features(biomaterial);
+				System.out.println(biomaterial);
+				
+			} else manager_object.Insert_new_biomaterial(biomaterial);
+				
+			
+			
 		}
-	}	
+	}
+
 }
 

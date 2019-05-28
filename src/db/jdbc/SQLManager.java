@@ -443,6 +443,36 @@ public class SQLManager implements Interface{
 		}
 	}
 	
+	
+	public Integer Insert_new_biomaterial_with_features(Biomaterial biomaterial) {
+		try {
+			String table = "INSERT INTO biomaterial(name_product, price_unit, available_units, expiration_date, information, utility_id, maintenance_id) "
+					+ "VALUES (?,?,?,?,?,?,?);";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, biomaterial.getName_product());
+			template.setFloat(2, biomaterial.getPrice_unit());
+			template.setInt(3, biomaterial.getAvailable_units());
+			template.setDate(4, biomaterial.getExpiration_date());
+			template.setString(5, biomaterial.getInformation());
+			template.setInt(6, biomaterial.getUtility().getUtility_id());
+			template.setInt(7, biomaterial.getMaintenance().getManteinance_id());
+			template.executeUpdate();
+			template.close();
+			
+			String SQL_code = "SELECT last_insert_rowid() AS biomaterial_id";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			ResultSet result_set = template.executeQuery();
+			Integer biomaterial_id = result_set.getInt("biomaterial_id");
+			template.close();
+			return biomaterial_id;
+		} catch (SQLException new_biomaterial_error) {
+			new_biomaterial_error.printStackTrace();
+			return null;
+		}
+	}
+
+
+	
 	public Integer Insert_new_benefit(Benefits benefit) {
 		try {
 			String table = "INSERT INTO benefits(percentage, extra_units) "
