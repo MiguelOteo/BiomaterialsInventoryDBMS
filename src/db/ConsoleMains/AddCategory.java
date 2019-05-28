@@ -18,8 +18,20 @@ public class AddCategory {
 		manager2.Stablish_connection();
 		manager2.Create_tables();
 		
-		Category cat = new Category("None", 250, 0);
-		Benefits ben = new Benefits((float) 0, 0);
+		// "None", 500, 0
+		// "Bronze III", 1000, 501
+		// "Bronze II", 2500, 1001
+		// "Bronze I", 5000, 2501
+		// "Silver III", 8000, 5001
+		
+		// (float) 0, 0
+		// (float) 10, 1
+		// (float) 20, 2
+		// (float) 30, 3
+		// (float) 40, 4
+		
+		Category cat = new Category("Silver III", 8000, 5001);
+		Benefits ben = new Benefits((float) 40, 4);
 		cat.setBenefits(ben);
 		
 		manager.Insert_new_benefit(ben);

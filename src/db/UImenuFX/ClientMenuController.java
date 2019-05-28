@@ -225,7 +225,7 @@ public class ClientMenuController implements Initializable {
 	}
 	@FXML 
 	private void openTransaction (MouseEvent event) throws IOException {
-		ClientTransactionController.setValues(SQL_manager_object);
+		ClientTransactionController.setValues(SQL_manager_object, client_account);
 		setAllButtonsOn();
 	    transaction_button.setDisable(true);
 		Pane bengclub_pane = FXMLLoader.load(getClass().getResource("ClientTransactionView.fxml"));

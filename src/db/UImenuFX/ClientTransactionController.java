@@ -10,7 +10,7 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import db.jdbc.SQLManager;
-import db.pojos.Biomaterial;
+import db.pojos.Client;
 import db.pojos.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -31,6 +31,7 @@ public class ClientTransactionController implements Initializable{
 	// -----> CLASS ATRIBUTES <-----
 	
 	private static SQLManager manager_object;
+	private static Client client_account;
 	
 	// -----> FXML ATRIBUTES <-----
 	
@@ -48,8 +49,9 @@ public class ClientTransactionController implements Initializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLManager manager) {
+	public static void setValues(SQLManager manager, Client client) {
 		manager_object = manager;
+		client_account = client;
 	}
 
 	@Override @SuppressWarnings("unchecked")
@@ -91,10 +93,15 @@ public class ClientTransactionController implements Initializable{
 				return param.getValue().getValue().transaction_date;
 			}
 		});
+		
 		transaction_date.setResizable(false);
-		List<Transaction> transactions_list = manager_object.List_all_transactions();
+		List<Transaction> transactions_list = manager_object.Search_stored_transactions(client_account);
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject2(transaction.getTransaction_id().toString(),transaction.getBiomaterial_list(), 
+			String biomat_names = "";
+			for(Integer n = 0; n < transaction.getBiomaterial_list().size(); n ++) {
+				biomat_names = biomat_names + " " + transaction.getBiomaterial_list().get(n).getName_product();
+			}
+			transactions_objects.add(new TransactionListObject2(transaction.getTransaction_id().toString(), biomat_names, 
 					transaction.getGain().toString(), transaction.getUnits().toString(), transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject2> root = new RecursiveTreeItem<TransactionListObject2>(transactions_objects, RecursiveTreeObject::getChildren);
@@ -110,16 +117,18 @@ public class ClientTransactionController implements Initializable{
 	
 	public void refreshTransactionListView() {
 		transactions_objects.clear();
-		List<Transaction> transactions_list = manager_object.List_all_transactions();
+		List<Transaction> transactions_list = manager_object.Search_stored_transactions(client_account);
 		for(Transaction transaction: transactions_list) {
-			transactions_objects.add(new TransactionListObject2(transaction.getTransaction_id().toString(),transaction.getBiomaterial_list(), 
+			String biomat_names = "";
+			for(Integer n = 0; n < transaction.getBiomaterial_list().size(); n ++) {
+				biomat_names = biomat_names + " " + transaction.getBiomaterial_list().get(n).getName_product();
+			}
+			transactions_objects.add(new TransactionListObject2(transaction.getTransaction_id().toString(), biomat_names, 
 					transaction.getGain().toString(), transaction.getUnits().toString(), transaction.getTransaction_date().toString()));
 		}
 		TreeItem<TransactionListObject2> root = new RecursiveTreeItem<TransactionListObject2>(transactions_objects, RecursiveTreeObject::getChildren);
 		transactions_tree_view.refresh();
 	}
-	
-	
 }
 
 //-----> TRANSACTION LIST CLASS <-----
@@ -132,16 +141,11 @@ class TransactionListObject2 extends RecursiveTreeObject<TransactionListObject2>
 	StringProperty amount;
 	StringProperty units;
 	StringProperty transaction_date;
-	private String biomatname;
+	StringProperty biomatname;
 	
-	public TransactionListObject2(String transaction_id, List<Biomaterial> biomat_names, String amount, String units, String transaction_date) {
+	public TransactionListObject2(String transaction_id, String biomat_names, String amount, String units, String transaction_date) {
 		this.transaction_id = new SimpleStringProperty(transaction_id);
-		for(Biomaterial biomat :biomat_names) {
-			biomat.getName_product();
-			this.biomatname=biomatname+biomat.getName_product();
-		}
-		
-		this.biomat_names = new SimpleStringProperty(biomatname);
+		this.biomat_names = new SimpleStringProperty(biomat_names);
 		this.amount = new SimpleStringProperty(amount);
 		this.units = new SimpleStringProperty(units);
 		this.transaction_date = new SimpleStringProperty(transaction_date);
