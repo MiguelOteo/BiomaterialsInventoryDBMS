@@ -111,6 +111,11 @@ public class AccountClientController implements Initializable {
 		}
 		if(!this.bank_field.getText().equals("")) {
 			client_account.setBank_account(this.bank_field.getText());
+			if(!client_account.getBank_account().equals("")) {
+				account_label.setText(client_account.getBank_account());
+			} else {
+				account_label.setText("Not asociated");
+			}
 			this.bank_field.setText("");
 		} else {
 			this.bank_field.setText("");
