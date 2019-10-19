@@ -103,7 +103,7 @@ public class MarketplaceController implements Initializable {
 
 		// Biomaterials list columns creation
 		JFXTreeTableColumn<BiomaterialListObject, String> product_name = new JFXTreeTableColumn<>("Product");
-		product_name.setPrefWidth(140);
+		product_name.setPrefWidth(150);
 		product_name.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -114,7 +114,7 @@ public class MarketplaceController implements Initializable {
 		product_name.setResizable(false);
 		
 		JFXTreeTableColumn<BiomaterialListObject, Number> available_units = new JFXTreeTableColumn<>("Available units");
-		available_units.setPrefWidth(100);
+		available_units.setPrefWidth(150);
 		available_units.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, Number>, ObservableValue<Number>>() {
 					@Override
@@ -124,8 +124,8 @@ public class MarketplaceController implements Initializable {
 				});
 		available_units.setResizable(false);
 
-		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price / unit ($)");
-		price.setPrefWidth(140);
+		JFXTreeTableColumn<BiomaterialListObject, String> price = new JFXTreeTableColumn<>("Price/Unit ($)");
+		price.setPrefWidth(150);
 		price.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, String>, ObservableValue<String>>() {
 					@Override
@@ -135,8 +135,8 @@ public class MarketplaceController implements Initializable {
 				});
 		price.setResizable(false);
 
-		JFXTreeTableColumn<BiomaterialListObject, Number> id = new JFXTreeTableColumn<>("id");
-		id.setPrefWidth(40);
+		JFXTreeTableColumn<BiomaterialListObject, Number> id = new JFXTreeTableColumn<>("Biometerial ID");
+		id.setPrefWidth(150);
 		id.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, Number>, ObservableValue<Number>>() {
 					@Override
@@ -146,7 +146,7 @@ public class MarketplaceController implements Initializable {
 				});
 		id.setResizable(false);
 
-		JFXTreeTableColumn<BiomaterialListObject, JFXTextField> tot = new JFXTreeTableColumn<>("TOTAL");
+		JFXTreeTableColumn<BiomaterialListObject, JFXTextField> tot = new JFXTreeTableColumn<>("Total");
 		tot.setPrefWidth(100);
 		tot.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXTextField>, ObservableValue<JFXTextField>>() {
@@ -158,7 +158,7 @@ public class MarketplaceController implements Initializable {
 				});
 		tot.setResizable(false);
 		JFXTreeTableColumn<BiomaterialListObject, JFXButton> info = new JFXTreeTableColumn<>("More Info");
-		info.setPrefWidth(100);
+		info.setPrefWidth(200);
 		info.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<BiomaterialListObject, JFXButton>, ObservableValue<JFXButton>>() {
 					@Override

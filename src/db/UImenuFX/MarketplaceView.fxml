@@ -9,12 +9,12 @@
 
 <Pane fx:id="menu_main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.MarketplaceController">
    <children>
-      <Label alignment="CENTER" layoutX="42.0" layoutY="50.0" prefHeight="21.0" prefWidth="325.0" text="WELCOME TO THE MARKETPLACE!">
+      <Label alignment="CENTER" layoutX="42.0" layoutY="40.0" prefHeight="21.0" prefWidth="325.0" text="WELCOME TO THE MARKETPLACE!">
          <font>
-            <Font name="Ebrima Bold" size="16.0" />
+            <Font name="Ebrima Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="61.0" layoutY="83.0" text="Available products list">
+      <Label layoutX="121.0" layoutY="81.0" text="Available products list">
          <font>
             <Font name="Ebrima Bold" size="16.0" />
          </font>

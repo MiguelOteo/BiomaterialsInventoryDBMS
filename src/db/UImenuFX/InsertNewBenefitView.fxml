@@ -16,7 +16,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="benefits_extra_unit" focusColor="#4f90a5" labelFloat="true" layoutX="84.0" layoutY="131.0" promptText="Descount amount " unFocusColor="#4d4d4d">
+            <JFXTextField fx:id="benefits_extra_unit" focusColor="#4f90a5" labelFloat="true" layoutX="84.0" layoutY="131.0" promptText="Extra units" unFocusColor="#4d4d4d">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

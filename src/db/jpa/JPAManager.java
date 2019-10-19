@@ -36,13 +36,14 @@ public class JPAManager implements Interface {
 	
 	public Integer Insert_new_category(Category category) {
 		try{
+			System.out.println("New category: " + entity_manager.getTransaction().isActive());
 			Category catgory = new Category();
-			entity_manager.getTransaction().begin();
 			category.setCategory_name(category.getCategory_name());
 			category.setMaximum(category.getMaximum());
 			category.setMinimum(category.getMinimum());
 			category.setPenalization(category.getMinimum()/4);
 			category.setBenefits(category.getBenefits());
+			entity_manager.getTransaction().begin();
 			entity_manager.persist(category);
 			entity_manager.getTransaction().commit();	
 			return category.getCategory_id();
@@ -55,10 +56,11 @@ public class JPAManager implements Interface {
 	// Insert client into the DB
 	public Client Insert_new_client(User user, Category category) {
 		try {
+			System.out.println("New client: " + entity_manager.getTransaction().isActive());
 			Client client = new Client();
-			entity_manager.getTransaction().begin();
 			client.setUser(user);
 			client.setName(user.getUserName());
+			entity_manager.getTransaction().begin();
 			entity_manager.persist(client);
 			entity_manager.getTransaction().commit();
 			return client;
@@ -70,12 +72,13 @@ public class JPAManager implements Interface {
 	
 	public Integer Insert_new_benefit(Benefits benefits) {
 		try{
+			System.out.println("New benefit: " + entity_manager.getTransaction().isActive());
 			Benefits benefit = new Benefits();
-			entity_manager.getTransaction().begin();
 			benefit.setExtra_units(benefits.getExtra_units());
 			benefit.setPercentage(benefits.getPercentage());
+			entity_manager.getTransaction().begin();
 			entity_manager.persist(benefits);
-			entity_manager.getTransaction().commit();	
+			entity_manager.getTransaction().commit();
 			return benefit.getBenefits_id();
 		} catch(EntityNotFoundException new_benefits_error) {
 			new_benefits_error.printStackTrace();
