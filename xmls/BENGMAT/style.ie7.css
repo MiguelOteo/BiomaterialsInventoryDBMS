@@ -1,6 +1,6 @@
 /* Start Box */
 .box {
-   zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='box-'+e[ i]}('br,bl,cr,cl,tr,tl'.split(',')));
+  /*  zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='box-'+e[ i]}('br,bl,cr,cl,tr,tl'.split(','))); */
 }
 .box-body {
    zoom:1;
@@ -56,7 +56,7 @@
 
 /* Start Bar */
 .bar {
-   zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='bar-'+e[ i]}('r,l'.split(',')));
+   /*zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='bar-'+e[ i]}('r,l'.split(',')));*/
 }
 .bar-l, .bar-r {
    position:absolute;
@@ -80,7 +80,7 @@
 
 /* begin Menu */
 .nav {
-   position: expression(runtimeStyle.position='relative');
+   /*position: expression(runtimeStyle.position='relative');*/
 }
 .nav>.bar-l, .nav>.bar-r{
    background-image: url('images/nav.png');
@@ -107,7 +107,7 @@
 
 /* begin MenuItem */
 ul.hmenu>li>a{
-   zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('span'),firstChild).className='hmenu-'+e[ i]}('r,l'.split(',')));
+   /*zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('span'),firstChild).className='hmenu-'+e[ i]}('r,l'.split(',')));*/
 }
 ul.hmenu>li>a>span.hmenu-l, ul.hmenu>li>a>span.hmenu-r
 {
@@ -230,7 +230,7 @@ ul.hmenu>li:first-child {
 
 /* begin Footer */
 .footer {
-   zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='footer-'+e[ i]}('r,l,t'.split(',')));
+   /*zoom:expression(runtimeStyle.zoom=1,function(e){for(var i=0;i<e.length;i++)insertBefore(document.createElement('div'),firstChild).className='footer-'+e[ i]}('r,l,t'.split(',')));*/
 }
 .footer-body 
 {
@@ -257,7 +257,7 @@ ul.hmenu>li:first-child {
 {
    width: auto;
    float:none;
-   zoom:expression(runtimeStyle.zoom=1, parentNode.parentNode.insertBefore(document.createElement('div'),parentNode.parentNode.firstChild).className='sidebar1-bg' + (className.indexOf('sidebar1-fix') == -1 ? '' : ' sidebar1-bg-fix' ));
+   /*zoom:expression(runtimeStyle.zoom=1, parentNode.parentNode.insertBefore(document.createElement('div'),parentNode.parentNode.firstChild).className='sidebar1-bg' + (className.indexOf('sidebar1-fix') == -1 ? '' : ' sidebar1-bg-fix' ));*/
 }
 /* end LayoutCell, content */
 
@@ -265,7 +265,7 @@ ul.hmenu>li:first-child {
 
 .sidebar1-bg 
 {
-   zoom:expression(runtimeStyle.zoom=1, appendChild(document.createElement('div')).className='sidebar1-glare');
+   /*zoom:expression(runtimeStyle.zoom=1, appendChild(document.createElement('div')).className='sidebar1-glare');
    position:absolute;
    z-index:-2;
    direction: ltr;
@@ -275,7 +275,7 @@ ul.hmenu>li:first-child {
    width: 260px;
    overflow:hidden;
    display:block;
-   background-color: #F7F7F7;
+   background-color: #F7F7F7;*/
 }
 /* end LayoutCell, sidebar1 */
 
