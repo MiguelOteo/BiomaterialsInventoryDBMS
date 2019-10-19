@@ -85,6 +85,8 @@ public class AccountClientController implements Initializable {
 			manager_object.Close_connection();
 			LaunchApplication.getStage().show();
 			ChargingScreenController.getMain_menu_stage().close();
+			Stage stage = (Stage) account_window.getScene().getWindow();
+			stage.close();
 		});
 	}
 
