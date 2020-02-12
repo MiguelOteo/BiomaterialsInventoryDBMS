@@ -46,27 +46,6 @@ higher category and enjoy a range of benefits.
 The different diagrams that have been created during the development of the database have been added to the Github projects 
 in a folder under the name "Diagrams"
 
-- PREINSERTED USER LIST
-
-- Clients (Pw its the same as name)
- 	
--	1- Thanos 
--	2- Pepa
--	3- Juan
--	4- Antonio
--	4- Mamen
--	5- Jose
-
-- Directors
-	
--	1- Pablo Pw: Password2
--	2- Miguel Pw: Password1
-	
-- Workers (Pw its the same as name)
-
--	1- María
--	2- Sebastian
-	
 - TO CREATE NEW DIRECTORS: key = 12345678
 - TO CREATE NEW WORKERS: key = 1234	
 	
