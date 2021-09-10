@@ -1,4 +1,4 @@
-# BENGMAT
+# Biomaterials inventory DBMS 
 Biomaterials inventory
 
 Through this database our company, BENGMAT biomaterials, wants to provide an easy way of buying all sorts of biomaterials.
