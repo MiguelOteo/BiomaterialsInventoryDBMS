@@ -12,14 +12,14 @@ depending on the total amount of purchases made.
 The way someone interacts with the database will depend on who is trying to access it. Beafore unlocking the full
 capabilities of this database, some data has to be inserted in order to have something to operate with.
 
-1. DIRECTOR: When creating the database from scratch, we have to first create a director that will access the category and add 
+1. Director: When creating the database from scratch, we have to first create a director that will access the category and add 
 the null category putting the max value to that category. From this moment it is possible to create clients. Once a client 
 is created, the null category will be assigned (with 0 benefits). 
 
-2. WORKER: Before a client can purchase anything, the worker will have to create some biomaterials, with their respective
+2. Worker: Before a client can purchase anything, the worker will have to create some biomaterials, with their respective
 utility and maintenance suggestions.
 
-3. CLIENT: he/she will have to insert the bank account (in order to access the marketplace to buy the before mentioned 
+3. Client: he/she will have to insert the bank account (in order to access the marketplace to buy the before mentioned 
 biomaterials).
 
 Once these steps have been followed in the correct order, the database and the corresponding user interface will be ready to use.
