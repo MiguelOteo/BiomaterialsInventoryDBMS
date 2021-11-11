@@ -1,5 +1,5 @@
 # Data base DBMS 
-Biomaterials inventory
+## Biomaterials inventory
 
 Through this database our company, BENGMAT biomaterials, wants to provide an easy way of buying all sorts of biomaterials.
 By having a user account, each customer will be able to buy any of our products, see every product that can be purchased and 
@@ -7,7 +7,7 @@ go thrugh a hisotry of their past transactions. A user will have an specific use
 will be either a director, a worker or a client. In addition, each cutomer will be assigned a category and some benefits 
 depending on the total amount of purchases made.
 
-- DATABASE PRESETTINGS
+## Database presentation
 
 The way someone interacts with the database will depend on who is trying to access it. Beafore unlocking the full
 capabilities of this database, some data has to be inserted in order to have something to operate with.
@@ -25,7 +25,7 @@ biomaterials).
 Once these steps have been followed in the correct order, the database and the corresponding user interface will be ready to use.
 
 
-- USER INTERFACE CHARACTERISTICS:
+## User interface
 
 We have developed a very clean and intuitive UI in order to provide the user with the best experience possible. Depending on the
 relation of our company and the user, different capabilities will be available:
@@ -41,7 +41,7 @@ them to their cart and finally make a purchase. Every purchase will give the cli
 higher category and enjoy a range of benefits.
 
 
-- ADDITIONAL DOCUMENTATION
+## Additional documentation
 
 The different diagrams that have been created during the development of the database have been added to the Github projects 
 in a folder under the name "Diagrams"
