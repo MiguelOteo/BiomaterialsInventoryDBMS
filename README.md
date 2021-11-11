@@ -46,8 +46,8 @@ higher category and enjoy a range of benefits.
 The different diagrams that have been created during the development of the database have been added to the Github projects 
 in a folder under the name "Diagrams"
 
-- TO CREATE NEW DIRECTORS: key = 12345678
-- TO CREATE NEW WORKERS: key = 1234	
+- To create new directors: key = 12345678
+- To create new workers: key = 1234	
 	
 
 
